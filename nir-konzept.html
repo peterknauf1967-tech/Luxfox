@@ -1,0 +1,1585 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luxfox NIR – Rotlicht & Nah-Infrarot · Konzept-Entwurf</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0d0d;
+      --bg2: #111;
+      --bg3: #181818;
+      --bg4: #1f1f1f;
+      --orange: #E8791E;
+      --orange2: #c96918;
+      --orange-dim: rgba(232,121,30,0.12);
+      --red: #c0392b;
+      --nir: #8b0000;
+      --text: #e8e8e8;
+      --muted: #888;
+      --border: rgba(232,121,30,0.3);
+      --border-soft: rgba(255,255,255,0.07);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── KONZEPT-BANNER ─── */
+    .concept-banner {
+      background: #1a0a00;
+      border-bottom: 1px solid var(--orange);
+      text-align: center;
+      padding: 0.55rem 1rem;
+      font-size: 0.78rem;
+      color: var(--orange);
+      letter-spacing: 0.06em;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky;
+      top: 32px;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 3rem;
+      background: rgba(13,13,13,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      text-decoration: none;
+    }
+
+    .nav-logo-circle {
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .nav-logo-circle svg { width: 100%; height: 100%; display: block; }
+
+    .nav-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--orange);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      background: var(--orange);
+      color: #fff !important;
+      padding: 0.45rem 1.1rem;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .nav-cta:hover { background: var(--orange2) !important; color: #fff !important; }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 92vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 5rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,121,30,0.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-content { position: relative; z-index: 1; max-width: 780px; }
+
+    .hero-badge {
+      display: inline-block;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 0.3rem 1rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5.5vw, 3.8rem);
+      font-weight: 300;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.4rem;
+    }
+
+    h1 strong { font-weight: 700; color: #fff; }
+    h1 em { font-style: normal; color: var(--orange); }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 560px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.8;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.8rem;
+      border-radius: 5px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+
+    .btn-primary { background: var(--orange); color: #fff; }
+    .btn-primary:hover { background: var(--orange2); transform: translateY(-1px); }
+    .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border-soft); }
+    .btn-ghost:hover { border-color: var(--orange); color: var(--orange); }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin-top: 4rem;
+      padding-top: 3rem;
+      border-top: 1px solid var(--border-soft);
+      flex-wrap: wrap;
+    }
+
+    .stat-item { text-align: center; }
+    .stat-num { font-size: 1.8rem; font-weight: 700; color: var(--orange); }
+    .stat-label { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+
+    /* ─── TRUST BAR ─── */
+    #trust {
+      background: var(--bg2);
+      border-top: 1px solid var(--border-soft);
+      border-bottom: 1px solid var(--border-soft);
+      padding: 2.5rem 2rem;
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .trust-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.6rem;
+      padding: 1.2rem;
+    }
+
+    .trust-icon {
+      font-size: 1.6rem;
+      filter: grayscale(0.2);
+    }
+
+    .trust-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--text);
+    }
+
+    .trust-desc {
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ─── SECTIONS ALLGEMEIN ─── */
+    section { padding: 5.5rem 2rem; }
+
+    .section-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-size: clamp(1.7rem, 4vw, 2.6rem);
+      font-weight: 300;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.2rem;
+    }
+
+    h2 strong { font-weight: 700; }
+
+    .lead {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 620px;
+      line-height: 1.85;
+    }
+
+    .divider {
+      width: 48px; height: 2px;
+      background: var(--orange);
+      margin: 0 auto 4rem;
+      opacity: 0.4;
+    }
+
+    /* ─── SCIENCE ─── */
+    #science { background: var(--bg2); }
+
+    .science-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin-top: 3rem;
+      align-items: center;
+    }
+
+    .science-visual {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .wavelength-bar {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .wl-color {
+      width: 42px; height: 42px;
+      border-radius: 6px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 0.04em;
+    }
+
+    .wl-info { flex: 1; }
+    .wl-nm { font-size: 0.92rem; font-weight: 700; color: var(--text); }
+    .wl-use { font-size: 0.75rem; color: var(--muted); }
+
+    .wl-bar-fill {
+      height: 6px;
+      border-radius: 3px;
+      margin-top: 5px;
+    }
+
+    .science-text h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .science-text p {
+      font-size: 0.92rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      line-height: 1.8;
+    }
+
+    .science-disclaimer {
+      font-size: 0.72rem;
+      color: #555;
+      font-style: italic;
+      margin-top: 1.5rem;
+      line-height: 1.6;
+    }
+
+    /* ─── PRODUKTE ─── */
+    #products { background: var(--bg); }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .product-card {
+      background: var(--bg3);
+      border: 1px solid var(--border-soft);
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.3s, transform 0.25s;
+      position: relative;
+    }
+
+    .product-card:hover {
+      border-color: var(--orange);
+      transform: translateY(-4px);
+    }
+
+    .product-card.featured {
+      border-color: var(--orange);
+    }
+
+    .featured-badge {
+      position: absolute;
+      top: 1rem; right: 1rem;
+      background: var(--orange);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      padding: 0.25rem 0.6rem;
+      border-radius: 3px;
+      text-transform: uppercase;
+    }
+
+    .product-visual {
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #1a0a00, #0d0d0d);
+      border-bottom: 1px solid var(--border-soft);
+      font-size: 3.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-visual::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(232,121,30,0.08) 0%, transparent 70%);
+    }
+
+    .panel-icon {
+      display: grid;
+      gap: 4px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .panel-row {
+      display: flex;
+      gap: 4px;
+    }
+
+    .led-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      opacity: 0.9;
+    }
+
+    .product-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; gap: 0.8rem; }
+
+    .product-name { font-size: 1.05rem; font-weight: 700; color: var(--text); }
+    .product-tagline { font-size: 0.8rem; color: var(--muted); }
+
+    .product-specs {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      border-top: 1px solid var(--border-soft);
+      padding-top: 0.8rem;
+    }
+
+    .spec-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+    }
+
+    .spec-key { color: var(--muted); }
+    .spec-val { color: var(--text); font-weight: 600; }
+
+    .product-wl {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
+    .wl-chip {
+      padding: 2px 7px;
+      border-radius: 3px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .product-price {
+      margin-top: auto;
+      padding-top: 0.8rem;
+      border-top: 1px solid var(--border-soft);
+    }
+
+    .price-old { font-size: 0.78rem; color: #555; text-decoration: line-through; }
+    .price-new { font-size: 1.5rem; font-weight: 700; color: var(--orange); }
+    .price-note { font-size: 0.7rem; color: var(--muted); }
+
+    .product-cta {
+      display: block;
+      width: 100%;
+      padding: 0.7rem;
+      background: var(--orange);
+      color: #fff;
+      text-align: center;
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      margin-top: 1rem;
+      border-radius: 5px;
+      transition: background 0.2s;
+    }
+    .product-cta:hover { background: var(--orange2); }
+
+    /* ─── ADD-ONS ─── */
+    #addons { background: var(--bg2); }
+
+    .addon-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 3rem;
+      align-items: center;
+    }
+
+    .addon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .addon-card {
+      background: var(--bg4);
+      border: 1px solid var(--border-soft);
+      border-radius: 8px;
+      padding: 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      transition: border-color 0.2s;
+    }
+
+    .addon-card:hover { border-color: var(--border); }
+    .addon-icon { font-size: 1.8rem; }
+    .addon-name { font-size: 0.9rem; font-weight: 700; color: var(--text); }
+    .addon-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.55; }
+    .addon-price { font-size: 1rem; font-weight: 700; color: var(--orange); margin-top: auto; }
+    .addon-source { font-size: 0.65rem; color: #444; }
+
+    .bundle-box {
+      background: linear-gradient(135deg, #1a0c00, #120d00);
+      border: 1px solid var(--orange);
+      border-radius: 10px;
+      padding: 2rem;
+      margin-top: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .bundle-box h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .bundle-box p { font-size: 0.85rem; color: var(--muted); }
+    .bundle-price { font-size: 1.8rem; font-weight: 700; color: var(--orange); white-space: nowrap; }
+    .bundle-saving { font-size: 0.75rem; color: #888; }
+
+    /* ─── WARUM LUXFOX ─── */
+    #why { background: var(--bg); }
+
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 2.5rem;
+      font-size: 0.88rem;
+    }
+
+    .compare-table th {
+      padding: 0.9rem 1.2rem;
+      text-align: left;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .compare-table th:nth-child(2) { color: var(--orange); }
+    .compare-table th:nth-child(3) { color: #555; }
+
+    .compare-table td {
+      padding: 0.75rem 1.2rem;
+      border-bottom: 1px solid var(--border-soft);
+      vertical-align: middle;
+    }
+
+    .compare-table tr:last-child td { border-bottom: none; }
+
+    .yes { color: #4caf50; font-size: 1rem; }
+    .no { color: #555; font-size: 1rem; }
+    .partial { color: var(--orange); font-size: 0.8rem; }
+
+    .highlight-col { background: rgba(232,121,30,0.04); }
+
+    /* ─── WIRKUNG ─── */
+    #effect { background: var(--bg2); }
+
+    .effect-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.2rem;
+      margin-top: 3rem;
+    }
+
+    .effect-card {
+      background: var(--bg4);
+      border: 1px solid var(--border-soft);
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+
+    .effect-icon { font-size: 1.6rem; margin-bottom: 0.7rem; }
+    .effect-title { font-size: 0.92rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .effect-text { font-size: 0.78rem; color: var(--muted); line-height: 1.6; }
+    .effect-evidence {
+      display: inline-block;
+      margin-top: 0.6rem;
+      font-size: 0.65rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      background: rgba(232,121,30,0.1);
+      color: var(--orange);
+      letter-spacing: 0.06em;
+    }
+
+    /* ─── FAQ ─── */
+    #faq { background: var(--bg); }
+
+    .faq-list {
+      max-width: 680px;
+      margin-top: 2.5rem;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-align: left;
+      padding: 1.2rem 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .faq-q:hover { color: var(--orange); }
+
+    .faq-chevron {
+      flex-shrink: 0;
+      transition: transform 0.25s;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .faq-item.open .faq-a { max-height: 300px; }
+
+    .faq-a p {
+      padding-bottom: 1.2rem;
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    /* ─── CTA SECTION ─── */
+    #cta {
+      background: linear-gradient(135deg, #150800 0%, #0d0d0d 60%);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 6rem 2rem;
+    }
+
+    #cta h2 { max-width: 600px; margin: 0 auto 1.5rem; }
+    #cta p { color: var(--muted); max-width: 500px; margin: 0 auto 2.5rem; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border-soft);
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    footer a { color: var(--orange); text-decoration: none; }
+
+    /* ─── MODAL ─── */
+    .modal-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 300;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 2.5rem;
+      max-width: 480px;
+      width: 100%;
+      position: relative;
+    }
+    .modal h3 { color: var(--orange); font-size: 1.1rem; margin-bottom: 1rem; }
+    .modal address { font-style: normal; font-size: 0.88rem; color: var(--muted); line-height: 1.9; }
+    .modal-close {
+      position: absolute; top: 1rem; right: 1.2rem;
+      background: none; border: none; color: var(--muted);
+      font-size: 1.5rem; cursor: pointer;
+    }
+    .modal-close:hover { color: var(--text); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      nav { padding: 0.9rem 1.2rem; }
+      .nav-links { gap: 1rem; }
+      .nav-links li:nth-child(1),
+      .nav-links li:nth-child(2),
+      .nav-links li:nth-child(3),
+      .nav-links li:nth-child(4) { display: none; }
+      .science-grid { grid-template-columns: 1fr; }
+      .addon-intro { grid-template-columns: 1fr; gap: 2rem; }
+      .compare-table { font-size: 0.78rem; }
+      .compare-table td, .compare-table th { padding: 0.6rem 0.7rem; }
+      .bundle-box { flex-direction: column; gap: 1rem; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-stats { gap: 1.5rem; }
+      .product-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ─── KONTAKT / WHATSAPP ─── */
+    #kontakt { background: var(--bg); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 3.5rem;
+      margin-top: 3rem;
+      align-items: center;
+    }
+
+    .contact-card { text-align: center; }
+
+    .qr-frame {
+      background: #fff;
+      padding: 14px;
+      border-radius: 14px;
+      display: inline-block;
+      box-shadow: 0 0 50px rgba(37,211,102,0.18);
+    }
+    .qr-frame img { display: block; border-radius: 4px; }
+    .qr-hint { font-size: 0.78rem; color: var(--muted); margin-top: 1rem; }
+
+    .contact-info { display: flex; flex-direction: column; gap: 1.2rem; max-width: 420px; }
+
+    .wa-number {
+      display: flex; align-items: center; gap: 1rem;
+      background: var(--bg3);
+      border: 1px solid var(--border-soft);
+      border-radius: 8px;
+      padding: 1rem 1.3rem;
+    }
+    .wa-icon { font-size: 1.3rem; }
+    .wa-label { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+    .wa-num { font-size: 1.3rem; font-weight: 700; color: var(--text); letter-spacing: 0.02em; }
+
+    @keyframes wapulse {
+      0% { box-shadow: 0 0 0 0 rgba(37,211,102,0.45); }
+      70% { box-shadow: 0 0 0 16px rgba(37,211,102,0); }
+      100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); }
+    }
+    .btn-whatsapp {
+      background: #25D366;
+      color: #06351c;
+      font-size: 0.95rem;
+      justify-content: center;
+      animation: wapulse 2.2s infinite;
+    }
+    .btn-whatsapp:hover { background: #1ebe5b; transform: translateY(-1px); }
+
+    .contact-steps { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .contact-steps li { font-size: 0.86rem; color: var(--muted); }
+
+    .contact-note {
+      font-size: 0.78rem; color: #777; line-height: 1.6;
+      border-left: 2px solid var(--orange);
+      padding-left: 0.9rem;
+    }
+
+    .footer-details {
+      display: flex; gap: 4rem; justify-content: center;
+      text-align: left; flex-wrap: wrap;
+      font-size: 0.82rem; line-height: 1.85;
+      margin-bottom: 0.5rem;
+    }
+    .footer-details strong { display: inline-block; margin-bottom: 0.3rem; }
+    .footer-details a { color: var(--orange); text-decoration: none; }
+
+    @media (max-width: 768px) {
+      .contact-grid { grid-template-columns: 1fr; gap: 2rem; justify-items: center; }
+      .contact-info { max-width: none; }
+      .footer-details { gap: 2rem; }
+    }
+
+    /* fade-in */
+    .fade { opacity: 0; transform: translateY(20px); transition: opacity 0.65s, transform 0.65s; }
+    .fade.visible { opacity: 1; transform: none; }
+
+    /* scroll delay */
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+  </style>
+</head>
+<body>
+
+<!-- KONZEPT-HINWEIS -->
+<div class="concept-banner">
+  ⚠️ KONZEPT-ENTWURF — Alle Produkte und Preise sind Vorschläge. Noch nicht live.
+</div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#">
+    <div class="nav-logo-circle">
+      <svg viewBox="0 0 217.52 217.52" xmlns="http://www.w3.org/2000/svg" aria-label="Luxfox">
+        <defs><clipPath id="navfox"><rect x="0" y="0" width="217.52" height="155"/></clipPath></defs>
+        <circle fill="#fff" cx="108.76" cy="108.76" r="108.76"/>
+        <g clip-path="url(#navfox)"><path fill="#231f20" d="M149.71,82.57l10.11-19.54.6-32.36-29.15,12.61-10.04,10.3-12.45.11-12.48-.11-10.04-10.3-29.15-12.61.6,32.36,10.11,19.54-13.77,27.54,9.31,2.78,28.81,42.53v19.37l7.61,7.61,4.48,4.46h10.28l12.17-12.17v-18.98l29.39-43.37,7.39-2.22-13.77-27.54ZM155.01,61.8l-9.05,17.5-17.56-9.09,13.25-19.82,13.77-10.92-.41,22.34ZM134.05,47.32l8.1-3.49-4.09,3.23-11.81,17.67-1.4-7.97,9.2-9.44ZM83.48,47.32l9.2,9.44-1.4,7.97-11.81-17.67-4.09-3.23,8.1,3.49ZM62.51,61.8l-.41-22.34,13.77,10.92,13.25,19.82-17.56,9.09-9.05-17.5ZM70.66,115.07l12,3.6,11.25,11.36-.13,5.24,5.54,3.96,6.94,5.19v14.95h-9.27v-5.34l.02-.04-26.35-38.91ZM95.52,105.59s-1.92-.02-5-.02-4.37-6.79-4.37-6.79h3.88c2.05,0,3.94,1.14,4.83,3,.9,1.92.67,3.81.67,3.81ZM104.16,136.83l1.9-2.28h.37v3.96l-.15-.11-2.11-1.57ZM96.99,169.62v-5.37h14.46l-14.46,5.37ZM111.1,138.51v-3.96h.37l1.9,2.28-2.11,1.57-.15-.11ZM112.55,182.04h-6.31l-5.43-5.43h17.17l-5.43,5.43ZM121.88,171.78h-16.81l16.81-6.25v6.25ZM122.61,153.16l-.73,1.06v5.15h-10.32v-15.17l6.66-4.98,5.54-3.96-.13-5.24,11.25-11.36,13.92-4.16-26.18,38.66ZM122.54,100.87c.88-1.85,2.78-3,4.83-3h3.88s-1.23,6.79-4.35,6.79-5.02.02-5.02.02c0,0-.22-1.9.67-3.81ZM132.3,114.38l-9.09,9.18-1.1-15.02c1.57-.04,3.49-.06,5.71-.06,6.55,0,9.18-14.26,9.18-14.26h-11.94c-8.55,4.09-7.84,13.64-7.76,14.5l1.47,20.17h-.02l.11,3.94-1.59,1.14-3.51-4.24h-9.98l-3.51,4.24-1.59-1.14.11-3.94h-.02l1.4-20.17v-.02c.02-2.65-.54-10.11-7.8-13.6h-11.96s2.63,14.26,9.18,14.26c2.26,0,4.2.04,5.77.09l-1.03,14.11-9.09-9.18-24.31-7.24,11.4-22.8,21.35-11.05c.62-.32,1.1-.9,1.27-1.59.02-.06.02-.11.04-.17l2.31-13.12,11.08.11h.8l11.08-.11,2.33,13.12c0,.06,0,.11.02.17.17.69.65,1.27,1.27,1.59l21.35,11.05,11.4,22.8-24.31,7.24Z"/></g>
+      </svg>
+    </div>
+    <span class="nav-name">Luxfox NIR</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#science">Wirkung</a></li>
+    <li><a href="#products">Produkte</a></li>
+    <li><a href="#addons">Zubehör</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+    <li><a href="#kontakt" class="nav-cta">💬 WhatsApp</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge fade">Rotlicht & Nah-Infrarot · Generation 5.0</div>
+    <h1 class="fade">
+      <strong>Rotlicht,</strong><br>
+      das ich selbst<br>
+      <em>täglich nutze.</em>
+    </h1>
+    <p class="hero-sub fade">
+      Ich bin Peter Knauf. Rotlicht und Nah-Infrarot gehören seit Jahren zu meiner täglichen Wellness-Routine.
+      Ich biete nur Produkte an, die ich selbst nutze — ehrlich, transparent, mit echten technischen Daten.
+    </p>
+    <div class="hero-buttons fade">
+      <a href="#products" class="btn btn-primary">Produkte ansehen →</a>
+      <a href="#science" class="btn btn-ghost">Mehr erfahren</a>
+    </div>
+    <div class="hero-stats fade">
+      <div class="stat-item">
+        <div class="stat-num">6</div>
+        <div class="stat-label">Wellenlängen</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">30</div>
+        <div class="stat-label">Tage Test</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">3 J.</div>
+        <div class="stat-label">Garantie</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">0 €</div>
+        <div class="stat-label">Versandkosten</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div id="trust">
+  <div class="trust-grid">
+    <div class="trust-item">
+      <div class="trust-icon">🔄</div>
+      <div class="trust-title">30-Tage-Testphase</div>
+      <div class="trust-desc">Entweder Sie lieben es — oder Sie geben es risikofrei zurück.</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">🚚</div>
+      <div class="trust-title">Kostenloser Versand</div>
+      <div class="trust-desc">Auf allen Produkten, überall in Deutschland und Österreich.</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">🛡️</div>
+      <div class="trust-title">Premium 3-Jahres-Garantie</div>
+      <div class="trust-desc">Wir vertrauen unseren Produkten voll und ganz.</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">🌍</div>
+      <div class="trust-title">Europäische Marke</div>
+      <div class="trust-desc">Luxfox Limited · Hong Kong · Mit weltweiten Erfolgen.</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">💬</div>
+      <div class="trust-title">Persönlicher Support</div>
+      <div class="trust-desc">Direkt mit Peter. Ich finde immer die beste Lösung für Sie.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SCIENCE / WIRKUNG -->
+<section id="science">
+  <div class="section-inner">
+    <div class="section-label">Photobiomodulation</div>
+    <h2 class="fade">6 Wellenlängen. <strong>Ein System.</strong></h2>
+    <p class="lead fade">Jede Wellenlänge hat eine andere Eindringtiefe und wird in der Forschung unterschiedlichen Anwendungsbereichen zugeordnet. Viele günstige Geräte bieten nur 2 Wellenlängen — unser System nutzt 6.</p>
+
+    <div class="science-grid" style="margin-top:3rem">
+      <div class="science-visual fade">
+        <!-- 630 nm -->
+        <div class="wavelength-bar">
+          <div class="wl-color" style="background:#d42020;">630</div>
+          <div class="wl-info">
+            <div class="wl-nm">630 nm — Tiefes Rot</div>
+            <div class="wl-use">Geringe Eindringtiefe · wird für die Hautoberfläche genutzt</div>
+            <div class="wl-bar-fill" style="background:#d42020; width:45%"></div>
+          </div>
+        </div>
+        <!-- 660 nm -->
+        <div class="wavelength-bar">
+          <div class="wl-color" style="background:#c0392b;">660</div>
+          <div class="wl-info">
+            <div class="wl-nm">660 nm — Rot (Kernwellenlänge)</div>
+            <div class="wl-use">Häufigste Rot-Wellenlänge · Gegenstand zahlreicher Studien</div>
+            <div class="wl-bar-fill" style="background:#c0392b; width:70%"></div>
+          </div>
+        </div>
+        <!-- 670 nm -->
+        <div class="wavelength-bar">
+          <div class="wl-color" style="background:#a93226;">670</div>
+          <div class="wl-info">
+            <div class="wl-nm">670 nm — Rot/NIR Übergang</div>
+            <div class="wl-use">Übergangsbereich zwischen Rot und Nah-Infrarot</div>
+            <div class="wl-bar-fill" style="background:#a93226; width:55%"></div>
+          </div>
+        </div>
+        <!-- 810 nm -->
+        <div class="wavelength-bar">
+          <div class="wl-color" style="background:#6e0a0a; border: 1px solid #a44;">810</div>
+          <div class="wl-info">
+            <div class="wl-nm">810 nm — Nah-Infrarot</div>
+            <div class="wl-use">Höhere Eindringtiefe · erreicht tieferliegendes Gewebe</div>
+            <div class="wl-bar-fill" style="background:#6e0a0a; width:80%"></div>
+          </div>
+        </div>
+        <!-- 830 nm -->
+        <div class="wavelength-bar">
+          <div class="wl-color" style="background:#560808; border: 1px solid #944;">830</div>
+          <div class="wl-info">
+            <div class="wl-nm">830 nm — NIR Kernwellenlänge</div>
+            <div class="wl-use">Häufigste NIR-Wellenlänge in der Forschung</div>
+            <div class="wl-bar-fill" style="background:#560808; width:90%"></div>
+          </div>
+        </div>
+        <!-- 850 nm -->
+        <div class="wavelength-bar">
+          <div class="wl-color" style="background:#3d0505; border: 1px solid #744;">850</div>
+          <div class="wl-info">
+            <div class="wl-nm">850 nm — Tiefes NIR</div>
+            <div class="wl-use">Höchste Eindringtiefe im Spektrum dieses Geräts</div>
+            <div class="wl-bar-fill" style="background:#3d0505; width:100%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="science-text fade delay-1">
+        <h3>Was ist Photobiomodulation?</h3>
+        <p>Als Photobiomodulation bezeichnet die Forschung den Vorgang, bei dem rotes und nah-infrarotes Licht von den Zellen aufgenommen wird. Die genauen Mechanismen sind Gegenstand laufender wissenschaftlicher Untersuchungen.</p>
+        <p>Eine Meta-Analyse von 11 kontrollierten Studien (569 Teilnehmer, 2025) berichtet über messbare, aber moderate Effekte. Die Studienlage ist insgesamt heterogen und für viele Anwendungen noch nicht abschließend bewertet.</p>
+        <p>Rotlicht wird heute weltweit im Wellness-, Beauty- und Sportbereich eingesetzt — zur Entspannung und als Teil der persönlichen Routine.</p>
+        <p class="science-disclaimer">⚠️ <strong>Wichtiger Hinweis:</strong> Dieses Produkt ist ein Wellness-Gerät und kein Medizinprodukt. Es dient nicht zur Diagnose, Behandlung, Heilung oder Vorbeugung von Krankheiten und ersetzt keine ärztliche Behandlung. Bei gesundheitlichen Fragen wenden Sie sich bitte an Ihren Arzt.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRODUKTE -->
+<section id="products">
+  <div class="section-inner">
+    <div class="section-label">Produktlinie · Generation 5.0</div>
+    <h2 class="fade"><strong>Welches Panel</strong> passt zu Ihnen?</h2>
+    <p class="lead fade">Alle Panels nutzen 6 einstellbare Wellenlängen, dual-chip LEDs und kommen mit App-Steuerung. Der Unterschied: Größe und Leistung.</p>
+
+    <div class="product-grid">
+
+      <!-- COMPACT -->
+      <div class="product-card fade">
+        <div class="product-visual">
+          <div class="panel-icon">
+            <div class="panel-row">
+              <div class="led-dot" style="background:#c0392b"></div>
+              <div class="led-dot" style="background:#8b0000"></div>
+              <div class="led-dot" style="background:#c0392b"></div>
+              <div class="led-dot" style="background:#8b0000"></div>
+            </div>
+            <div class="panel-row">
+              <div class="led-dot" style="background:#8b0000"></div>
+              <div class="led-dot" style="background:#c0392b"></div>
+              <div class="led-dot" style="background:#8b0000"></div>
+              <div class="led-dot" style="background:#c0392b"></div>
+            </div>
+            <div class="panel-row">
+              <div class="led-dot" style="background:#c0392b"></div>
+              <div class="led-dot" style="background:#8b0000"></div>
+              <div class="led-dot" style="background:#c0392b"></div>
+              <div class="led-dot" style="background:#8b0000"></div>
+            </div>
+          </div>
+        </div>
+        <div class="product-body">
+          <div class="product-name">NIR Compact</div>
+          <div class="product-tagline">Einstieg · Gesicht &amp; Nacken · Reisegröße</div>
+          <div class="product-specs">
+            <div class="spec-row"><span class="spec-key">LEDs</span><span class="spec-val">60 Stück · 5W/LED</span></div>
+            <div class="spec-row"><span class="spec-key">Leistung</span><span class="spec-val">300 W (nominal)</span></div>
+            <div class="spec-row"><span class="spec-key">Größe</span><span class="spec-val">30 × 20 × 6 cm</span></div>
+            <div class="spec-row"><span class="spec-key">Wellenlängen</span></div>
+            <div class="product-wl">
+              <span class="wl-chip" style="background:#c0392b">630</span>
+              <span class="wl-chip" style="background:#a93226">660</span>
+              <span class="wl-chip" style="background:#560808">810</span>
+              <span class="wl-chip" style="background:#3d0505">850</span>
+            </div>
+            <div class="spec-row"><span class="spec-key">App-Steuerung</span><span class="spec-val">✓</span></div>
+            <div class="spec-row"><span class="spec-key">Ständer inkl.</span><span class="spec-val">Tischfuß</span></div>
+          </div>
+          <div class="product-price">
+            <div class="price-old">UVP 299 €</div>
+            <div class="price-new">199 €</div>
+            <div class="price-note">inkl. MwSt · kostenloser Versand</div>
+          </div>
+          <button class="product-cta">In den Warenkorb</button>
+        </div>
+      </div>
+
+      <!-- PANEL 300 (featured) -->
+      <div class="product-card featured fade delay-1">
+        <div class="featured-badge">Bestseller</div>
+        <div class="product-visual">
+          <div class="panel-icon">
+            <div class="panel-row">
+              <div class="led-dot" style="background:#c0392b"></div>
+              <div class="led-dot" style="background:#8b0000"></div>
+              <div class="led-dot" style="background:#c0392b"></div>
+              <div class="led-dot" style="background:#8b0000"></div>
+              <div class="led-dot" style="background:#c0392b"></div>
+              <div class="led-dot" style="background:#8b0000"></div>
+            </div>
+            <div class="panel-row">
+              <div class="led-dot" style="background:#8b0000"></div>
+              <div class="led-dot" style="background:#c0392b"></div>
+              <div class="led-dot" style="background:#8b0000"></div>
+              <div class="led-dot" style="background:#c0392b"></div>
+              <div class="led-dot" style="background:#8b0000"></div>
+              <div class="led-dot" style="background:#c0392b"></div>
+            </div>
+            <div class="panel-row">
+              <div class="led-dot" style="background:#c0392b"></div>
+              <div class="led-dot" style="background:#8b0000"></div>
+              <div class="led-dot" style="background:#c0392b"></div>
+              <div class="led-dot" style="background:#8b0000"></div>
+              <div class="led-dot" style="background:#c0392b"></div>
+              <div class="led-dot" style="background:#8b0000"></div>
+            </div>
+            <div class="panel-row">
+              <div class="led-dot" style="background:#8b0000"></div>
+              <div class="led-dot" style="background:#c0392b"></div>
+              <div class="led-dot" style="background:#8b0000"></div>
+              <div class="led-dot" style="background:#c0392b"></div>
+              <div class="led-dot" style="background:#8b0000"></div>
+              <div class="led-dot" style="background:#c0392b"></div>
+            </div>
+          </div>
+        </div>
+        <div class="product-body">
+          <div class="product-name">NIR Panel 300</div>
+          <div class="product-tagline">Oberkörper · Heimgebrauch · 6 Wellenlängen</div>
+          <div class="product-specs">
+            <div class="spec-row"><span class="spec-key">LEDs</span><span class="spec-val">120 Stück · 5W/LED</span></div>
+            <div class="spec-row"><span class="spec-key">Leistung</span><span class="spec-val">600 W (nominal)</span></div>
+            <div class="spec-row"><span class="spec-key">Größe</span><span class="spec-val">61 × 30 × 8 cm</span></div>
+            <div class="spec-row"><span class="spec-key">Wellenlängen</span></div>
+            <div class="product-wl">
+              <span class="wl-chip" style="background:#d42020">630</span>
+              <span class="wl-chip" style="background:#c0392b">660</span>
+              <span class="wl-chip" style="background:#a93226">670</span>
+              <span class="wl-chip" style="background:#6e0a0a">810</span>
+              <span class="wl-chip" style="background:#560808">830</span>
+              <span class="wl-chip" style="background:#3d0505">850</span>
+            </div>
+            <div class="spec-row"><span class="spec-key">App-Steuerung</span><span class="spec-val">✓ Touchscreen</span></div>
+            <div class="spec-row"><span class="spec-key">Ständer inkl.</span><span class="spec-val">Höhenverstellbar</span></div>
+          </div>
+          <div class="product-price">
+            <div class="price-old">UVP 549 €</div>
+            <div class="price-new">449 €</div>
+            <div class="price-note">inkl. MwSt · kostenloser Versand · Schutzbrille gratis</div>
+          </div>
+          <button class="product-cta">Jetzt bestellen</button>
+        </div>
+      </div>
+
+      <!-- PRO -->
+      <div class="product-card fade delay-2">
+        <div class="product-visual">
+          <div class="panel-icon">
+            <div class="panel-row">
+              <div class="led-dot" style="background:#c0392b"></div>
+              <div class="led-dot" style="background:#8b0000"></div>
+              <div class="led-dot" style="background:#c0392b"></div>
+              <div class="led-dot" style="background:#8b0000"></div>
+              <div class="led-dot" style="background:#c0392b"></div>
+              <div class="led-dot" style="background:#8b0000"></div>
+              <div class="led-dot" style="background:#c0392b"></div>
+              <div class="led-dot" style="background:#8b0000"></div>
+            </div>
+            <div class="panel-row">
+              <div class="led-dot" style="background:#8b0000"></div>
+              <div class="led-dot" style="background:#c0392b"></div>
+              <div class="led-dot" style="background:#8b0000"></div>
+              <div class="led-dot" style="background:#c0392b"></div>
+              <div class="led-dot" style="background:#8b0000"></div>
+              <div class="led-dot" style="background:#c0392b"></div>
+              <div class="led-dot" style="background:#8b0000"></div>
+              <div class="led-dot" style="background:#c0392b"></div>
+            </div>
+            <div class="panel-row">
+              <div class="led-dot" style="background:#c0392b"></div>
+              <div class="led-dot" style="background:#8b0000"></div>
+              <div class="led-dot" style="background:#c0392b"></div>
+              <div class="led-dot" style="background:#8b0000"></div>
+              <div class="led-dot" style="background:#c0392b"></div>
+              <div class="led-dot" style="background:#8b0000"></div>
+              <div class="led-dot" style="background:#c0392b"></div>
+              <div class="led-dot" style="background:#8b0000"></div>
+            </div>
+            <div class="panel-row">
+              <div class="led-dot" style="background:#8b0000"></div>
+              <div class="led-dot" style="background:#c0392b"></div>
+              <div class="led-dot" style="background:#8b0000"></div>
+              <div class="led-dot" style="background:#c0392b"></div>
+              <div class="led-dot" style="background:#8b0000"></div>
+              <div class="led-dot" style="background:#c0392b"></div>
+              <div class="led-dot" style="background:#8b0000"></div>
+              <div class="led-dot" style="background:#c0392b"></div>
+            </div>
+            <div class="panel-row">
+              <div class="led-dot" style="background:#c0392b"></div>
+              <div class="led-dot" style="background:#8b0000"></div>
+              <div class="led-dot" style="background:#c0392b"></div>
+              <div class="led-dot" style="background:#8b0000"></div>
+              <div class="led-dot" style="background:#c0392b"></div>
+              <div class="led-dot" style="background:#8b0000"></div>
+              <div class="led-dot" style="background:#c0392b"></div>
+              <div class="led-dot" style="background:#8b0000"></div>
+            </div>
+          </div>
+        </div>
+        <div class="product-body">
+          <div class="product-name">NIR Panel Pro</div>
+          <div class="product-tagline">Ganzkörper · Sport &amp; Wellness · Pro-Leistung</div>
+          <div class="product-specs">
+            <div class="spec-row"><span class="spec-key">LEDs</span><span class="spec-val">300 Stück · 5W/LED</span></div>
+            <div class="spec-row"><span class="spec-key">Leistung</span><span class="spec-val">1.500 W (nominal)</span></div>
+            <div class="spec-row"><span class="spec-key">Größe</span><span class="spec-val">90 × 53 × 8 cm</span></div>
+            <div class="spec-row"><span class="spec-key">Wellenlängen</span></div>
+            <div class="product-wl">
+              <span class="wl-chip" style="background:#d42020">630</span>
+              <span class="wl-chip" style="background:#c0392b">660</span>
+              <span class="wl-chip" style="background:#a93226">670</span>
+              <span class="wl-chip" style="background:#6e0a0a">810</span>
+              <span class="wl-chip" style="background:#560808">830</span>
+              <span class="wl-chip" style="background:#3d0505">850</span>
+            </div>
+            <div class="spec-row"><span class="spec-key">App-Steuerung</span><span class="spec-val">✓ 4 Modi + individuell</span></div>
+            <div class="spec-row"><span class="spec-key">Ständer inkl.</span><span class="spec-val">Profi-Rollständer</span></div>
+          </div>
+          <div class="product-price">
+            <div class="price-old">UVP 1.199 €</div>
+            <div class="price-new">899 €</div>
+            <div class="price-note">inkl. MwSt · kostenloser Versand · Starter-Kit gratis</div>
+          </div>
+          <button class="product-cta">In den Warenkorb</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ADD-ONS -->
+<section id="addons">
+  <div class="section-inner">
+    <div class="addon-intro">
+      <div class="fade">
+        <div class="section-label">Zubehör & Add-ons</div>
+        <h2><strong>Das Rundum-</strong>Paket.</h2>
+        <p class="lead">Alle Add-ons können bei Bestellung direkt dazugepackt werden — kein Extra-Versand, kein Aufpreis auf die Lieferung. Einfach dazu wählen.</p>
+      </div>
+      <div class="fade delay-1">
+        <div class="bundle-box">
+          <div>
+            <h3>🎁 Starter-Kit</h3>
+            <p>Schutzbrille + Reinigungstuch + NIR-Boost Serum<br>
+            <small style="color:#555">Einzeln: 34,70 €</small></p>
+          </div>
+          <div>
+            <div class="bundle-price">19,90 €</div>
+            <div class="bundle-saving">Sie sparen 14,80 €</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="addon-grid">
+      <div class="addon-card fade">
+        <div class="addon-icon">🥽</div>
+        <div class="addon-name">NIR-Schutzbrille</div>
+        <div class="addon-desc">Weiche Silikonbrille, blockiert 630–850 nm vollständig. Pflicht bei Gesichtsanwendung. CE-zertifiziert.</div>
+        <div class="addon-price">9,90 €</div>
+        <div class="addon-source">Einkauf ca. 0,90 €/Stück (Alibaba, MOQ 50)</div>
+      </div>
+      <div class="addon-card fade delay-1">
+        <div class="addon-icon">🪑</div>
+        <div class="addon-name">Aufblas-Nackenkissen</div>
+        <div class="addon-desc">Aufblasbares Nackenkissen für entspannte Rückenbehandlung. Ideal für 15–20 Min.-Sessions liegend.</div>
+        <div class="addon-price">14,90 €</div>
+        <div class="addon-source">Einkauf ca. 1,50–2,50 €/Stück (Alibaba)</div>
+      </div>
+      <div class="addon-card fade delay-2">
+        <div class="addon-icon">🧺</div>
+        <div class="addon-name">Mikrofaser-Reinigungstuch</div>
+        <div class="addon-desc">Antistatisches Reinigungstuch (40×40 cm) für LED-Panel. Staub- und schlierenfrei — verlängert LED-Lebensdauer.</div>
+        <div class="addon-price">4,90 €</div>
+        <div class="addon-source">Einkauf ca. 0,30–0,60 €/Stück (Alibaba)</div>
+      </div>
+      <div class="addon-card fade delay-3">
+        <div class="addon-icon">🧴</div>
+        <div class="addon-name">NIR-Boost Serum</div>
+        <div class="addon-desc">Kollagen + Hyaluronsäure Serum. Aufgetragen vor der Rotlicht-Session erhöht es die Lichtpenetration in die Haut. 30 ml.</div>
+        <div class="addon-price">19,90 €</div>
+        <div class="addon-source">OEM-Produktion China möglich, ca. 2–4 €/Einheit</div>
+      </div>
+    </div>
+
+    <p style="margin-top:1.5rem; font-size:0.72rem; color:#444; font-style:italic">
+      * Einkaufspreise sind interne Kalkulationshinweise (Alibaba-Recherche). Die Verkaufspreise beinhalten Zoll, Versand, MwSt, Lagerung und Marge.
+    </p>
+  </div>
+</section>
+
+<!-- WARUM LUXFOX -->
+<section id="why">
+  <div class="section-inner">
+    <div class="section-label">Marktvergleich</div>
+    <h2 class="fade">Warum <strong>Luxfox?</strong></h2>
+    <p class="lead fade">Andere Premium-Marken sind gut. Aber es gibt Gründe, warum Luxfox anders ist — ehrlicher, persönlicher und mit echtem Zubehör.</p>
+
+    <div class="fade" style="overflow-x:auto; margin-top:1rem">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Kriterium</th>
+          <th>Luxfox NIR</th>
+          <th>Andere Premium-Marken</th>
+          <th>Günstige China-Imports</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>6 Wellenlängen (630–850 nm)</td>
+          <td class="highlight-col"><span class="yes">✓</span></td>
+          <td><span class="partial">~</span> oft erst in Top-Modellen</td>
+          <td><span class="no">✗</span> meist 2 WL</td>
+        </tr>
+        <tr>
+          <td>Einstiegspreis ab</td>
+          <td class="highlight-col" style="font-weight:700;color:var(--orange)">199 €</td>
+          <td>meist deutlich höher</td>
+          <td>ab 40 € (keine Garantie)</td>
+        </tr>
+        <tr>
+          <td>Persönliche Geschichte / echter Test</td>
+          <td class="highlight-col"><span class="yes">✓</span> Peter nutzt es selbst</td>
+          <td><span class="partial">—</span></td>
+          <td><span class="no">✗</span></td>
+        </tr>
+        <tr>
+          <td>30-Tage Rückgabe</td>
+          <td class="highlight-col"><span class="yes">✓</span></td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="no">✗</span> meist nicht</td>
+        </tr>
+        <tr>
+          <td>3-Jahres-Garantie</td>
+          <td class="highlight-col"><span class="yes">✓</span></td>
+          <td><span class="yes">✓</span></td>
+          <td><span class="no">✗</span></td>
+        </tr>
+        <tr>
+          <td>Starter-Kit / Add-ons</td>
+          <td class="highlight-col"><span class="yes">✓</span> ab 19,90 €</td>
+          <td><span class="no">✗</span> kein Zubehör</td>
+          <td><span class="no">✗</span></td>
+        </tr>
+        <tr>
+          <td>Transparent über Wissenschaft</td>
+          <td class="highlight-col"><span class="yes">✓</span> inkl. Vorbehalte</td>
+          <td><span class="partial">~</span> unterschiedlich</td>
+          <td><span class="no">✗</span></td>
+        </tr>
+        <tr>
+          <td>App-Steuerung inkl.</td>
+          <td class="highlight-col"><span class="yes">✓</span> ab Panel 300</td>
+          <td><span class="partial">~</span> oft nur in höheren Modellen</td>
+          <td><span class="no">✗</span></td>
+        </tr>
+        <tr>
+          <td>Direkter Kundensupport</td>
+          <td class="highlight-col"><span class="yes">✓</span> mit Peter persönlich</td>
+          <td><span class="partial">~</span> Support-Team</td>
+          <td><span class="no">✗</span></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<!-- WIRKUNGSBEREICHE -->
+<section id="effect">
+  <div class="section-inner">
+    <div class="section-label">Beliebte Anwendungsbereiche</div>
+    <h2 class="fade">Wofür wird <strong>Rotlicht</strong> genutzt?</h2>
+    <p class="lead fade">Ein Überblick, in welchen Bereichen Rotlicht und Nah-Infrarot weltweit eingesetzt werden. Dies sind keine Wirkversprechen, sondern eine Beschreibung typischer Anwendungsfelder.</p>
+
+    <div class="effect-grid">
+      <div class="effect-card fade">
+        <div class="effect-icon">💪</div>
+        <div class="effect-title">Sport & Freizeit</div>
+        <div class="effect-text">Viele Sportlerinnen und Sportler integrieren Rotlicht als festen Bestandteil in ihre persönliche Routine rund ums Training.</div>
+        <span class="effect-evidence">Wellness & Sport</span>
+      </div>
+      <div class="effect-card fade delay-1">
+        <div class="effect-icon">🧘</div>
+        <div class="effect-title">Entspannung</div>
+        <div class="effect-text">Die wohlige Wärme des Nah-Infrarots wird gerne als ruhiges Ritual am Abend oder zwischendurch genutzt.</div>
+        <span class="effect-evidence">Wohlbefinden</span>
+      </div>
+      <div class="effect-card fade delay-2">
+        <div class="effect-icon">✨</div>
+        <div class="effect-title">Haut & Beauty</div>
+        <div class="effect-text">Im Beauty-Bereich gehört Rotlicht zu den beliebtesten Anwendungen der Gesichts- und Hautpflege — besonders in Kombination mit unserem Serum.</div>
+        <span class="effect-evidence">Kosmetische Anwendung</span>
+      </div>
+      <div class="effect-card fade delay-3">
+        <div class="effect-icon">🧖</div>
+        <div class="effect-title">Yoga & Achtsamkeit</div>
+        <div class="effect-text">Als angenehme Lichtquelle begleitet das Panel Yoga-, Meditations- und Achtsamkeitseinheiten zu Hause.</div>
+        <span class="effect-evidence">Wellness</span>
+      </div>
+      <div class="effect-card fade">
+        <div class="effect-icon">🌅</div>
+        <div class="effect-title">Tägliche Routine</div>
+        <div class="effect-text">Ob morgens als Start in den Tag oder abends zum Herunterkommen — viele Anwender machen Rotlicht zu einem festen Ritual.</div>
+        <span class="effect-evidence">Lifestyle</span>
+      </div>
+      <div class="effect-card fade delay-1">
+        <div class="effect-icon">🔬</div>
+        <div class="effect-title">Gegenstand der Forschung</div>
+        <div class="effect-text">Photobiomodulation ist ein aktives Forschungsfeld. Die Studienlage ist heterogen und wird laufend weiter untersucht.</div>
+        <span class="effect-evidence">Wissenschaft</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="section-inner">
+    <div class="section-label">Häufige Fragen</div>
+    <h2 class="fade"><strong>FAQ</strong></h2>
+
+    <div class="faq-list fade">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Wie lange dauert eine Session? <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-a">
+          <p>Empfohlen: 10–20 Minuten pro Körperbereich, einmal täglich. Bei NIR-Panels mit 5–10 W/LED bei 15 cm Abstand. Nicht länger als 30 Minuten pro Session auf derselben Stelle.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Muss ich eine Schutzbrille tragen? <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-a">
+          <p>Bei Gesichtsanwendung: Ja, unbedingt. Die NIR-Strahlung ist unsichtbar, aber intensiv. Für Körperanwendungen ohne Augenkontakt: optional, aber empfohlen. Unsere Schutzbrille ist für 9,90 € erhältlich.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Was ist der Unterschied zu günstigeren Lampen auf Amazon? <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-a">
+          <p>Günstige Lampen (unter 100 €) haben oft nur 2 Wellenlängen, geringere Leistungsdichte und keine verlässlichen technischen Daten. Unsere Panels sind OEM-verifiziert, CE-gekennzeichnet (Elektrosicherheit) und kommen mit App-Steuerung. Und Sie haben 30 Tage Zeit, es zurückzuschicken — ohne Fragen.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Gibt es Situationen, in denen ich es nicht nutzen sollte? <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-a">
+          <p>Dieses Produkt ist ein Wellness-Gerät, kein Medizinprodukt. Wenn Sie gesundheitliche Vorerkrankungen haben, schwanger sind, Medikamente einnehmen oder Hautveränderungen abklären lassen möchten, sprechen Sie bitte vor der Nutzung mit Ihrem Arzt. Blicken Sie nicht direkt in die LEDs und nutzen Sie eine Schutzbrille bei Gesichtsanwendung.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Wie funktioniert die 30-Tage-Rückgabe? <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-a">
+          <p>Einfach innerhalb von 30 Tagen schreiben (peter@luxfox.net). Wir schicken einen kostenlosen Rücksende-Aufkleber. Volle Erstattung innerhalb von 5 Werktagen nach Eingang — kein Wenn und Aber.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Wo werden die Panels hergestellt? <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-a">
+          <p>Wie fast alle Rotlicht-Panels weltweit — in China, von verifizierten OEM-Herstellern in Shenzhen. Was uns unterscheidet: wir sagen es offen. Und wir testen jede Charge selbst — weil ich die Produkte auch persönlich nutze.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAKT / WHATSAPP -->
+<section id="kontakt">
+  <div class="section-inner">
+    <div class="section-label">Kontakt · Weltweit erreichbar</div>
+    <h2 class="fade">Schreiben Sie mir <strong>direkt.</strong></h2>
+    <p class="lead fade">Egal wo Sie sind — per WhatsApp erreichen Sie mich persönlich. Senden Sie einfach ein kurzes „Hallo", und ich schicke Ihnen alle Infos, Preise und Verfügbarkeiten zu. Ihre Lieferadresse tauschen wir bequem und sicher direkt über WhatsApp aus — ganz ohne Formular.</p>
+
+    <div class="contact-grid">
+      <div class="contact-card fade">
+        <div class="qr-frame">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=4&data=https%3A%2F%2Fwa.me%2F66962961811%3Ftext%3DHallo" alt="WhatsApp QR-Code – Luxfox NIR" width="220" height="220">
+        </div>
+        <p class="qr-hint">📲 Mit der Handy-Kamera scannen</p>
+      </div>
+
+      <div class="contact-info fade delay-1">
+        <div class="wa-number">
+          <span class="wa-icon">🟢</span>
+          <div>
+            <div class="wa-label">WhatsApp · weltweit</div>
+            <div class="wa-num">+66 96 296 1811</div>
+          </div>
+        </div>
+        <a href="https://wa.me/66962961811?text=Hallo%20Peter%2C%20ich%20interessiere%20mich%20f%C3%BCr%20Luxfox%20NIR%20und%20m%C3%B6chte%20mehr%20Infos." class="btn btn-whatsapp" target="_blank" rel="noopener">💬 Jetzt „Hallo" senden</a>
+        <ul class="contact-steps">
+          <li>①&nbsp;&nbsp;QR-Code scannen oder Button tippen</li>
+          <li>②&nbsp;&nbsp;Vorausgefülltes „Hallo" einfach absenden</li>
+          <li>③&nbsp;&nbsp;Ich melde mich mit allen Infos bei Ihnen</li>
+        </ul>
+        <p class="contact-note">Ihre Adresse und Kontaktdaten werden automatisch über WhatsApp ausgetauscht — sicher, schnell und ohne lästige Formulare.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="section-inner">
+    <div class="section-label fade">Jetzt starten</div>
+    <h2 class="fade">30 Tage. <strong>Kein Risiko.</strong><br>Ihr Körper entscheidet.</h2>
+    <p class="fade">Testen Sie Luxfox NIR 30 Tage zu Hause. Wenn es Ihnen nicht hilft, erstatten wir den vollen Kaufpreis. Keine Fragen.</p>
+    <div class="hero-buttons fade">
+      <a href="#products" class="btn btn-primary">Jetzt Produkt wählen →</a>
+      <a href="mailto:peter@luxfox.net" class="btn btn-ghost">Frage stellen</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-details">
+    <div>
+      <strong style="color:var(--text)">Luxfox Limited</strong><br>
+      Unit 1603, 16/F, The L. Plaza<br>
+      367–375 Queen's Road Central<br>
+      Sheung Wan, Hong Kong
+    </div>
+    <div>
+      <strong style="color:var(--text)">Kontakt</strong><br>
+      WhatsApp: <a href="https://wa.me/66962961811">+66 96 296 1811</a><br>
+      E-Mail: <a href="mailto:peter@luxfox.net">peter@luxfox.net</a><br>
+      Ansprechpartner: Peter Knauf
+    </div>
+  </div>
+  <p style="margin-top:1.5rem; max-width:640px; margin-left:auto; margin-right:auto; font-size:0.74rem; color:#666; line-height:1.6">
+    Hinweis: Luxfox NIR ist ein Wellness- und Lifestyle-Produkt und kein Medizinprodukt. Es dient nicht zur Diagnose, Behandlung, Heilung oder Vorbeugung von Krankheiten und ersetzt keine ärztliche Beratung oder Behandlung.
+  </p>
+  <p style="margin-top:1rem">© 2026 Luxfox Limited (Hong Kong) &nbsp;·&nbsp;
+    <a onclick="document.getElementById('imprint').classList.add('open')">Impressum</a>
+    &nbsp;·&nbsp;
+    <span style="color:#444">Konzept-Entwurf — nicht live</span>
+  </p>
+</footer>
+
+<!-- IMPRINT MODAL -->
+<div class="modal-overlay" id="imprint" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('imprint').classList.remove('open')">×</button>
+    <h3>Impressum & Firmenangaben</h3>
+    <address>
+      <strong style="color:var(--text)">Luxfox Limited</strong><br>
+      Unit 1603, 16/F, The L. Plaza<br>
+      367–375 Queen's Road Central<br>
+      Sheung Wan, Hong Kong<br><br>
+
+      <strong style="color:var(--text)">Vertreten durch</strong><br>
+      Peter Knauf (Director)<br><br>
+
+      <strong style="color:var(--text)">Kontakt</strong><br>
+      WhatsApp: <a href="https://wa.me/66962961811" style="color:var(--orange)">+66 96 296 1811</a><br>
+      E-Mail: <a href="mailto:peter@luxfox.net" style="color:var(--orange)">peter@luxfox.net</a><br><br>
+
+      <strong style="color:var(--text)">Registereintrag</strong><br>
+      Company Registration No. (BR): <em style="color:#666">[wird ergänzt]</em><br>
+      USt-IdNr. (EU-Verkäufe): <em style="color:#666">[wird ergänzt]</em><br><br>
+
+      <span style="font-size:0.74rem;color:#666;font-style:italic">Konzept-Entwurf. Angaben werden vor Veröffentlichung vervollständigt. Diese Rotlicht-Geräte sind Wellness-Produkte, keine Medizinprodukte im Sinne der MDR, und ersetzen keine ärztliche Behandlung.</span>
+    </address>
+  </div>
+</div>
+
+<script>
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    item.classList.toggle('open');
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

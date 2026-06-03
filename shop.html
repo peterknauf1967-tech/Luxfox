@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luxfox Shop — Rotlicht & Nah-Infrarot</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#0d0d0d;--bg2:#141414;--bg3:#1a1a1a;--bg4:#202020;
+    --orange:#E8791E;--orange2:#c96918;--text:#e8e8e8;--muted:#888;
+    --border:rgba(232,121,30,0.3);--soft:rgba(255,255,255,0.07);
+  }
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+  .concept-banner{background:#1a0a00;border-bottom:1px solid var(--orange);text-align:center;padding:.55rem 1rem;font-size:.78rem;color:var(--orange);letter-spacing:.05em;position:sticky;top:0;z-index:300}
+
+  /* NAV */
+  nav{position:sticky;top:32px;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:1rem 2.5rem;background:rgba(13,13,13,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--soft)}
+  .brand{display:flex;align-items:center;gap:.8rem;text-decoration:none}
+  .brand svg{width:40px;height:40px;display:block}
+  .brand span{font-size:1rem;font-weight:700;color:var(--orange);letter-spacing:.12em;text-transform:uppercase}
+  .nav-right{display:flex;align-items:center;gap:1.8rem}
+  .nav-right a{color:var(--muted);text-decoration:none;font-size:.82rem;letter-spacing:.05em;text-transform:uppercase;transition:color .2s}
+  .nav-right a:hover{color:var(--text)}
+  .cart-btn{background:none;border:none;color:var(--text);font-size:1.3rem;cursor:pointer;position:relative;padding:.2rem}
+  .cart-count{position:absolute;top:-6px;right:-10px;background:var(--orange);color:#fff;font-size:.62rem;font-weight:700;min-width:17px;height:17px;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 4px}
+
+  /* INTRO */
+  .intro{max-width:1100px;margin:0 auto;padding:3.5rem 2rem 1.5rem;text-align:center}
+  .intro .label{font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;color:var(--orange);margin-bottom:1rem}
+  .intro h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:300;letter-spacing:-.01em;margin-bottom:1rem}
+  .intro h1 strong{font-weight:700}
+  .intro p{color:var(--muted);max-width:600px;margin:0 auto;font-size:1rem}
+
+  /* FILTER */
+  .filters{display:flex;justify-content:center;gap:.6rem;flex-wrap:wrap;padding:2rem 1rem 0}
+  .filter-btn{background:var(--bg3);border:1px solid var(--soft);color:var(--muted);padding:.5rem 1.2rem;border-radius:30px;font-size:.82rem;cursor:pointer;font-family:inherit;letter-spacing:.04em;transition:all .2s}
+  .filter-btn:hover{color:var(--text);border-color:var(--border)}
+  .filter-btn.active{background:var(--orange);color:#fff;border-color:var(--orange)}
+
+  /* GRID */
+  .grid{max-width:1100px;margin:0 auto;padding:2.5rem 2rem 5rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1.6rem}
+  .card{background:var(--bg3);border:1px solid var(--soft);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:transform .25s,border-color .25s}
+  .card:hover{transform:translateY(-4px);border-color:var(--orange)}
+  .card-img{position:relative;aspect-ratio:1/1;background:#fff;overflow:hidden}
+  .card-img img{width:100%;height:100%;object-fit:cover}
+  .card-tag{position:absolute;top:.7rem;left:.7rem;background:rgba(13,13,13,.8);color:var(--orange);font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.25rem .6rem;border-radius:4px;backdrop-filter:blur(4px)}
+  .card-body{padding:1.2rem;display:flex;flex-direction:column;gap:.6rem;flex:1}
+  .card-name{font-size:1.02rem;font-weight:700;color:var(--text)}
+  .card-desc{font-size:.82rem;color:var(--muted);flex:1;line-height:1.55}
+  .card-specs{display:flex;flex-wrap:wrap;gap:4px;margin-top:.2rem}
+  .chip{font-size:.6rem;font-weight:600;color:var(--muted);background:var(--bg4);border:1px solid var(--soft);padding:2px 7px;border-radius:4px}
+  .card-foot{display:flex;align-items:center;justify-content:space-between;margin-top:.6rem;padding-top:.8rem;border-top:1px solid var(--soft)}
+  .price{font-size:1.25rem;font-weight:700;color:var(--orange)}
+  .price small{display:block;font-size:.6rem;color:var(--muted);font-weight:400;letter-spacing:.03em}
+  .add-btn{background:var(--orange);color:#fff;border:none;border-radius:6px;padding:.55rem .9rem;font-size:.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;font-family:inherit;transition:background .2s;white-space:nowrap}
+  .add-btn:hover{background:var(--orange2)}
+
+  /* CART DRAWER */
+  .overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:400;opacity:0;visibility:hidden;transition:opacity .3s}
+  .overlay.open{opacity:1;visibility:visible}
+  .cart{position:fixed;top:0;right:0;width:380px;max-width:90vw;height:100%;background:var(--bg2);border-left:1px solid var(--border);z-index:401;transform:translateX(100%);transition:transform .3s;display:flex;flex-direction:column}
+  .cart.open{transform:none}
+  .cart-head{display:flex;justify-content:space-between;align-items:center;padding:1.3rem;border-bottom:1px solid var(--soft)}
+  .cart-head h3{font-size:1rem;font-weight:700;letter-spacing:.04em}
+  .cart-close{background:none;border:none;color:var(--muted);font-size:1.5rem;cursor:pointer}
+  .cart-items{flex:1;overflow-y:auto;overflow-x:hidden;padding:1rem 1.3rem}
+  .cart-empty{color:var(--muted);text-align:center;margin-top:3rem;font-size:.9rem}
+  .ci{display:flex;gap:.8rem;padding:.8rem 0;border-bottom:1px solid var(--soft)}
+  .ci img{width:54px;height:54px;border-radius:6px;object-fit:cover;background:#fff;flex-shrink:0}
+  .ci-info{flex:1;min-width:0}
+  .ci-name{font-size:.82rem;font-weight:600}
+  .ci-price{font-size:.78rem;color:var(--orange);font-weight:700}
+  .ci-qty{display:flex;align-items:center;gap:.5rem;margin-top:.3rem;flex-wrap:wrap}
+  .ci-qty button{width:22px;height:22px;border-radius:5px;border:1px solid var(--soft);background:var(--bg4);color:var(--text);cursor:pointer;font-size:.9rem;line-height:1}
+  .ci-qty span{font-size:.8rem;min-width:18px;text-align:center}
+  .ci-rm{background:none;border:none;color:var(--muted);font-size:.7rem;cursor:pointer;text-decoration:underline;margin-left:.7rem}
+  .cart-foot{padding:1.3rem;border-top:1px solid var(--soft)}
+  .cart-total{display:flex;justify-content:space-between;font-size:1.1rem;font-weight:700;margin-bottom:1rem}
+  .cart-total span:last-child{color:var(--orange)}
+  .checkout{display:block;width:100%;padding:.8rem;background:var(--orange);color:#fff;text-align:center;border:none;border-radius:7px;font-size:.85rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;font-family:inherit;text-decoration:none;transition:background .2s}
+  .checkout:hover{background:var(--orange2)}
+  .cart-note{font-size:.68rem;color:var(--muted);text-align:center;margin-top:.7rem;line-height:1.5}
+
+  /* FOOTER */
+  footer{background:var(--bg2);border-top:1px solid var(--soft);padding:2.2rem 2rem;text-align:center;font-size:.8rem;color:var(--muted)}
+  footer a{color:var(--orange);text-decoration:none;cursor:pointer}
+  .disc{max-width:640px;margin:0 auto 1rem;font-size:.72rem;color:#666;line-height:1.6}
+
+  @media(max-width:600px){nav{padding:.9rem 1.2rem}.nav-right{gap:1rem}.nav-right a{display:none}}
+</style>
+</head>
+<body>
+
+<div class="concept-banner">⚠️ KONZEPT-ENTWURF — Produkte, Bilder &amp; Preise sind Vorschläge. Bilder: Cavlon (für Live-Shop lizenzieren/eigene Fotos).</div>
+
+<nav>
+  <a class="brand" href="index.html">
+    <svg viewBox="0 0 217.52 217.52" xmlns="http://www.w3.org/2000/svg" aria-label="Luxfox">
+      <defs><clipPath id="nf"><rect x="0" y="0" width="217.52" height="155"/></clipPath></defs>
+      <circle fill="#fff" cx="108.76" cy="108.76" r="108.76"/>
+      <g clip-path="url(#nf)"><path fill="#231f20" d="M149.71,82.57l10.11-19.54.6-32.36-29.15,12.61-10.04,10.3-12.45.11-12.48-.11-10.04-10.3-29.15-12.61.6,32.36,10.11,19.54-13.77,27.54,9.31,2.78,28.81,42.53v19.37l7.61,7.61,4.48,4.46h10.28l12.17-12.17v-18.98l29.39-43.37,7.39-2.22-13.77-27.54ZM155.01,61.8l-9.05,17.5-17.56-9.09,13.25-19.82,13.77-10.92-.41,22.34ZM134.05,47.32l8.1-3.49-4.09,3.23-11.81,17.67-1.4-7.97,9.2-9.44ZM83.48,47.32l9.2,9.44-1.4,7.97-11.81-17.67-4.09-3.23,8.1,3.49ZM62.51,61.8l-.41-22.34,13.77,10.92,13.25,19.82-17.56,9.09-9.05-17.5ZM70.66,115.07l12,3.6,11.25,11.36-.13,5.24,5.54,3.96,6.94,5.19v14.95h-9.27v-5.34l.02-.04-26.35-38.91ZM95.52,105.59s-1.92-.02-5-.02-4.37-6.79-4.37-6.79h3.88c2.05,0,3.94,1.14,4.83,3,.9,1.92.67,3.81.67,3.81ZM104.16,136.83l1.9-2.28h.37v3.96l-.15-.11-2.11-1.57ZM96.99,169.62v-5.37h14.46l-14.46,5.37ZM111.1,138.51v-3.96h.37l1.9,2.28-2.11,1.57-.15-.11ZM112.55,182.04h-6.31l-5.43-5.43h17.17l-5.43,5.43ZM121.88,171.78h-16.81l16.81-6.25v6.25ZM122.61,153.16l-.73,1.06v5.15h-10.32v-15.17l6.66-4.98,5.54-3.96-.13-5.24,11.25-11.36,13.92-4.16-26.18,38.66ZM122.54,100.87c.88-1.85,2.78-3,4.83-3h3.88s-1.23,6.79-4.35,6.79-5.02.02-5.02.02c0,0-.22-1.9.67-3.81ZM132.3,114.38l-9.09,9.18-1.1-15.02c1.57-.04,3.49-.06,5.71-.06,6.55,0,9.18-14.26,9.18-14.26h-11.94c-8.55,4.09-7.84,13.64-7.76,14.5l1.47,20.17h-.02l.11,3.94-1.59,1.14-3.51-4.24h-9.98l-3.51,4.24-1.59-1.14.11-3.94h-.02l1.4-20.17v-.02c.02-2.65-.54-10.11-7.8-13.6h-11.96s2.63,14.26,9.18,14.26c2.26,0,4.2.04,5.77.09l-1.03,14.11-9.09-9.18-24.31-7.24,11.4-22.8,21.35-11.05c.62-.32,1.1-.9,1.27-1.59.02-.06.02-.11.04-.17l2.31-13.12,11.08.11h.8l11.08-.11,2.33,13.12c0,.06,0,.11.02.17.17.69.65,1.27,1.27,1.59l21.35,11.05,11.4,22.8-24.31,7.24Z"/></g>
+    </svg>
+    <span>Luxfox</span>
+  </a>
+  <div class="nav-right">
+    <a href="index.html">Home</a>
+    <a href="nir-konzept.html">Wirkung</a>
+    <a href="#" id="contactLink">Kontakt</a>
+    <button class="cart-btn" onclick="openCart()">🛒<span class="cart-count" id="cartCount">0</span></button>
+  </div>
+</nav>
+
+<section class="intro">
+  <div class="label">Luxfox Shop</div>
+  <h1><strong>Rotlicht</strong> & Nah-Infrarot</h1>
+  <p>Hochwertige Panels, Masken und tragbare Geräte für deine tägliche Wellness-Routine. Selbst getestet, ehrlich ausgewählt.</p>
+</section>
+
+<div class="filters" id="filters">
+  <button class="filter-btn active" data-cat="all">Alle</button>
+  <button class="filter-btn" data-cat="panel">Panels</button>
+  <button class="filter-btn" data-cat="maske">Masken</button>
+  <button class="filter-btn" data-cat="wearable">Wearables</button>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<!-- CART -->
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+<aside class="cart" id="cart">
+  <div class="cart-head"><h3>Warenkorb</h3><button class="cart-close" onclick="closeCart()">×</button></div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-foot">
+    <div class="cart-total"><span>Summe</span><span id="cartTotal">0 €</span></div>
+    <a class="checkout" id="checkout" href="#">Anfrage per WhatsApp senden</a>
+    <p class="cart-note">Konzept: Bestellung wird als Anfrage per WhatsApp/E-Mail übermittelt. Noch kein Zahlungssystem aktiv.</p>
+  </div>
+</aside>
+
+<footer>
+  <p class="disc">Hinweis: Luxfox-Produkte sind Wellness- und Lifestyle-Produkte und keine Medizinprodukte. Sie dienen nicht zur Diagnose, Behandlung, Heilung oder Vorbeugung von Krankheiten und ersetzen keine ärztliche Beratung.</p>
+  <p>© 2026 Luxfox Limited (Hong Kong) · <a href="index.html">Home</a> · <a href="mailto:peter@luxfox.net">peter@luxfox.net</a> · <span style="color:#444">Konzept-Entwurf</span></p>
+</footer>
+
+<script>
+  const WHATSAPP = "66962961811";
+  const products = [
+    {id:"panel-pro", cat:"panel", name:"Luxfox Panel Pro", img:"shop-img/panel-pro.jpg", price:899,
+     desc:"Das große Panel für die Ganzkörper-Anwendung zu Hause — als festes Ritual in deiner Wellness-Routine.",
+     specs:["6 Wellenlängen","285 LEDs","App + Touchscreen"]},
+    {id:"panel-go", cat:"panel", name:"Luxfox Panel Go", img:"shop-img/panel-portable.jpg", price:199,
+     desc:"Kompakt und handlich für Gesicht, Nacken und unterwegs. Leicht, mit praktischem Standfuß.",
+     specs:["Portabel","Akku","Reisegröße"]},
+    {id:"panel-tower", cat:"panel", name:"Luxfox Panel Tower", img:"shop-img/panel-stand.jpg", price:449,
+     desc:"Bodenpanel mit höhenverstellbarem Ständer für die freihändige Anwendung im Stehen oder Sitzen.",
+     specs:["6 Wellenlängen","Rollständer","Ganzkörper"]},
+    {id:"mask-beauty", cat:"maske", name:"Luxfox Beauty Mask", img:"shop-img/mask-beauty.jpg", price:149,
+     desc:"LED-Gesichtsmaske mit Rotlicht — die entspannte Ergänzung für deine tägliche Beauty- und Hautpflege-Routine.",
+     specs:["Gesicht","Rot + NIR","Beauty"]},
+    {id:"mask-glow", cat:"maske", name:"Luxfox Glow Mask", img:"shop-img/mask-glow.jpg", price:169,
+     desc:"Kabellose, tragbare LED-Maske für die Gesichtspflege — flexibel zu Hause oder unterwegs nutzbar.",
+     specs:["Kabellos","Tragbar","Gesicht"]},
+    {id:"cap", cat:"wearable", name:"Luxfox Hair Cap", img:"shop-img/cap.jpg", price:199,
+     desc:"Rotlicht-Kappe für Kopfhaut und Haarpflege — einfach aufsetzen und entspannen.",
+     specs:["Kopfhaut","Tragbar","Timer"]},
+    {id:"belt", cat:"wearable", name:"Luxfox Flex Belt", img:"shop-img/belt.jpg", price:129,
+     desc:"Flexibler Rotlicht-Gürtel für Rücken, Bauch und Beine — mit wohliger Wärme zum Wohlfühlen.",
+     specs:["Flexibel","Wärme","Rücken/Bauch"]},
+    {id:"knee", cat:"wearable", name:"Luxfox Knee Wrap", img:"shop-img/knee.jpg", price:89,
+     desc:"Rotlicht-Manschette fürs Knie — einfach umschnallen und die angenehme Anwendung genießen.",
+     specs:["Knie","Klett","Tragbar"]},
+  ];
+
+  let cart = {};
+  const grid = document.getElementById('grid');
+
+  function render(cat="all"){
+    grid.innerHTML = products.filter(p=>cat==="all"||p.cat===cat).map(p=>`
+      <div class="card">
+        <div class="card-img"><span class="card-tag">${labelOf(p.cat)}</span><img src="${p.img}" alt="${p.name}" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-name">${p.name}</div>
+          <div class="card-desc">${p.desc}</div>
+          <div class="card-specs">${p.specs.map(s=>`<span class="chip">${s}</span>`).join('')}</div>
+          <div class="card-foot">
+            <div class="price">${p.price} €<small>inkl. MwSt</small></div>
+            <button class="add-btn" onclick="addToCart('${p.id}')">In den Warenkorb</button>
+          </div>
+        </div>
+      </div>`).join('');
+  }
+  function labelOf(c){return c==="panel"?"Panel":c==="maske"?"Maske":"Wearable"}
+
+  document.getElementById('filters').addEventListener('click',e=>{
+    if(!e.target.dataset.cat)return;
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    e.target.classList.add('active');
+    render(e.target.dataset.cat);
+  });
+
+  function addToCart(id){cart[id]=(cart[id]||0)+1;updateCart();openCart()}
+  function changeQty(id,d){cart[id]=(cart[id]||0)+d;if(cart[id]<=0)delete cart[id];updateCart()}
+  function removeItem(id){delete cart[id];updateCart()}
+
+  function updateCart(){
+    const ids=Object.keys(cart);
+    const count=ids.reduce((s,id)=>s+cart[id],0);
+    document.getElementById('cartCount').textContent=count;
+    const items=document.getElementById('cartItems');
+    let total=0;
+    if(!ids.length){items.innerHTML='<p class="cart-empty">Dein Warenkorb ist leer.</p>';}
+    else{
+      items.innerHTML=ids.map(id=>{
+        const p=products.find(x=>x.id===id);const sub=p.price*cart[id];total+=sub;
+        return `<div class="ci"><img src="${p.img}" alt=""><div class="ci-info"><div class="ci-name">${p.name}</div><div class="ci-price">${p.price} €</div><div class="ci-qty"><button onclick="changeQty('${id}',-1)">−</button><span>${cart[id]}</span><button onclick="changeQty('${id}',1)">+</button><button class="ci-rm" onclick="removeItem('${id}')">entfernen</button></div></div></div>`;
+      }).join('');
+    }
+    document.getElementById('cartTotal').textContent=total+' €';
+    buildCheckout(total);
+  }
+
+  function buildCheckout(total){
+    const ids=Object.keys(cart);
+    let msg="Hallo Luxfox, ich moechte folgende Produkte anfragen:%0A";
+    ids.forEach(id=>{const p=products.find(x=>x.id===id);msg+=`- ${cart[id]}x ${p.name} (${p.price} EUR)%0A`;});
+    msg+=`Summe: ${total} EUR`;
+    document.getElementById('checkout').href = ids.length? `https://wa.me/${WHATSAPP}?text=${msg}` : "#";
+  }
+
+  function openCart(){document.getElementById('cart').classList.add('open');document.getElementById('overlay').classList.add('open')}
+  function closeCart(){document.getElementById('cart').classList.remove('open');document.getElementById('overlay').classList.remove('open')}
+  document.getElementById('contactLink').href=`https://wa.me/${WHATSAPP}?text=Hallo`;
+
+  render();updateCart();
+</script>
+</body>
+</html>
