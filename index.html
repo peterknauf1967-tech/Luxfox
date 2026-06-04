@@ -37,10 +37,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .nav-cta:hover{background:var(--green-dim)}
 
 /* HEADER STRIP */
-.hstrip{padding:5.5rem 2rem 2rem;max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem}
-.hstrip-title{font-size:clamp(2.4rem,6vw,4.2rem);font-weight:800;letter-spacing:-.04em;line-height:1}
+.hstrip{padding:5.5rem 2rem 2rem;max-width:1200px;margin:0 auto}
+.hstrip-title{font-size:clamp(2.4rem,6vw,4.2rem);font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:.8rem}
 .hstrip-title .gold{background:linear-gradient(90deg,var(--gold),var(--gold-lt),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.hstrip-sub{font-size:.8rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;padding-bottom:.25rem}
+.hstrip-ventures{font-size:clamp(.95rem,2.5vw,1.35rem);color:var(--stone);font-weight:400;letter-spacing:.01em;margin-bottom:.7rem}
+.hstrip-ventures .sep{color:var(--green);margin:0 .5rem;opacity:.6}
+.hstrip-loc{display:inline-flex;align-items:center;gap:.4rem;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);border:1px solid rgba(31,199,106,.12);border-radius:30px;padding:.22rem .7rem}
 
 /* VENTURE GRID */
 .ventures{max-width:1200px;margin:0 auto;padding:0 2rem 5rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
@@ -211,14 +213,10 @@ body.lang-de span[data-lang="en"]{display:none}
 
 <!-- HEADER STRIP -->
 <div class="hstrip">
-  <div>
-    <h1 class="hstrip-title fade">
-      <span class="gold" data-lang="en">Luxfox</span><span class="gold" data-lang="de">Luxfox</span>
-      <span data-lang="en"> Limited</span><span data-lang="de"> Limited</span>
-    </h1>
-    <p class="hstrip-sub fade d1" data-lang="en">Hong Kong · Light · Health · Digital</p>
-    <p class="hstrip-sub fade d1" data-lang="de">Hongkong · Licht · Gesundheit · Digital</p>
-  </div>
+  <h1 class="hstrip-title fade"><span class="gold">Luxfox Limited</span></h1>
+  <p class="hstrip-ventures fade d1" data-lang="en">Near-Infrared Wellness<span class="sep">·</span>100blend Franchise<span class="sep">·</span>Apps &amp; Services</p>
+  <p class="hstrip-ventures fade d1" data-lang="de">Nahinfrarot Wellness<span class="sep">·</span>100blend Franchise<span class="sep">·</span>Apps &amp; Anwendungen</p>
+  <p class="hstrip-loc fade d2">📍 Hong Kong</p>
 </div>
 
 <!-- VENTURE CARDS -->
