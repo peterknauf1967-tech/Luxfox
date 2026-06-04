@@ -37,7 +37,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .nav-cta:hover{background:var(--green-dim)}
 
 /* HEADER STRIP */
-.hstrip{padding:5.5rem 2rem 2rem;max-width:1200px;margin:0 auto}
+.hstrip{padding:8rem 2rem 2rem;max-width:1200px;margin:0 auto}
 .hstrip-title{font-size:clamp(2.4rem,6vw,4.2rem);font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:.8rem}
 .hstrip-title .gold{background:linear-gradient(90deg,var(--gold),var(--gold-lt),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .hstrip-ventures{font-size:clamp(.95rem,2.5vw,1.35rem);color:var(--stone);font-weight:400;letter-spacing:.01em;margin-bottom:.7rem}
@@ -45,7 +45,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .hstrip-loc{display:inline-flex;align-items:center;gap:.4rem;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);border:1px solid rgba(31,199,106,.12);border-radius:30px;padding:.22rem .7rem}
 
 /* VENTURE GRID */
-.ventures{max-width:1200px;margin:0 auto;padding:0 2rem 5rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.ventures{max-width:1200px;margin:0 auto;padding:8rem 2rem 5rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.vc-top{padding:1.4rem 1.5rem .8rem}
+.vc-maintitle{font-size:1.35rem;font-weight:800;line-height:1.2;letter-spacing:-.01em;color:var(--text)}
 @media(max-width:960px){.ventures{grid-template-columns:1fr}}
 
 .vc{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--bg2);display:flex;flex-direction:column;transition:transform .3s,border-color .3s,box-shadow .3s;position:relative;cursor:pointer;text-decoration:none;color:inherit}
@@ -204,19 +206,16 @@ body.lang-de span[data-lang="en"]{display:none}
   </div>
 </nav>
 
-<!-- HEADER STRIP -->
-<div class="hstrip">
-  <h1 class="hstrip-title fade"><span class="gold">Luxfox Limited</span></h1>
-  <p class="hstrip-ventures fade d1" data-lang="en">Near-Infrared Wellness<span class="sep">·</span>100blend Franchise<span class="sep">·</span>Apps &amp; Services</p>
-  <p class="hstrip-ventures fade d1" data-lang="de">Nahinfrarot Wellness<span class="sep">·</span>100blend Franchise<span class="sep">·</span>Apps &amp; Anwendungen</p>
-  <p class="hstrip-loc fade d2">📍 Hong Kong</p>
-</div>
 
 <!-- VENTURE CARDS -->
 <div class="ventures">
 
   <!-- NIR -->
   <a class="vc fade" href="shop.html">
+    <div class="vc-top">
+      <h2 class="vc-maintitle" data-lang="en">Near-Infrared<br>Light Therapy</h2>
+      <h2 class="vc-maintitle" data-lang="de">Nahinfrarot<br>Lichttherapie</h2>
+    </div>
     <div class="vc-vis vis-nir">
       <svg class="nir-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
         <defs><radialGradient id="rg1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#C9A450" stop-opacity=".95"/><stop offset="100%" stop-color="#C9A450" stop-opacity="0"/></radialGradient></defs>
@@ -237,16 +236,17 @@ body.lang-de span[data-lang="en"]{display:none}
     <div class="vc-body">
       <p class="vc-tag" data-lang="en">Wellness · Amazon.de</p>
       <p class="vc-tag" data-lang="de">Wellness · Amazon.de</p>
-      <h2 class="vc-title" data-lang="en">NIR Light Therapy</h2>
-      <h2 class="vc-title" data-lang="de">NIR Lichttherapie</h2>
-      <p class="vc-desc" data-lang="en"><strong>Near-infrared &amp; red light panels</strong> for recovery and vitality. Clinically documented wavelengths (660 nm + 850 nm). Sold on Amazon.de.</p>
-      <p class="vc-desc" data-lang="de"><strong>Nah-Infrarot- &amp; Rotlicht-Panels</strong> für Regeneration und Vitalität. Klinisch dokumentierte Wellenlängen (660 nm + 850 nm). Auf Amazon.de.</p>
+      <p class="vc-desc" data-lang="en">I'm not a doctor — I'm someone who has experienced it firsthand. I had the chance to test various products and I'm genuinely enthusiastic about the results.</p>
+      <p class="vc-desc" data-lang="de">Ich bin kein Arzt — ich bin Betroffener. Ich durfte verschiedene Produkte testen und bin begeistert von dem was ich erlebe.</p>
       <span class="vbtn vbtn-gold"><span data-lang="en">Browse Products →</span><span data-lang="de">Produkte ansehen →</span></span>
     </div>
   </a>
 
   <!-- 100BLEND -->
   <a class="vc fade d1" href="https://100blend.com" target="_blank" rel="noopener">
+    <div class="vc-top">
+      <h2 class="vc-maintitle">100blend Franchise<br><span style="font-weight:400;font-size:1.1rem;color:var(--muted)">Premium Smoothie</span></h2>
+    </div>
     <div class="vc-vis vis-blend">
       <svg class="blend-svg" width="74" height="104" viewBox="0 0 74 104" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -267,16 +267,18 @@ body.lang-de span[data-lang="en"]{display:none}
     <div class="vc-body">
       <p class="vc-tag" data-lang="en">Franchise · Vietnam &amp; Southeast Asia</p>
       <p class="vc-tag" data-lang="de">Franchise · Vietnam &amp; Südostasien</p>
-      <h2 class="vc-title" data-lang="en">100blend — Premium Smoothie Franchise</h2>
-      <h2 class="vc-title" data-lang="de">100blend — Premium Smoothie Franchise</h2>
-      <p class="vc-desc" data-lang="en"><strong>100% fruit. No ice. No sugar.</strong> Flash-frozen ripe fruit, blended to order. Starting in Ho Chi Minh City — scalable to Thailand, Laos, Cambodia. From 122 million VND.</p>
-      <p class="vc-desc" data-lang="de"><strong>100 % Frucht. Kein Eis. Kein Zucker.</strong> Schockgefrorene reife Früchte, frisch gemixt. Start HCMC — skalierbar durch Südostasien. Ab 122 Mio. VND.</p>
+      <p class="vc-desc" data-lang="en">100% fruit. No ice. No sugar. Flash-frozen, blended to order. Starting Ho Chi Minh City — scalable across Southeast Asia. From 122 million VND.</p>
+      <p class="vc-desc" data-lang="de">100 % Frucht. Kein Eis. Kein Zucker. Schockgefroren, frisch gemixt. Start HCMC — skalierbar durch Südostasien. Ab 122 Mio. VND.</p>
       <span class="vbtn vbtn-green"><span data-lang="en">Visit 100blend.com →</span><span data-lang="de">100blend.com öffnen →</span></span>
     </div>
   </a>
 
   <!-- APP -->
   <a class="vc fade d2" href="#app-detail">
+    <div class="vc-top">
+      <h2 class="vc-maintitle" data-lang="en">Digital Service<br><span style="font-weight:400;font-size:1.1rem;color:var(--muted)">Apps &amp; Services</span></h2>
+      <h2 class="vc-maintitle" data-lang="de">Digital Service<br><span style="font-weight:400;font-size:1.1rem;color:var(--muted)">Apps &amp; Anwendungen</span></h2>
+    </div>
     <div class="vc-vis vis-app">
       <svg class="app-svg" width="56" height="98" viewBox="0 0 56 98" xmlns="http://www.w3.org/2000/svg">
         <rect x="3" y="3" width="50" height="92" rx="9" fill="rgba(31,199,106,.05)" stroke="#1FC76A" stroke-width="1.5"/>
@@ -294,12 +296,10 @@ body.lang-de span[data-lang="en"]{display:none}
       </svg>
     </div>
     <div class="vc-body">
-      <p class="vc-tag" data-lang="en">Digital · Expats &amp; Travelers Worldwide</p>
-      <p class="vc-tag" data-lang="de">Digital · Expats &amp; Reisende weltweit</p>
-      <h2 class="vc-title" data-lang="en">Expat App — Currency &amp; Expat Toolkit</h2>
-      <h2 class="vc-title" data-lang="de">Expat App — Währung &amp; Expat-Tools</h2>
-      <p class="vc-desc" data-lang="en"><strong>Currency converter + curated expat services.</strong> Free to use, sustained by honest affiliate partnerships. Coming to Google Play &amp; App Store.</p>
-      <p class="vc-desc" data-lang="de"><strong>Währungsrechner + kuratierte Expat-Services.</strong> Kostenlos, finanziert durch ehrliche Affiliate-Partnerschaften. Demnächst im Play Store &amp; App Store.</p>
+      <p class="vc-tag" data-lang="en">Digital · Worldwide</p>
+      <p class="vc-tag" data-lang="de">Digital · Weltweit</p>
+      <p class="vc-desc" data-lang="en">Currency converter at its core — plus Wise transfers, VPN, eSIM and health insurance. Free, funded by partner commissions.</p>
+      <p class="vc-desc" data-lang="de">Währungsrechner als Kern — plus Wise, VPN, eSIM und Krankenversicherung. Kostenlos, finanziert durch Partner-Provisionen.</p>
       <span class="vbtn vbtn-out"><span data-lang="en">Discover the App →</span><span data-lang="de">App entdecken →</span></span>
     </div>
   </a>
