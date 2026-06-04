@@ -6,246 +6,168 @@
 <title>Luxfox Limited — Light · Health · Digital</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-
 :root{
-  --bg:#050A07;
-  --bg2:#0C1610;
-  --bg3:#111E14;
-  --green:#1FC76A;
-  --green-dk:#0D5C30;
-  --green-dim:rgba(31,199,106,.1);
-  --green-glow:rgba(31,199,106,.18);
-  --gold:#C9A450;
-  --gold-lt:#E6C97A;
-  --gold-dk:#8B6F2A;
-  --text:#EEF0EC;
-  --muted:#7A9080;
-  --stone:#C0CEC4;
-  --border:rgba(31,199,106,.18);
-  --border-gold:rgba(201,164,80,.25);
+  --bg:#050A07;--bg2:#0C1610;--bg3:#111E14;
+  --green:#1FC76A;--green-dk:#0D5C30;--green-dim:rgba(31,199,106,.1);
+  --gold:#C9A450;--gold-lt:#E6C97A;
+  --text:#EEF0EC;--muted:#7A9080;--stone:#C0CEC4;
+  --border:rgba(31,199,106,.18);--border-gold:rgba(201,164,80,.25);
 }
-
 html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
-  line-height:1.65;
-  -webkit-font-smoothing:antialiased;
-  overflow-x:hidden;
-}
+/* BG */
+.bg-layer{position:fixed;inset:0;z-index:-1;
+  background:radial-gradient(ellipse 70% 60% at 85% 10%,rgba(31,199,106,.06) 0%,transparent 60%),
+  radial-gradient(ellipse 50% 50% at 10% 90%,rgba(201,164,80,.04) 0%,transparent 55%),var(--bg)}
+.bg-layer::after{content:'';position:absolute;inset:0;
+  background-image:linear-gradient(rgba(31,199,106,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(31,199,106,.025) 1px,transparent 1px);
+  background-size:64px 64px}
 
-/* ── BACKGROUND ── */
-.bg-layer{
-  position:fixed;inset:0;z-index:-1;
-  background:
-    radial-gradient(ellipse 70% 60% at 85% 15%,rgba(31,199,106,.07) 0%,transparent 60%),
-    radial-gradient(ellipse 50% 50% at 15% 85%,rgba(201,164,80,.05) 0%,transparent 55%),
-    var(--bg);
-}
-.bg-layer::after{
-  content:'';position:absolute;inset:0;
-  background-image:
-    linear-gradient(rgba(31,199,106,.03) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(31,199,106,.03) 1px,transparent 1px);
-  background-size:64px 64px;
-}
-
-/* ── NAV ── */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  display:flex;justify-content:space-between;align-items:center;
-  padding:.9rem 2rem;
-  background:rgba(5,10,7,.88);
-  backdrop-filter:blur(18px);
-  border-bottom:1px solid rgba(31,199,106,.08);
-}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:.85rem 2rem;background:rgba(5,10,7,.9);backdrop-filter:blur(18px);border-bottom:1px solid rgba(31,199,106,.07)}
 .nav-brand{display:flex;align-items:center;gap:.6rem;text-decoration:none}
-.nav-fox{width:30px;height:30px;flex-shrink:0}
-.nav-wordmark{font-size:.95rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--text)}
-.nav-right{display:flex;align-items:center;gap:1rem}
-.lang-toggle{display:flex;border:1px solid var(--border);border-radius:4px;overflow:hidden}
-.lang-btn{background:none;border:none;color:var(--muted);padding:.28rem .62rem;font-size:.7rem;font-weight:700;letter-spacing:.08em;cursor:pointer;transition:background .2s,color .2s;font-family:inherit}
-.lang-btn.active{background:var(--green);color:#000}
-.nav-cta{background:transparent;border:1px solid var(--border);color:var(--green);padding:.38rem 1rem;border-radius:4px;font-size:.75rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;text-decoration:none;transition:background .2s}
+.nav-fox{width:28px;height:28px;flex-shrink:0}
+.nav-word{font-size:.9rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--text)}
+.nav-r{display:flex;align-items:center;gap:.9rem}
+.lt{display:flex;border:1px solid var(--border);border-radius:4px;overflow:hidden}
+.lb{background:none;border:none;color:var(--muted);padding:.26rem .58rem;font-size:.68rem;font-weight:700;letter-spacing:.08em;cursor:pointer;transition:background .2s,color .2s;font-family:inherit}
+.lb.active{background:var(--green);color:#000}
+.nav-cta{background:transparent;border:1px solid var(--border);color:var(--green);padding:.34rem .9rem;border-radius:4px;font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;text-decoration:none;transition:background .2s}
 .nav-cta:hover{background:var(--green-dim)}
 
-/* ── HERO ── */
-#hero{
-  min-height:100vh;
-  display:flex;flex-direction:column;justify-content:center;
-  padding:8rem 2rem 4rem;
-  max-width:1200px;margin:0 auto;
-}
-.hero-eyebrow{
-  font-size:.7rem;letter-spacing:.32em;text-transform:uppercase;
-  color:var(--green);margin-bottom:1.6rem;
-  display:flex;align-items:center;gap:.8rem;
-}
-.hero-eyebrow::before{content:'';display:inline-block;width:32px;height:1px;background:var(--green)}
-.hero-h1{
-  font-size:clamp(3.2rem,9vw,7rem);font-weight:800;
-  line-height:1.0;letter-spacing:-.04em;margin-bottom:1.8rem;
-}
-.hero-h1 .line1{color:var(--text)}
-.hero-h1 .line2{
-  background:linear-gradient(90deg,var(--gold) 0%,var(--gold-lt) 50%,var(--gold) 100%);
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-}
-.hero-sub{
-  font-size:clamp(1rem,2.2vw,1.2rem);color:var(--muted);
-  max-width:580px;line-height:1.75;margin-bottom:3rem;
-}
-.hero-pills{display:flex;gap:.7rem;flex-wrap:wrap}
-.pill{
-  background:var(--bg2);border:1px solid var(--border);
-  border-radius:30px;padding:.35rem 1rem;
-  font-size:.75rem;color:var(--stone);letter-spacing:.04em;
-  display:flex;align-items:center;gap:.4rem;
-}
-.pill-dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0}
-.pill-dot.gold{background:var(--gold)}
+/* HEADER STRIP */
+.hstrip{padding:5.5rem 2rem 2rem;max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem}
+.hstrip-title{font-size:clamp(2.4rem,6vw,4.2rem);font-weight:800;letter-spacing:-.04em;line-height:1}
+.hstrip-title .gold{background:linear-gradient(90deg,var(--gold),var(--gold-lt),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hstrip-sub{font-size:.8rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;padding-bottom:.25rem}
 
-/* ── SECTION COMMONS ── */
-.wrap{max-width:1200px;margin:0 auto;padding:0 2rem}
-.sec{padding:6rem 0}
-.sec-label{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--green);margin-bottom:.8rem}
-.sec-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;letter-spacing:-.02em;margin-bottom:3rem}
-
-/* ── VENTURES GRID ── */
-.ventures{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+/* VENTURE GRID */
+.ventures{max-width:1200px;margin:0 auto;padding:0 2rem 5rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
 @media(max-width:960px){.ventures{grid-template-columns:1fr}}
 
-.vcard{
-  border:1px solid var(--border);border-radius:14px;overflow:hidden;
-  background:var(--bg2);
-  display:flex;flex-direction:column;
-  transition:transform .3s,border-color .3s,box-shadow .3s;
-  position:relative;
-}
-.vcard::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,transparent,var(--green),transparent);
-  opacity:0;transition:opacity .3s;
-}
-.vcard:hover{transform:translateY(-6px);border-color:rgba(31,199,106,.4);box-shadow:0 24px 64px rgba(31,199,106,.08)}
-.vcard:hover::before{opacity:1}
+.vc{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--bg2);display:flex;flex-direction:column;transition:transform .3s,border-color .3s,box-shadow .3s;position:relative;cursor:default}
+.vc::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--green),transparent);opacity:0;transition:opacity .3s}
+.vc:hover{transform:translateY(-5px);border-color:rgba(31,199,106,.38);box-shadow:0 20px 56px rgba(31,199,106,.07)}
+.vc:hover::after{opacity:1}
 
-.vcard-visual{height:190px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-.vcard-visual.nir{background:radial-gradient(circle at 50% 50%,rgba(201,164,80,.12) 0%,rgba(13,92,48,.06) 50%,transparent 70%),var(--bg)}
-.vcard-visual.blend{background:linear-gradient(150deg,#060F08 0%,#0C2A10 55%,#060F08 100%)}
-.vcard-visual.app-v{background:linear-gradient(150deg,#060A07 0%,#0B1A0F 55%,#060A07 100%)}
+.vc-vis{height:185px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.vc-vis::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(31,199,106,.045) 1px,transparent 1px);background-size:18px 18px}
+.vis-nir{background:radial-gradient(circle at 50% 50%,rgba(201,164,80,.12) 0%,rgba(13,92,48,.05) 50%,transparent 70%),var(--bg)}
+.vis-blend{background:linear-gradient(150deg,#060F08 0%,#0B2810 55%,#060F08 100%)}
+.vis-app{background:linear-gradient(150deg,#060A07 0%,#0A1A0F 55%,#060A07 100%)}
 
-/* Animated background dots for each card */
-.vcard-visual::before{
-  content:'';position:absolute;inset:0;
-  background-image:radial-gradient(circle,rgba(31,199,106,.06) 1px,transparent 1px);
-  background-size:18px 18px;
-}
+.vc-body{padding:1.6rem;flex:1;display:flex;flex-direction:column}
+.vc-tag{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--green);margin-bottom:.4rem}
+.vc-title{font-size:1.2rem;font-weight:700;letter-spacing:-.01em;margin-bottom:.6rem;line-height:1.2}
+.vc-desc{font-size:.85rem;color:var(--muted);line-height:1.7;flex:1;margin-bottom:1.3rem}
+.vc-desc strong{color:var(--stone);font-weight:600}
 
-.vcard-body{padding:1.8rem;flex:1;display:flex;flex-direction:column}
-.vcard-tag{font-size:.63rem;letter-spacing:.18em;text-transform:uppercase;color:var(--green);margin-bottom:.5rem}
-.vcard-title{font-size:1.25rem;font-weight:700;letter-spacing:-.01em;margin-bottom:.8rem;line-height:1.25}
-.vcard-desc{font-size:.88rem;color:var(--muted);line-height:1.75;flex:1;margin-bottom:1.5rem}
-
-.vbtn{
-  display:inline-flex;align-items:center;gap:.4rem;
-  padding:.55rem 1.2rem;border-radius:6px;
-  font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-  text-decoration:none;transition:all .2s;align-self:flex-start;
-  font-family:inherit;cursor:pointer;border:none;
-}
-.vbtn-green{background:var(--green);color:#000}
-.vbtn-green:hover{background:#25e07a;transform:translateX(2px)}
-.vbtn-gold{background:var(--gold);color:#000}
-.vbtn-gold:hover{background:var(--gold-lt);transform:translateX(2px)}
-.vbtn-outline{background:transparent;border:1px solid var(--border);color:var(--green)}
-.vbtn-outline:hover{background:var(--green-dim);border-color:var(--green);transform:translateX(2px)}
+.vbtn{display:inline-flex;align-items:center;gap:.35rem;padding:.48rem 1.1rem;border-radius:6px;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:all .2s;align-self:flex-start;font-family:inherit;cursor:pointer;border:none}
+.vbtn-gold{background:var(--gold);color:#000}.vbtn-gold:hover{background:var(--gold-lt);transform:translateX(2px)}
+.vbtn-green{background:var(--green);color:#000}.vbtn-green:hover{background:#25e07a;transform:translateX(2px)}
+.vbtn-out{background:transparent;border:1px solid var(--border);color:var(--green)}.vbtn-out:hover{background:var(--green-dim);border-color:var(--green);transform:translateX(2px)}
 
 /* NIR SVG */
-.nir-svg{width:90px;height:90px;filter:drop-shadow(0 0 20px rgba(201,164,80,.3))}
+.nir-svg{width:86px;height:86px;filter:drop-shadow(0 0 18px rgba(201,164,80,.28))}
+.blend-svg{filter:drop-shadow(0 0 12px rgba(31,199,106,.22))}
+.app-svg{filter:drop-shadow(0 0 12px rgba(31,199,106,.18))}
 
-/* Blend SVG */
-.blend-svg{filter:drop-shadow(0 0 12px rgba(31,199,106,.25))}
+/* DIVIDER */
+.div{width:48px;height:2px;background:var(--green);opacity:.35;margin:0 auto 4rem}
 
-/* App SVG */
-.app-svg{filter:drop-shadow(0 0 12px rgba(31,199,106,.2))}
-
-/* ── MISSION STRIP ── */
-#mission{
-  border-top:1px solid rgba(31,199,106,.08);
-  border-bottom:1px solid rgba(31,199,106,.08);
-  padding:3.5rem 2rem;
-  text-align:center;
-}
-.mission-text{
-  font-size:clamp(1.05rem,2.5vw,1.55rem);font-weight:300;
-  color:var(--stone);line-height:1.65;max-width:860px;margin:0 auto;
-}
-.mission-text strong{color:var(--text);font-weight:600}
-.mission-text em{color:var(--green);font-style:normal;font-weight:500}
-
-/* ── APP DEEP DIVE ── */
-#app-detail{padding:6rem 0}
-.app-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:4rem;align-items:start}
+/* APP SECTION */
+.app-sec{max-width:1200px;margin:0 auto;padding:0 2rem 5rem}
+.sec-label{font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:var(--green);margin-bottom:.6rem}
+.sec-title{font-size:clamp(1.7rem,4vw,2.6rem);font-weight:700;letter-spacing:-.02em;margin-bottom:2.5rem}
+.app-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:3.5rem;align-items:start}
 @media(max-width:800px){.app-grid{grid-template-columns:1fr}}
-.app-features{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.feat{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.1rem}
-.feat-icon{font-size:1.3rem;margin-bottom:.4rem}
-.feat-title{font-size:.82rem;font-weight:600;margin-bottom:.2rem;color:var(--text)}
-.feat-sub{font-size:.75rem;color:var(--muted)}
-.app-coming{
-  display:inline-flex;align-items:center;gap:.8rem;
-  background:var(--bg2);border:1px solid var(--border-gold);
-  border-radius:8px;padding:1rem 1.4rem;margin-top:2rem;
-}
-.app-coming-icon{font-size:1.6rem}
-.app-coming-label{font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:.15rem}
-.app-coming-text{font-size:.9rem;font-weight:600}
+.app-bullets{display:flex;flex-direction:column;gap:.6rem;margin-bottom:2rem}
+.ab{display:flex;align-items:flex-start;gap:.7rem;font-size:.88rem;color:var(--muted);line-height:1.55}
+.ab::before{content:'';display:block;width:6px;height:6px;border-radius:50%;background:var(--green);margin-top:.45rem;flex-shrink:0}
+.app-note{font-size:.82rem;color:var(--muted);padding:.8rem 1rem;border-left:2px solid var(--green);background:var(--bg2);border-radius:0 6px 6px 0;line-height:1.65;margin-bottom:1.5rem}
+.app-coming{display:inline-flex;align-items:center;gap:.8rem;background:var(--bg2);border:1px solid var(--border-gold);border-radius:8px;padding:.9rem 1.3rem}
+.app-feats{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+.af{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1rem}
+.af-icon{font-size:1.2rem;margin-bottom:.35rem}
+.af-t{font-size:.8rem;font-weight:600;color:var(--text);margin-bottom:.15rem}
+.af-s{font-size:.73rem;color:var(--muted)}
 
-/* ── CONTACT ── */
-#contact{padding:6rem 0}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
-@media(max-width:700px){.contact-grid{grid-template-columns:1fr;gap:2.5rem}}
-.contact-heading{font-size:clamp(2.2rem,6vw,3.8rem);font-weight:800;letter-spacing:-.03em;line-height:1.05;margin-bottom:1rem}
-.contact-heading .accent{color:var(--green)}
-.contact-sub{color:var(--muted);font-size:.95rem;max-width:340px;line-height:1.7}
-.clinks{display:flex;flex-direction:column;gap:.9rem}
-.clink{
-  display:flex;align-items:center;gap:1rem;
-  padding:1.1rem 1.4rem;background:var(--bg2);
-  border:1px solid var(--border);border-radius:8px;
-  text-decoration:none;color:var(--text);
-  transition:border-color .2s,transform .2s,box-shadow .2s;
-}
-.clink:hover{border-color:var(--green);transform:translateX(5px);box-shadow:0 8px 30px rgba(31,199,106,.06)}
-.clink-icon{font-size:1.3rem;width:36px;text-align:center;flex-shrink:0}
-.clink-label{font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.15rem}
-.clink-val{font-size:.92rem;font-weight:500}
+/* CONTACT */
+.contact-sec{max-width:1200px;margin:0 auto;padding:0 2rem 5rem}
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+@media(max-width:700px){.cg{grid-template-columns:1fr;gap:2rem}}
+.ch{font-size:clamp(2rem,5vw,3.4rem);font-weight:800;letter-spacing:-.03em;line-height:1.05;margin-bottom:.8rem}
+.ch .acc{color:var(--green)}
+.csub{color:var(--muted);font-size:.92rem;max-width:320px;line-height:1.7}
+.clinks{display:flex;flex-direction:column;gap:.8rem}
+.cl{display:flex;align-items:center;gap:.9rem;padding:1rem 1.3rem;background:var(--bg2);border:1px solid var(--border);border-radius:8px;text-decoration:none;color:var(--text);transition:border-color .2s,transform .2s}
+.cl:hover{border-color:var(--green);transform:translateX(4px)}
+.cl-i{font-size:1.2rem;width:32px;text-align:center;flex-shrink:0}
+.cl-l{font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.12rem}
+.cl-v{font-size:.9rem;font-weight:500}
 
-/* ── FOOTER ── */
-footer{
-  padding:1.8rem 2rem;
-  border-top:1px solid rgba(31,199,106,.07);
-  display:flex;justify-content:space-between;align-items:center;
-  flex-wrap:wrap;gap:1rem;
-  font-size:.78rem;color:var(--muted);
-}
+/* FOOTER */
+footer{padding:1.6rem 2rem;border-top:1px solid rgba(31,199,106,.07);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;font-size:.76rem;color:var(--muted)}
 footer a{color:var(--muted);text-decoration:none;transition:color .2s}
 footer a:hover{color:var(--green)}
-.footer-links{display:flex;gap:1.5rem}
+.flinks{display:flex;gap:1.4rem;align-items:center}
 
-/* ── MODAL ── */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:200;align-items:center;justify-content:center;padding:2rem}
-.modal-overlay.open{display:flex}
-.modal{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:2.5rem;max-width:460px;width:100%;position:relative}
-.modal h3{font-size:.85rem;font-weight:700;margin-bottom:1.2rem;color:var(--green);letter-spacing:.12em;text-transform:uppercase}
-.modal address{font-size:.88rem;color:var(--muted);line-height:1.85;font-style:normal}
-.modal a{color:var(--green)}
-.modal-close{position:absolute;top:1rem;right:1.2rem;background:none;border:none;color:var(--muted);font-size:1.4rem;cursor:pointer}
+/* LOCK BUTTON */
+.lock-btn{background:none;border:1px solid rgba(31,199,106,.12);color:rgba(31,199,106,.35);padding:.3rem .5rem;border-radius:4px;font-size:.75rem;cursor:pointer;transition:all .3s;font-family:inherit}
+.lock-btn:hover{color:var(--green);border-color:var(--border)}
 
-/* ── LANG ── */
+/* ADMIN OVERLAY */
+.adm-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:300;overflow-y:auto}
+.adm-overlay.open{display:block}
+.adm-inner{max-width:960px;margin:0 auto;padding:3rem 2rem 5rem}
+.adm-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2.5rem;padding-bottom:1.2rem;border-bottom:1px solid var(--border)}
+.adm-title{font-size:1.3rem;font-weight:700;color:var(--green);letter-spacing:.1em;text-transform:uppercase}
+.adm-close{background:none;border:1px solid var(--border);color:var(--muted);padding:.4rem .8rem;border-radius:4px;cursor:pointer;font-size:.78rem;transition:color .2s}
+.adm-close:hover{color:var(--text)}
+.adm-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+@media(max-width:700px){.adm-grid{grid-template-columns:1fr}}
+.adm-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.5rem}
+.adm-card-wide{grid-column:1/-1}
+.adm-card h3{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--green);margin-bottom:1.1rem;display:flex;align-items:center;gap:.5rem}
+.adm-row{display:flex;gap:.8rem;margin-bottom:.6rem;font-size:.82rem;line-height:1.5}
+.adm-key{color:var(--muted);min-width:100px;flex-shrink:0;font-size:.75rem}
+.adm-val{color:var(--text)}
+.adm-val a{color:var(--green);text-decoration:none}
+.adm-val a:hover{text-decoration:underline}
+.adm-sep{height:1px;background:rgba(31,199,106,.08);margin:.9rem 0}
+.badge{display:inline-block;padding:.15rem .5rem;border-radius:3px;font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.badge-ok{background:rgba(31,199,106,.15);color:var(--green)}
+.badge-wait{background:rgba(201,164,80,.15);color:var(--gold)}
+.badge-open{background:rgba(255,80,80,.1);color:#ff6b6b}
+.adm-todo{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.adm-todo li{display:flex;gap:.6rem;font-size:.8rem;color:var(--muted);line-height:1.4;align-items:flex-start}
+.adm-todo li::before{content:'→';color:var(--green);flex-shrink:0;font-weight:700}
+.adm-todo li.done{color:rgba(31,199,106,.5);text-decoration:line-through}
+.adm-todo li.done::before{content:'✓';color:rgba(31,199,106,.5)}
+
+/* PW MODAL */
+.pw-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:400;align-items:center;justify-content:center}
+.pw-modal.open{display:flex}
+.pw-box{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:2.5rem;width:320px;text-align:center}
+.pw-box h3{font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--green);margin-bottom:1.5rem}
+.pw-input{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:.7rem 1rem;color:var(--text);font-size:.95rem;font-family:inherit;outline:none;margin-bottom:.8rem;text-align:center;letter-spacing:.1em}
+.pw-input:focus{border-color:var(--green)}
+.pw-err{font-size:.78rem;color:#ff6b6b;margin-bottom:.8rem;min-height:1.2rem}
+.pw-btns{display:flex;gap:.7rem}
+.pw-go{flex:1;background:var(--green);color:#000;border:none;border-radius:6px;padding:.65rem;font-size:.8rem;font-weight:700;cursor:pointer;font-family:inherit}
+.pw-cancel{background:none;border:1px solid var(--border);color:var(--muted);border-radius:6px;padding:.65rem .9rem;font-size:.8rem;cursor:pointer;font-family:inherit}
+
+/* IMPRINT MODAL */
+.imp-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:200;align-items:center;justify-content:center;padding:2rem}
+.imp-overlay.open{display:flex}
+.imp-box{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:2.5rem;max-width:440px;width:100%;position:relative}
+.imp-box h3{font-size:.78rem;font-weight:700;margin-bottom:1.2rem;color:var(--green);letter-spacing:.12em;text-transform:uppercase}
+.imp-box address{font-size:.86rem;color:var(--muted);line-height:1.85;font-style:normal}
+.imp-box a{color:var(--green)}
+.imp-close{position:absolute;top:.9rem;right:1.1rem;background:none;border:none;color:var(--muted);font-size:1.4rem;cursor:pointer}
+
+/* LANG */
 [data-lang="de"]{display:none}
 body.lang-de [data-lang="de"]{display:block}
 body.lang-de [data-lang="en"]{display:none}
@@ -253,324 +175,206 @@ span[data-lang="de"]{display:none}
 body.lang-de span[data-lang="de"]{display:inline}
 body.lang-de span[data-lang="en"]{display:none}
 
-/* ── FADE ── */
-.fade{opacity:0;transform:translateY(22px);transition:opacity .75s,transform .75s}
+/* FADE */
+.fade{opacity:0;transform:translateY(18px);transition:opacity .72s,transform .72s}
 .fade.visible{opacity:1;transform:none}
-.fade-d1{transition-delay:.1s}.fade-d2{transition-delay:.2s}.fade-d3{transition-delay:.3s}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
 
-/* ── RESPONSIVE ── */
-@media(max-width:600px){
-  nav{padding:.75rem 1.1rem}
-  #hero{padding:5.5rem 1.2rem 3rem}
-  .wrap{padding:0 1.2rem}
-  .sec{padding:4rem 0}
-}
+/* RESPONSIVE */
+@media(max-width:600px){nav{padding:.7rem 1.1rem}.ventures,.app-sec,.contact-sec{padding-left:1.1rem;padding-right:1.1rem}.hstrip{padding:5rem 1.1rem 1.5rem}}
 </style>
 </head>
 <body>
-
 <div class="bg-layer"></div>
 
 <!-- NAV -->
 <nav>
-  <a href="#hero" class="nav-brand">
+  <a href="#" class="nav-brand">
     <svg class="nav-fox" viewBox="0 0 217.75 217.52" xmlns="http://www.w3.org/2000/svg">
-      <circle fill="rgba(31,199,106,0.12)" cx="108.76" cy="108.76" r="108.76"/>
-      <circle fill="none" stroke="rgba(31,199,106,0.3)" stroke-width="2" cx="108.76" cy="108.76" r="106"/>
+      <circle fill="rgba(31,199,106,0.1)" cx="108.76" cy="108.76" r="108.76"/>
+      <circle fill="none" stroke="rgba(31,199,106,0.25)" stroke-width="2" cx="108.76" cy="108.76" r="106"/>
       <g clip-path="url(#nc)">
-        <path fill="var(--green)" d="M149.71,82.57l10.11-19.54.6-32.36-29.15,12.61-10.04,10.3-12.45.11-12.48-.11-10.04-10.3-29.15-12.61.6,32.36,10.11,19.54-13.77,27.54,9.31,2.78,28.81,42.53v19.37l7.61,7.61,4.48,4.46h10.28l12.17-12.17v-18.98l29.39-43.37,7.39-2.22-13.77-27.54ZM134.05,47.32l8.1-3.49-4.09,3.23-11.81,17.67-1.4-7.97,9.2-9.44ZM83.48,47.32l9.2,9.44-1.4,7.97-11.81-17.67-4.09-3.23,8.1,3.49ZM70.66,115.07l12,3.6,11.25,11.36-.13,5.24,5.54,3.96,6.94,5.19v14.95h-9.27v-5.34l-26.35-38.91v-.05ZM95.52,105.59s-1.92-.02-5-.02-4.37-6.79-4.37-6.79h3.88c2.05,0,3.94,1.14,4.83,3,.9,1.92.67,3.81.67,3.81ZM121.88,171.78h-16.81l16.81-6.25v6.25ZM122.61,153.16l-.73,1.06v5.15h-10.32v-15.17l6.66-4.98,5.54-3.96-.13-5.24,11.25-11.36,13.92-4.16-26.18,38.66ZM122.54,100.87c.88-1.85,2.78-3,4.83-3h3.88s-1.23,6.79-4.35,6.79-5.02.02-5.02.02c0,0-.22-1.9.67-3.81ZM132.3,114.38l-9.09,9.18-1.1-15.02c1.57-.04,3.49-.06,5.71-.06,6.55,0,9.18-14.26,9.18-14.26h-11.94c-8.55,4.09-7.84,13.64-7.76,14.5l1.47,20.17h-.02l.11,3.94-1.59,1.14-3.51-4.24h-9.98l-3.51,4.24-1.59-1.14.11-3.94h-.02l1.4-20.17v-.02c.02-2.65-.54-10.11-7.8-13.6h-11.96s2.63,14.26,9.18,14.26c2.26,0,4.2.04,5.77.09l-1.03,14.11-9.09-9.18-24.31-7.24,11.4-22.8,21.35-11.05c.62-.32,1.1-.9,1.27-1.59.02-.06.02-.11.04-.17l2.31-13.12,11.08.11h.8l11.08-.11,2.33,13.12c0,.06,0,.11.02.17.17.69.65,1.27,1.27,1.59l21.35,11.05,11.4,22.8-24.31,7.24Z"/>
+        <path fill="var(--green)" d="M149.71,82.57l10.11-19.54.6-32.36-29.15,12.61-10.04,10.3-12.45.11-12.48-.11-10.04-10.3-29.15-12.61.6,32.36,10.11,19.54-13.77,27.54,9.31,2.78,28.81,42.53v19.37l7.61,7.61,4.48,4.46h10.28l12.17-12.17v-18.98l29.39-43.37,7.39-2.22-13.77-27.54ZM134.05,47.32l8.1-3.49-4.09,3.23-11.81,17.67-1.4-7.97,9.2-9.44ZM83.48,47.32l9.2,9.44-1.4,7.97-11.81-17.67-4.09-3.23,8.1,3.49ZM70.66,115.07l12,3.6,11.25,11.36-.13,5.24,5.54,3.96,6.94,5.19v14.95h-9.27v-5.34l-26.35-38.91v-.05ZM95.52,105.59s-1.92-.02-5-.02-4.37-6.79-4.37-6.79h3.88c2.05,0,3.94,1.14,4.83,3,.9,1.92.67,3.81.67,3.81ZM121.88,171.78h-16.81l16.81-6.25v6.25ZM122.61,153.16l-.73,1.06v5.15h-10.32v-15.17l6.66-4.98,5.54-3.96-.13-5.24,11.25-11.36,13.92-4.16-26.18,38.66ZM122.54,100.87c.88-1.85,2.78-3,4.83-3h3.88s-1.23,6.79-4.35,6.79-5.02.02-5.02.02c0,0-.22-1.9.67-3.81ZM132.3,114.38l-9.09,9.18-1.1-15.02c1.57-.04,3.49-.06,5.71-.06,6.55,0,9.18-14.26,9.18-14.26h-11.94c-8.55,4.09-7.84,13.64-7.76,14.5l1.47,20.17h-.02l.11,3.94-1.59,1.14-3.51-4.24h-9.98l-3.51,4.24-1.59-1.14.11-3.94h-.02l1.4-20.17v-.02c.02-2.65-.54-10.11-7.8-13.6h-11.96s2.63,14.26,9.18,14.26c2.26,0,4.2.04,5.77.09l-1.03,14.11-9.09-9.18-24.31-7.24,11.4-22.8,21.35-11.05c.62-.32,1.1-.9,1.27-1.59l2.31-13.12,11.08.11h.8l11.08-.11,2.33,13.12c.17.69.65,1.27,1.27,1.59l21.35,11.05,11.4,22.8-24.31,7.24Z"/>
       </g>
       <defs><clipPath id="nc"><rect x="0" y="0" width="217.75" height="160"/></clipPath></defs>
     </svg>
-    <span class="nav-wordmark">Luxfox</span>
+    <span class="nav-word">Luxfox</span>
   </a>
-  <div class="nav-right">
-    <div class="lang-toggle">
-      <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
-      <button class="lang-btn" id="btn-de" onclick="setLang('de')">DE</button>
+  <div class="nav-r">
+    <div class="lt">
+      <button class="lb active" id="btn-en" onclick="setLang('en')">EN</button>
+      <button class="lb" id="btn-de" onclick="setLang('de')">DE</button>
     </div>
-    <a href="#contact" class="nav-cta">
-      <span data-lang="en">Contact</span>
-      <span data-lang="de">Kontakt</span>
-    </a>
+    <a href="#contact" class="nav-cta"><span data-lang="en">Contact</span><span data-lang="de">Kontakt</span></a>
   </div>
 </nav>
 
-<!-- HERO -->
-<section id="hero">
-  <p class="hero-eyebrow fade">
-    <span data-lang="en">Luxfox Limited · Hong Kong · Est. 2026</span>
-    <span data-lang="de">Luxfox Limited · Hongkong · Gegründet 2026</span>
-  </p>
-  <h1 class="hero-h1 fade fade-d1">
-    <span class="line1" data-lang="en">Three ventures.</span>
-    <span class="line1" data-lang="de">Drei Projekte.</span>
-    <br>
-    <span class="line2" data-lang="en">One company.</span>
-    <span class="line2" data-lang="de">Eine Firma.</span>
-  </h1>
-  <p class="hero-sub fade fade-d2" data-lang="en">NIR wellness products, a premium smoothie franchise across Southeast Asia, and digital tools for expats worldwide — all built and operated by Luxfox Limited, Hong Kong.</p>
-  <p class="hero-sub fade fade-d2" data-lang="de">NIR-Wellness-Produkte, ein Premium-Smoothie-Franchise in Südostasien und digitale Tools für Expats weltweit — alles entwickelt und betrieben von Luxfox Limited, Hongkong.</p>
-  <div class="hero-pills fade fade-d3">
-    <div class="pill"><span class="pill-dot gold"></span>NIR Light Therapy</div>
-    <div class="pill"><span class="pill-dot"></span>100blend Franchise</div>
-    <div class="pill"><span class="pill-dot"></span>Expat App</div>
+<!-- HEADER STRIP -->
+<div class="hstrip">
+  <div>
+    <h1 class="hstrip-title fade">
+      <span class="gold" data-lang="en">Luxfox</span><span class="gold" data-lang="de">Luxfox</span>
+      <span data-lang="en"> Limited</span><span data-lang="de"> Limited</span>
+    </h1>
+    <p class="hstrip-sub fade d1" data-lang="en">Hong Kong · Light · Health · Digital</p>
+    <p class="hstrip-sub fade d1" data-lang="de">Hongkong · Licht · Gesundheit · Digital</p>
   </div>
-</section>
-
-<!-- VENTURES -->
-<section class="sec">
-  <div class="wrap">
-    <p class="sec-label fade" data-lang="en">What we build</p>
-    <p class="sec-label fade" data-lang="de">Was wir aufbauen</p>
-    <h2 class="sec-title fade" data-lang="en">Three ventures. Built to last.</h2>
-    <h2 class="sec-title fade" data-lang="de">Drei Projekte. Auf Dauer gebaut.</h2>
-
-    <div class="ventures">
-
-      <!-- NIR -->
-      <div class="vcard fade">
-        <div class="vcard-visual nir">
-          <svg class="nir-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <radialGradient id="g1" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#C9A450" stop-opacity=".9"/>
-                <stop offset="100%" stop-color="#C9A450" stop-opacity="0"/>
-              </radialGradient>
-            </defs>
-            <circle cx="50" cy="50" r="11" fill="url(#g1)">
-              <animate attributeName="r" values="11;13;11" dur="2.4s" repeatCount="indefinite"/>
-            </circle>
-            <circle cx="50" cy="50" r="20" fill="none" stroke="#C9A450" stroke-width="1.5" opacity=".55">
-              <animate attributeName="r" values="20;25;20" dur="2.4s" repeatCount="indefinite"/>
-              <animate attributeName="opacity" values=".55;.25;.55" dur="2.4s" repeatCount="indefinite"/>
-            </circle>
-            <circle cx="50" cy="50" r="33" fill="none" stroke="#C9A450" stroke-width="1" opacity=".3">
-              <animate attributeName="r" values="33;40;33" dur="2.4s" repeatCount="indefinite"/>
-              <animate attributeName="opacity" values=".3;.1;.3" dur="2.4s" repeatCount="indefinite"/>
-            </circle>
-            <circle cx="50" cy="50" r="46" fill="none" stroke="#C9A450" stroke-width=".6" opacity=".15">
-              <animate attributeName="r" values="46;55;46" dur="2.4s" repeatCount="indefinite"/>
-            </circle>
-            <line x1="50" y1="1" x2="50" y2="11" stroke="#C9A450" stroke-width="2" stroke-linecap="round" opacity=".5"/>
-            <line x1="50" y1="89" x2="50" y2="99" stroke="#C9A450" stroke-width="2" stroke-linecap="round" opacity=".5"/>
-            <line x1="1" y1="50" x2="11" y2="50" stroke="#C9A450" stroke-width="2" stroke-linecap="round" opacity=".5"/>
-            <line x1="89" y1="50" x2="99" y2="50" stroke="#C9A450" stroke-width="2" stroke-linecap="round" opacity=".5"/>
-            <line x1="15" y1="15" x2="22" y2="22" stroke="#C9A450" stroke-width="1.5" stroke-linecap="round" opacity=".38"/>
-            <line x1="78" y1="22" x2="85" y2="15" stroke="#C9A450" stroke-width="1.5" stroke-linecap="round" opacity=".38"/>
-            <line x1="15" y1="85" x2="22" y2="78" stroke="#C9A450" stroke-width="1.5" stroke-linecap="round" opacity=".38"/>
-            <line x1="78" y1="78" x2="85" y2="85" stroke="#C9A450" stroke-width="1.5" stroke-linecap="round" opacity=".38"/>
-          </svg>
-        </div>
-        <div class="vcard-body">
-          <p class="vcard-tag" data-lang="en">NIR Wellness · Amazon.de</p>
-          <p class="vcard-tag" data-lang="de">NIR Wellness · Amazon.de</p>
-          <h3 class="vcard-title" data-lang="en">Luxfox NIR<br>Light Therapy Panels</h3>
-          <h3 class="vcard-title" data-lang="de">Luxfox NIR<br>Lichttherapie-Panels</h3>
-          <p class="vcard-desc" data-lang="en">Professional near-infrared and red light panels for recovery, vitality and deep tissue wellness. OEM-manufactured in Shenzhen, sold on Amazon.de. Clinically documented wavelengths — no wellness theatre.</p>
-          <p class="vcard-desc" data-lang="de">Professionelle Nah-Infrarot- und Rotlicht-Panels für Regeneration, Vitalität und Tiefengewebe-Wellness. OEM-Produktion Shenzhen, Verkauf auf Amazon.de. Klinisch dokumentierte Wellenlängen — kein Wellness-Theater.</p>
-          <a href="shop.html" class="vbtn vbtn-gold">
-            <span data-lang="en">View Products →</span>
-            <span data-lang="de">Produkte ansehen →</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- 100BLEND -->
-      <div class="vcard fade fade-d1">
-        <div class="vcard-visual blend">
-          <svg class="blend-svg" width="75" height="105" viewBox="0 0 75 105" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#1FC76A" stop-opacity=".25"/>
-                <stop offset="100%" stop-color="#1FC76A" stop-opacity=".08"/>
-              </linearGradient>
-              <linearGradient id="g3" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#C9A450" stop-opacity=".9"/>
-                <stop offset="100%" stop-color="#C9A450" stop-opacity=".5"/>
-              </linearGradient>
-            </defs>
-            <!-- Glass -->
-            <path d="M12 20 L6 82 Q6 90 16 90 L59 90 Q69 90 69 82 L63 20 Z" fill="url(#g2)" stroke="#1FC76A" stroke-width="1.5"/>
-            <!-- Liquid fill with animation -->
-            <path d="M14 38 L8.5 82 Q8.5 88 16 88 L59 88 Q66.5 88 66.5 82 L61 38 Z" fill="rgba(31,199,106,0.18)">
-              <animate attributeName="opacity" values=".9;1;.9" dur="3s" repeatCount="indefinite"/>
-            </path>
-            <!-- Fruit chunks -->
-            <circle cx="26" cy="58" r="4.5" fill="rgba(201,164,80,.55)"/>
-            <circle cx="48" cy="52" r="3.5" fill="rgba(31,199,106,.5)"/>
-            <circle cx="35" cy="68" r="3" fill="rgba(201,164,80,.45)"/>
-            <circle cx="54" cy="65" r="2.5" fill="rgba(31,199,106,.4)"/>
-            <!-- Straw -->
-            <rect x="55" y="8" width="5" height="80" rx="2.5" fill="url(#g3)"/>
-            <!-- Lid -->
-            <ellipse cx="37.5" cy="20" rx="25.5" ry="5" fill="rgba(31,199,106,.12)" stroke="#1FC76A" stroke-width="1.5"/>
-            <!-- Lid tab -->
-            <rect x="33" y="15" width="9" height="3" rx="1.5" fill="rgba(31,199,106,.3)"/>
-          </svg>
-        </div>
-        <div class="vcard-body">
-          <p class="vcard-tag" data-lang="en">Premium Franchise · Vietnam &amp; Southeast Asia</p>
-          <p class="vcard-tag" data-lang="de">Premium Franchise · Vietnam &amp; Südostasien</p>
-          <h3 class="vcard-title" data-lang="en">100blend<br>Premium Smoothie Franchise</h3>
-          <h3 class="vcard-title" data-lang="de">100blend<br>Premium Smoothie Franchise</h3>
-          <p class="vcard-desc" data-lang="en">100% fruit. No ice. No sugar. Flash-frozen ripe fruit, blended to order. Starting in Ho Chi Minh City — scalable to Thailand, Laos, Cambodia and beyond. Three franchise tiers from 122 million VND.</p>
-          <p class="vcard-desc" data-lang="de">100 % Frucht. Kein Eis. Kein Zucker. Schockgefrorene reife Früchte, frisch gemixt. Start in Ho-Chi-Minh-Stadt — skalierbar nach Thailand, Laos, Kambodscha. Drei Franchise-Pakete ab 122 Mio. VND.</p>
-          <a href="https://100blend.com" target="_blank" rel="noopener" class="vbtn vbtn-green">
-            <span data-lang="en">Visit 100blend.com →</span>
-            <span data-lang="de">100blend.com besuchen →</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- EXPAT APP -->
-      <div class="vcard fade fade-d2">
-        <div class="vcard-visual app-v">
-          <svg class="app-svg" width="58" height="100" viewBox="0 0 58 100" xmlns="http://www.w3.org/2000/svg">
-            <rect x="3" y="3" width="52" height="94" rx="9" fill="rgba(31,199,106,.05)" stroke="#1FC76A" stroke-width="1.5"/>
-            <rect x="8" y="13" width="42" height="66" rx="4" fill="rgba(31,199,106,.04)"/>
-            <!-- Notch -->
-            <rect x="19" y="6" width="20" height="5" rx="2.5" fill="rgba(31,199,106,.18)"/>
-            <!-- Currency display -->
-            <text x="29" y="38" text-anchor="middle" fill="#C9A450" font-size="13" font-weight="700" opacity=".95">€ / ฿</text>
-            <line x1="12" y1="44" x2="46" y2="44" stroke="rgba(31,199,106,.15)" stroke-width="1"/>
-            <text x="29" y="56" text-anchor="middle" fill="#1FC76A" font-size="10" opacity=".75">$ · £ · ¥</text>
-            <text x="29" y="67" text-anchor="middle" fill="#1FC76A" font-size="8" opacity=".5">VND · HKD · THB</text>
-            <line x1="12" y1="73" x2="46" y2="73" stroke="rgba(31,199,106,.12)" stroke-width="1"/>
-            <!-- Bottom icons -->
-            <text x="18" y="83" text-anchor="middle" fill="#1FC76A" font-size="8" opacity=".5">💱</text>
-            <text x="29" y="83" text-anchor="middle" fill="#1FC76A" font-size="8" opacity=".5">🔒</text>
-            <text x="40" y="83" text-anchor="middle" fill="#1FC76A" font-size="8" opacity=".5">📶</text>
-            <!-- Home indicator -->
-            <rect x="21" y="90" width="16" height="3" rx="1.5" fill="rgba(31,199,106,.3)"/>
-          </svg>
-        </div>
-        <div class="vcard-body">
-          <p class="vcard-tag" data-lang="en">Digital · Expats &amp; Travelers Worldwide</p>
-          <p class="vcard-tag" data-lang="de">Digital · Expats &amp; Reisende weltweit</p>
-          <h3 class="vcard-title" data-lang="en">Expat App<br>Currency &amp; Expat Toolkit</h3>
-          <h3 class="vcard-title" data-lang="de">Expat App<br>Währung &amp; Expat-Tools</h3>
-          <p class="vcard-desc" data-lang="en">Currency converter at its core — plus honest recommendations for Wise, NordVPN, Airalo eSIM and expat health insurance. Free forever, funded by affiliate commissions. Coming to Google Play &amp; App Store.</p>
-          <p class="vcard-desc" data-lang="de">Währungsrechner als Kern — plus ehrliche Empfehlungen für Wise, NordVPN, Airalo eSIM und Expat-Krankenversicherung. Dauerhaft kostenlos, finanziert durch Affiliate-Provisionen. Demnächst im Play Store &amp; App Store.</p>
-          <a href="#app-detail" class="vbtn vbtn-outline">
-            <span data-lang="en">Discover the App →</span>
-            <span data-lang="de">App entdecken →</span>
-          </a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- MISSION STRIP -->
-<div id="mission">
-  <p class="mission-text fade" data-lang="en"><strong>Luxfox Limited</strong> builds <em>real products</em> for real people — wellness tools that work, franchise systems that scale across Asia, and digital apps that pay for themselves. Operated from <em>Hong Kong</em>, built for the world.</p>
-  <p class="mission-text fade" data-lang="de"><strong>Luxfox Limited</strong> baut <em>echte Produkte</em> für echte Menschen — Wellness-Tools die wirken, Franchise-Systeme die durch Asien skalieren und digitale Apps, die sich selbst finanzieren. Betrieben aus <em>Hongkong</em>, gebaut für die Welt.</p>
 </div>
 
+<!-- VENTURE CARDS -->
+<div class="ventures">
+
+  <!-- NIR -->
+  <div class="vc fade">
+    <div class="vc-vis vis-nir">
+      <svg class="nir-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <defs><radialGradient id="rg1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#C9A450" stop-opacity=".95"/><stop offset="100%" stop-color="#C9A450" stop-opacity="0"/></radialGradient></defs>
+        <circle cx="50" cy="50" r="11" fill="url(#rg1)"><animate attributeName="r" values="11;13;11" dur="2.5s" repeatCount="indefinite"/></circle>
+        <circle cx="50" cy="50" r="21" fill="none" stroke="#C9A450" stroke-width="1.5" opacity=".52"><animate attributeName="r" values="21;26;21" dur="2.5s" repeatCount="indefinite"/><animate attributeName="opacity" values=".52;.22;.52" dur="2.5s" repeatCount="indefinite"/></circle>
+        <circle cx="50" cy="50" r="34" fill="none" stroke="#C9A450" stroke-width="1" opacity=".28"><animate attributeName="r" values="34;41;34" dur="2.5s" repeatCount="indefinite"/><animate attributeName="opacity" values=".28;.08;.28" dur="2.5s" repeatCount="indefinite"/></circle>
+        <circle cx="50" cy="50" r="47" fill="none" stroke="#C9A450" stroke-width=".5" opacity=".12"><animate attributeName="r" values="47;56;47" dur="2.5s" repeatCount="indefinite"/></circle>
+        <line x1="50" y1="1" x2="50" y2="12" stroke="#C9A450" stroke-width="2" stroke-linecap="round" opacity=".45"/>
+        <line x1="50" y1="88" x2="50" y2="99" stroke="#C9A450" stroke-width="2" stroke-linecap="round" opacity=".45"/>
+        <line x1="1" y1="50" x2="12" y2="50" stroke="#C9A450" stroke-width="2" stroke-linecap="round" opacity=".45"/>
+        <line x1="88" y1="50" x2="99" y2="50" stroke="#C9A450" stroke-width="2" stroke-linecap="round" opacity=".45"/>
+        <line x1="15" y1="15" x2="22" y2="22" stroke="#C9A450" stroke-width="1.5" stroke-linecap="round" opacity=".34"/>
+        <line x1="78" y1="22" x2="85" y2="15" stroke="#C9A450" stroke-width="1.5" stroke-linecap="round" opacity=".34"/>
+        <line x1="15" y1="85" x2="22" y2="78" stroke="#C9A450" stroke-width="1.5" stroke-linecap="round" opacity=".34"/>
+        <line x1="78" y1="78" x2="85" y2="85" stroke="#C9A450" stroke-width="1.5" stroke-linecap="round" opacity=".34"/>
+      </svg>
+    </div>
+    <div class="vc-body">
+      <p class="vc-tag" data-lang="en">Wellness · Amazon.de</p>
+      <p class="vc-tag" data-lang="de">Wellness · Amazon.de</p>
+      <h2 class="vc-title" data-lang="en">NIR Light Therapy</h2>
+      <h2 class="vc-title" data-lang="de">NIR Lichttherapie</h2>
+      <p class="vc-desc" data-lang="en"><strong>Near-infrared &amp; red light panels</strong> for recovery and vitality. Clinically documented wavelengths (660 nm + 850 nm). Sold on Amazon.de.</p>
+      <p class="vc-desc" data-lang="de"><strong>Nah-Infrarot- &amp; Rotlicht-Panels</strong> für Regeneration und Vitalität. Klinisch dokumentierte Wellenlängen (660 nm + 850 nm). Auf Amazon.de.</p>
+      <a href="shop.html" class="vbtn vbtn-gold"><span data-lang="en">Browse Products →</span><span data-lang="de">Produkte ansehen →</span></a>
+    </div>
+  </div>
+
+  <!-- 100BLEND -->
+  <div class="vc fade d1">
+    <div class="vc-vis vis-blend">
+      <svg class="blend-svg" width="74" height="104" viewBox="0 0 74 104" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1FC76A" stop-opacity=".22"/><stop offset="100%" stop-color="#1FC76A" stop-opacity=".06"/></linearGradient>
+          <linearGradient id="straw" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#C9A450" stop-opacity=".9"/><stop offset="100%" stop-color="#C9A450" stop-opacity=".45"/></linearGradient>
+        </defs>
+        <path d="M11 19 L5 82 Q5 90 15 90 L59 90 Q69 90 69 82 L63 19 Z" fill="url(#bg2)" stroke="#1FC76A" stroke-width="1.5"/>
+        <path d="M13 37 L7.5 82 Q7.5 88 15 88 L59 88 Q66.5 88 66.5 82 L61 37 Z" fill="rgba(31,199,106,0.16)"><animate attributeName="opacity" values=".85;1;.85" dur="3.2s" repeatCount="indefinite"/></path>
+        <circle cx="25" cy="57" r="4.5" fill="rgba(201,164,80,.52)"/>
+        <circle cx="47" cy="51" r="3.5" fill="rgba(31,199,106,.48)"/>
+        <circle cx="34" cy="68" r="3" fill="rgba(201,164,80,.42)"/>
+        <circle cx="54" cy="64" r="2.5" fill="rgba(31,199,106,.38)"/>
+        <rect x="54" y="7" width="5" height="81" rx="2.5" fill="url(#straw)"/>
+        <ellipse cx="37" cy="19" rx="26" ry="5" fill="rgba(31,199,106,.1)" stroke="#1FC76A" stroke-width="1.5"/>
+        <rect x="32" y="14" width="10" height="4" rx="2" fill="rgba(31,199,106,.25)"/>
+      </svg>
+    </div>
+    <div class="vc-body">
+      <p class="vc-tag" data-lang="en">Franchise · Vietnam &amp; Southeast Asia</p>
+      <p class="vc-tag" data-lang="de">Franchise · Vietnam &amp; Südostasien</p>
+      <h2 class="vc-title" data-lang="en">100blend — Premium Smoothie Franchise</h2>
+      <h2 class="vc-title" data-lang="de">100blend — Premium Smoothie Franchise</h2>
+      <p class="vc-desc" data-lang="en"><strong>100% fruit. No ice. No sugar.</strong> Flash-frozen ripe fruit, blended to order. Starting in Ho Chi Minh City — scalable to Thailand, Laos, Cambodia. From 122 million VND.</p>
+      <p class="vc-desc" data-lang="de"><strong>100 % Frucht. Kein Eis. Kein Zucker.</strong> Schockgefrorene reife Früchte, frisch gemixt. Start HCMC — skalierbar durch Südostasien. Ab 122 Mio. VND.</p>
+      <a href="https://100blend.com" target="_blank" rel="noopener" class="vbtn vbtn-green"><span data-lang="en">Visit 100blend.com →</span><span data-lang="de">100blend.com öffnen →</span></a>
+    </div>
+  </div>
+
+  <!-- APP -->
+  <div class="vc fade d2">
+    <div class="vc-vis vis-app">
+      <svg class="app-svg" width="56" height="98" viewBox="0 0 56 98" xmlns="http://www.w3.org/2000/svg">
+        <rect x="3" y="3" width="50" height="92" rx="9" fill="rgba(31,199,106,.05)" stroke="#1FC76A" stroke-width="1.5"/>
+        <rect x="7.5" y="13" width="41" height="64" rx="3.5" fill="rgba(31,199,106,.04)"/>
+        <rect x="18" y="6" width="20" height="5" rx="2.5" fill="rgba(31,199,106,.18)"/>
+        <text x="28" y="37" text-anchor="middle" fill="#C9A450" font-size="13" font-weight="700" opacity=".95">€ / ฿</text>
+        <line x1="11" y1="43" x2="45" y2="43" stroke="rgba(31,199,106,.14)" stroke-width="1"/>
+        <text x="28" y="55" text-anchor="middle" fill="#1FC76A" font-size="9.5" opacity=".72">$ · £ · ¥ · ₫</text>
+        <text x="28" y="65" text-anchor="middle" fill="#1FC76A" font-size="7.5" opacity=".45">VND · HKD · THB</text>
+        <line x1="11" y1="71" x2="45" y2="71" stroke="rgba(31,199,106,.1)" stroke-width="1"/>
+        <text x="17" y="81" text-anchor="middle" fill="#1FC76A" font-size="8" opacity=".48">💱</text>
+        <text x="28" y="81" text-anchor="middle" fill="#1FC76A" font-size="8" opacity=".48">🔒</text>
+        <text x="39" y="81" text-anchor="middle" fill="#1FC76A" font-size="8" opacity=".48">📶</text>
+        <rect x="20" y="88" width="16" height="3" rx="1.5" fill="rgba(31,199,106,.28)"/>
+      </svg>
+    </div>
+    <div class="vc-body">
+      <p class="vc-tag" data-lang="en">Digital · Expats &amp; Travelers Worldwide</p>
+      <p class="vc-tag" data-lang="de">Digital · Expats &amp; Reisende weltweit</p>
+      <h2 class="vc-title" data-lang="en">Expat App — Currency &amp; Expat Toolkit</h2>
+      <h2 class="vc-title" data-lang="de">Expat App — Währung &amp; Expat-Tools</h2>
+      <p class="vc-desc" data-lang="en"><strong>Currency converter + curated expat services.</strong> Free to use, sustained by honest affiliate partnerships. Coming to Google Play &amp; App Store.</p>
+      <p class="vc-desc" data-lang="de"><strong>Währungsrechner + kuratierte Expat-Services.</strong> Kostenlos, finanziert durch ehrliche Affiliate-Partnerschaften. Demnächst im Play Store &amp; App Store.</p>
+      <a href="#app-detail" class="vbtn vbtn-out"><span data-lang="en">Discover the App →</span><span data-lang="de">App entdecken →</span></a>
+    </div>
+  </div>
+
+</div><!-- /ventures -->
+
+<div class="div"></div>
+
 <!-- APP DETAIL -->
-<section class="sec" id="app-detail">
-  <div class="wrap">
-    <p class="sec-label fade" data-lang="en">Digital Product · Passive Income</p>
-    <p class="sec-label fade" data-lang="de">Digitales Produkt · Passives Einkommen</p>
-    <h2 class="sec-title fade" data-lang="en">The Expat App.</h2>
-    <h2 class="sec-title fade" data-lang="de">Die Expat App.</h2>
-    <div class="app-grid">
-      <div class="fade">
-        <p style="color:var(--muted);font-size:1rem;line-height:1.8;margin-bottom:1.5rem" data-lang="en">Developed and operated by Luxfox Limited (Hong Kong). Built for the millions of expats and long-term travelers who live between currencies, borders and time zones. The currency converter is the entry door — the curated expat services are the value.</p>
-        <p style="color:var(--muted);font-size:1rem;line-height:1.8;margin-bottom:1.5rem" data-lang="de">Entwickelt und betrieben von Luxfox Limited (Hongkong). Gebaut für Millionen von Expats und Langzeitreisenden, die zwischen Währungen, Grenzen und Zeitzonen leben. Der Währungsrechner ist die Eingangstür — die kuratierten Expat-Dienste sind der Mehrwert.</p>
-        <p style="color:var(--muted);font-size:.85rem;line-height:1.75;margin-bottom:2rem;padding:.9rem 1.1rem;border-left:2px solid var(--green);background:var(--bg2);border-radius:0 6px 6px 0" data-lang="en">„The price is the same — the provider pays a small commission, which helps keep this app free for you."</p>
-        <p style="color:var(--muted);font-size:.85rem;line-height:1.75;margin-bottom:2rem;padding:.9rem 1.1rem;border-left:2px solid var(--green);background:var(--bg2);border-radius:0 6px 6px 0" data-lang="de">„Der Preis ist derselbe — der Anbieter zahlt eine kleine Provision, die hilft, diese App kostenlos für dich zu halten."</p>
-        <div class="app-coming">
-          <div class="app-coming-icon">📲</div>
-          <div>
-            <div class="app-coming-label" data-lang="en">Coming Soon</div>
-            <div class="app-coming-label" data-lang="de">Demnächst</div>
-            <div class="app-coming-text" data-lang="en">Google Play &amp; Apple App Store</div>
-            <div class="app-coming-text" data-lang="de">Google Play &amp; Apple App Store</div>
-          </div>
+<section class="app-sec" id="app-detail">
+  <p class="sec-label fade" data-lang="en">Digital Product</p>
+  <p class="sec-label fade" data-lang="de">Digitales Produkt</p>
+  <h2 class="sec-title fade" data-lang="en">The Expat App.</h2>
+  <h2 class="sec-title fade" data-lang="de">Die Expat App.</h2>
+  <div class="app-grid">
+    <div class="fade">
+      <div class="app-bullets">
+        <div class="ab" data-lang="en">Currency converter with real-time rates — works offline</div>
+        <div class="ab" data-lang="de">Währungsrechner mit Echtzeit-Kursen — funktioniert offline</div>
+        <div class="ab" data-lang="en">Curated partner services for expats: money transfers, VPN, eSIM, health insurance</div>
+        <div class="ab" data-lang="de">Kuratierte Partnerdienste für Expats: Geldtransfer, VPN, eSIM, Krankenversicherung</div>
+        <div class="ab" data-lang="en">Free forever — partner commissions cover costs. Same price for you.</div>
+        <div class="ab" data-lang="de">Dauerhaft kostenlos — Partnerprovisionen decken die Kosten. Gleicher Preis für dich.</div>
+        <div class="ab" data-lang="en">Developed &amp; operated by Luxfox Limited (Hong Kong)</div>
+        <div class="ab" data-lang="de">Entwickelt &amp; betrieben von Luxfox Limited (Hongkong)</div>
+      </div>
+      <div class="app-note" data-lang="en">„The price is the same — the partner pays a small commission, which helps keep this app free for you."</div>
+      <div class="app-note" data-lang="de">„Der Preis ist derselbe — der Partner zahlt eine kleine Provision, die hilft, diese App kostenlos für dich zu halten."</div>
+      <div class="app-coming">
+        <span style="font-size:1.5rem">📲</span>
+        <div>
+          <div style="font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:.12rem" data-lang="en">Coming Soon</div>
+          <div style="font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:.12rem" data-lang="de">Demnächst</div>
+          <div style="font-size:.88rem;font-weight:600" data-lang="en">Google Play &amp; Apple App Store</div>
+          <div style="font-size:.88rem;font-weight:600" data-lang="de">Google Play &amp; Apple App Store</div>
         </div>
       </div>
-      <div class="app-features fade fade-d1">
-        <div class="feat">
-          <div class="feat-icon">💱</div>
-          <div class="feat-title" data-lang="en">Currency Converter</div>
-          <div class="feat-title" data-lang="de">Währungsrechner</div>
-          <div class="feat-sub" data-lang="en">Real-time rates, offline mode</div>
-          <div class="feat-sub" data-lang="de">Echtzeit-Kurse, Offline-Modus</div>
-        </div>
-        <div class="feat">
-          <div class="feat-icon">🏦</div>
-          <div class="feat-title">Wise</div>
-          <div class="feat-sub" data-lang="en">Best transfer rates worldwide</div>
-          <div class="feat-sub" data-lang="de">Beste Transferkurse weltweit</div>
-        </div>
-        <div class="feat">
-          <div class="feat-icon">🔒</div>
-          <div class="feat-title">VPN</div>
-          <div class="feat-sub" data-lang="en">NordVPN — recurring commissions</div>
-          <div class="feat-sub" data-lang="de">NordVPN — laufende Provisionen</div>
-        </div>
-        <div class="feat">
-          <div class="feat-icon">📶</div>
-          <div class="feat-title">eSIM</div>
-          <div class="feat-sub" data-lang="en">Airalo &amp; eSIMo — 200+ countries</div>
-          <div class="feat-sub" data-lang="de">Airalo &amp; eSIMo — 200+ Länder</div>
-        </div>
-        <div class="feat">
-          <div class="feat-icon">🏥</div>
-          <div class="feat-title" data-lang="en">Health Insurance</div>
-          <div class="feat-title" data-lang="de">Krankenversicherung</div>
-          <div class="feat-sub" data-lang="en">Pacific Prime — up to $500/policy</div>
-          <div class="feat-sub" data-lang="de">Pacific Prime — bis $500/Police</div>
-        </div>
-        <div class="feat">
-          <div class="feat-icon">💳</div>
-          <div class="feat-title">Revolut</div>
-          <div class="feat-sub" data-lang="en">Multi-currency banking</div>
-          <div class="feat-sub" data-lang="de">Multiwährungs-Banking</div>
-        </div>
-      </div>
+    </div>
+    <div class="app-feats fade d1">
+      <div class="af"><div class="af-icon">💱</div><div class="af-t" data-lang="en">Currency Converter</div><div class="af-t" data-lang="de">Währungsrechner</div><div class="af-s" data-lang="en">Real-time · Offline mode</div><div class="af-s" data-lang="de">Echtzeit · Offline-Modus</div></div>
+      <div class="af"><div class="af-icon">🏦</div><div class="af-t" data-lang="en">Money Transfers</div><div class="af-t" data-lang="de">Geldtransfer</div><div class="af-s" data-lang="en">Best rates worldwide</div><div class="af-s" data-lang="de">Beste Kurse weltweit</div></div>
+      <div class="af"><div class="af-icon">🔒</div><div class="af-t">VPN</div><div class="af-s" data-lang="en">Privacy &amp; security abroad</div><div class="af-s" data-lang="de">Privatsphäre &amp; Sicherheit</div></div>
+      <div class="af"><div class="af-icon">📶</div><div class="af-t">eSIM</div><div class="af-s" data-lang="en">200+ countries, instant</div><div class="af-s" data-lang="de">200+ Länder, sofort</div></div>
+      <div class="af"><div class="af-icon">🏥</div><div class="af-t" data-lang="en">Health Insurance</div><div class="af-t" data-lang="de">Krankenversicherung</div><div class="af-s" data-lang="en">Expat plans worldwide</div><div class="af-s" data-lang="de">Expat-Tarife weltweit</div></div>
+      <div class="af"><div class="af-icon">💳</div><div class="af-t" data-lang="en">Multi-Currency Banking</div><div class="af-t" data-lang="de">Multiwährungs-Banking</div><div class="af-s" data-lang="en">International accounts</div><div class="af-s" data-lang="de">Internationale Konten</div></div>
     </div>
   </div>
 </section>
 
+<div class="div"></div>
+
 <!-- CONTACT -->
-<section id="contact" class="sec">
-  <div class="wrap">
-    <div class="contact-grid">
-      <div>
-        <p class="sec-label fade" data-lang="en">Get in touch</p>
-        <p class="sec-label fade" data-lang="de">Kontakt aufnehmen</p>
-        <h2 class="contact-heading fade" data-lang="en">Let's build<br><span class="accent">something.</span></h2>
-        <h2 class="contact-heading fade" data-lang="de">Lass uns<br><span class="accent">aufbauen.</span></h2>
-        <p class="contact-sub fade" data-lang="en">Interested in a 100blend franchise? A partnership? Questions about our products or the app? Reach out directly — no sales funnel, no chatbot.</p>
-        <p class="contact-sub fade" data-lang="de">Interesse an einem 100blend-Franchise? Partnerschaft? Fragen zu Produkten oder der App? Direkt melden — kein Sales-Funnel, kein Chatbot.</p>
-      </div>
-      <div class="clinks fade fade-d1">
-        <a href="mailto:peter@luxfox.net" class="clink">
-          <span class="clink-icon">✉</span>
-          <div>
-            <div class="clink-label">E-Mail · Luxfox Limited</div>
-            <div class="clink-val">peter@luxfox.net</div>
-          </div>
-        </a>
-        <a href="https://wa.me/66962961811" target="_blank" rel="noopener" class="clink">
-          <span class="clink-icon">💬</span>
-          <div>
-            <div class="clink-label">WhatsApp · Thailand</div>
-            <div class="clink-val">+66 96 296 1811</div>
-          </div>
-        </a>
-        <div class="clink" style="cursor:default">
-          <span class="clink-icon">🏢</span>
-          <div>
-            <div class="clink-label">Registered Office</div>
-            <div class="clink-val" style="font-size:.82rem;color:var(--muted)">Unit 1603, 16/F, The L. Plaza<br>Sheung Wan, Hong Kong</div>
-          </div>
-        </div>
-      </div>
+<section class="contact-sec" id="contact">
+  <div class="cg">
+    <div>
+      <p class="sec-label fade" data-lang="en">Get in touch</p>
+      <p class="sec-label fade" data-lang="de">Kontakt</p>
+      <h2 class="ch fade" data-lang="en">Let's build<br><span class="acc">something.</span></h2>
+      <h2 class="ch fade" data-lang="de">Lass uns<br><span class="acc">aufbauen.</span></h2>
+      <p class="csub fade" data-lang="en">Franchise inquiries, partnerships, product questions — direct contact only. No chatbot, no form.</p>
+      <p class="csub fade" data-lang="de">Franchise-Anfragen, Partnerschaften, Produktfragen — nur direkter Kontakt. Kein Chatbot, kein Formular.</p>
+    </div>
+    <div class="clinks fade d1">
+      <a href="mailto:peter@luxfox.net" class="cl"><span class="cl-i">✉</span><div><div class="cl-l">E-Mail</div><div class="cl-v">peter@luxfox.net</div></div></a>
+      <a href="https://wa.me/66962961811" target="_blank" rel="noopener" class="cl"><span class="cl-i">💬</span><div><div class="cl-l">WhatsApp · Thailand</div><div class="cl-v">+66 96 296 1811</div></div></a>
+      <div class="cl" style="cursor:default"><span class="cl-i">🏢</span><div><div class="cl-l">Luxfox Limited</div><div class="cl-v" style="font-size:.8rem;color:var(--muted)">Unit 1603, 16/F, The L. Plaza<br>Sheung Wan, Hong Kong</div></div></div>
     </div>
   </div>
 </section>
@@ -578,45 +382,165 @@ body.lang-de span[data-lang="en"]{display:none}
 <!-- FOOTER -->
 <footer>
   <span>© 2026 Luxfox Limited (Hong Kong)</span>
-  <div class="footer-links">
-    <a onclick="document.getElementById('imp').classList.add('open')" style="cursor:pointer">
-      <span data-lang="en">Imprint</span><span data-lang="de">Impressum</span>
-    </a>
+  <div class="flinks">
+    <button class="lock-btn" onclick="openPw()" title="Admin">🔒</button>
+    <a onclick="document.getElementById('imp').classList.add('open')" style="cursor:pointer"><span data-lang="en">Imprint</span><span data-lang="de">Impressum</span></a>
     <a href="mailto:peter@luxfox.net">peter@luxfox.net</a>
   </div>
 </footer>
 
+<!-- PW MODAL -->
+<div class="pw-modal" id="pw-modal" onclick="if(event.target===this)closePw()">
+  <div class="pw-box">
+    <h3 data-lang="en">🔒 Admin Access</h3>
+    <h3 data-lang="de">🔒 Admin-Zugang</h3>
+    <input class="pw-input" type="password" id="pw-input" placeholder="Password" onkeydown="if(event.key==='Enter')checkPw()">
+    <div class="pw-err" id="pw-err"></div>
+    <div class="pw-btns">
+      <button class="pw-cancel" onclick="closePw()"><span data-lang="en">Cancel</span><span data-lang="de">Abbrechen</span></button>
+      <button class="pw-go" onclick="checkPw()"><span data-lang="en">Enter</span><span data-lang="de">Öffnen</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div class="adm-overlay" id="adm">
+  <div class="adm-inner">
+    <div class="adm-header">
+      <div class="adm-title">🦊 Luxfox Admin · <span id="adm-date"></span></div>
+      <button class="adm-close" onclick="closeAdm()">✕ Close</button>
+    </div>
+    <div class="adm-grid">
+
+      <!-- NIR -->
+      <div class="adm-card">
+        <h3>☀ NIR Lamps</h3>
+        <div class="adm-row"><span class="adm-key">Status</span><span class="adm-val"><span class="badge badge-wait">Awaiting replies</span></span></div>
+        <div class="adm-sep"></div>
+        <div class="adm-row"><span class="adm-key">Cavlon</span><span class="adm-val"><a href="mailto:Linda@szcavlon.com">Linda@szcavlon.com</a> — Favorit</span></div>
+        <div class="adm-row"><span class="adm-key">ShineNova</span><span class="adm-val"><a href="mailto:info@lighttherapyhome.com">info@lighttherapyhome.com</a></span></div>
+        <div class="adm-row"><span class="adm-key">IDEATHERAPY</span><span class="adm-val"><a href="mailto:sales1@ideatherapy.com">sales1@ideatherapy.com</a></span></div>
+        <div class="adm-sep"></div>
+        <ul class="adm-todo">
+          <li>Antworten vergleichen: EN 62471 + TÜV/SGS/Intertek Berichte prüfen</li>
+          <li>Muster bestellen (1–2 Stück, 660nm+850nm)</li>
+          <li>OEM-Anfrage: Luxfox-Logo, DE-Anleitung, Verpackungsdesign</li>
+          <li>CE (LVD+EMV+RoHS+EN62471) + WEEE + LUCID einleiten</li>
+          <li>Amazon Seller Central für Luxfox Limited einrichten</li>
+        </ul>
+      </div>
+
+      <!-- 100BLEND -->
+      <div class="adm-card">
+        <h3>🥤 100blend</h3>
+        <div class="adm-row"><span class="adm-key">Website</span><span class="adm-val"><a href="https://100blend.com" target="_blank">100blend.com</a> <span class="badge badge-ok">Live</span></span></div>
+        <div class="adm-row"><span class="adm-key">GitHub</span><span class="adm-val"><a href="https://github.com/peterknauf1967-tech/100blend" target="_blank">peterknauf1967-tech/100blend</a></span></div>
+        <div class="adm-sep"></div>
+        <div class="adm-row"><span class="adm-key">Nafoods</span><span class="adm-val"><a href="mailto:sales@nafoods.com">sales@nafoods.com</a> <span class="badge badge-wait">Sent</span></span></div>
+        <div class="adm-row"><span class="adm-key">Lavifood</span><span class="adm-val"><a href="mailto:info@lavifood.com">info@lavifood.com</a> <span class="badge badge-wait">Sent</span></span></div>
+        <div class="adm-row"><span class="adm-key">Antesco</span><span class="adm-val"><a href="mailto:antesco@antesco.com">antesco@antesco.com</a> <span class="badge badge-wait">Sent</span></span></div>
+        <div class="adm-sep"></div>
+        <ul class="adm-todo">
+          <li>IQF-Antworten abwarten → Fruchtpreise in Kalkulation einsetzen</li>
+          <li>Master-Franchisenehmer Vietnam suchen → HCMC</li>
+          <li>Franchisevertrag mit VN-Anwalt finalisieren (MoIT)</li>
+          <li>Markenschutz Vietnam beantragen</li>
+          <li class="done">3 Pakete kalkuliert (Starter/Standard/Premium)</li>
+          <li class="done">Rezeptur-% + Milchsorten finalisiert</li>
+        </ul>
+      </div>
+
+      <!-- APP -->
+      <div class="adm-card">
+        <h3>📱 Expat App</h3>
+        <div class="adm-row"><span class="adm-key">App Status</span><span class="adm-val"><span class="badge badge-ok">Läuft auf Smartphone</span></span></div>
+        <div class="adm-row"><span class="adm-key">App Store</span><span class="adm-val"><span class="badge badge-open">Noch nicht veröffentlicht</span></span></div>
+        <div class="adm-sep"></div>
+        <div class="adm-row"><span class="adm-key">Wise Affiliate</span><span class="adm-val"><span class="badge badge-ok">Genehmigt</span> — ~$50/Neukunde</span></div>
+        <div class="adm-row"><span class="adm-key">Partnerize</span><span class="adm-val"><a href="https://console.partnerize.com" target="_blank">console.partnerize.com</a></span></div>
+        <div class="adm-row"><span class="adm-key">Wise Support</span><span class="adm-val"><a href="mailto:partnerwise@wise.com">partnerwise@wise.com</a></span></div>
+        <div class="adm-sep"></div>
+        <div class="adm-row"><span class="adm-key">NordVPN</span><span class="adm-val">100% Provision 1-Monat, 40% Jahres</span></div>
+        <div class="adm-row"><span class="adm-key">Airalo eSIM</span><span class="adm-val">200+ Länder, % Provision</span></div>
+        <div class="adm-row"><span class="adm-key">eSIMo</span><span class="adm-val">Neu 2026, Impact.com — wenig Konkurrenz</span></div>
+        <div class="adm-row"><span class="adm-key">Revolut</span><span class="adm-val">$10–50/Signup — Impact.com</span></div>
+        <div class="adm-row"><span class="adm-key">Pacific Prime</span><span class="adm-val"><a href="mailto:Thomas.ebbs@pacificprime.com">Thomas.ebbs@pacificprime.com</a></span></div>
+        <div class="adm-sep"></div>
+        <ul class="adm-todo">
+          <li>Tracking-Link bei Partnerize holen (EUR-Kampagne)</li>
+          <li>Wise-Affiliate-Link in App einbauen</li>
+          <li>Google Play Store: App veröffentlichen</li>
+          <li>Apple App Store: App veröffentlichen</li>
+          <li>NordVPN, Airalo, Revolut Affiliate-Programme beantragen</li>
+        </ul>
+      </div>
+
+      <!-- LUXFOX LIMITED -->
+      <div class="adm-card">
+        <h3>🏢 Luxfox Limited HK</h3>
+        <div class="adm-row"><span class="adm-key">Gründung</span><span class="adm-val"><span class="badge badge-wait">Läuft bei Osome</span></span></div>
+        <div class="adm-row"><span class="adm-key">Osome App</span><span class="adm-val"><a href="https://my.osome.com" target="_blank">my.osome.com</a></span></div>
+        <div class="adm-row"><span class="adm-key">Aby Gunawan</span><span class="adm-val"><a href="mailto:aby.gunawan@osome.com">aby.gunawan@osome.com</a></span></div>
+        <div class="adm-row"><span class="adm-key">Joshua Ven</span><span class="adm-val"><a href="mailto:joshua.bongbonga@osome.com">joshua.bongbonga@osome.com</a></span></div>
+        <div class="adm-row"><span class="adm-key">Bank (Favorit)</span><span class="adm-val">WorldFirst — nach Gründung</span></div>
+        <div class="adm-row"><span class="adm-key">Backup Bank</span><span class="adm-val">Aspire (Osome)</span></div>
+        <div class="adm-sep"></div>
+        <ul class="adm-todo">
+          <li>Certificate of Incorporation empfangen &amp; speichern</li>
+          <li>WorldFirst Konto beantragen (worldfirst.com)</li>
+          <li>Stammkapital HKD 10.000 einzahlen</li>
+          <li>Director's Loan Agreement (~EUR 20.000) anfordern</li>
+          <li>§138 AO Meldung beim BZSt (bis 31.12.2026)</li>
+          <li>EORI-Nummer beantragen (zoll.de)</li>
+          <li>USt / OSS-Registrierung EU (via Hellotax)</li>
+          <li class="done">peter@luxfox.net eingerichtet ✓</li>
+          <li class="done">luxfox.net live (GitHub Pages) ✓</li>
+          <li class="done">100blend.com live (GitHub Pages) ✓</li>
+        </ul>
+      </div>
+
+    </div><!-- /adm-grid -->
+  </div>
+</div>
+
 <!-- IMPRINT -->
-<div class="modal-overlay" id="imp" onclick="if(event.target===this)this.classList.remove('open')">
-  <div class="modal">
-    <button class="modal-close" onclick="document.getElementById('imp').classList.remove('open')">×</button>
-    <h3 data-lang="en">Imprint</h3>
-    <h3 data-lang="de">Impressum</h3>
-    <address>
-      Luxfox Limited<br>
-      Unit 1603, 16/F, The L. Plaza<br>
-      367–375 Queen's Road Central<br>
-      Sheung Wan, Hong Kong<br><br>
-      Director: Peter Knauf<br>
-      <a href="mailto:peter@luxfox.net">peter@luxfox.net</a>
-    </address>
+<div class="imp-overlay" id="imp" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="imp-box">
+    <button class="imp-close" onclick="document.getElementById('imp').classList.remove('open')">×</button>
+    <h3 data-lang="en">Imprint</h3><h3 data-lang="de">Impressum</h3>
+    <address>Luxfox Limited<br>Unit 1603, 16/F, The L. Plaza<br>367–375 Queen's Road Central<br>Sheung Wan, Hong Kong<br><br>Director: Peter Knauf<br><a href="mailto:peter@luxfox.net">peter@luxfox.net</a></address>
   </div>
 </div>
 
 <script>
+// Lang
 function setLang(l){
   document.body.classList.toggle('lang-de',l==='de');
   document.getElementById('btn-en').classList.toggle('active',l==='en');
   document.getElementById('btn-de').classList.toggle('active',l==='de');
   localStorage.setItem('lf-lang',l);
 }
-const s=localStorage.getItem('lf-lang');
-if(s==='de')setLang('de');
+const ls=localStorage.getItem('lf-lang');
+if(ls==='de')setLang('de');
 
-const obs=new IntersectionObserver(e=>{
-  e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')});
-},{threshold:.1});
+// Scroll fade
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')})},{threshold:.1});
 document.querySelectorAll('.fade').forEach(el=>obs.observe(el));
+
+// PW (obfuscated — personal use only)
+const _k=atob('THV4Zm94MjAyNiE='); // Luxfox2026!
+function openPw(){document.getElementById('pw-modal').classList.add('open');setTimeout(()=>document.getElementById('pw-input').focus(),150)}
+function closePw(){document.getElementById('pw-modal').classList.remove('open');document.getElementById('pw-input').value='';document.getElementById('pw-err').textContent=''}
+function checkPw(){
+  const v=document.getElementById('pw-input').value;
+  if(v===_k){closePw();openAdm()}
+  else{document.getElementById('pw-err').textContent='Wrong password';document.getElementById('pw-input').value='';document.getElementById('pw-input').focus()}
+}
+function openAdm(){
+  document.getElementById('adm-date').textContent=new Date().toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit',year:'numeric'});
+  document.getElementById('adm').classList.add('open');
+}
+function closeAdm(){document.getElementById('adm').classList.remove('open')}
 </script>
 </body>
 </html>
