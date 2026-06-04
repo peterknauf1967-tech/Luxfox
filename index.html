@@ -1,624 +1,595 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Luxfox — Science meets Nature</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luxfox Limited — Light · Health · Digital</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
-    :root {
-      --bg: #0d0d0d;
-      --bg2: #141414;
-      --bg3: #1a1a1a;
-      --orange: #E8791E;
-      --orange-dim: rgba(232,121,30,0.15);
-      --orange-glow: rgba(232,121,30,0.35);
-      --text: #e8e8e8;
-      --muted: #888;
-      --border: rgba(232,121,30,0.4);
-    }
+:root{
+  --bg:#050A07;
+  --bg2:#0C1610;
+  --bg3:#111E14;
+  --green:#1FC76A;
+  --green-dk:#0D5C30;
+  --green-dim:rgba(31,199,106,.1);
+  --green-glow:rgba(31,199,106,.18);
+  --gold:#C9A450;
+  --gold-lt:#E6C97A;
+  --gold-dk:#8B6F2A;
+  --text:#EEF0EC;
+  --muted:#7A9080;
+  --stone:#C0CEC4;
+  --border:rgba(31,199,106,.18);
+  --border-gold:rgba(201,164,80,.25);
+}
 
-    html { scroll-behavior: smooth; }
+html{scroll-behavior:smooth}
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-      font-size: 16px;
-      line-height: 1.7;
-      -webkit-font-smoothing: antialiased;
-    }
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
 
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.2rem 2rem;
-      background: rgba(13,13,13,0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
+/* ── BACKGROUND ── */
+.bg-layer{
+  position:fixed;inset:0;z-index:-1;
+  background:
+    radial-gradient(ellipse 70% 60% at 85% 15%,rgba(31,199,106,.07) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 50% at 15% 85%,rgba(201,164,80,.05) 0%,transparent 55%),
+    var(--bg);
+}
+.bg-layer::after{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(31,199,106,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(31,199,106,.03) 1px,transparent 1px);
+  background-size:64px 64px;
+}
 
-    .nav-logo {
-      font-size: 1rem;
-      letter-spacing: 0.2em;
-      color: var(--orange);
-      font-weight: 600;
-      text-transform: uppercase;
-    }
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:.9rem 2rem;
+  background:rgba(5,10,7,.88);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(31,199,106,.08);
+}
+.nav-brand{display:flex;align-items:center;gap:.6rem;text-decoration:none}
+.nav-fox{width:30px;height:30px;flex-shrink:0}
+.nav-wordmark{font-size:.95rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--text)}
+.nav-right{display:flex;align-items:center;gap:1rem}
+.lang-toggle{display:flex;border:1px solid var(--border);border-radius:4px;overflow:hidden}
+.lang-btn{background:none;border:none;color:var(--muted);padding:.28rem .62rem;font-size:.7rem;font-weight:700;letter-spacing:.08em;cursor:pointer;transition:background .2s,color .2s;font-family:inherit}
+.lang-btn.active{background:var(--green);color:#000}
+.nav-cta{background:transparent;border:1px solid var(--border);color:var(--green);padding:.38rem 1rem;border-radius:4px;font-size:.75rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;text-decoration:none;transition:background .2s}
+.nav-cta:hover{background:var(--green-dim)}
 
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-      align-items: center;
-    }
+/* ── HERO ── */
+#hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:8rem 2rem 4rem;
+  max-width:1200px;margin:0 auto;
+}
+.hero-eyebrow{
+  font-size:.7rem;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--green);margin-bottom:1.6rem;
+  display:flex;align-items:center;gap:.8rem;
+}
+.hero-eyebrow::before{content:'';display:inline-block;width:32px;height:1px;background:var(--green)}
+.hero-h1{
+  font-size:clamp(3.2rem,9vw,7rem);font-weight:800;
+  line-height:1.0;letter-spacing:-.04em;margin-bottom:1.8rem;
+}
+.hero-h1 .line1{color:var(--text)}
+.hero-h1 .line2{
+  background:linear-gradient(90deg,var(--gold) 0%,var(--gold-lt) 50%,var(--gold) 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero-sub{
+  font-size:clamp(1rem,2.2vw,1.2rem);color:var(--muted);
+  max-width:580px;line-height:1.75;margin-bottom:3rem;
+}
+.hero-pills{display:flex;gap:.7rem;flex-wrap:wrap}
+.pill{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:30px;padding:.35rem 1rem;
+  font-size:.75rem;color:var(--stone);letter-spacing:.04em;
+  display:flex;align-items:center;gap:.4rem;
+}
+.pill-dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0}
+.pill-dot.gold{background:var(--gold)}
 
-    .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.85rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
+/* ── SECTION COMMONS ── */
+.wrap{max-width:1200px;margin:0 auto;padding:0 2rem}
+.sec{padding:6rem 0}
+.sec-label{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--green);margin-bottom:.8rem}
+.sec-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;letter-spacing:-.02em;margin-bottom:3rem}
 
-    .nav-links a:hover { color: var(--text); }
+/* ── VENTURES GRID ── */
+.ventures{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+@media(max-width:960px){.ventures{grid-template-columns:1fr}}
 
-    .lang-toggle {
-      display: flex;
-      gap: 0;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      overflow: hidden;
-    }
+.vcard{
+  border:1px solid var(--border);border-radius:14px;overflow:hidden;
+  background:var(--bg2);
+  display:flex;flex-direction:column;
+  transition:transform .3s,border-color .3s,box-shadow .3s;
+  position:relative;
+}
+.vcard::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--green),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.vcard:hover{transform:translateY(-6px);border-color:rgba(31,199,106,.4);box-shadow:0 24px 64px rgba(31,199,106,.08)}
+.vcard:hover::before{opacity:1}
 
-    .lang-btn {
-      background: none;
-      border: none;
-      color: var(--muted);
-      padding: 0.3rem 0.7rem;
-      font-size: 0.75rem;
-      letter-spacing: 0.08em;
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s;
-      font-family: inherit;
-    }
+.vcard-visual{height:190px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.vcard-visual.nir{background:radial-gradient(circle at 50% 50%,rgba(201,164,80,.12) 0%,rgba(13,92,48,.06) 50%,transparent 70%),var(--bg)}
+.vcard-visual.blend{background:linear-gradient(150deg,#060F08 0%,#0C2A10 55%,#060F08 100%)}
+.vcard-visual.app-v{background:linear-gradient(150deg,#060A07 0%,#0B1A0F 55%,#060A07 100%)}
 
-    .lang-btn.active {
-      background: var(--orange);
-      color: #fff;
-    }
+/* Animated background dots for each card */
+.vcard-visual::before{
+  content:'';position:absolute;inset:0;
+  background-image:radial-gradient(circle,rgba(31,199,106,.06) 1px,transparent 1px);
+  background-size:18px 18px;
+}
 
-    .lang-btn:not(.active):hover { background: rgba(255,255,255,0.05); color: var(--text); }
+.vcard-body{padding:1.8rem;flex:1;display:flex;flex-direction:column}
+.vcard-tag{font-size:.63rem;letter-spacing:.18em;text-transform:uppercase;color:var(--green);margin-bottom:.5rem}
+.vcard-title{font-size:1.25rem;font-weight:700;letter-spacing:-.01em;margin-bottom:.8rem;line-height:1.25}
+.vcard-desc{font-size:.88rem;color:var(--muted);line-height:1.75;flex:1;margin-bottom:1.5rem}
 
-    /* ── HERO ── */
-    #hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 6rem 2rem 4rem;
-      position: relative;
-      overflow: hidden;
-    }
+.vbtn{
+  display:inline-flex;align-items:center;gap:.4rem;
+  padding:.55rem 1.2rem;border-radius:6px;
+  font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  text-decoration:none;transition:all .2s;align-self:flex-start;
+  font-family:inherit;cursor:pointer;border:none;
+}
+.vbtn-green{background:var(--green);color:#000}
+.vbtn-green:hover{background:#25e07a;transform:translateX(2px)}
+.vbtn-gold{background:var(--gold);color:#000}
+.vbtn-gold:hover{background:var(--gold-lt);transform:translateX(2px)}
+.vbtn-outline{background:transparent;border:1px solid var(--border);color:var(--green)}
+.vbtn-outline:hover{background:var(--green-dim);border-color:var(--green);transform:translateX(2px)}
 
-    .hero-glow {
-      position: absolute;
-      width: 420px;
-      height: 420px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(232,121,30,0.18) 0%, transparent 70%);
-      pointer-events: none;
-    }
+/* NIR SVG */
+.nir-svg{width:90px;height:90px;filter:drop-shadow(0 0 20px rgba(201,164,80,.3))}
 
-    .hero-logo {
-      width: min(260px, 65vw);
-      position: relative;
-      z-index: 1;
-      filter: drop-shadow(0 0 30px rgba(232,121,30,0.25));
-    }
+/* Blend SVG */
+.blend-svg{filter:drop-shadow(0 0 12px rgba(31,199,106,.25))}
 
-    .hero-tagline {
-      margin-top: 2.5rem;
-      font-size: clamp(1.1rem, 3vw, 1.5rem);
-      color: var(--muted);
-      letter-spacing: 0.04em;
-      font-weight: 300;
-      position: relative;
-      z-index: 1;
-    }
+/* App SVG */
+.app-svg{filter:drop-shadow(0 0 12px rgba(31,199,106,.2))}
 
-    .hero-tagline span { color: var(--orange); }
+/* ── MISSION STRIP ── */
+#mission{
+  border-top:1px solid rgba(31,199,106,.08);
+  border-bottom:1px solid rgba(31,199,106,.08);
+  padding:3.5rem 2rem;
+  text-align:center;
+}
+.mission-text{
+  font-size:clamp(1.05rem,2.5vw,1.55rem);font-weight:300;
+  color:var(--stone);line-height:1.65;max-width:860px;margin:0 auto;
+}
+.mission-text strong{color:var(--text);font-weight:600}
+.mission-text em{color:var(--green);font-style:normal;font-weight:500}
 
-    .hero-scroll {
-      margin-top: 4rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-      color: var(--muted);
-      font-size: 0.75rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      position: relative;
-      z-index: 1;
-    }
+/* ── APP DEEP DIVE ── */
+#app-detail{padding:6rem 0}
+.app-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:4rem;align-items:start}
+@media(max-width:800px){.app-grid{grid-template-columns:1fr}}
+.app-features{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.feat{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.1rem}
+.feat-icon{font-size:1.3rem;margin-bottom:.4rem}
+.feat-title{font-size:.82rem;font-weight:600;margin-bottom:.2rem;color:var(--text)}
+.feat-sub{font-size:.75rem;color:var(--muted)}
+.app-coming{
+  display:inline-flex;align-items:center;gap:.8rem;
+  background:var(--bg2);border:1px solid var(--border-gold);
+  border-radius:8px;padding:1rem 1.4rem;margin-top:2rem;
+}
+.app-coming-icon{font-size:1.6rem}
+.app-coming-label{font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:.15rem}
+.app-coming-text{font-size:.9rem;font-weight:600}
 
-    .scroll-line {
-      width: 1px;
-      height: 40px;
-      background: linear-gradient(to bottom, var(--orange), transparent);
-    }
+/* ── CONTACT ── */
+#contact{padding:6rem 0}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+@media(max-width:700px){.contact-grid{grid-template-columns:1fr;gap:2.5rem}}
+.contact-heading{font-size:clamp(2.2rem,6vw,3.8rem);font-weight:800;letter-spacing:-.03em;line-height:1.05;margin-bottom:1rem}
+.contact-heading .accent{color:var(--green)}
+.contact-sub{color:var(--muted);font-size:.95rem;max-width:340px;line-height:1.7}
+.clinks{display:flex;flex-direction:column;gap:.9rem}
+.clink{
+  display:flex;align-items:center;gap:1rem;
+  padding:1.1rem 1.4rem;background:var(--bg2);
+  border:1px solid var(--border);border-radius:8px;
+  text-decoration:none;color:var(--text);
+  transition:border-color .2s,transform .2s,box-shadow .2s;
+}
+.clink:hover{border-color:var(--green);transform:translateX(5px);box-shadow:0 8px 30px rgba(31,199,106,.06)}
+.clink-icon{font-size:1.3rem;width:36px;text-align:center;flex-shrink:0}
+.clink-label{font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.15rem}
+.clink-val{font-size:.92rem;font-weight:500}
 
-    /* ── SECTIONS ── */
-    section {
-      padding: 6rem 2rem;
-      max-width: 960px;
-      margin: 0 auto;
-    }
+/* ── FOOTER ── */
+footer{
+  padding:1.8rem 2rem;
+  border-top:1px solid rgba(31,199,106,.07);
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:1rem;
+  font-size:.78rem;color:var(--muted);
+}
+footer a{color:var(--muted);text-decoration:none;transition:color .2s}
+footer a:hover{color:var(--green)}
+.footer-links{display:flex;gap:1.5rem}
 
-    .section-label {
-      font-size: 0.72rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--orange);
-      margin-bottom: 1.2rem;
-    }
+/* ── MODAL ── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:200;align-items:center;justify-content:center;padding:2rem}
+.modal-overlay.open{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:2.5rem;max-width:460px;width:100%;position:relative}
+.modal h3{font-size:.85rem;font-weight:700;margin-bottom:1.2rem;color:var(--green);letter-spacing:.12em;text-transform:uppercase}
+.modal address{font-size:.88rem;color:var(--muted);line-height:1.85;font-style:normal}
+.modal a{color:var(--green)}
+.modal-close{position:absolute;top:1rem;right:1.2rem;background:none;border:none;color:var(--muted);font-size:1.4rem;cursor:pointer}
 
-    h2 {
-      font-size: clamp(1.6rem, 4vw, 2.4rem);
-      font-weight: 300;
-      letter-spacing: -0.01em;
-      color: var(--text);
-      margin-bottom: 1.5rem;
-    }
+/* ── LANG ── */
+[data-lang="de"]{display:none}
+body.lang-de [data-lang="de"]{display:block}
+body.lang-de [data-lang="en"]{display:none}
+span[data-lang="de"]{display:none}
+body.lang-de span[data-lang="de"]{display:inline}
+body.lang-de span[data-lang="en"]{display:none}
 
-    /* ── ABOUT ── */
-    #about p {
-      font-size: 1.1rem;
-      color: var(--muted);
-      max-width: 600px;
-      line-height: 1.8;
-    }
+/* ── FADE ── */
+.fade{opacity:0;transform:translateY(22px);transition:opacity .75s,transform .75s}
+.fade.visible{opacity:1;transform:none}
+.fade-d1{transition-delay:.1s}.fade-d2{transition-delay:.2s}.fade-d3{transition-delay:.3s}
 
-    #about p strong { color: var(--text); }
-
-    /* ── DIVIDER ── */
-    .divider {
-      width: 60px;
-      height: 2px;
-      background: var(--orange);
-      margin: 0 auto 4rem;
-      opacity: 0.5;
-    }
-
-    /* ── PROJECTS ── */
-    #projects { padding-top: 0; }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
-      margin-top: 3rem;
-    }
-
-    .card {
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      transition: border-color 0.3s, transform 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: var(--orange);
-      opacity: 0.7;
-    }
-
-    .card:hover {
-      border-color: var(--orange);
-      transform: translateY(-3px);
-    }
-
-    .card-icon {
-      font-size: 1.5rem;
-      opacity: 0.7;
-    }
-
-    .card h3 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--text);
-      letter-spacing: 0.02em;
-    }
-
-    .card p {
-      font-size: 0.9rem;
-      color: var(--muted);
-      flex: 1;
-      line-height: 1.7;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 0.6rem 1.4rem;
-      background: var(--orange);
-      color: #fff;
-      text-decoration: none;
-      border-radius: 4px;
-      font-size: 0.82rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      font-weight: 600;
-      border: none;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.15s;
-      align-self: flex-start;
-      font-family: inherit;
-    }
-
-    .btn:hover { background: #c96918; transform: translateY(-1px); }
-
-    .btn-outline {
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--orange);
-    }
-
-    .btn-outline:hover { background: var(--orange-dim); background-color: var(--orange-dim); transform: translateY(-1px); }
-
-    /* ── CONTACT ── */
-    #contact { border-top: 1px solid rgba(255,255,255,0.05); }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
-      max-width: 520px;
-      margin-top: 2.5rem;
-    }
-
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
-
-    label {
-      font-size: 0.78rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    input, textarea {
-      background: var(--bg3);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 4px;
-      padding: 0.75rem 1rem;
-      color: var(--text);
-      font-size: 0.95rem;
-      font-family: inherit;
-      transition: border-color 0.2s;
-      outline: none;
-      resize: vertical;
-    }
-
-    input:focus, textarea:focus {
-      border-color: var(--orange);
-    }
-
-    textarea { min-height: 130px; }
-
-    /* ── FOOTER ── */
-    footer {
-      text-align: center;
-      padding: 2.5rem 2rem;
-      border-top: 1px solid rgba(255,255,255,0.05);
-      color: var(--muted);
-      font-size: 0.82rem;
-      letter-spacing: 0.03em;
-    }
-
-    footer a {
-      color: var(--orange);
-      text-decoration: none;
-      cursor: pointer;
-    }
-
-    footer a:hover { text-decoration: underline; }
-
-    /* ── MODAL ── */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.8);
-      z-index: 200;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-    }
-
-    .modal-overlay.open { display: flex; }
-
-    .modal {
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 2.5rem;
-      max-width: 480px;
-      width: 100%;
-      position: relative;
-    }
-
-    .modal h3 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 1.2rem;
-      color: var(--orange);
-    }
-
-    .modal p, .modal address {
-      font-size: 0.9rem;
-      color: var(--muted);
-      line-height: 1.8;
-      font-style: normal;
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 1rem; right: 1.2rem;
-      background: none;
-      border: none;
-      color: var(--muted);
-      font-size: 1.4rem;
-      cursor: pointer;
-      line-height: 1;
-      transition: color 0.2s;
-    }
-
-    .modal-close:hover { color: var(--text); }
-
-    /* ── LANGUAGE VISIBILITY ── */
-    [data-lang="de"] { display: none; }
-    body.lang-de [data-lang="de"] { display: block; }
-    body.lang-de [data-lang="en"] { display: none; }
-
-    /* inline spans */
-    span[data-lang="de"] { display: none; }
-    body.lang-de span[data-lang="de"] { display: inline; }
-    body.lang-de span[data-lang="en"] { display: none; }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 600px) {
-      nav { padding: 1rem 1.2rem; }
-      .nav-links { gap: 1.2rem; }
-      .nav-links li:not(:last-child) { display: none; }
-      section { padding: 4rem 1.4rem; }
-      .cards { grid-template-columns: 1fr; }
-    }
-
-    /* fade-in */
-    .fade { opacity: 0; transform: translateY(18px); transition: opacity 0.7s, transform 0.7s; }
-    .fade.visible { opacity: 1; transform: none; }
-  </style>
+/* ── RESPONSIVE ── */
+@media(max-width:600px){
+  nav{padding:.75rem 1.1rem}
+  #hero{padding:5.5rem 1.2rem 3rem}
+  .wrap{padding:0 1.2rem}
+  .sec{padding:4rem 0}
+}
+</style>
 </head>
 <body>
 
+<div class="bg-layer"></div>
+
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">Luxfox</div>
-  <ul class="nav-links">
-    <li><a href="#about"><span data-lang="en">About</span><span data-lang="de">Über uns</span></a></li>
-    <li><a href="#projects"><span data-lang="en">Projects</span><span data-lang="de">Projekte</span></a></li>
-    <li><a href="#app"><span data-lang="en">App</span><span data-lang="de">App</span></a></li>
-    <li><a href="shop.html">Shop</a></li>
-    <li><a href="#contact"><span data-lang="en">Contact</span><span data-lang="de">Kontakt</span></a></li>
-    <li>
-      <div class="lang-toggle">
-        <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
-        <button class="lang-btn" id="btn-de" onclick="setLang('de')">DE</button>
-      </div>
-    </li>
-  </ul>
+  <a href="#hero" class="nav-brand">
+    <svg class="nav-fox" viewBox="0 0 217.75 217.52" xmlns="http://www.w3.org/2000/svg">
+      <circle fill="rgba(31,199,106,0.12)" cx="108.76" cy="108.76" r="108.76"/>
+      <circle fill="none" stroke="rgba(31,199,106,0.3)" stroke-width="2" cx="108.76" cy="108.76" r="106"/>
+      <g clip-path="url(#nc)">
+        <path fill="var(--green)" d="M149.71,82.57l10.11-19.54.6-32.36-29.15,12.61-10.04,10.3-12.45.11-12.48-.11-10.04-10.3-29.15-12.61.6,32.36,10.11,19.54-13.77,27.54,9.31,2.78,28.81,42.53v19.37l7.61,7.61,4.48,4.46h10.28l12.17-12.17v-18.98l29.39-43.37,7.39-2.22-13.77-27.54ZM134.05,47.32l8.1-3.49-4.09,3.23-11.81,17.67-1.4-7.97,9.2-9.44ZM83.48,47.32l9.2,9.44-1.4,7.97-11.81-17.67-4.09-3.23,8.1,3.49ZM70.66,115.07l12,3.6,11.25,11.36-.13,5.24,5.54,3.96,6.94,5.19v14.95h-9.27v-5.34l-26.35-38.91v-.05ZM95.52,105.59s-1.92-.02-5-.02-4.37-6.79-4.37-6.79h3.88c2.05,0,3.94,1.14,4.83,3,.9,1.92.67,3.81.67,3.81ZM121.88,171.78h-16.81l16.81-6.25v6.25ZM122.61,153.16l-.73,1.06v5.15h-10.32v-15.17l6.66-4.98,5.54-3.96-.13-5.24,11.25-11.36,13.92-4.16-26.18,38.66ZM122.54,100.87c.88-1.85,2.78-3,4.83-3h3.88s-1.23,6.79-4.35,6.79-5.02.02-5.02.02c0,0-.22-1.9.67-3.81ZM132.3,114.38l-9.09,9.18-1.1-15.02c1.57-.04,3.49-.06,5.71-.06,6.55,0,9.18-14.26,9.18-14.26h-11.94c-8.55,4.09-7.84,13.64-7.76,14.5l1.47,20.17h-.02l.11,3.94-1.59,1.14-3.51-4.24h-9.98l-3.51,4.24-1.59-1.14.11-3.94h-.02l1.4-20.17v-.02c.02-2.65-.54-10.11-7.8-13.6h-11.96s2.63,14.26,9.18,14.26c2.26,0,4.2.04,5.77.09l-1.03,14.11-9.09-9.18-24.31-7.24,11.4-22.8,21.35-11.05c.62-.32,1.1-.9,1.27-1.59.02-.06.02-.11.04-.17l2.31-13.12,11.08.11h.8l11.08-.11,2.33,13.12c0,.06,0,.11.02.17.17.69.65,1.27,1.27,1.59l21.35,11.05,11.4,22.8-24.31,7.24Z"/>
+      </g>
+      <defs><clipPath id="nc"><rect x="0" y="0" width="217.75" height="160"/></clipPath></defs>
+    </svg>
+    <span class="nav-wordmark">Luxfox</span>
+  </a>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" id="btn-de" onclick="setLang('de')">DE</button>
+    </div>
+    <a href="#contact" class="nav-cta">
+      <span data-lang="en">Contact</span>
+      <span data-lang="de">Kontakt</span>
+    </a>
+  </div>
 </nav>
 
 <!-- HERO -->
 <section id="hero">
-  <div class="hero-glow"></div>
-  <svg class="hero-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 217.75 217.52" role="img" aria-label="Luxfox Logo">
-    <defs>
-      <clipPath id="fox-clip">
-        <rect x="0" y="0" width="217.75" height="155"/>
-      </clipPath>
-    </defs>
-    <circle fill="#fff" cx="108.76" cy="108.76" r="108.76"/>
-    <g clip-path="url(#fox-clip)">
-      <path fill="#231f20" d="M149.71,82.57l10.11-19.54.6-32.36-29.15,12.61-10.04,10.3-12.45.11-12.48-.11-10.04-10.3-29.15-12.61.6,32.36,10.11,19.54-13.77,27.54,9.31,2.78,28.81,42.53v19.37l7.61,7.61,4.48,4.46h10.28l12.17-12.17v-18.98l29.39-43.37,7.39-2.22-13.77-27.54ZM155.01,61.8l-9.05,17.5-17.56-9.09,13.25-19.82,13.77-10.92-.41,22.34ZM134.05,47.32l8.1-3.49-4.09,3.23-11.81,17.67-1.4-7.97,9.2-9.44ZM83.48,47.32l9.2,9.44-1.4,7.97-11.81-17.67-4.09-3.23,8.1,3.49ZM62.51,61.8l-.41-22.34,13.77,10.92,13.25,19.82-17.56,9.09-9.05-17.5ZM70.66,115.07l12,3.6,11.25,11.36-.13,5.24,5.54,3.96,6.94,5.19v14.95h-9.27v-5.34l.02-.04-26.35-38.91ZM95.52,105.59s-1.92-.02-5-.02-4.37-6.79-4.37-6.79h3.88c2.05,0,3.94,1.14,4.83,3,.9,1.92.67,3.81.67,3.81ZM104.16,136.83l1.9-2.28h.37v3.96l-.15-.11-2.11-1.57ZM96.99,169.62v-5.37h14.46l-14.46,5.37ZM111.1,138.51v-3.96h.37l1.9,2.28-2.11,1.57-.15-.11ZM112.55,182.04h-6.31l-5.43-5.43h17.17l-5.43,5.43ZM121.88,171.78h-16.81l16.81-6.25v6.25ZM122.61,153.16l-.73,1.06v5.15h-10.32v-15.17l6.66-4.98,5.54-3.96-.13-5.24,11.25-11.36,13.92-4.16-26.18,38.66ZM122.54,100.87c.88-1.85,2.78-3,4.83-3h3.88s-1.23,6.79-4.35,6.79-5.02.02-5.02.02c0,0-.22-1.9.67-3.81ZM132.3,114.38l-9.09,9.18-1.1-15.02c1.57-.04,3.49-.06,5.71-.06,6.55,0,9.18-14.26,9.18-14.26h-11.94c-8.55,4.09-7.84,13.64-7.76,14.5l1.47,20.17h-.02l.11,3.94-1.59,1.14-3.51-4.24h-9.98l-3.51,4.24-1.59-1.14.11-3.94h-.02l1.4-20.17v-.02c.02-2.65-.54-10.11-7.8-13.6h-11.96s2.63,14.26,9.18,14.26c2.26,0,4.2.04,5.77.09l-1.03,14.11-9.09-9.18-24.31-7.24,11.4-22.8,21.35-11.05c.62-.32,1.1-.9,1.27-1.59.02-.06.02-.11.04-.17l2.31-13.12,11.08.11h.8l11.08-.11,2.33,13.12c0,.06,0,.11.02.17.17.69.65,1.27,1.27,1.59l21.35,11.05,11.4,22.8-24.31,7.24Z"/>
-    </g>
-    <text x="108.76" y="198" text-anchor="middle" font-family="'Agency FB', 'Arial Narrow', Arial, sans-serif" font-size="36" font-weight="700" letter-spacing="5" fill="#1a1a1a">LUXFOX</text>
-  </svg>
-  <p class="hero-tagline">
-    <span data-lang="en"><span>Light · Health · Digital.</span> Built for a borderless life.</span>
-    <span data-lang="de"><span>Licht · Gesundheit · Digital.</span> Für ein grenzenloses Leben.</span>
+  <p class="hero-eyebrow fade">
+    <span data-lang="en">Luxfox Limited · Hong Kong · Est. 2026</span>
+    <span data-lang="de">Luxfox Limited · Hongkong · Gegründet 2026</span>
   </p>
-  <div class="hero-scroll">
-    <div class="scroll-line"></div>
-    <span data-lang="en">Scroll</span><span data-lang="de">Weiter</span>
+  <h1 class="hero-h1 fade fade-d1">
+    <span class="line1" data-lang="en">Three ventures.</span>
+    <span class="line1" data-lang="de">Drei Projekte.</span>
+    <br>
+    <span class="line2" data-lang="en">One company.</span>
+    <span class="line2" data-lang="de">Eine Firma.</span>
+  </h1>
+  <p class="hero-sub fade fade-d2" data-lang="en">NIR wellness products, a premium smoothie franchise across Southeast Asia, and digital tools for expats worldwide — all built and operated by Luxfox Limited, Hong Kong.</p>
+  <p class="hero-sub fade fade-d2" data-lang="de">NIR-Wellness-Produkte, ein Premium-Smoothie-Franchise in Südostasien und digitale Tools für Expats weltweit — alles entwickelt und betrieben von Luxfox Limited, Hongkong.</p>
+  <div class="hero-pills fade fade-d3">
+    <div class="pill"><span class="pill-dot gold"></span>NIR Light Therapy</div>
+    <div class="pill"><span class="pill-dot"></span>100blend Franchise</div>
+    <div class="pill"><span class="pill-dot"></span>Expat App</div>
   </div>
 </section>
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="section-label" data-lang="en">About</div>
-  <div class="section-label" data-lang="de">Über uns</div>
-  <h2 class="fade" data-lang="en">Luxfox Limited.<br>Hong Kong. Built to last.</h2>
-  <h2 class="fade" data-lang="de">Luxfox Limited.<br>Hongkong. Gebaut für die Dauer.</h2>
-  <p class="fade" data-lang="en"><strong>Luxfox Limited</strong> is a Hong Kong-registered company operating across three business lines: wellness products, franchise concepts, and digital tools for expats and travelers. Founded and directed by <strong>Peter Knauf</strong>, Luxfox builds brands and services that work across borders — products tested in real life, digital tools built for real needs.</p>
-  <p class="fade" data-lang="de"><strong>Luxfox Limited</strong> ist eine in Hongkong registrierte Gesellschaft, die in drei Geschäftsbereichen tätig ist: Wellness-Produkte, Franchise-Konzepte und digitale Tools für Expats und Reisende. Gegründet und geführt von <strong>Peter Knauf</strong>, baut Luxfox Marken und Services, die grenzübergreifend funktionieren — Produkte, die im echten Leben getestet wurden, digitale Tools, die echten Bedürfnissen entsprechen.</p>
-</section>
+<!-- VENTURES -->
+<section class="sec">
+  <div class="wrap">
+    <p class="sec-label fade" data-lang="en">What we build</p>
+    <p class="sec-label fade" data-lang="de">Was wir aufbauen</p>
+    <h2 class="sec-title fade" data-lang="en">Three ventures. Built to last.</h2>
+    <h2 class="sec-title fade" data-lang="de">Drei Projekte. Auf Dauer gebaut.</h2>
 
-<div class="divider"></div>
+    <div class="ventures">
 
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="section-label" data-lang="en">Projects</div>
-  <div class="section-label" data-lang="de">Projekte</div>
-  <h2 class="fade" data-lang="en">What I'm building.</h2>
-  <h2 class="fade" data-lang="de">Was ich aufbaue.</h2>
+      <!-- NIR -->
+      <div class="vcard fade">
+        <div class="vcard-visual nir">
+          <svg class="nir-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="g1" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#C9A450" stop-opacity=".9"/>
+                <stop offset="100%" stop-color="#C9A450" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <circle cx="50" cy="50" r="11" fill="url(#g1)">
+              <animate attributeName="r" values="11;13;11" dur="2.4s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="50" cy="50" r="20" fill="none" stroke="#C9A450" stroke-width="1.5" opacity=".55">
+              <animate attributeName="r" values="20;25;20" dur="2.4s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values=".55;.25;.55" dur="2.4s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="50" cy="50" r="33" fill="none" stroke="#C9A450" stroke-width="1" opacity=".3">
+              <animate attributeName="r" values="33;40;33" dur="2.4s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values=".3;.1;.3" dur="2.4s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="50" cy="50" r="46" fill="none" stroke="#C9A450" stroke-width=".6" opacity=".15">
+              <animate attributeName="r" values="46;55;46" dur="2.4s" repeatCount="indefinite"/>
+            </circle>
+            <line x1="50" y1="1" x2="50" y2="11" stroke="#C9A450" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+            <line x1="50" y1="89" x2="50" y2="99" stroke="#C9A450" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+            <line x1="1" y1="50" x2="11" y2="50" stroke="#C9A450" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+            <line x1="89" y1="50" x2="99" y2="50" stroke="#C9A450" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+            <line x1="15" y1="15" x2="22" y2="22" stroke="#C9A450" stroke-width="1.5" stroke-linecap="round" opacity=".38"/>
+            <line x1="78" y1="22" x2="85" y2="15" stroke="#C9A450" stroke-width="1.5" stroke-linecap="round" opacity=".38"/>
+            <line x1="15" y1="85" x2="22" y2="78" stroke="#C9A450" stroke-width="1.5" stroke-linecap="round" opacity=".38"/>
+            <line x1="78" y1="78" x2="85" y2="85" stroke="#C9A450" stroke-width="1.5" stroke-linecap="round" opacity=".38"/>
+          </svg>
+        </div>
+        <div class="vcard-body">
+          <p class="vcard-tag" data-lang="en">NIR Wellness · Amazon.de</p>
+          <p class="vcard-tag" data-lang="de">NIR Wellness · Amazon.de</p>
+          <h3 class="vcard-title" data-lang="en">Luxfox NIR<br>Light Therapy Panels</h3>
+          <h3 class="vcard-title" data-lang="de">Luxfox NIR<br>Lichttherapie-Panels</h3>
+          <p class="vcard-desc" data-lang="en">Professional near-infrared and red light panels for recovery, vitality and deep tissue wellness. OEM-manufactured in Shenzhen, sold on Amazon.de. Clinically documented wavelengths — no wellness theatre.</p>
+          <p class="vcard-desc" data-lang="de">Professionelle Nah-Infrarot- und Rotlicht-Panels für Regeneration, Vitalität und Tiefengewebe-Wellness. OEM-Produktion Shenzhen, Verkauf auf Amazon.de. Klinisch dokumentierte Wellenlängen — kein Wellness-Theater.</p>
+          <a href="shop.html" class="vbtn vbtn-gold">
+            <span data-lang="en">View Products →</span>
+            <span data-lang="de">Produkte ansehen →</span>
+          </a>
+        </div>
+      </div>
 
-  <div class="cards">
-    <!-- Card 1 -->
-    <div class="card fade">
-      <div class="card-icon">☀️</div>
-      <h3>NIR Lamps · Luxfox</h3>
-      <p data-lang="en">Near-infrared light therapy. Available on Amazon.de</p>
-      <p data-lang="de">Nah-Infrarot-Lichttherapie. Erhältlich auf Amazon.de</p>
-      <a class="btn" href="https://www.amazon.de/s?k=luxfox" target="_blank" rel="noopener">
-        <span data-lang="en">Shop on Amazon</span>
-        <span data-lang="de">Bei Amazon kaufen</span>
-      </a>
-    </div>
+      <!-- 100BLEND -->
+      <div class="vcard fade fade-d1">
+        <div class="vcard-visual blend">
+          <svg class="blend-svg" width="75" height="105" viewBox="0 0 75 105" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#1FC76A" stop-opacity=".25"/>
+                <stop offset="100%" stop-color="#1FC76A" stop-opacity=".08"/>
+              </linearGradient>
+              <linearGradient id="g3" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#C9A450" stop-opacity=".9"/>
+                <stop offset="100%" stop-color="#C9A450" stop-opacity=".5"/>
+              </linearGradient>
+            </defs>
+            <!-- Glass -->
+            <path d="M12 20 L6 82 Q6 90 16 90 L59 90 Q69 90 69 82 L63 20 Z" fill="url(#g2)" stroke="#1FC76A" stroke-width="1.5"/>
+            <!-- Liquid fill with animation -->
+            <path d="M14 38 L8.5 82 Q8.5 88 16 88 L59 88 Q66.5 88 66.5 82 L61 38 Z" fill="rgba(31,199,106,0.18)">
+              <animate attributeName="opacity" values=".9;1;.9" dur="3s" repeatCount="indefinite"/>
+            </path>
+            <!-- Fruit chunks -->
+            <circle cx="26" cy="58" r="4.5" fill="rgba(201,164,80,.55)"/>
+            <circle cx="48" cy="52" r="3.5" fill="rgba(31,199,106,.5)"/>
+            <circle cx="35" cy="68" r="3" fill="rgba(201,164,80,.45)"/>
+            <circle cx="54" cy="65" r="2.5" fill="rgba(31,199,106,.4)"/>
+            <!-- Straw -->
+            <rect x="55" y="8" width="5" height="80" rx="2.5" fill="url(#g3)"/>
+            <!-- Lid -->
+            <ellipse cx="37.5" cy="20" rx="25.5" ry="5" fill="rgba(31,199,106,.12)" stroke="#1FC76A" stroke-width="1.5"/>
+            <!-- Lid tab -->
+            <rect x="33" y="15" width="9" height="3" rx="1.5" fill="rgba(31,199,106,.3)"/>
+          </svg>
+        </div>
+        <div class="vcard-body">
+          <p class="vcard-tag" data-lang="en">Premium Franchise · Vietnam &amp; Southeast Asia</p>
+          <p class="vcard-tag" data-lang="de">Premium Franchise · Vietnam &amp; Südostasien</p>
+          <h3 class="vcard-title" data-lang="en">100blend<br>Premium Smoothie Franchise</h3>
+          <h3 class="vcard-title" data-lang="de">100blend<br>Premium Smoothie Franchise</h3>
+          <p class="vcard-desc" data-lang="en">100% fruit. No ice. No sugar. Flash-frozen ripe fruit, blended to order. Starting in Ho Chi Minh City — scalable to Thailand, Laos, Cambodia and beyond. Three franchise tiers from 122 million VND.</p>
+          <p class="vcard-desc" data-lang="de">100 % Frucht. Kein Eis. Kein Zucker. Schockgefrorene reife Früchte, frisch gemixt. Start in Ho-Chi-Minh-Stadt — skalierbar nach Thailand, Laos, Kambodscha. Drei Franchise-Pakete ab 122 Mio. VND.</p>
+          <a href="https://100blend.com" target="_blank" rel="noopener" class="vbtn vbtn-green">
+            <span data-lang="en">Visit 100blend.com →</span>
+            <span data-lang="de">100blend.com besuchen →</span>
+          </a>
+        </div>
+      </div>
 
-    <!-- Card 2 -->
-    <div class="card fade">
-      <div class="card-icon">🥤</div>
-      <h3>100blend</h3>
-      <p data-lang="en">Premium smoothie franchise concept. Southeast Asia.</p>
-      <p data-lang="de">Premium Smoothie-Franchise-Konzept. Südostasien.</p>
-      <a class="btn btn-outline" href="https://100blend.com" target="_blank" rel="noopener">
-        <span data-lang="en">Learn more</span>
-        <span data-lang="de">Mehr erfahren</span>
-      </a>
-    </div>
+      <!-- EXPAT APP -->
+      <div class="vcard fade fade-d2">
+        <div class="vcard-visual app-v">
+          <svg class="app-svg" width="58" height="100" viewBox="0 0 58 100" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="3" width="52" height="94" rx="9" fill="rgba(31,199,106,.05)" stroke="#1FC76A" stroke-width="1.5"/>
+            <rect x="8" y="13" width="42" height="66" rx="4" fill="rgba(31,199,106,.04)"/>
+            <!-- Notch -->
+            <rect x="19" y="6" width="20" height="5" rx="2.5" fill="rgba(31,199,106,.18)"/>
+            <!-- Currency display -->
+            <text x="29" y="38" text-anchor="middle" fill="#C9A450" font-size="13" font-weight="700" opacity=".95">€ / ฿</text>
+            <line x1="12" y1="44" x2="46" y2="44" stroke="rgba(31,199,106,.15)" stroke-width="1"/>
+            <text x="29" y="56" text-anchor="middle" fill="#1FC76A" font-size="10" opacity=".75">$ · £ · ¥</text>
+            <text x="29" y="67" text-anchor="middle" fill="#1FC76A" font-size="8" opacity=".5">VND · HKD · THB</text>
+            <line x1="12" y1="73" x2="46" y2="73" stroke="rgba(31,199,106,.12)" stroke-width="1"/>
+            <!-- Bottom icons -->
+            <text x="18" y="83" text-anchor="middle" fill="#1FC76A" font-size="8" opacity=".5">💱</text>
+            <text x="29" y="83" text-anchor="middle" fill="#1FC76A" font-size="8" opacity=".5">🔒</text>
+            <text x="40" y="83" text-anchor="middle" fill="#1FC76A" font-size="8" opacity=".5">📶</text>
+            <!-- Home indicator -->
+            <rect x="21" y="90" width="16" height="3" rx="1.5" fill="rgba(31,199,106,.3)"/>
+          </svg>
+        </div>
+        <div class="vcard-body">
+          <p class="vcard-tag" data-lang="en">Digital · Expats &amp; Travelers Worldwide</p>
+          <p class="vcard-tag" data-lang="de">Digital · Expats &amp; Reisende weltweit</p>
+          <h3 class="vcard-title" data-lang="en">Expat App<br>Currency &amp; Expat Toolkit</h3>
+          <h3 class="vcard-title" data-lang="de">Expat App<br>Währung &amp; Expat-Tools</h3>
+          <p class="vcard-desc" data-lang="en">Currency converter at its core — plus honest recommendations for Wise, NordVPN, Airalo eSIM and expat health insurance. Free forever, funded by affiliate commissions. Coming to Google Play &amp; App Store.</p>
+          <p class="vcard-desc" data-lang="de">Währungsrechner als Kern — plus ehrliche Empfehlungen für Wise, NordVPN, Airalo eSIM und Expat-Krankenversicherung. Dauerhaft kostenlos, finanziert durch Affiliate-Provisionen. Demnächst im Play Store &amp; App Store.</p>
+          <a href="#app-detail" class="vbtn vbtn-outline">
+            <span data-lang="en">Discover the App →</span>
+            <span data-lang="de">App entdecken →</span>
+          </a>
+        </div>
+      </div>
 
-    <!-- Card 3 -->
-    <div class="card fade">
-      <div class="card-icon">📱</div>
-      <h3 data-lang="en">Expat App · Digital Tools</h3>
-      <h3 data-lang="de">Expat App · Digitale Tools</h3>
-      <p data-lang="en">Currency converter and expat toolkit for travelers worldwide. Smart affiliate tools: Wise, VPN, eSIM and more.</p>
-      <p data-lang="de">Währungsrechner und Expat-Werkzeuge für Reisende weltweit. Mit smarten Empfehlungen: Wise, VPN, eSIM und mehr.</p>
-      <a class="btn btn-outline" href="#app">
-        <span data-lang="en">Learn more</span>
-        <span data-lang="de">Mehr erfahren</span>
-      </a>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
+<!-- MISSION STRIP -->
+<div id="mission">
+  <p class="mission-text fade" data-lang="en"><strong>Luxfox Limited</strong> builds <em>real products</em> for real people — wellness tools that work, franchise systems that scale across Asia, and digital apps that pay for themselves. Operated from <em>Hong Kong</em>, built for the world.</p>
+  <p class="mission-text fade" data-lang="de"><strong>Luxfox Limited</strong> baut <em>echte Produkte</em> für echte Menschen — Wellness-Tools die wirken, Franchise-Systeme die durch Asien skalieren und digitale Apps, die sich selbst finanzieren. Betrieben aus <em>Hongkong</em>, gebaut für die Welt.</p>
+</div>
 
-<!-- APP SECTION -->
-<section id="app">
-  <div class="section-label" data-lang="en">Digital Product</div>
-  <div class="section-label" data-lang="de">Digitales Produkt</div>
-  <h2 class="fade" data-lang="en">The Expat App.</h2>
-  <h2 class="fade" data-lang="de">Die Expat App.</h2>
-  <p class="fade" data-lang="en" style="color:var(--muted);font-size:1.05rem;max-width:600px;margin-bottom:2.5rem;">A smart toolkit for expats and travelers — currency conversion at its core, plus curated recommendations for the tools you actually need abroad.</p>
-  <p class="fade" data-lang="de" style="color:var(--muted);font-size:1.05rem;max-width:600px;margin-bottom:2.5rem;">Ein smarter Werkzeugkasten für Expats und Reisende — mit Währungsrechner als Kern und kuratierten Empfehlungen für die Tools, die man im Ausland wirklich braucht.</p>
-
-  <div class="cards">
-    <div class="card fade">
-      <div class="card-icon">💱</div>
-      <h3 data-lang="en">Currency Converter</h3>
-      <h3 data-lang="de">Währungsrechner</h3>
-      <p data-lang="en">Real-time exchange rates for all major currencies. Clean, fast, works offline.</p>
-      <p data-lang="de">Echtzeit-Wechselkurse für alle wichtigen Währungen. Klar, schnell, funktioniert offline.</p>
-    </div>
-    <div class="card fade">
-      <div class="card-icon">🏦</div>
-      <h3 data-lang="en">Smart Money Transfers</h3>
-      <h3 data-lang="de">Smarte Überweisungen</h3>
-      <p data-lang="en">Send money abroad with the best rates. Integrated Wise referral — same price for you, small commission for us.</p>
-      <p data-lang="de">Geld ins Ausland senden zum besten Kurs. Integrierter Wise-Link — gleicher Preis für dich, kleine Provision für uns.</p>
-    </div>
-    <div class="card fade">
-      <div class="card-icon">🌐</div>
-      <h3 data-lang="en">Expat Essentials</h3>
-      <h3 data-lang="de">Expat-Grundausstattung</h3>
-      <p data-lang="en">VPN, eSIM, health insurance — the services every expat needs. Curated. Tested. Honest recommendations.</p>
-      <p data-lang="de">VPN, eSIM, Krankenversicherung — die Services, die jeder Expat braucht. Kuratiert. Getestet. Ehrliche Empfehlungen.</p>
-    </div>
-  </div>
-
-  <div class="fade" style="margin-top:3rem;display:flex;gap:1rem;flex-wrap:wrap;align-items:center;">
-    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:1.2rem 2rem;display:flex;align-items:center;gap:1rem;">
-      <span style="font-size:1.8rem;">📲</span>
-      <div>
-        <div style="font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--orange);margin-bottom:0.2rem;" data-lang="en">Coming Soon</div>
-        <div style="font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--orange);margin-bottom:0.2rem;" data-lang="de">Demnächst</div>
-        <div style="font-size:0.95rem;color:var(--text);font-weight:500;" data-lang="en">Google Play &amp; App Store</div>
-        <div style="font-size:0.95rem;color:var(--text);font-weight:500;" data-lang="de">Google Play &amp; App Store</div>
+<!-- APP DETAIL -->
+<section class="sec" id="app-detail">
+  <div class="wrap">
+    <p class="sec-label fade" data-lang="en">Digital Product · Passive Income</p>
+    <p class="sec-label fade" data-lang="de">Digitales Produkt · Passives Einkommen</p>
+    <h2 class="sec-title fade" data-lang="en">The Expat App.</h2>
+    <h2 class="sec-title fade" data-lang="de">Die Expat App.</h2>
+    <div class="app-grid">
+      <div class="fade">
+        <p style="color:var(--muted);font-size:1rem;line-height:1.8;margin-bottom:1.5rem" data-lang="en">Developed and operated by Luxfox Limited (Hong Kong). Built for the millions of expats and long-term travelers who live between currencies, borders and time zones. The currency converter is the entry door — the curated expat services are the value.</p>
+        <p style="color:var(--muted);font-size:1rem;line-height:1.8;margin-bottom:1.5rem" data-lang="de">Entwickelt und betrieben von Luxfox Limited (Hongkong). Gebaut für Millionen von Expats und Langzeitreisenden, die zwischen Währungen, Grenzen und Zeitzonen leben. Der Währungsrechner ist die Eingangstür — die kuratierten Expat-Dienste sind der Mehrwert.</p>
+        <p style="color:var(--muted);font-size:.85rem;line-height:1.75;margin-bottom:2rem;padding:.9rem 1.1rem;border-left:2px solid var(--green);background:var(--bg2);border-radius:0 6px 6px 0" data-lang="en">„The price is the same — the provider pays a small commission, which helps keep this app free for you."</p>
+        <p style="color:var(--muted);font-size:.85rem;line-height:1.75;margin-bottom:2rem;padding:.9rem 1.1rem;border-left:2px solid var(--green);background:var(--bg2);border-radius:0 6px 6px 0" data-lang="de">„Der Preis ist derselbe — der Anbieter zahlt eine kleine Provision, die hilft, diese App kostenlos für dich zu halten."</p>
+        <div class="app-coming">
+          <div class="app-coming-icon">📲</div>
+          <div>
+            <div class="app-coming-label" data-lang="en">Coming Soon</div>
+            <div class="app-coming-label" data-lang="de">Demnächst</div>
+            <div class="app-coming-text" data-lang="en">Google Play &amp; Apple App Store</div>
+            <div class="app-coming-text" data-lang="de">Google Play &amp; Apple App Store</div>
+          </div>
+        </div>
+      </div>
+      <div class="app-features fade fade-d1">
+        <div class="feat">
+          <div class="feat-icon">💱</div>
+          <div class="feat-title" data-lang="en">Currency Converter</div>
+          <div class="feat-title" data-lang="de">Währungsrechner</div>
+          <div class="feat-sub" data-lang="en">Real-time rates, offline mode</div>
+          <div class="feat-sub" data-lang="de">Echtzeit-Kurse, Offline-Modus</div>
+        </div>
+        <div class="feat">
+          <div class="feat-icon">🏦</div>
+          <div class="feat-title">Wise</div>
+          <div class="feat-sub" data-lang="en">Best transfer rates worldwide</div>
+          <div class="feat-sub" data-lang="de">Beste Transferkurse weltweit</div>
+        </div>
+        <div class="feat">
+          <div class="feat-icon">🔒</div>
+          <div class="feat-title">VPN</div>
+          <div class="feat-sub" data-lang="en">NordVPN — recurring commissions</div>
+          <div class="feat-sub" data-lang="de">NordVPN — laufende Provisionen</div>
+        </div>
+        <div class="feat">
+          <div class="feat-icon">📶</div>
+          <div class="feat-title">eSIM</div>
+          <div class="feat-sub" data-lang="en">Airalo &amp; eSIMo — 200+ countries</div>
+          <div class="feat-sub" data-lang="de">Airalo &amp; eSIMo — 200+ Länder</div>
+        </div>
+        <div class="feat">
+          <div class="feat-icon">🏥</div>
+          <div class="feat-title" data-lang="en">Health Insurance</div>
+          <div class="feat-title" data-lang="de">Krankenversicherung</div>
+          <div class="feat-sub" data-lang="en">Pacific Prime — up to $500/policy</div>
+          <div class="feat-sub" data-lang="de">Pacific Prime — bis $500/Police</div>
+        </div>
+        <div class="feat">
+          <div class="feat-icon">💳</div>
+          <div class="feat-title">Revolut</div>
+          <div class="feat-sub" data-lang="en">Multi-currency banking</div>
+          <div class="feat-sub" data-lang="de">Multiwährungs-Banking</div>
+        </div>
       </div>
     </div>
-    <p style="color:var(--muted);font-size:0.85rem;max-width:380px;" data-lang="en">The app is developed and operated by Luxfox Limited (Hong Kong). Free to use — commissions from partners keep it that way.</p>
-    <p style="color:var(--muted);font-size:0.85rem;max-width:380px;" data-lang="de">Die App wird entwickelt und betrieben von Luxfox Limited (Hongkong). Kostenlos nutzbar — Provisionen von Partnern halten es so.</p>
   </div>
 </section>
 
-<div class="divider"></div>
-
 <!-- CONTACT -->
-<section id="contact">
-  <div class="section-label" data-lang="en">Contact</div>
-  <div class="section-label" data-lang="de">Kontakt</div>
-  <h2 class="fade" data-lang="en">Get in touch.</h2>
-  <h2 class="fade" data-lang="de">Schreib mir.</h2>
-
-  <form class="fade" action="mailto:peter@luxfox.net" method="POST" enctype="text/plain">
-    <div class="field">
-      <label for="name" data-lang="en">Name</label>
-      <label for="name" data-lang="de">Name</label>
-      <input type="text" id="name" name="Name" placeholder="Your name" required>
+<section id="contact" class="sec">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div>
+        <p class="sec-label fade" data-lang="en">Get in touch</p>
+        <p class="sec-label fade" data-lang="de">Kontakt aufnehmen</p>
+        <h2 class="contact-heading fade" data-lang="en">Let's build<br><span class="accent">something.</span></h2>
+        <h2 class="contact-heading fade" data-lang="de">Lass uns<br><span class="accent">aufbauen.</span></h2>
+        <p class="contact-sub fade" data-lang="en">Interested in a 100blend franchise? A partnership? Questions about our products or the app? Reach out directly — no sales funnel, no chatbot.</p>
+        <p class="contact-sub fade" data-lang="de">Interesse an einem 100blend-Franchise? Partnerschaft? Fragen zu Produkten oder der App? Direkt melden — kein Sales-Funnel, kein Chatbot.</p>
+      </div>
+      <div class="clinks fade fade-d1">
+        <a href="mailto:peter@luxfox.net" class="clink">
+          <span class="clink-icon">✉</span>
+          <div>
+            <div class="clink-label">E-Mail · Luxfox Limited</div>
+            <div class="clink-val">peter@luxfox.net</div>
+          </div>
+        </a>
+        <a href="https://wa.me/66962961811" target="_blank" rel="noopener" class="clink">
+          <span class="clink-icon">💬</span>
+          <div>
+            <div class="clink-label">WhatsApp · Thailand</div>
+            <div class="clink-val">+66 96 296 1811</div>
+          </div>
+        </a>
+        <div class="clink" style="cursor:default">
+          <span class="clink-icon">🏢</span>
+          <div>
+            <div class="clink-label">Registered Office</div>
+            <div class="clink-val" style="font-size:.82rem;color:var(--muted)">Unit 1603, 16/F, The L. Plaza<br>Sheung Wan, Hong Kong</div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="field">
-      <label for="email">E-Mail</label>
-      <input type="email" id="email" name="Email" placeholder="your@email.com" required>
-    </div>
-    <div class="field">
-      <label for="msg" data-lang="en">Message</label>
-      <label for="msg" data-lang="de">Nachricht</label>
-      <textarea id="msg" name="Message" placeholder="..."></textarea>
-    </div>
-    <button type="submit" class="btn">
-      <span data-lang="en">Send message</span>
-      <span data-lang="de">Nachricht senden</span>
-    </button>
-  </form>
+  </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2026 Luxfox Limited (Hong Kong) &nbsp;·&nbsp;
-    <a onclick="document.getElementById('imprint-modal').classList.add('open')">
+  <span>© 2026 Luxfox Limited (Hong Kong)</span>
+  <div class="footer-links">
+    <a onclick="document.getElementById('imp').classList.add('open')" style="cursor:pointer">
       <span data-lang="en">Imprint</span><span data-lang="de">Impressum</span>
     </a>
-  </p>
+    <a href="mailto:peter@luxfox.net">peter@luxfox.net</a>
+  </div>
 </footer>
 
-<!-- IMPRINT MODAL -->
-<div class="modal-overlay" id="imprint-modal" onclick="if(event.target===this)this.classList.remove('open')">
+<!-- IMPRINT -->
+<div class="modal-overlay" id="imp" onclick="if(event.target===this)this.classList.remove('open')">
   <div class="modal">
-    <button class="modal-close" onclick="document.getElementById('imprint-modal').classList.remove('open')">×</button>
+    <button class="modal-close" onclick="document.getElementById('imp').classList.remove('open')">×</button>
     <h3 data-lang="en">Imprint</h3>
     <h3 data-lang="de">Impressum</h3>
     <address>
@@ -626,29 +597,26 @@
       Unit 1603, 16/F, The L. Plaza<br>
       367–375 Queen's Road Central<br>
       Sheung Wan, Hong Kong<br><br>
-      <a href="mailto:peter@luxfox.net" style="color:var(--orange)">peter@luxfox.net</a>
+      Director: Peter Knauf<br>
+      <a href="mailto:peter@luxfox.net">peter@luxfox.net</a>
     </address>
   </div>
 </div>
 
 <script>
-  function setLang(l) {
-    document.body.classList.toggle('lang-de', l === 'de');
-    document.getElementById('btn-en').classList.toggle('active', l === 'en');
-    document.getElementById('btn-de').classList.toggle('active', l === 'de');
-    localStorage.setItem('luxfox-lang', l);
-  }
+function setLang(l){
+  document.body.classList.toggle('lang-de',l==='de');
+  document.getElementById('btn-en').classList.toggle('active',l==='en');
+  document.getElementById('btn-de').classList.toggle('active',l==='de');
+  localStorage.setItem('lf-lang',l);
+}
+const s=localStorage.getItem('lf-lang');
+if(s==='de')setLang('de');
 
-  // restore saved language
-  const saved = localStorage.getItem('luxfox-lang');
-  if (saved === 'de') setLang('de');
-
-  // scroll fade-in
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.15 });
-
-  document.querySelectorAll('.fade').forEach(el => observer.observe(el));
+const obs=new IntersectionObserver(e=>{
+  e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')});
+},{threshold:.1});
+document.querySelectorAll('.fade').forEach(el=>obs.observe(el));
 </script>
 </body>
 </html>
