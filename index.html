@@ -48,7 +48,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .ventures{max-width:1200px;margin:0 auto;padding:0 2rem 5rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
 @media(max-width:960px){.ventures{grid-template-columns:1fr}}
 
-.vc{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--bg2);display:flex;flex-direction:column;transition:transform .3s,border-color .3s,box-shadow .3s;position:relative;cursor:pointer}
+.vc{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--bg2);display:flex;flex-direction:column;transition:transform .3s,border-color .3s,box-shadow .3s;position:relative;cursor:pointer;text-decoration:none;color:inherit}
 .vc::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--green),transparent);opacity:0;transition:opacity .3s}
 .vc:hover{transform:translateY(-5px);border-color:rgba(31,199,106,.38);box-shadow:0 20px 56px rgba(31,199,106,.07)}
 .vc:hover::after{opacity:1}
@@ -66,8 +66,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .vc-desc strong{color:var(--stone);font-weight:600}
 
 .vbtn{display:inline-flex;align-items:center;gap:.35rem;padding:.48rem 1.1rem;border-radius:6px;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:all .2s;align-self:flex-start;font-family:inherit;cursor:pointer;border:none}
-/* Stretched link: ::after füllt die ganze Kachel (.vc = position:relative) */
-.vbtn::after{content:'';position:absolute;inset:0}
+/* Kachel ist selbst ein Link — kein ::after nötig */
 .vbtn-gold{background:var(--gold);color:#000}.vbtn-gold:hover{background:var(--gold-lt);transform:translateX(2px)}
 .vbtn-green{background:var(--green);color:#000}.vbtn-green:hover{background:#25e07a;transform:translateX(2px)}
 .vbtn-out{background:transparent;border:1px solid var(--border);color:var(--green)}.vbtn-out:hover{background:var(--green-dim);border-color:var(--green);transform:translateX(2px)}
@@ -225,7 +224,7 @@ body.lang-de span[data-lang="en"]{display:none}
 <div class="ventures">
 
   <!-- NIR -->
-  <div class="vc fade">
+  <a class="vc fade" href="shop.html">
     <div class="vc-vis vis-nir">
       <svg class="nir-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
         <defs><radialGradient id="rg1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#C9A450" stop-opacity=".95"/><stop offset="100%" stop-color="#C9A450" stop-opacity="0"/></radialGradient></defs>
@@ -250,12 +249,12 @@ body.lang-de span[data-lang="en"]{display:none}
       <h2 class="vc-title" data-lang="de">NIR Lichttherapie</h2>
       <p class="vc-desc" data-lang="en"><strong>Near-infrared &amp; red light panels</strong> for recovery and vitality. Clinically documented wavelengths (660 nm + 850 nm). Sold on Amazon.de.</p>
       <p class="vc-desc" data-lang="de"><strong>Nah-Infrarot- &amp; Rotlicht-Panels</strong> für Regeneration und Vitalität. Klinisch dokumentierte Wellenlängen (660 nm + 850 nm). Auf Amazon.de.</p>
-      <a href="shop.html" class="vbtn vbtn-gold"><span data-lang="en">Browse Products →</span><span data-lang="de">Produkte ansehen →</span></a>
+      <span class="vbtn vbtn-gold"><span data-lang="en">Browse Products →</span><span data-lang="de">Produkte ansehen →</span></span>
     </div>
-  </div>
+  </a>
 
   <!-- 100BLEND -->
-  <div class="vc fade d1">
+  <a class="vc fade d1" href="https://100blend.com" target="_blank" rel="noopener">
     <div class="vc-vis vis-blend">
       <svg class="blend-svg" width="74" height="104" viewBox="0 0 74 104" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -280,12 +279,12 @@ body.lang-de span[data-lang="en"]{display:none}
       <h2 class="vc-title" data-lang="de">100blend — Premium Smoothie Franchise</h2>
       <p class="vc-desc" data-lang="en"><strong>100% fruit. No ice. No sugar.</strong> Flash-frozen ripe fruit, blended to order. Starting in Ho Chi Minh City — scalable to Thailand, Laos, Cambodia. From 122 million VND.</p>
       <p class="vc-desc" data-lang="de"><strong>100 % Frucht. Kein Eis. Kein Zucker.</strong> Schockgefrorene reife Früchte, frisch gemixt. Start HCMC — skalierbar durch Südostasien. Ab 122 Mio. VND.</p>
-      <a href="https://100blend.com" target="_blank" rel="noopener" class="vbtn vbtn-green"><span data-lang="en">Visit 100blend.com →</span><span data-lang="de">100blend.com öffnen →</span></a>
+      <span class="vbtn vbtn-green"><span data-lang="en">Visit 100blend.com →</span><span data-lang="de">100blend.com öffnen →</span></span>
     </div>
-  </div>
+  </a>
 
   <!-- APP -->
-  <div class="vc fade d2">
+  <a class="vc fade d2" href="#app-detail">
     <div class="vc-vis vis-app">
       <svg class="app-svg" width="56" height="98" viewBox="0 0 56 98" xmlns="http://www.w3.org/2000/svg">
         <rect x="3" y="3" width="50" height="92" rx="9" fill="rgba(31,199,106,.05)" stroke="#1FC76A" stroke-width="1.5"/>
@@ -309,9 +308,9 @@ body.lang-de span[data-lang="en"]{display:none}
       <h2 class="vc-title" data-lang="de">Expat App — Währung &amp; Expat-Tools</h2>
       <p class="vc-desc" data-lang="en"><strong>Currency converter + curated expat services.</strong> Free to use, sustained by honest affiliate partnerships. Coming to Google Play &amp; App Store.</p>
       <p class="vc-desc" data-lang="de"><strong>Währungsrechner + kuratierte Expat-Services.</strong> Kostenlos, finanziert durch ehrliche Affiliate-Partnerschaften. Demnächst im Play Store &amp; App Store.</p>
-      <a href="#app-detail" class="vbtn vbtn-out"><span data-lang="en">Discover the App →</span><span data-lang="de">App entdecken →</span></a>
+      <span class="vbtn vbtn-out"><span data-lang="en">Discover the App →</span><span data-lang="de">App entdecken →</span></span>
     </div>
-  </div>
+  </a>
 
 </div><!-- /ventures -->
 
