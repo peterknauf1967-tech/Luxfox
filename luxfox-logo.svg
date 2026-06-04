@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
-  <!-- Weisser Kreis -->
   <circle cx="500" cy="500" r="478" fill="white"/>
-  <!-- Fuchs Linien -->
-  <g fill="none" stroke="#1a1a1a" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="none" stroke="#1FC76A" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
     <path d="M 315,210 L 318,340 L 430,310 L 500,315 L 570,310 L 682,340 L 685,210 Z"/>
     <path d="M 315,210 L 415,410 L 430,310"/>
     <path d="M 685,210 L 585,410 L 570,310"/>
@@ -17,6 +15,5 @@
     <path d="M 660,535 L 550,690"/>
     <path d="M 500,640 L 500,690"/>
   </g>
-  <!-- LUXFOX Text -->
-  <text x="500" y="820" font-family="Arial, Helvetica, sans-serif" font-size="92" font-weight="bold" letter-spacing="6" text-anchor="middle" fill="#1a1a1a">LUXFOX</text>
+  <text x="500" y="820" font-family="Arial, Helvetica, sans-serif" font-size="92" font-weight="bold" letter-spacing="6" text-anchor="middle" fill="#1FC76A">LUXFOX</text>
 </svg>
