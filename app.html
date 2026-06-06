@@ -155,13 +155,18 @@ body.lang-en [data-lang="de"]{display:none}
   border-left:3px solid var(--gold);border-radius:0 10px 10px 0;padding:.8rem 1rem;margin-top:1rem;line-height:1.6}
 
 /* Install hint */
-.install{display:none;align-items:center;gap:.7rem;background:linear-gradient(135deg,var(--eu-blue),var(--eu-blue-2));
+.install{display:flex;align-items:center;gap:.7rem;background:linear-gradient(135deg,var(--eu-blue),var(--eu-blue-2));
   color:#fff;border-radius:14px;padding:.85rem 1rem;margin-top:1.4rem}
-.install.show{display:flex}
 .install .ic{font-size:1.4rem}
 .install .tx{flex:1;font-size:.85rem}
 .install button{background:var(--gold);color:var(--eu-blue);border:none;border-radius:10px;
   padding:.5rem .9rem;font-weight:800;font-size:.82rem;cursor:pointer;font-family:inherit;flex-shrink:0}
+.steps{display:none;background:#fff;border:1px solid var(--line);border-radius:0 0 14px 14px;
+  margin-top:-.6rem;padding:1rem 1.1rem .9rem;font-size:.82rem;color:var(--ink)}
+.steps.show{display:block}
+.steps b{color:var(--eu-blue)}
+.steps p{margin:.35rem 0;color:var(--muted)}
+.steps .k{display:inline-block;background:#F1F4FA;border:1px solid var(--line);border-radius:6px;padding:0 .35rem;font-weight:700;color:var(--ink)}
 
 /* Footer */
 .ft{text-align:center;font-size:.76rem;color:var(--muted);padding:2.4rem 1.2rem 1rem;line-height:1.7}
@@ -233,13 +238,31 @@ body.lang-en [data-lang="de"]{display:none}
 
   <div class="chips" id="chips"></div>
 
-  <!-- INSTALL HINT -->
+  <!-- INSTALL / DOWNLOAD -->
   <div class="install" id="install">
     <span class="ic">📲</span>
-    <span class="tx" data-lang="de">Als App auf dem Startbildschirm installieren — funktioniert dann auch offline.</span>
-    <span class="tx" data-lang="en">Install as an app on your home screen — then it works offline too.</span>
-    <button onclick="doInstall()" data-lang="de">Installieren</button>
-    <button onclick="doInstall()" data-lang="en">Install</button>
+    <span class="tx" data-lang="de">Als App installieren — eigenes Icon, Vollbild, funktioniert offline.</span>
+    <span class="tx" data-lang="en">Install as an app — own icon, full screen, works offline.</span>
+    <button onclick="doInstall()" data-lang="de">App installieren</button>
+    <button onclick="doInstall()" data-lang="en">Install app</button>
+  </div>
+  <div class="steps" id="steps">
+    <div data-lang="de">
+      <b>📱 iPhone / iPad (Safari):</b>
+      <p>Tippe unten auf <span class="k">Teilen ⬆️</span> → <span class="k">Zum Home-Bildschirm</span>.</p>
+      <b>🤖 Android (Chrome):</b>
+      <p>Menü <span class="k">⋮</span> → <span class="k">App installieren</span> / <span class="k">Zum Startbildschirm</span>.</p>
+      <b>💻 Desktop (Chrome/Edge):</b>
+      <p>Installations-Symbol <span class="k">⊕</span> rechts in der Adressleiste.</p>
+    </div>
+    <div data-lang="en">
+      <b>📱 iPhone / iPad (Safari):</b>
+      <p>Tap <span class="k">Share ⬆️</span> → <span class="k">Add to Home Screen</span>.</p>
+      <b>🤖 Android (Chrome):</b>
+      <p>Menu <span class="k">⋮</span> → <span class="k">Install app</span> / <span class="k">Add to Home screen</span>.</p>
+      <b>💻 Desktop (Chrome/Edge):</b>
+      <p>Install icon <span class="k">⊕</span> on the right of the address bar.</p>
+    </div>
   </div>
 
   <!-- PARTNERS -->
@@ -465,14 +488,19 @@ function renderPartners(){
 let deferredPrompt=null;
 window.addEventListener('beforeinstallprompt',e=>{
   e.preventDefault();deferredPrompt=e;
-  document.getElementById('install').classList.add('show');
 });
 function doInstall(){
-  if(!deferredPrompt)return;
-  deferredPrompt.prompt();
-  deferredPrompt.userChoice.finally(()=>{
-    deferredPrompt=null;document.getElementById('install').classList.remove('show');
-  });
+  if(deferredPrompt){
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.finally(()=>{deferredPrompt=null;});
+  }else{
+    // iOS/Safari & andere: manuelle Anleitung zeigen
+    document.getElementById('steps').classList.toggle('show');
+  }
+}
+// Schon installiert? Hinweis ausblenden.
+if(window.matchMedia('(display-mode: standalone)').matches||navigator.standalone){
+  document.getElementById('install').style.display='none';
 }
 
 /* ---------- Init ---------- */
