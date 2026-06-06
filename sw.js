@@ -1,5 +1,5 @@
 /* Luxfox Expat Tools — Service Worker (Offline-Shell) */
-const CACHE = 'fx-app-v1';
+const CACHE = 'fx-app-v2';
 const ASSETS = [
   'app.html',
   'manifest.json',
