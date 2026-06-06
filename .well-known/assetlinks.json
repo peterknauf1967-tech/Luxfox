@@ -1,0 +1,10 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "net.luxfox.app",
+      "sha256_cert_fingerprints": ["06:40:26:BB:8B:09:99:23:6D:4C:E1:75:9E:DF:35:63:5F:46:4C:A8:39:79:8D:B6:4B:D9:FF:44:E0:31:2D:D9"]
+    }
+  }
+]
