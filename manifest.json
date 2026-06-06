@@ -1,0 +1,26 @@
+{
+  "name": "Euro ↔ Baht — Expat Tools Thailand",
+  "short_name": "€ ⇄ ฿",
+  "description": "Währungsrechner Euro/Baht mit Live-Kursen plus geprüfte Dienste für Expats in Thailand.",
+  "lang": "de",
+  "start_url": "app.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0B2A5B",
+  "theme_color": "#0B2A5B",
+  "icons": [
+    {
+      "src": "luxfox-logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "luxfox-logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
