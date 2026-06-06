@@ -3,34 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Euro in Baht umrechnen — Wechselkurs €/฿ & Geld nach Thailand | Luxfox</title>
-<meta name="description" content="Kostenloser Euro-Baht-Rechner mit Live-Wechselkurs. Plus geprüfte Tipps für Auswanderer in Thailand: günstig Geld überweisen, eSIM, VPN, Krankenversicherung. Auch offline als App installierbar.">
-<meta name="keywords" content="Euro in Baht umrechnen, Wechselkurs Euro Baht, Geld nach Thailand überweisen, Auswandern Thailand, Leben in Thailand, eSIM Thailand, Krankenversicherung Thailand">
+<title>Euro-Baht-Rechner — Wechselkurs €/฿ & Geld nach Thailand | Luxfox</title>
+<meta name="description" content="Kostenloser Euro-Baht-Rechner mit Live-Wechselkurs. Vergleiche Wechselstuben, sieh wie viel du mit Wise sparst, plus geprüfte Tipps für Auswanderer in Thailand. Offline-fähig, als App installierbar.">
+<meta name="keywords" content="Euro Baht Rechner, Euro in Baht umrechnen, Wechselkurs Euro Baht, Geld nach Thailand überweisen, Wechselstube Thailand, Wise Thailand, Auswandern Thailand">
 <meta name="author" content="Luxfox Limited">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://luxfox.net/app.html">
 <meta name="theme-color" content="#0B2A5B">
-<!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
 <meta property="og:locale" content="de_DE">
 <meta property="og:url" content="https://luxfox.net/app.html">
-<meta property="og:title" content="Euro in Baht umrechnen — Wechselkurs & Tools für Thailand">
-<meta property="og:description" content="Live Euro-Baht-Rechner plus geprüfte Dienste für deutschsprachige Auswanderer in Thailand. Kostenlos, offline-fähig, als App installierbar.">
+<meta property="og:title" content="Euro-Baht-Rechner — Wechselkurs & Tools für Thailand">
+<meta property="og:description" content="Live Euro-Baht-Rechner mit Wechselstuben-Vergleich und Wise-Spartipp. Für deutschsprachige Auswanderer in Thailand. Kostenlos, offline-fähig.">
 <meta property="og:image" content="https://luxfox.net/luxfox-logo.png">
 <meta property="og:site_name" content="Luxfox">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Euro in Baht umrechnen — Tools für Thailand">
-<meta name="twitter:description" content="Live €/฿-Rechner + geprüfte Dienste für Auswanderer in Thailand. Kostenlos & offline.">
+<meta name="twitter:title" content="Euro-Baht-Rechner — Tools für Thailand">
+<meta name="twitter:description" content="Live €/฿-Rechner + Wechselstuben-Vergleich + Wise-Spartipp. Kostenlos & offline.">
 <meta name="twitter:image" content="https://luxfox.net/luxfox-logo.png">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="luxfox-logo.png">
 <link rel="icon" href="luxfox-logo.png">
-<!-- Structured data -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "Euro ↔ Baht Rechner",
+  "name": "Euro-Baht-Rechner",
   "url": "https://luxfox.net/app.html",
   "applicationCategory": "FinanceApplication",
   "operatingSystem": "Web, Android, iOS",
@@ -42,584 +40,442 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  /* Europa-Thailand Palette: EU-Blau, EU-Gold, Thai-Rot */
-  --eu-blue:#0B2A5B;       /* EU/Thai Tiefblau */
-  --eu-blue-2:#13407F;
-  --gold:#E8B23A;          /* EU-Sterne / Thai-Gold */
-  --gold-lt:#F6CF6B;
-  --thai-red:#C8102E;      /* Thai-Rot */
-  --thai-red-dk:#A00A23;
-  --ink:#16203A;
-  --muted:#64708A;
-  --line:#E4E8F0;
-  --bg:#F4F6FB;
-  --card:#FFFFFF;
-  --ok:#1E9E5A;
+  --eu-blue:#0B2A5B;--eu-blue-2:#13407F;
+  --gold:#E8B23A;--gold-lt:#F6CF6B;
+  --thai-red:#A51931;--thai-blue:#2D2A4A;
+  --eu-flag:#003399;--eu-star:#FFCC00;
+  --wise:#37b67a;--wise-dk:#1a7a4a;--wise-bg:#d4f5e4;
+  --ink:#16203A;--muted:#64708A;--line:#E4E8F0;
+  --bg:#F4F6FB;--card:#FFFFFF;
+  --gain:#2a9060;--loss:#cc3333;
 }
 html{scroll-behavior:smooth}
-body{
-  background:var(--bg);
-  color:var(--ink);
-  font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
-  line-height:1.55;-webkit-font-smoothing:antialiased;
-  min-height:100vh;
-  padding-bottom:env(safe-area-inset-bottom);
-}
-
-/* Sprache */
+body{background:var(--bg);color:var(--ink);font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh;padding-bottom:env(safe-area-inset-bottom)}
 [data-lang="en"]{display:none}
 body.lang-en [data-lang="en"]{display:revert}
 body.lang-en [data-lang="de"]{display:none}
 
 /* HERO */
-.hero{
-  position:relative;overflow:hidden;color:#fff;
-  background:
-    radial-gradient(1200px 500px at 80% -20%,rgba(232,178,58,.25),transparent 60%),
-    linear-gradient(135deg,var(--eu-blue) 0%,var(--eu-blue-2) 55%,#0E316B 100%);
-  padding:calc(1.4rem + env(safe-area-inset-top)) 1.2rem 2.6rem;
-}
-/* EU-Sternenkranz dezent */
-.hero::before{
-  content:"★ ★ ★ ★ ★ ★";
-  position:absolute;top:-.6rem;right:-.4rem;
-  font-size:1.1rem;letter-spacing:.5rem;color:var(--gold);opacity:.18;
-  transform:rotate(8deg);pointer-events:none;
-}
-.topbar{display:flex;justify-content:space-between;align-items:center;max-width:680px;margin:0 auto 1.6rem}
+.hero{position:relative;overflow:hidden;color:#fff;background:radial-gradient(1200px 500px at 80% -20%,rgba(232,178,58,.25),transparent 60%),linear-gradient(135deg,var(--eu-blue) 0%,var(--eu-blue-2) 55%,#0E316B 100%);padding:calc(1.2rem + env(safe-area-inset-top)) 1.2rem 2.2rem}
+.hero::before{content:"★ ★ ★ ★ ★ ★";position:absolute;top:-.6rem;right:-.4rem;font-size:1.1rem;letter-spacing:.5rem;color:var(--gold);opacity:.18;transform:rotate(8deg);pointer-events:none}
+.topbar{display:flex;justify-content:space-between;align-items:center;max-width:560px;margin:0 auto 1.3rem}
 .brand{display:flex;align-items:center;gap:.55rem;text-decoration:none;color:#fff}
-.brand img{width:34px;height:34px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px rgba(255,255,255,.18)}
-.brand b{font-size:.92rem;font-weight:700;letter-spacing:.04em}
+.brand img{width:32px;height:32px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px rgba(255,255,255,.18)}
+.brand b{font-size:.9rem;font-weight:700;letter-spacing:.04em}
 .lang{display:flex;border:1px solid rgba(255,255,255,.28);border-radius:999px;overflow:hidden}
 .lang button{background:none;border:none;color:rgba(255,255,255,.7);padding:.28rem .66rem;font-size:.72rem;font-weight:700;cursor:pointer;font-family:inherit}
 .lang button.on{background:var(--gold);color:var(--eu-blue)}
-
-.hero-head{max-width:680px;margin:0 auto;text-align:center}
-.flags{font-size:2.1rem;line-height:1;display:flex;align-items:center;justify-content:center;gap:.55rem;margin-bottom:.7rem}
-.flags .ar{font-size:1.3rem;color:var(--gold)}
-.hero h1{font-size:clamp(1.6rem,6vw,2.2rem);font-weight:800;letter-spacing:-.02em;margin-bottom:.35rem}
+.hero-head{max-width:560px;margin:0 auto;text-align:center}
+.flags{font-size:1.9rem;line-height:1;display:flex;align-items:center;justify-content:center;gap:.5rem;margin-bottom:.5rem}
+.flags .ar{font-size:1.2rem;color:var(--gold)}
+.hero h1{font-size:clamp(1.5rem,5.5vw,2rem);font-weight:800;letter-spacing:-.02em;margin-bottom:.3rem}
 .hero h1 .e{color:var(--gold-lt)}
-.hero h1 .b{color:#fff}
-.hero p{font-size:.92rem;color:rgba(255,255,255,.82);max-width:30rem;margin:0 auto}
+.hero p{font-size:.88rem;color:rgba(255,255,255,.82);max-width:28rem;margin:0 auto}
 
 /* WRAP */
-.wrap{max-width:680px;margin:0 auto;padding:0 1.2rem 3rem}
+.wrap{max-width:560px;margin:0 auto;padding:0 1.2rem 3rem}
 
-/* CONVERTER CARD */
-.conv{
-  background:var(--card);border-radius:20px;
-  box-shadow:0 18px 40px -18px rgba(11,42,91,.35);
-  margin-top:-1.6rem;position:relative;z-index:2;
-  border:1px solid var(--line);overflow:hidden;
-}
-.conv-row{display:flex;align-items:center;gap:.8rem;padding:1.05rem 1.15rem}
-.conv-row + .conv-row{border-top:1px solid var(--line)}
-.cur-pick{display:flex;align-items:center;gap:.5rem;flex-shrink:0;min-width:118px;
-  background:#F1F4FA;border:1px solid var(--line);border-radius:12px;padding:.5rem .6rem;cursor:pointer;position:relative}
-.cur-pick .fl{font-size:1.35rem;line-height:1}
-.cur-pick .co{font-weight:800;font-size:.95rem}
-.cur-pick .cv{margin-left:auto;color:var(--muted);font-size:.7rem}
-.cur-pick select{position:absolute;inset:0;opacity:0;cursor:pointer;font-size:16px}
-.amt{flex:1;min-width:0;text-align:right}
-.amt .sym{font-size:.78rem;color:var(--muted);font-weight:700;display:block;margin-bottom:.05rem}
-.amt input{
-  width:100%;border:none;outline:none;background:none;
-  text-align:right;font-size:clamp(1.5rem,7vw,2rem);font-weight:800;color:var(--ink);
-  font-family:inherit;letter-spacing:-.01em;
-}
-.amt input::placeholder{color:#C3CBDA}
+/* CARD base */
+.card{background:var(--card);border-radius:16px;border:1px solid var(--line);box-shadow:0 10px 30px -18px rgba(11,42,91,.3)}
+.calc{margin-top:-1.4rem;position:relative;z-index:2;padding:1.2rem 1.1rem}
 
-/* Swap */
-.swap-wrap{display:flex;justify-content:center;height:0;position:relative;z-index:3}
-.swap{
-  position:absolute;top:-21px;width:42px;height:42px;border-radius:50%;
-  background:var(--thai-red);color:#fff;border:3px solid #fff;
-  font-size:1.05rem;cursor:pointer;display:flex;align-items:center;justify-content:center;
-  box-shadow:0 6px 16px -4px rgba(200,16,46,.5);transition:transform .25s;
-}
-.swap:hover{transform:rotate(180deg) scale(1.06)}
+.step{font-size:.82rem;font-weight:700;color:var(--muted);margin:0 0 .6rem;display:flex;align-items:center;gap:.45rem}
+.step .n{background:var(--eu-blue);color:#fff;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.72rem;flex-shrink:0}
 
-/* Rate line */
-.rate{
-  display:flex;align-items:center;justify-content:center;gap:.6rem;flex-wrap:wrap;
-  margin-top:.9rem;font-size:.82rem;color:var(--muted);text-align:center;
-}
-.rate b{color:var(--ink);font-weight:700}
-.badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.68rem;font-weight:700;
-  padding:.2rem .55rem;border-radius:999px;letter-spacing:.02em}
-.badge.live{background:rgba(30,158,90,.12);color:var(--ok)}
-.badge.off{background:rgba(232,178,58,.16);color:#9A7410}
-.dot{width:7px;height:7px;border-radius:50%;background:currentColor}
+/* Quick amounts */
+.quick{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:.9rem}
+.quick button{background:#EEF2F8;border:1px solid var(--line);border-radius:999px;padding:.4rem .85rem;font-size:.85rem;font-weight:700;color:var(--eu-blue);cursor:pointer;font-family:inherit}
+.quick button:hover{border-color:var(--gold);background:#FFFBF0}
+
+/* Amount input */
+.amount{width:100%;border:none;border-bottom:2px solid #ccc;background:none;text-align:center;font-size:clamp(2rem,11vw,2.8rem);font-weight:600;color:var(--ink);font-family:inherit;padding:.2rem 0 .35rem;outline:none}
+.amount:focus{border-bottom-color:var(--eu-blue)}
+.amount::placeholder{color:#C3CBDA}
+
+.divider{height:1px;background:var(--line);margin:1.1rem 0}
+
+/* Flag row */
+.flagrow{display:flex;align-items:center;justify-content:center;gap:.8rem}
+.flagbtn{flex:1;max-width:150px;padding:.7rem;border-radius:12px;border:2px solid transparent;background:#EEF2F8;cursor:pointer;font-family:inherit;display:flex;flex-direction:column;align-items:center;gap:.4rem;transition:border-color .2s,background .2s}
+.flagbtn.on{border-color:var(--eu-blue);background:#DDEEFF}
+.flagbtn .lbl{font-size:.85rem;font-weight:800;color:var(--ink);letter-spacing:.03em}
+.flagbtn .sub{font-size:.68rem;color:var(--muted)}
+/* Thai flag */
+.thflag{width:60px;height:40px;border-radius:4px;overflow:hidden;display:flex;flex-direction:column}
+.thflag i{display:block}
+.thflag .r{height:20%;background:var(--thai-red)}
+.thflag .w{height:13.33%;background:#fff}
+.thflag .b{height:33.34%;background:var(--thai-blue)}
+/* EU flag */
+.euflag{width:60px;height:40px;border-radius:4px;background:var(--eu-flag);display:flex;align-items:center;justify-content:center}
+.euflag span{font-size:1.5rem;font-weight:800;color:var(--eu-star)}
+.swap{width:40px;height:40px;border-radius:50%;border:1.5px solid #ccc;background:#fff;font-size:1.2rem;color:#555;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:transform .25s}
+.swap:hover{transform:rotate(180deg);border-color:var(--eu-blue);color:var(--eu-blue)}
+
+/* Result */
+.result{margin-top:1.1rem;background:#EEF2F8;border-radius:12px;padding:1.1rem;text-align:center}
+.result .lbl{font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:.3rem}
+.result .big{font-size:clamp(2.2rem,12vw,3rem);font-weight:600;color:var(--ink);line-height:1}
+.result .cur{font-size:.95rem;color:var(--muted);margin-top:.25rem}
+.result .rate{font-size:.74rem;color:var(--muted);margin-top:.6rem;display:flex;align-items:center;justify-content:center;gap:.5rem;flex-wrap:wrap}
+.badge{display:inline-flex;align-items:center;gap:.3rem;font-size:.66rem;font-weight:700;padding:.16rem .5rem;border-radius:999px}
+.badge.live{background:rgba(42,144,96,.12);color:var(--gain)}
+.badge.off{background:rgba(232,178,58,.18);color:#9A7410}
+.dot{width:6px;height:6px;border-radius:50%;background:currentColor}
 .badge.live .dot{animation:pulse 1.6s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 
-/* Quick amounts */
-.chips{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;margin-top:1rem}
-.chip{background:#fff;border:1px solid var(--line);border-radius:999px;
-  padding:.4rem .9rem;font-size:.82rem;font-weight:700;color:var(--eu-blue);cursor:pointer;font-family:inherit}
-.chip:hover{border-color:var(--gold);background:#FFFBF0}
+/* Wise card */
+.wise{margin-top:.9rem;background:#fff;border:1.5px solid var(--wise);border-radius:12px;padding:1rem}
+.wise .h{display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem}
+.wise .logo{font-size:.8rem;font-weight:700;color:var(--wise-dk);background:var(--wise-bg);padding:.18rem .6rem;border-radius:999px}
+.wise .tag{font-size:.7rem;color:var(--wise-dk);background:var(--wise-bg);padding:.14rem .5rem;border-radius:999px}
+.wise .amt{font-size:1.7rem;font-weight:600;color:var(--ink)}
+.wise .sub{font-size:.74rem;color:var(--muted);margin-top:.15rem}
+.wise a{display:block;text-align:center;background:var(--wise);color:#fff;border-radius:8px;padding:.7rem;font-weight:700;font-size:.9rem;text-decoration:none;margin-top:.7rem}
+.wise a:hover{background:var(--wise-dk)}
 
-/* Section heading */
-.sh{display:flex;align-items:center;gap:.6rem;margin:2.6rem 0 1rem}
-.sh .bar{width:26px;height:3px;border-radius:2px;background:var(--gold)}
-.sh h2{font-size:1.12rem;font-weight:800;letter-spacing:-.01em}
-.sh .sub{font-size:.8rem;color:var(--muted);margin-top:.1rem}
+/* Wechselstube */
+.exch{margin-top:.9rem;background:#EEF2F8;border-radius:12px;padding:1rem}
+.exch .h{font-size:.84rem;font-weight:700;color:var(--muted);margin-bottom:.6rem}
+.exch .row{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.exch .row .u{font-size:.8rem;color:var(--muted)}
+.exch input{width:90px;font-size:1.05rem;font-weight:600;border:none;border-bottom:1px solid #bbb;background:none;padding:.2rem;color:var(--ink);font-family:inherit;outline:none}
+.exch input:focus{border-bottom-color:var(--eu-blue)}
+.exch .out{margin-top:.7rem;font-size:.86rem}
+.exch .you{font-weight:700;color:var(--ink)}
+.exch .diff{font-size:.8rem;margin-top:.25rem;font-weight:600}
+.exch .diff.gain{color:var(--gain)}
+.exch .diff.loss{color:var(--loss)}
 
-/* Partner cards */
-.partners{display:grid;grid-template-columns:1fr;gap:.7rem}
-@media(min-width:520px){.partners{grid-template-columns:1fr 1fr}}
-.pc{
-  display:flex;align-items:center;gap:.9rem;text-decoration:none;color:inherit;
-  background:var(--card);border:1px solid var(--line);border-radius:14px;padding:.95rem 1rem;
-  transition:transform .2s,box-shadow .2s,border-color .2s;
-}
-.pc:hover{transform:translateY(-2px);box-shadow:0 12px 24px -14px rgba(11,42,91,.35);border-color:#CBD6EA}
-.pc .ic{width:42px;height:42px;border-radius:11px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.3rem;background:#F1F4FA}
-.pc .tx{flex:1;min-width:0}
-.pc .tt{font-weight:700;font-size:.93rem}
-.pc .ss{font-size:.78rem;color:var(--muted);line-height:1.4}
-.pc .go{color:var(--thai-red);font-weight:800;font-size:1.1rem;flex-shrink:0}
+/* Offline badge */
+.offline{display:flex;align-items:center;justify-content:center;gap:.4rem;font-size:.74rem;color:var(--muted);margin-top:.9rem}
+.offline .d{width:8px;height:8px;border-radius:50%;background:var(--wise)}
 
-/* Notes & disclaimer */
-.note{font-size:.78rem;color:var(--muted);background:#fff;border:1px solid var(--line);
-  border-left:3px solid var(--gold);border-radius:0 10px 10px 0;padding:.8rem 1rem;margin-top:1rem;line-height:1.6}
-
-/* Install hint */
-.install{display:flex;align-items:center;gap:.7rem;background:linear-gradient(135deg,var(--eu-blue),var(--eu-blue-2));
-  color:#fff;border-radius:14px;padding:.85rem 1rem;margin-top:1.4rem}
+/* Install */
+.install{display:flex;align-items:center;gap:.7rem;background:linear-gradient(135deg,var(--eu-blue),var(--eu-blue-2));color:#fff;border-radius:14px;padding:.85rem 1rem;margin-top:1.3rem}
 .install .ic{font-size:1.4rem}
-.install .tx{flex:1;font-size:.85rem}
-.install button{background:var(--gold);color:var(--eu-blue);border:none;border-radius:10px;
-  padding:.5rem .9rem;font-weight:800;font-size:.82rem;cursor:pointer;font-family:inherit;flex-shrink:0}
-.steps{display:none;background:#fff;border:1px solid var(--line);border-radius:0 0 14px 14px;
-  margin-top:-.6rem;padding:1rem 1.1rem .9rem;font-size:.82rem;color:var(--ink)}
+.install .tx{flex:1;font-size:.84rem}
+.install button{background:var(--gold);color:var(--eu-blue);border:none;border-radius:10px;padding:.5rem .9rem;font-weight:800;font-size:.8rem;cursor:pointer;font-family:inherit;flex-shrink:0}
+.steps{display:none;background:#fff;border:1px solid var(--line);border-radius:0 0 14px 14px;margin-top:-.6rem;padding:1rem;font-size:.82rem}
 .steps.show{display:block}
 .steps b{color:var(--eu-blue)}
-.steps p{margin:.35rem 0;color:var(--muted)}
-.steps .k{display:inline-block;background:#F1F4FA;border:1px solid var(--line);border-radius:6px;padding:0 .35rem;font-weight:700;color:var(--ink)}
+.steps p{margin:.3rem 0;color:var(--muted)}
+.steps .k{display:inline-block;background:#EEF2F8;border:1px solid var(--line);border-radius:6px;padding:0 .35rem;font-weight:700;color:var(--ink)}
 
-/* SEO Content */
-.content{margin-top:1.4rem;font-size:.92rem;color:var(--ink);line-height:1.7}
-.content h3{font-size:1.02rem;font-weight:800;color:var(--eu-blue);margin:1.5rem 0 .4rem}
+/* Section heading */
+.sh{display:flex;align-items:center;gap:.6rem;margin:2.4rem 0 1rem}
+.sh .bar{width:24px;height:3px;border-radius:2px;background:var(--gold)}
+.sh h2{font-size:1.08rem;font-weight:800}
+
+/* Partners */
+.partners{display:grid;grid-template-columns:1fr;gap:.6rem}
+@media(min-width:480px){.partners{grid-template-columns:1fr 1fr}}
+.pc{display:flex;align-items:center;gap:.8rem;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.85rem .9rem;transition:transform .2s,box-shadow .2s}
+.pc:hover{transform:translateY(-2px);box-shadow:0 10px 22px -14px rgba(11,42,91,.35)}
+.pc .ic{width:40px;height:40px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.25rem;background:#EEF2F8}
+.pc .tt{font-weight:700;font-size:.9rem}
+.pc .ss{font-size:.76rem;color:var(--muted);line-height:1.4}
+.pc .go{color:var(--thai-red);font-weight:800;font-size:1.05rem;margin-left:auto}
+
+/* SEO content */
+.content{margin-top:1.2rem;font-size:.9rem;line-height:1.7}
+.content h3{font-size:1rem;font-weight:800;color:var(--eu-blue);margin:1.4rem 0 .4rem}
 .content p{color:#3A465F;margin-bottom:.6rem}
-.content .lead{font-size:.95rem;color:#3A465F}
-.content strong{color:var(--ink)}
-
-/* FAQ */
-.faq{margin-top:.6rem}
-.faq details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.2rem .2rem;margin-bottom:.55rem}
-.faq summary{cursor:pointer;list-style:none;padding:.85rem 1rem;font-weight:700;font-size:.9rem;color:var(--eu-blue);display:flex;justify-content:space-between;align-items:center}
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:.5rem}
+.faq summary{cursor:pointer;list-style:none;padding:.8rem 1rem;font-weight:700;font-size:.88rem;color:var(--eu-blue);display:flex;justify-content:space-between;align-items:center}
 .faq summary::-webkit-details-marker{display:none}
 .faq summary::after{content:"+";color:var(--thai-red);font-weight:800;font-size:1.2rem;margin-left:.6rem}
 .faq details[open] summary::after{content:"–"}
-.faq .a{padding:0 1rem .9rem;font-size:.86rem;color:#3A465F;line-height:1.65}
+.faq .a{padding:0 1rem .85rem;font-size:.85rem;color:#3A465F;line-height:1.65}
 
-/* Footer */
-.ft{text-align:center;font-size:.76rem;color:var(--muted);padding:2.4rem 1.2rem 1rem;line-height:1.7}
+.note{font-size:.78rem;color:var(--muted);background:#fff;border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:0 10px 10px 0;padding:.8rem 1rem;margin-top:1rem;line-height:1.6}
+
+.ft{text-align:center;font-size:.76rem;color:var(--muted);padding:2.2rem 1.2rem 1rem;line-height:1.7}
 .ft a{color:var(--eu-blue);font-weight:700;text-decoration:none}
-.ft .bk{display:inline-flex;align-items:center;gap:.4rem;margin-bottom:.6rem}
+.ft .bk{display:inline-flex;align-items:center;gap:.4rem;margin-bottom:.5rem}
 </style>
 </head>
 <body>
 
-<!-- HERO -->
 <header class="hero">
   <div class="topbar">
-    <a class="brand" href="index.html">
-      <img src="luxfox-logo.png" alt="Luxfox">
-      <b>Luxfox</b>
-    </a>
+    <a class="brand" href="index.html"><img src="luxfox-logo.png" alt="Luxfox"><b>Luxfox</b></a>
     <div class="lang">
       <button id="l-de" class="on" onclick="setLang('de')">DE</button>
       <button id="l-en" onclick="setLang('en')">EN</button>
     </div>
   </div>
   <div class="hero-head">
-    <div class="flags">
-      <span>🇪🇺</span><span>🇩🇪</span><span class="ar">⇄</span><span>🇹🇭</span>
-    </div>
-    <h1><span class="e">€ Euro</span> ⇄ <span class="b">Baht ฿</span></h1>
-    <p data-lang="de">Live-Wechselkurs &amp; geprüfte Dienste für Auswanderer und Urlauber in Thailand. Kostenlos, werbefrei, offline-fähig.</p>
-    <p data-lang="en">Live exchange rate &amp; trusted services for expats and travellers in Thailand. Free, ad-free, works offline.</p>
+    <div class="flags"><span>🇪🇺</span><span>🇩🇪</span><span class="ar">⇄</span><span>🇹🇭</span></div>
+    <h1><span class="e">Euro</span> ⇄ Baht <span class="e">Rechner</span></h1>
+    <p data-lang="de">Live-Kurs, Wechselstuben-Vergleich und Spartipp für deutschsprachige Auswanderer in Thailand. Kostenlos & offline.</p>
+    <p data-lang="en">Live rate, money-changer comparison and savings tip for expats in Thailand. Free & offline.</p>
   </div>
 </header>
 
 <div class="wrap">
 
   <!-- CONVERTER -->
-  <section class="conv" aria-label="Currency converter">
-    <div class="conv-row">
-      <div class="cur-pick">
-        <span class="fl" id="flag-a">🇪🇺</span>
-        <span class="co" id="code-a">EUR</span>
-        <span class="cv">▾</span>
-        <select id="cur-a" onchange="onCur('a')"></select>
-      </div>
-      <label class="amt">
-        <span class="sym" id="name-a" data-lang="de">Euro</span><span class="sym" data-lang="en" id="name-a-en">Euro</span>
-        <input id="amt-a" type="text" inputmode="decimal" value="100" oninput="convert('a')" autocomplete="off">
-      </label>
+  <section class="card calc">
+    <!-- Step 1 -->
+    <div class="step"><span class="n">1</span><span data-lang="de">Betrag auswählen oder eintippen</span><span data-lang="en">Pick or type an amount</span></div>
+    <div class="quick" id="quick"></div>
+    <input class="amount" id="amount" type="text" inputmode="decimal" placeholder="0" oninput="recompute()" autocomplete="off">
+
+    <div class="divider"></div>
+
+    <!-- Step 2 -->
+    <div class="step"><span class="n">2</span><span data-lang="de">Mein Betrag ist in …</span><span data-lang="en">My amount is in …</span></div>
+    <div class="flagrow">
+      <button class="flagbtn" id="btn-EUR" onclick="setBase('EUR')">
+        <span class="euflag"><span>€</span></span>
+        <span class="lbl">EUR</span><span class="sub">Euro</span>
+      </button>
+      <button class="swap" onclick="swap()" aria-label="Tauschen">⇅</button>
+      <button class="flagbtn" id="btn-THB" onclick="setBase('THB')">
+        <span class="thflag"><i class="r"></i><i class="w"></i><i class="b"></i><i class="w"></i><i class="r"></i></span>
+        <span class="lbl">THB</span><span class="sub">Thai Baht</span>
+      </button>
     </div>
 
-    <div class="swap-wrap"><button class="swap" onclick="swap()" aria-label="Swap">⇅</button></div>
+    <!-- Result -->
+    <div class="result">
+      <div class="lbl" data-lang="de">Das entspricht …</div>
+      <div class="lbl" data-lang="en">That equals …</div>
+      <div class="big" id="res-amt">–</div>
+      <div class="cur" id="res-cur">Thai Baht ฿</div>
+      <div class="rate"><span id="rate-text">…</span><span class="badge live" id="status"><span class="dot"></span><span id="status-text">Live</span></span></div>
+    </div>
 
-    <div class="conv-row">
-      <div class="cur-pick">
-        <span class="fl" id="flag-b">🇹🇭</span>
-        <span class="co" id="code-b">THB</span>
-        <span class="cv">▾</span>
-        <select id="cur-b" onchange="onCur('b')"></select>
+    <!-- Wise -->
+    <div class="wise" id="wise" style="display:none">
+      <div class="h"><span class="logo">Wise</span><span class="tag" data-lang="de">Empfohlen</span><span class="tag" data-lang="en">Recommended</span></div>
+      <div class="amt" id="wise-amt">–</div>
+      <div class="sub" data-lang="de">nach Wise-Gebühren (~0,5 %) · günstigster Kurs</div>
+      <div class="sub" data-lang="en">after Wise fees (~0.5%) · best rate</div>
+      <a id="wise-link" href="https://wise.com" target="_blank" rel="noopener sponsored">
+        <span data-lang="de">Jetzt mit Wise überweisen →</span><span data-lang="en">Send with Wise now →</span>
+      </a>
+    </div>
+
+    <!-- Wechselstube -->
+    <div class="exch">
+      <div class="h" data-lang="de">🏪 Wechselstube vergleichen (optional)</div>
+      <div class="h" data-lang="en">🏪 Compare a money-changer (optional)</div>
+      <div class="row">
+        <span class="u">Kurs: 1 € =</span>
+        <input id="exch-rate" type="text" inputmode="decimal" placeholder="38,00" oninput="recompute()" autocomplete="off">
+        <span class="u">฿</span>
       </div>
-      <label class="amt">
-        <span class="sym" id="name-b">Thai Baht</span>
-        <input id="amt-b" type="text" inputmode="decimal" oninput="convert('b')" autocomplete="off">
-      </label>
+      <div class="out" id="exch-out" style="display:none">
+        <div class="you" id="exch-you"></div>
+        <div class="diff" id="exch-diff"></div>
+      </div>
+    </div>
+
+    <div class="offline"><span class="d"></span>
+      <span data-lang="de">Offline verfügbar · Kurs gespeichert</span>
+      <span data-lang="en">Available offline · rate saved</span>
     </div>
   </section>
 
-  <div class="rate">
-    <span id="rate-text">…</span>
-    <span class="badge live" id="status"><span class="dot"></span><span id="status-text">Live</span></span>
-  </div>
-
-  <div class="chips" id="chips"></div>
-
-  <!-- INSTALL / DOWNLOAD -->
+  <!-- INSTALL -->
   <div class="install" id="install">
     <span class="ic">📲</span>
-    <span class="tx" data-lang="de">Als App installieren — eigenes Icon, Vollbild, funktioniert offline.</span>
-    <span class="tx" data-lang="en">Install as an app — own icon, full screen, works offline.</span>
+    <span class="tx" data-lang="de">Als App installieren — eigenes Icon, Vollbild, offline.</span>
+    <span class="tx" data-lang="en">Install as an app — own icon, full screen, offline.</span>
     <button onclick="doInstall()" data-lang="de">App installieren</button>
     <button onclick="doInstall()" data-lang="en">Install app</button>
   </div>
   <div class="steps" id="steps">
-    <div data-lang="de">
-      <b>📱 iPhone / iPad (Safari):</b>
-      <p>Tippe unten auf <span class="k">Teilen ⬆️</span> → <span class="k">Zum Home-Bildschirm</span>.</p>
-      <b>🤖 Android (Chrome):</b>
-      <p>Menü <span class="k">⋮</span> → <span class="k">App installieren</span> / <span class="k">Zum Startbildschirm</span>.</p>
-      <b>💻 Desktop (Chrome/Edge):</b>
-      <p>Installations-Symbol <span class="k">⊕</span> rechts in der Adressleiste.</p>
-    </div>
-    <div data-lang="en">
-      <b>📱 iPhone / iPad (Safari):</b>
-      <p>Tap <span class="k">Share ⬆️</span> → <span class="k">Add to Home Screen</span>.</p>
-      <b>🤖 Android (Chrome):</b>
-      <p>Menu <span class="k">⋮</span> → <span class="k">Install app</span> / <span class="k">Add to Home screen</span>.</p>
-      <b>💻 Desktop (Chrome/Edge):</b>
-      <p>Install icon <span class="k">⊕</span> on the right of the address bar.</p>
-    </div>
+    <div data-lang="de"><b>📱 iPhone (Safari):</b><p><span class="k">Teilen ⬆️</span> → <span class="k">Zum Home-Bildschirm</span>.</p><b>🤖 Android (Chrome):</b><p>Menü <span class="k">⋮</span> → <span class="k">App installieren</span>.</p></div>
+    <div data-lang="en"><b>📱 iPhone (Safari):</b><p><span class="k">Share ⬆️</span> → <span class="k">Add to Home Screen</span>.</p><b>🤖 Android (Chrome):</b><p>Menu <span class="k">⋮</span> → <span class="k">Install app</span>.</p></div>
   </div>
 
   <!-- PARTNERS -->
-  <div class="sh">
-    <span class="bar"></span>
-    <div>
-      <h2 data-lang="de">Dienste für Thailand</h2>
-      <h2 data-lang="en">Services for Thailand</h2>
-      <div class="sub" data-lang="de">Handverlesen — gleicher Preis für dich, Partner zahlen die Provision.</div>
-      <div class="sub" data-lang="en">Hand-picked — same price for you, partners pay the commission.</div>
-    </div>
-  </div>
-
+  <div class="sh"><span class="bar"></span><div><h2 data-lang="de">Weitere Dienste für Thailand</h2><h2 data-lang="en">More services for Thailand</h2></div></div>
   <div class="partners" id="partners"></div>
 
-  <div class="note" data-lang="de">💡 <b>Hinweis:</b> Der Preis ist für dich derselbe — der Partner zahlt eine kleine Provision, die hilft, diesen Dienst kostenlos zu halten. Kurse dienen nur zur Orientierung.</div>
-  <div class="note" data-lang="en">💡 <b>Note:</b> The price is the same for you — the partner pays a small commission that helps keep this service free. Rates are indicative only.</div>
+  <div class="note" data-lang="de">💡 <b>Hinweis:</b> Der Preis ist für dich derselbe — Partner zahlen eine kleine Provision, die diesen Dienst kostenlos hält. Kurse dienen zur Orientierung.</div>
+  <div class="note" data-lang="en">💡 <b>Note:</b> The price is the same for you — partners pay a small commission that keeps this service free. Rates are indicative.</div>
 
-  <!-- SEO CONTENT (DE-first) -->
+  <!-- SEO content -->
   <section class="content" data-lang="de">
     <div class="sh"><span class="bar"></span><h2>Euro in Baht umrechnen — für dein Leben in Thailand</h2></div>
-    <p class="lead">Ob du nach Thailand <strong>auswandern</strong> willst, schon dort lebst oder Urlaub machst: Der aktuelle <strong>Wechselkurs Euro zu Baht (€/฿)</strong> ist die Zahl, die du täglich brauchst. Unser Rechner oben holt sich den <strong>Live-Kurs</strong>, funktioniert nach dem ersten Laden auch <strong>offline</strong> und lässt sich als App auf dem Handy installieren — ganz ohne Werbung.</p>
-
-    <h3>💸 Geld günstig nach Thailand überweisen</h3>
-    <p>Klassische Banken verstecken hohe Gebühren im schlechten Wechselkurs. Mit Anbietern wie <strong>Wise</strong> oder <strong>Revolut</strong> rechnest du zum echten Mittelkurs ab und zahlst nur eine kleine, transparente Gebühr — bei größeren Beträgen (Miete, Visum, Krankenversicherung) sparst du schnell mehrere tausend Baht.</p>
-
-    <h3>📶 Internet & Erreichbarkeit</h3>
-    <p>Mit einer <strong>eSIM</strong> bist du direkt nach der Landung online, ohne am Flughafen eine lokale SIM zu kaufen. Ein <strong>VPN</strong> lohnt sich, um deutsches Streaming, Online-Banking und Behörden-Portale sicher zu nutzen.</p>
-
-    <h3>🏥 Absicherung in Thailand</h3>
-    <p>Eine <strong>Krankenversicherung für Auswanderer</strong> ist in Thailand Pflichtprogramm — die staatliche Versorgung deckt für Ausländer wenig ab, private Behandlung ist gut, aber teuer. Reise- und Langzeit-Tarife gibt es ab kleinen Monatsbeiträgen.</p>
-
+    <p>Ob du nach Thailand <strong>auswandern</strong> willst, schon dort lebst oder Urlaub machst: Der aktuelle <strong>Wechselkurs Euro zu Baht (€/฿)</strong> ist die Zahl, die du täglich brauchst. Der Rechner holt den <strong>Live-Kurs</strong>, funktioniert nach dem ersten Laden auch <strong>offline</strong> und lässt sich als App installieren.</p>
+    <h3>🏪 Wechselstube vergleichen statt Geld verschenken</h3>
+    <p>Wechselstuben und Banken zeigen oft schlechte Kurse. Tippe einfach den angebotenen Kurs ein — der Rechner zeigt dir <strong>schwarz auf weiß, wie viel du im Vergleich zum echten Mittelkurs verlierst</strong>. Bei größeren Beträgen sind das schnell mehrere tausend Baht.</p>
+    <h3>💸 Günstig Geld nach Thailand überweisen</h3>
+    <p>Mit <strong>Wise</strong> rechnest du zum echten Mittelkurs ab und zahlst nur eine kleine, transparente Gebühr (~0,5 %). Der Rechner zeigt dir direkt, was nach Gebühren bei dir ankommt.</p>
     <h3>📲 Als App nutzen</h3>
-    <p>Tippe oben auf <strong>„App installieren"</strong> — dann liegt der Euro-Baht-Rechner als eigenes Icon auf deinem Startbildschirm, öffnet im Vollbild und zeigt den letzten Kurs auch ohne Internet an.</p>
+    <p>Tippe oben auf <strong>„App installieren"</strong> — dann liegt der Euro-Baht-Rechner als eigenes Icon auf deinem Startbildschirm und zeigt den letzten Kurs auch ohne Internet an.</p>
 
-    <div class="sh" style="margin-top:2rem"><span class="bar"></span><h2>Häufige Fragen</h2></div>
+    <div class="sh" style="margin-top:1.8rem"><span class="bar"></span><h2>Häufige Fragen</h2></div>
     <div class="faq">
-      <details><summary>Wie viel ist 1 Euro in Baht?</summary><div class="a">Der Kurs schwankt täglich. Gib oben einfach <strong>1 €</strong> ein — der Rechner zeigt dir sofort den aktuellen Gegenwert in Baht zum Live-Kurs.</div></details>
-      <details><summary>Ist der Währungsrechner kostenlos?</summary><div class="a">Ja, dauerhaft kostenlos und werbefrei. Finanziert wird er über Provisionen der Partner-Dienste — für dich bleibt der Preis überall gleich.</div></details>
-      <details><summary>Funktioniert die App offline?</summary><div class="a">Ja. Nach dem ersten Laden speichert die App den letzten Kurs. Ohne Internet rechnet sie mit diesem Stand weiter und zeigt das Datum an.</div></details>
-      <details><summary>Wie überweise ich am günstigsten Geld nach Thailand?</summary><div class="a">In der Regel über Dienste wie Wise oder Revolut zum echten Wechselkurs statt über die Hausbank. Die passenden Links findest du oben unter „Dienste für Thailand".</div></details>
-      <details><summary>Gibt es die App auch für Android und iPhone?</summary><div class="a">Die Web-App läuft auf jedem Smartphone. Auf Android kannst du sie zusätzlich aus dem Google Play Store laden; auf dem iPhone über Safari „Zum Home-Bildschirm" hinzufügen.</div></details>
+      <details><summary>Wie viel ist 1 Euro in Baht?</summary><div class="a">Der Kurs schwankt täglich. Gib oben <strong>1 €</strong> ein — der Rechner zeigt sofort den aktuellen Gegenwert in Baht zum Live-Kurs.</div></details>
+      <details><summary>Lohnt sich die Wechselstube oder lieber Wise?</summary><div class="a">Tippe den Kurs der Wechselstube ein — der Rechner zeigt den Unterschied zum Mittelkurs. Bei Überweisungen ist Wise meist günstiger als Bargeldwechsel.</div></details>
+      <details><summary>Funktioniert die App offline?</summary><div class="a">Ja. Nach dem ersten Laden speichert die App den letzten Live-Kurs und rechnet ohne Internet damit weiter.</div></details>
+      <details><summary>Ist der Rechner kostenlos?</summary><div class="a">Ja, dauerhaft kostenlos und werbefrei — finanziert über Partner-Provisionen. Der Preis bleibt für dich gleich.</div></details>
     </div>
   </section>
-
-  <!-- SEO CONTENT (EN) -->
   <section class="content" data-lang="en">
     <div class="sh"><span class="bar"></span><h2>Convert Euro to Baht — for your life in Thailand</h2></div>
-    <p class="lead">Whether you plan to move to Thailand, already live there or are on holiday: the live <strong>Euro to Baht (€/฿) exchange rate</strong> is the number you need daily. The converter above fetches the <strong>live rate</strong>, keeps working <strong>offline</strong> after the first load, and installs as an app on your phone — ad-free.</p>
-    <h3>💸 Send money to Thailand cheaply</h3>
-    <p>Banks hide high fees in a poor exchange rate. Providers like <strong>Wise</strong> or <strong>Revolut</strong> use the real mid-market rate with a small, transparent fee — on larger amounts you save a lot.</p>
-    <h3>📶 Internet & connectivity</h3>
-    <p>An <strong>eSIM</strong> gets you online the moment you land. A <strong>VPN</strong> keeps home streaming and online banking secure.</p>
-    <h3>🏥 Insurance in Thailand</h3>
-    <p><strong>Health insurance for expats</strong> is essential in Thailand — private care is good but expensive. Travel and long-stay plans start at small monthly premiums.</p>
-    <div class="sh" style="margin-top:2rem"><span class="bar"></span><h2>FAQ</h2></div>
-    <div class="faq">
-      <details><summary>How much is 1 Euro in Baht?</summary><div class="a">Rates change daily. Just enter <strong>1 €</strong> above to see the current value in Baht at the live rate.</div></details>
-      <details><summary>Is the converter free?</summary><div class="a">Yes, free forever and ad-free, funded by partner commissions. The price stays the same for you everywhere.</div></details>
-      <details><summary>Does the app work offline?</summary><div class="a">Yes. After the first load it stores the last rate and keeps converting offline, showing the date.</div></details>
-    </div>
+    <p>The live <strong>Euro to Baht (€/฿) rate</strong> is the number you need daily in Thailand. This calculator fetches the <strong>live rate</strong>, works <strong>offline</strong> after first load, and installs as an app.</p>
+    <h3>🏪 Compare money-changers</h3>
+    <p>Type the rate a money-changer offers — the calculator shows exactly how much you lose versus the real mid-market rate.</p>
+    <h3>💸 Send money cheaply with Wise</h3>
+    <p>With <strong>Wise</strong> you get the real mid-market rate and a small transparent fee (~0.5%). The calculator shows what actually arrives after fees.</p>
   </section>
 
 </div>
 
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {"@type":"Question","name":"Wie viel ist 1 Euro in Baht?","acceptedAnswer":{"@type":"Answer","text":"Der Kurs schwankt täglich. Gib 1 € in den Rechner ein — er zeigt sofort den aktuellen Gegenwert in Baht zum Live-Kurs."}},
-    {"@type":"Question","name":"Ist der Währungsrechner kostenlos?","acceptedAnswer":{"@type":"Answer","text":"Ja, dauerhaft kostenlos und werbefrei. Finanziert über Provisionen der Partner-Dienste; der Preis bleibt für dich überall gleich."}},
-    {"@type":"Question","name":"Funktioniert die App offline?","acceptedAnswer":{"@type":"Answer","text":"Ja. Nach dem ersten Laden speichert die App den letzten Kurs und rechnet ohne Internet mit diesem Stand weiter."}},
-    {"@type":"Question","name":"Wie überweise ich am günstigsten Geld nach Thailand?","acceptedAnswer":{"@type":"Answer","text":"In der Regel über Dienste wie Wise oder Revolut zum echten Wechselkurs statt über die Hausbank."}},
-    {"@type":"Question","name":"Gibt es die App für Android und iPhone?","acceptedAnswer":{"@type":"Answer","text":"Die Web-App läuft auf jedem Smartphone. Auf Android zusätzlich aus dem Google Play Store, auf dem iPhone über Safari 'Zum Home-Bildschirm'."}}
+  "@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"Wie viel ist 1 Euro in Baht?","acceptedAnswer":{"@type":"Answer","text":"Der Kurs schwankt täglich. Gib 1 € ein — der Rechner zeigt sofort den aktuellen Gegenwert in Baht zum Live-Kurs."}},
+    {"@type":"Question","name":"Lohnt sich die Wechselstube oder Wise?","acceptedAnswer":{"@type":"Answer","text":"Tippe den Kurs der Wechselstube ein — der Rechner zeigt den Unterschied zum Mittelkurs. Bei Überweisungen ist Wise meist günstiger."}},
+    {"@type":"Question","name":"Funktioniert die App offline?","acceptedAnswer":{"@type":"Answer","text":"Ja. Nach dem ersten Laden speichert die App den letzten Live-Kurs und rechnet ohne Internet weiter."}},
+    {"@type":"Question","name":"Ist der Rechner kostenlos?","acceptedAnswer":{"@type":"Answer","text":"Ja, dauerhaft kostenlos und werbefrei, finanziert über Partner-Provisionen."}}
   ]
 }
 </script>
 
-<!-- FOOTER -->
 <footer class="ft">
   <a class="bk" href="index.html">← <span data-lang="de">Zurück zu Luxfox</span><span data-lang="en">Back to Luxfox</span></a><br>
   © 2026 Luxfox Limited (Hong Kong) · <a href="mailto:peter@luxfox.net">peter@luxfox.net</a>
 </footer>
 
 <script>
-/* ---------- Sprache ---------- */
+/* ---- Konfiguration ---- */
+const WISE_FEE = 0.005;          // ~0,5 % Wise-Gebühr
+const FALLBACK_RATE = 38.0;      // Notfall-Kurs, falls noch nie geladen
+const WISE_URL = 'https://wise.com';  // TODO: durch Wise-Affiliate-Link ersetzen
+let EUR_TO_THB = FALLBACK_RATE;
+let rateTime = null, live = false;
+let base = 'EUR';                // in welcher Währung der eingegebene Betrag ist
+
+/* ---- Sprache ---- */
 function setLang(l){
   document.body.classList.toggle('lang-en',l==='en');
   document.getElementById('l-en').classList.toggle('on',l==='en');
   document.getElementById('l-de').classList.toggle('on',l==='de');
   localStorage.setItem('fx-lang',l);
-  renderCurrencyNames(); renderPartners();
+  renderPartners();recompute();
 }
+function lang(){return document.body.classList.contains('lang-en')?'en':'de'}
+function fmt(n,dec){return (isFinite(n)?n:0).toLocaleString(lang()==='en'?'en-US':'de-DE',{minimumFractionDigits:dec,maximumFractionDigits:dec})}
+function parseNum(v){return parseFloat(String(v).replace(/[^0-9.,-]/g,'').replace(',','.'))||0}
 
-/* ---------- Währungen ---------- */
-// Auswahl: Europa + Thailand-Kontext. code -> {flag, sym, de, en}
-const CUR = {
-  EUR:{flag:'🇪🇺',sym:'€',de:'Euro',en:'Euro'},
-  THB:{flag:'🇹🇭',sym:'฿',de:'Thai Baht',en:'Thai Baht'},
-  USD:{flag:'🇺🇸',sym:'$',de:'US-Dollar',en:'US Dollar'},
-  GBP:{flag:'🇬🇧',sym:'£',de:'Britisches Pfund',en:'British Pound'},
-  CHF:{flag:'🇨🇭',sym:'Fr',de:'Schweizer Franken',en:'Swiss Franc'},
-  SEK:{flag:'🇸🇪',sym:'kr',de:'Schwedische Krone',en:'Swedish Krona'},
-  NOK:{flag:'🇳🇴',sym:'kr',de:'Norwegische Krone',en:'Norwegian Krone'},
-  DKK:{flag:'🇩🇰',sym:'kr',de:'Dänische Krone',en:'Danish Krone'},
-  PLN:{flag:'🇵🇱',sym:'zł',de:'Polnischer Zloty',en:'Polish Zloty'},
-  CZK:{flag:'🇨🇿',sym:'Kč',de:'Tschechische Krone',en:'Czech Koruna'},
-  AUD:{flag:'🇦🇺',sym:'$',de:'Austral. Dollar',en:'Australian Dollar'},
-  CAD:{flag:'🇨🇦',sym:'$',de:'Kanad. Dollar',en:'Canadian Dollar'},
-  JPY:{flag:'🇯🇵',sym:'¥',de:'Japanischer Yen',en:'Japanese Yen'},
-  CNY:{flag:'🇨🇳',sym:'¥',de:'Chines. Yuan',en:'Chinese Yuan'},
-  HKD:{flag:'🇭🇰',sym:'HK$',de:'Hongkong-Dollar',en:'Hong Kong Dollar'},
-  SGD:{flag:'🇸🇬',sym:'S$',de:'Singapur-Dollar',en:'Singapore Dollar'},
-  INR:{flag:'🇮🇳',sym:'₹',de:'Indische Rupie',en:'Indian Rupee'},
-  RUB:{flag:'🇷🇺',sym:'₽',de:'Russischer Rubel',en:'Russian Rouble'},
-};
-
-let rates = null;     // relativ zu EUR
-let rateTime = null;
-let live = false;
-let sel = {a:'EUR', b:'THB'};
-
-/* Dropdowns füllen */
-function fillSelect(side){
-  const s=document.getElementById('cur-'+side);
-  s.innerHTML='';
-  const lang=document.body.classList.contains('lang-en')?'en':'de';
-  for(const code in CUR){
-    const o=document.createElement('option');
-    o.value=code;
-    o.textContent=CUR[code].flag+'  '+code+' — '+CUR[code][lang];
-    if(code===sel[side])o.selected=true;
-    s.appendChild(o);
-  }
-}
-
-function renderCurrencyNames(){
-  const lang=document.body.classList.contains('lang-en')?'en':'de';
-  document.getElementById('flag-a').textContent=CUR[sel.a].flag;
-  document.getElementById('code-a').textContent=sel.a;
-  document.getElementById('flag-b').textContent=CUR[sel.b].flag;
-  document.getElementById('code-b').textContent=sel.b;
-  document.getElementById('name-a').textContent=CUR[sel.a][lang];
-  document.getElementById('name-a-en').textContent=CUR[sel.a][lang];
-  document.getElementById('name-b').textContent=CUR[sel.b][lang];
-  fillSelect('a'); fillSelect('b');
-}
-
-function onCur(side){
-  sel[side]=document.getElementById('cur-'+side).value;
-  renderCurrencyNames();
-  convert('a');
-  renderRate();
-}
-
-function swap(){
-  [sel.a,sel.b]=[sel.b,sel.a];
-  const va=document.getElementById('amt-a').value;
-  document.getElementById('amt-a').value=document.getElementById('amt-b').value;
-  document.getElementById('amt-b').value=va;
-  renderCurrencyNames();
-  convert('a');
-  renderRate();
-}
-
-/* ---------- Umrechnung ---------- */
-function parseNum(v){return parseFloat(String(v).replace(/[^0-9.,-]/g,'').replace(',', '.'))}
-function fmt(n,code){
-  if(!isFinite(n))return '';
-  return n.toLocaleString(document.body.classList.contains('lang-en')?'en-US':'de-DE',
-    {minimumFractionDigits:0,maximumFractionDigits:2});
-}
-function rate(from,to){
-  if(!rates)return NaN;
-  return rates[to]/rates[from]; // rates relativ zu EUR
-}
-function convert(src){
-  if(!rates)return;
-  if(src==='a'){
-    const v=parseNum(document.getElementById('amt-a').value);
-    const r=v*rate(sel.a,sel.b);
-    document.getElementById('amt-b').value=isFinite(r)?fmt(r,sel.b):'';
-  }else{
-    const v=parseNum(document.getElementById('amt-b').value);
-    const r=v*rate(sel.b,sel.a);
-    document.getElementById('amt-a').value=isFinite(r)?fmt(r,sel.a):'';
-  }
-}
-
-function renderRate(){
-  const r=rate(sel.a,sel.b);
-  const t=document.getElementById('rate-text');
-  if(isFinite(r)){
-    const lang=document.body.classList.contains('lang-en')?'en':'de';
-    t.innerHTML='1 '+CUR[sel.a].sym+' = <b>'+r.toLocaleString(lang==='en'?'en-US':'de-DE',{maximumFractionDigits:4})+' '+CUR[sel.b].sym+'</b>';
-  }
-  const st=document.getElementById('status'), stt=document.getElementById('status-text');
-  if(live){
-    st.className='badge live';
-    stt.textContent='Live';
-  }else{
-    st.className='badge off';
-    const d=rateTime?new Date(rateTime):null;
-    const lang=document.body.classList.contains('lang-en')?'en':'de';
-    const ds=d?d.toLocaleDateString(lang==='en'?'en-GB':'de-DE'):'';
-    stt.textContent=(lang==='en'?'Offline · ':'Offline · ')+ds;
-  }
-}
-
-/* ---------- Quick amounts ---------- */
-function renderChips(){
-  const box=document.getElementById('chips');box.innerHTML='';
-  [10,50,100,500,1000].forEach(v=>{
-    const b=document.createElement('button');b.className='chip';
-    b.textContent=CUR[sel.a].sym+' '+v.toLocaleString('de-DE');
-    b.onclick=()=>{document.getElementById('amt-a').value=v;convert('a')};
+/* ---- Schnellbeträge ---- */
+const QUICK=[100,500,1000,5000,10000];
+function renderQuick(){
+  const box=document.getElementById('quick');box.innerHTML='';
+  QUICK.forEach(q=>{
+    const b=document.createElement('button');
+    b.textContent=q.toLocaleString('de-DE');
+    b.onclick=()=>{document.getElementById('amount').value=q;recompute()};
     box.appendChild(b);
   });
 }
 
-/* ---------- Kurse laden (mit Offline-Cache) ---------- */
-async function loadRates(){
-  // Cache zuerst (sofortige Anzeige + Offline)
-  try{
-    const c=JSON.parse(localStorage.getItem('fx-cache')||'null');
-    if(c&&c.rates){rates=c.rates;rateTime=c.time;live=false;afterRates();}
-  }catch(e){}
-  // Dann live versuchen
-  try{
-    const res=await fetch('https://open.er-api.com/v6/latest/EUR',{cache:'no-store'});
-    const j=await res.json();
-    if(j&&j.rates){
-      rates=j.rates;rates.EUR=1;
-      rateTime=Date.now();live=true;
-      localStorage.setItem('fx-cache',JSON.stringify({rates:rates,time:rateTime}));
-      afterRates();
-    }
-  }catch(e){ live=false; if(rates)afterRates(); }
-}
-function afterRates(){
-  document.getElementById('amt-a').value=document.getElementById('amt-a').value||'100';
-  convert('a');renderRate();
+/* ---- Währung wählen / tauschen ---- */
+function setBase(b){base=b;updateFlagUI();recompute()}
+function swap(){base=base==='EUR'?'THB':'EUR';updateFlagUI();recompute()}
+function updateFlagUI(){
+  document.getElementById('btn-EUR').classList.toggle('on',base==='EUR');
+  document.getElementById('btn-THB').classList.toggle('on',base==='THB');
 }
 
-/* ---------- Partner ---------- */
-// TODO: '#' durch echte Affiliate-/Tracking-Links ersetzen (Wise = bereits genehmigt).
+/* ---- Berechnung ---- */
+function recompute(){
+  const amt=parseNum(document.getElementById('amount').value);
+  // Ergebnis
+  const result = base==='EUR' ? amt*EUR_TO_THB : amt/EUR_TO_THB;
+  const dec = base==='EUR' ? 0 : 2;                  // THB ganze Zahl, EUR 2 Nachkomma
+  const curDE = base==='EUR' ? 'Thai Baht ฿' : 'Euro €';
+  document.getElementById('res-amt').textContent = amt>0 ? fmt(result,dec) : '–';
+  document.getElementById('res-cur').textContent = curDE;
+
+  // Kurszeile + Status
+  document.getElementById('rate-text').textContent = '1 € = '+fmt(EUR_TO_THB,2)+' ฿';
+  const st=document.getElementById('status'), stt=document.getElementById('status-text');
+  if(live){st.className='badge live';stt.textContent='Live';}
+  else{st.className='badge off';const d=rateTime?new Date(rateTime):null;stt.textContent=(lang()==='en'?'Offline · ':'Offline · ')+(d?d.toLocaleDateString(lang()==='en'?'en-GB':'de-DE'):'');}
+
+  // Wise (nur wenn Betrag > 0)
+  const wiseBox=document.getElementById('wise');
+  if(amt>0){
+    wiseBox.style.display='block';
+    const wiseRes=result*(1-WISE_FEE);
+    document.getElementById('wise-amt').textContent = fmt(wiseRes,dec)+' '+(base==='EUR'?'฿':'€');
+  }else wiseBox.style.display='none';
+
+  // Wechselstube
+  const exRate=parseNum(document.getElementById('exch-rate').value);
+  const out=document.getElementById('exch-out');
+  if(exRate>0 && amt>0){
+    out.style.display='block';
+    let youGet, mid;
+    if(base==='EUR'){youGet=amt*exRate; mid=amt*EUR_TO_THB;}
+    else{youGet=amt/exRate; mid=amt/EUR_TO_THB;}
+    const diff=youGet-mid;
+    const pct=mid!==0?(diff/mid*100):0;
+    const unit=base==='EUR'?'฿':'€';
+    const ydec=base==='EUR'?0:2;
+    document.getElementById('exch-you').textContent=(lang()==='en'?'Money-changer: ':'Wechselstube: ')+fmt(youGet,ydec)+' '+unit;
+    const dEl=document.getElementById('exch-diff');
+    dEl.className='diff '+(diff>=0?'gain':'loss');
+    dEl.textContent=(diff>=0?'+ ':'– ')+fmt(Math.abs(diff),ydec)+' '+unit+' ('+fmt(Math.abs(pct),1)+'%) '+(lang()==='en'?'vs. mid rate':'vs. Mittelkurs');
+  }else out.style.display='none';
+}
+
+/* ---- Kurse laden (live + Offline-Cache) ---- */
+async function loadRates(){
+  try{const c=JSON.parse(localStorage.getItem('fx-eurthb')||'null');
+    if(c&&c.rate){EUR_TO_THB=c.rate;rateTime=c.time;live=false;recompute();}}catch(e){}
+  try{
+    const r=await fetch('https://open.er-api.com/v6/latest/EUR',{cache:'no-store'});
+    const j=await r.json();
+    if(j&&j.rates&&j.rates.THB){
+      EUR_TO_THB=j.rates.THB;rateTime=Date.now();live=true;
+      localStorage.setItem('fx-eurthb',JSON.stringify({rate:EUR_TO_THB,time:rateTime}));
+      recompute();
+    }
+  }catch(e){live=false;recompute();}
+}
+
+/* ---- Partner ---- */
 const PARTNERS=[
-  {ic:'🏦',color:'#E8F1FF',url:'https://wise.com',tt:'Wise',
-   de:'Geld nach Thailand senden — echter Wechselkurs, niedrige Gebühren.',
-   en:'Send money to Thailand — real exchange rate, low fees.'},
-  {ic:'💳',color:'#F0ECFF',url:'https://www.revolut.com',tt:'Revolut',
-   de:'Multiwährungs-Konto mit € & ฿, Karte fürs Reisen.',
-   en:'Multi-currency account with € & ฿, card for travel.'},
-  {ic:'📶',color:'#E9FBF1',url:'https://www.airalo.com',tt:'Airalo eSIM',
-   de:'Sofort online in Thailand — eSIM ohne SIM-Wechsel.',
-   en:'Get online in Thailand instantly — eSIM, no SIM swap.'},
-  {ic:'🔒',color:'#EAF6FF',url:'https://nordvpn.com',tt:'NordVPN',
-   de:'Heimat-Streaming & Banking sicher von Thailand aus.',
-   en:'Home streaming & banking securely from Thailand.'},
-  {ic:'🏥',color:'#FFEFEF',url:'https://www.pacificprime.com',tt:'Pacific Prime',
-   de:'Krankenversicherung für Expats in Thailand.',
-   en:'Health insurance for expats in Thailand.'},
-  {ic:'✈️',color:'#FFF6E6',url:'https://safetywing.com',tt:'SafetyWing',
-   de:'Reise- & Nomaden-Versicherung, monatlich kündbar.',
-   en:'Travel & nomad insurance, cancel monthly.'},
+  {ic:'💳',url:'https://www.revolut.com',tt:'Revolut',de:'Multiwährungs-Konto € & ฿',en:'Multi-currency € & ฿'},
+  {ic:'📶',url:'https://www.airalo.com',tt:'Airalo eSIM',de:'Sofort online in Thailand',en:'Get online instantly'},
+  {ic:'🔒',url:'https://nordvpn.com',tt:'NordVPN',de:'Sicher & Heimat-Streaming',en:'Secure & home streaming'},
+  {ic:'🏥',url:'https://www.pacificprime.com',tt:'Pacific Prime',de:'Krankenversicherung Expats',en:'Expat health insurance'},
 ];
 function renderPartners(){
-  const lang=document.body.classList.contains('lang-en')?'en':'de';
   const box=document.getElementById('partners');box.innerHTML='';
   PARTNERS.forEach(p=>{
-    const a=document.createElement('a');
-    a.className='pc';a.href=p.url;a.target='_blank';a.rel='noopener sponsored';
-    a.innerHTML='<span class="ic" style="background:'+p.color+'">'+p.ic+'</span>'+
-      '<span class="tx"><span class="tt">'+p.tt+'</span><span class="ss">'+p[lang]+'</span></span>'+
-      '<span class="go">→</span>';
+    const a=document.createElement('a');a.className='pc';a.href=p.url;a.target='_blank';a.rel='noopener sponsored';
+    a.innerHTML='<span class="ic">'+p.ic+'</span><span><span class="tt">'+p.tt+'</span><br><span class="ss">'+p[lang()]+'</span></span><span class="go">→</span>';
     box.appendChild(a);
   });
 }
 
-/* ---------- PWA Install ---------- */
+/* ---- PWA Install ---- */
 let deferredPrompt=null;
-window.addEventListener('beforeinstallprompt',e=>{
-  e.preventDefault();deferredPrompt=e;
-});
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;});
 function doInstall(){
-  if(deferredPrompt){
-    deferredPrompt.prompt();
-    deferredPrompt.userChoice.finally(()=>{deferredPrompt=null;});
-  }else{
-    // iOS/Safari & andere: manuelle Anleitung zeigen
-    document.getElementById('steps').classList.toggle('show');
-  }
+  if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.finally(()=>{deferredPrompt=null;});}
+  else document.getElementById('steps').classList.toggle('show');
 }
-// Schon installiert? Hinweis ausblenden.
 if(window.matchMedia('(display-mode: standalone)').matches||navigator.standalone){
   document.getElementById('install').style.display='none';
 }
 
-/* ---------- Init ---------- */
-const savedLang=localStorage.getItem('fx-lang');
-if(savedLang==='en')setLang('en');
-renderCurrencyNames();
-renderChips();
-renderPartners();
-loadRates();
-
-/* Service Worker */
-if('serviceWorker' in navigator){
-  window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
-}
+/* ---- Init ---- */
+if(localStorage.getItem('fx-lang')==='en')setLang('en');
+renderQuick();renderPartners();updateFlagUI();recompute();loadRates();
+if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 </script>
 </body>
 </html>
