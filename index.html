@@ -121,6 +121,8 @@ footer a:hover{color:var(--green)}
 /* LOCK BUTTON */
 .lock-btn{background:none;border:1px solid rgba(31,199,106,.12);color:rgba(31,199,106,.35);padding:.3rem .5rem;border-radius:4px;font-size:.75rem;cursor:pointer;transition:all .3s;font-family:inherit}
 .lock-btn:hover{color:var(--green);border-color:var(--border)}
+.nav-lock{background:none;border:none;color:rgba(122,144,128,.45);font-size:.9rem;cursor:pointer;padding:.2rem .25rem;line-height:1;transition:color .3s}
+.nav-lock:hover{color:var(--green)}
 
 /* ADMIN OVERLAY */
 .adm-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:300;overflow-y:auto}
@@ -203,6 +205,7 @@ body.lang-de span[data-lang="en"]{display:none}
       <button class="lb" id="btn-de" onclick="setLang('de')">DE</button>
     </div>
     <a href="#contact" class="nav-cta"><span data-lang="en">Contact</span><span data-lang="de">Kontakt</span></a>
+    <button class="nav-lock" onclick="openPw()" aria-label="Admin">🔒</button>
   </div>
 </nav>
 
