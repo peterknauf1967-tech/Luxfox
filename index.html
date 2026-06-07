@@ -74,7 +74,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .vbtn-out{background:transparent;border:1px solid var(--border);color:var(--green)}.vbtn-out:hover{background:var(--green-dim);border-color:var(--green);transform:translateX(2px)}
 
 /* NIR SVG */
-.nir-svg{width:86px;height:86px;filter:drop-shadow(0 0 18px rgba(201,164,80,.28))}
+.nir-svg{width:86px;height:86px;animation:nirGlow 3.6s ease-in-out infinite}
+@keyframes nirGlow{0%,100%{filter:drop-shadow(0 0 16px rgba(201,164,80,.32)) hue-rotate(0deg)}50%{filter:drop-shadow(0 0 26px rgba(214,40,40,.55)) hue-rotate(-48deg)}}
 .blend-svg{filter:drop-shadow(0 0 12px rgba(31,199,106,.22))}
 .app-svg{filter:drop-shadow(0 0 12px rgba(31,199,106,.18))}
 
@@ -93,7 +94,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .app-note{font-size:.82rem;color:var(--muted);padding:.8rem 1rem;border-left:2px solid var(--green);background:var(--bg2);border-radius:0 6px 6px 0;line-height:1.65;margin-bottom:1.5rem}
 .app-coming{display:inline-flex;align-items:center;gap:.8rem;background:var(--bg2);border:1px solid var(--border-gold);border-radius:8px;padding:.9rem 1.3rem}
 .app-feats{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
-.af{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1rem}
+.af{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1rem;position:relative;overflow:hidden}
 .af-icon{font-size:1.2rem;margin-bottom:.35rem}
 .af-t{font-size:.8rem;font-weight:600;color:var(--text);margin-bottom:.15rem}
 .af-s{font-size:.73rem;color:var(--muted)}
@@ -102,14 +103,10 @@ a.af{text-decoration:none;color:inherit;display:block}
 .afx:hover{transform:translateY(-3px);border-color:rgba(31,199,106,.4);box-shadow:0 12px 28px rgba(31,199,106,.06)}
 .af-live{display:inline-block;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:#000;background:var(--green);border-radius:3px;padding:.05rem .3rem;margin-left:.35rem;vertical-align:middle}
 .af-soon{display:inline-block;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);border:1px solid var(--border-gold);border-radius:3px;padding:.05rem .3rem;margin-left:.35rem;vertical-align:middle}
-/* COMING SOON MODAL */
-.cs-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:400;align-items:center;justify-content:center;padding:1.5rem}
-.cs-modal.open{display:flex}
-.cs-box{background:var(--bg2);border:1px solid var(--border-gold);border-radius:12px;padding:2.4rem 2rem;max-width:360px;text-align:center}
-.cs-box .cs-ic{font-size:2.2rem;margin-bottom:.7rem}
-.cs-box h3{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.7rem}
-.cs-box p{font-size:.9rem;color:var(--stone);line-height:1.6;margin-bottom:1.5rem}
-.cs-box button{background:var(--green);color:#000;border:none;border-radius:6px;padding:.6rem 1.4rem;font-size:.8rem;font-weight:700;cursor:pointer;font-family:inherit}
+/* COMING SOON – kleines Popover über der Kachel */
+.cs-pop{display:none;position:absolute;inset:0;flex-direction:column;align-items:center;justify-content:center;gap:.15rem;background:rgba(8,16,11,.96);border:1px solid var(--border-gold);border-radius:8px;color:var(--gold);font-size:.82rem;font-weight:700;text-align:center;padding:.5rem;cursor:pointer;z-index:2}
+.cs-pop small{color:var(--muted);font-size:.62rem;font-weight:400;letter-spacing:.02em}
+.af.open .cs-pop{display:flex}
 
 /* CONTACT */
 .contact-sec{max-width:1200px;margin:0 auto;padding:0 2rem 5rem}
@@ -360,11 +357,11 @@ body.lang-de span[data-lang="en"]{display:none}
     </div>
     <div class="app-feats fade d1">
       <a class="af afx" href="app.html"><div class="af-icon">💱</div><div class="af-t" data-lang="en">Currency Converter<span class="af-live">Live</span></div><div class="af-t" data-lang="de">Währungsrechner<span class="af-live">Live</span></div><div class="af-s" data-lang="en">Real-time · Offline mode</div><div class="af-s" data-lang="de">Echtzeit · Offline-Modus</div></a>
-      <div class="af afx" onclick="comingSoon()"><div class="af-icon">🏦</div><div class="af-t" data-lang="en">Money Transfers<span class="af-soon">Soon</span></div><div class="af-t" data-lang="de">Geldtransfer<span class="af-soon">Bald</span></div><div class="af-s" data-lang="en">Best rates worldwide</div><div class="af-s" data-lang="de">Beste Kurse weltweit</div></div>
-      <div class="af afx" onclick="comingSoon()"><div class="af-icon">🔒</div><div class="af-t">VPN<span class="af-soon" data-lang="en">Soon</span><span class="af-soon" data-lang="de">Bald</span></div><div class="af-s" data-lang="en">Privacy &amp; security abroad</div><div class="af-s" data-lang="de">Privatsphäre &amp; Sicherheit</div></div>
-      <div class="af afx" onclick="comingSoon()"><div class="af-icon">📶</div><div class="af-t">eSIM<span class="af-soon" data-lang="en">Soon</span><span class="af-soon" data-lang="de">Bald</span></div><div class="af-s" data-lang="en">200+ countries, instant</div><div class="af-s" data-lang="de">200+ Länder, sofort</div></div>
-      <div class="af afx" onclick="comingSoon()"><div class="af-icon">🏥</div><div class="af-t" data-lang="en">Health Insurance<span class="af-soon">Soon</span></div><div class="af-t" data-lang="de">Krankenversicherung<span class="af-soon">Bald</span></div><div class="af-s" data-lang="en">Expat plans worldwide</div><div class="af-s" data-lang="de">Expat-Tarife weltweit</div></div>
-      <div class="af afx" onclick="comingSoon()"><div class="af-icon">💳</div><div class="af-t" data-lang="en">Multi-Currency Banking<span class="af-soon">Soon</span></div><div class="af-t" data-lang="de">Multiwährungs-Banking<span class="af-soon">Bald</span></div><div class="af-s" data-lang="en">International accounts</div><div class="af-s" data-lang="de">Internationale Konten</div></div>
+      <div class="af afx" onclick="toggleSoon(this)"><div class="af-icon">🏦</div><div class="af-t" data-lang="en">Money Transfers<span class="af-soon">Soon</span></div><div class="af-t" data-lang="de">Geldtransfer<span class="af-soon">Bald</span></div><div class="af-s" data-lang="en">Best rates worldwide</div><div class="af-s" data-lang="de">Beste Kurse weltweit</div><span class="cs-pop"><span data-lang="de">🚧 Demnächst</span><span data-lang="en">🚧 Coming soon</span><small data-lang="de">tippen zum Schließen</small><small data-lang="en">tap to close</small></span></div>
+      <div class="af afx" onclick="toggleSoon(this)"><div class="af-icon">🔒</div><div class="af-t">VPN<span class="af-soon" data-lang="en">Soon</span><span class="af-soon" data-lang="de">Bald</span></div><div class="af-s" data-lang="en">Privacy &amp; security abroad</div><div class="af-s" data-lang="de">Privatsphäre &amp; Sicherheit</div><span class="cs-pop"><span data-lang="de">🚧 Demnächst</span><span data-lang="en">🚧 Coming soon</span><small data-lang="de">tippen zum Schließen</small><small data-lang="en">tap to close</small></span></div>
+      <div class="af afx" onclick="toggleSoon(this)"><div class="af-icon">📶</div><div class="af-t">eSIM<span class="af-soon" data-lang="en">Soon</span><span class="af-soon" data-lang="de">Bald</span></div><div class="af-s" data-lang="en">200+ countries, instant</div><div class="af-s" data-lang="de">200+ Länder, sofort</div><span class="cs-pop"><span data-lang="de">🚧 Demnächst</span><span data-lang="en">🚧 Coming soon</span><small data-lang="de">tippen zum Schließen</small><small data-lang="en">tap to close</small></span></div>
+      <div class="af afx" onclick="toggleSoon(this)"><div class="af-icon">🏥</div><div class="af-t" data-lang="en">Health Insurance<span class="af-soon">Soon</span></div><div class="af-t" data-lang="de">Krankenversicherung<span class="af-soon">Bald</span></div><div class="af-s" data-lang="en">Expat plans worldwide</div><div class="af-s" data-lang="de">Expat-Tarife weltweit</div><span class="cs-pop"><span data-lang="de">🚧 Demnächst</span><span data-lang="en">🚧 Coming soon</span><small data-lang="de">tippen zum Schließen</small><small data-lang="en">tap to close</small></span></div>
+      <div class="af afx" onclick="toggleSoon(this)"><div class="af-icon">💳</div><div class="af-t" data-lang="en">Multi-Currency Banking<span class="af-soon">Soon</span></div><div class="af-t" data-lang="de">Multiwährungs-Banking<span class="af-soon">Bald</span></div><div class="af-s" data-lang="en">International accounts</div><div class="af-s" data-lang="de">Internationale Konten</div><span class="cs-pop"><span data-lang="de">🚧 Demnächst</span><span data-lang="en">🚧 Coming soon</span><small data-lang="de">tippen zum Schließen</small><small data-lang="en">tap to close</small></span></div>
     </div>
   </div>
 </section>
@@ -399,19 +396,6 @@ body.lang-de span[data-lang="en"]{display:none}
     <a href="mailto:peter@luxfox.net">peter@luxfox.net</a>
   </div>
 </footer>
-
-<!-- COMING SOON MODAL -->
-<div class="cs-modal" id="cs-modal" onclick="if(event.target===this)closeCs()">
-  <div class="cs-box">
-    <div class="cs-ic">🚧</div>
-    <h3 data-lang="en">Coming Soon</h3>
-    <h3 data-lang="de">Demnächst</h3>
-    <p data-lang="en">This service is launching soon. The currency converter is already live — give it a try!</p>
-    <p data-lang="de">Dieser Dienst startet bald. Der Währungsrechner ist schon live — probier ihn gleich aus!</p>
-    <button onclick="closeCs()" data-lang="en">Got it</button>
-    <button onclick="closeCs()" data-lang="de">Verstanden</button>
-  </div>
-</div>
 
 <!-- PW MODAL -->
 <div class="pw-modal" id="pw-modal" onclick="if(event.target===this)closePw()">
@@ -563,9 +547,8 @@ if(ls==='de')setLang('de');
 const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')})},{threshold:.1});
 document.querySelectorAll('.fade').forEach(el=>obs.observe(el));
 
-// Coming-soon popup
-function comingSoon(){document.getElementById('cs-modal').classList.add('open')}
-function closeCs(){document.getElementById('cs-modal').classList.remove('open')}
+// Coming-soon: kleines Popover über der Kachel ein-/ausblenden
+function toggleSoon(el){document.querySelectorAll('.af.open').forEach(function(t){if(t!==el)t.classList.remove('open')});el.classList.toggle('open')}
 
 // PW (obfuscated — personal use only)
 const _k=atob('THV4Zm94MjAyNiE='); // Luxfox2026!
