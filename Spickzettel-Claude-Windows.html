@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spickzettel – Claude &amp; Windows Befehle</title>
+<style>
+  :root{
+    --blau:#1d4ed8;
+    --blau-hell:#eff4ff;
+    --gruen:#047857;
+    --gruen-hell:#eafaf3;
+    --grau:#475569;
+    --linie:#cbd5e1;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:"Segoe UI", Arial, Helvetica, sans-serif;
+    color:#0f172a;
+    margin:0;
+    background:#f1f5f9;
+    line-height:1.35;
+  }
+  /* DIN A4 Blatt */
+  .blatt{
+    width:210mm;
+    min-height:297mm;
+    margin:10mm auto;
+    padding:12mm 12mm 10mm 12mm;
+    background:#fff;
+    box-shadow:0 2px 12px rgba(0,0,0,.15);
+  }
+  h1{
+    font-size:21px;
+    margin:0 0 2px 0;
+    color:var(--blau);
+  }
+  .untertitel{
+    font-size:12px;
+    color:var(--grau);
+    margin:0 0 10px 0;
+    padding-bottom:8px;
+    border-bottom:2px solid var(--linie);
+  }
+  .spalten{
+    display:flex;
+    gap:10mm;
+  }
+  .spalte{flex:1;}
+  h2{
+    font-size:14px;
+    margin:14px 0 6px 0;
+    padding:5px 8px;
+    border-radius:5px;
+    color:#fff;
+  }
+  h2.claude{background:var(--blau);}
+  h2.win{background:var(--gruen);}
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:11px;
+  }
+  td{
+    padding:4px 6px;
+    border-bottom:1px solid var(--linie);
+    vertical-align:top;
+  }
+  td.cmd{
+    width:46%;
+    white-space:nowrap;
+  }
+  code{
+    font-family:"Consolas","Courier New",monospace;
+    font-size:11px;
+    background:var(--blau-hell);
+    color:var(--blau);
+    padding:1px 5px;
+    border-radius:4px;
+    font-weight:600;
+  }
+  .win code{background:var(--gruen-hell);color:var(--gruen);}
+  tr:nth-child(even) td{background:#f8fafc;}
+  .tipp{
+    margin-top:12px;
+    font-size:11px;
+    background:#fffbeb;
+    border:1px solid #fde68a;
+    border-radius:6px;
+    padding:8px 10px;
+  }
+  .tipp b{color:#b45309;}
+  .fuss{
+    margin-top:10px;
+    text-align:center;
+    font-size:10px;
+    color:var(--grau);
+  }
+  /* Druck-Einstellungen */
+  @page{ size:A4; margin:0; }
+  @media print{
+    body{background:#fff;}
+    .blatt{margin:0;box-shadow:none;}
+    .drucken{display:none;}
+  }
+  .drucken{
+    display:block;
+    width:210mm;
+    margin:0 auto 0 auto;
+    text-align:center;
+  }
+  .drucken button{
+    font-size:14px;
+    padding:8px 20px;
+    background:var(--blau);
+    color:#fff;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    margin:10px 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="drucken">
+  <button onclick="window.print()">🖨️  Drucken / als PDF speichern</button>
+</div>
+
+<div class="blatt">
+  <h1>🦊 Spickzettel — Claude &amp; Windows Befehle</h1>
+  <p class="untertitel">Die wichtigsten Befehle für die tägliche Arbeit mit Claude Code unter Windows</p>
+
+  <div class="spalten">
+
+    <!-- LINKE SPALTE: CLAUDE -->
+    <div class="spalte">
+      <h2 class="claude">⌨️ Claude-Befehle (im Chat eintippen)</h2>
+      <table>
+        <tr><td class="cmd"><code>/help</code></td><td>Liste aller Befehle anzeigen</td></tr>
+        <tr><td class="cmd"><code>/clear</code></td><td>Unterhaltung neu starten (Verlauf leeren)</td></tr>
+        <tr><td class="cmd"><code>/config</code></td><td>Einstellungen öffnen (Modell, Design)</td></tr>
+        <tr><td class="cmd"><code>/fast</code></td><td>Schnell-Modus ein-/ausschalten</td></tr>
+        <tr><td class="cmd"><code>/init</code></td><td>Projekt-Infos für Claude anlegen</td></tr>
+        <tr><td class="cmd"><code>/review</code></td><td>Code/Änderungen prüfen lassen</td></tr>
+        <tr><td class="cmd"><code>/cost</code></td><td>Verbrauch der Sitzung anzeigen</td></tr>
+        <tr><td class="cmd"><code>/login</code></td><td>An- / Abmelden</td></tr>
+        <tr><td class="cmd"><code>Esc</code></td><td>Aktuelle Aktion abbrechen / stoppen</td></tr>
+        <tr><td class="cmd"><code>↑ / ↓</code></td><td>Frühere Eingaben durchblättern</td></tr>
+        <tr><td class="cmd"><code>Shift + Enter</code></td><td>Neue Zeile (ohne abzusenden)</td></tr>
+      </table>
+
+      <h2 class="claude">💬 So formulierst du gute Aufträge</h2>
+      <table>
+        <tr><td class="cmd">„Erkläre mir…"</td><td>Lass dir alles in einfachen Worten erklären</td></tr>
+        <tr><td class="cmd">„Baue/Füge … hinzu"</td><td>Konkret sagen, was du willst</td></tr>
+        <tr><td class="cmd">„Mach … rückgängig"</td><td>Letzte Änderung zurücknehmen</td></tr>
+        <tr><td class="cmd">„Zeig mir das Ergebnis"</td><td>Vorschau / Test der Änderung</td></tr>
+        <tr><td class="cmd">„Speichere &amp; lade hoch"</td><td>Änderungen committen &amp; pushen</td></tr>
+      </table>
+    </div>
+
+    <!-- RECHTE SPALTE: WINDOWS -->
+    <div class="spalte win">
+      <h2 class="win">🪟 Windows-Befehle (Eingabeaufforderung)</h2>
+      <table>
+        <tr><td class="cmd"><code>cd Ordner</code></td><td>In einen Ordner wechseln</td></tr>
+        <tr><td class="cmd"><code>cd ..</code></td><td>Eine Ebene nach oben</td></tr>
+        <tr><td class="cmd"><code>dir</code></td><td>Inhalt des Ordners anzeigen</td></tr>
+        <tr><td class="cmd"><code>cls</code></td><td>Bildschirm leeren</td></tr>
+        <tr><td class="cmd"><code>mkdir Name</code></td><td>Neuen Ordner erstellen</td></tr>
+        <tr><td class="cmd"><code>copy a b</code></td><td>Datei kopieren</td></tr>
+        <tr><td class="cmd"><code>move a b</code></td><td>Datei verschieben / umbenennen</td></tr>
+        <tr><td class="cmd"><code>del Datei</code></td><td>Datei löschen</td></tr>
+        <tr><td class="cmd"><code>type Datei</code></td><td>Inhalt einer Datei anzeigen</td></tr>
+        <tr><td class="cmd"><code>start .</code></td><td>Aktuellen Ordner im Explorer öffnen</td></tr>
+        <tr><td class="cmd"><code>where datei</code></td><td>Pfad zu einem Programm finden</td></tr>
+        <tr><td class="cmd"><code>ipconfig</code></td><td>Netzwerk-/IP-Infos anzeigen</td></tr>
+      </table>
+
+      <h2 class="win">🔧 Git-Befehle (Code verwalten)</h2>
+      <table>
+        <tr><td class="cmd"><code>git status</code></td><td>Was wurde geändert?</td></tr>
+        <tr><td class="cmd"><code>git add .</code></td><td>Alle Änderungen vormerken</td></tr>
+        <tr><td class="cmd"><code>git commit -m "Text"</code></td><td>Änderungen speichern (mit Notiz)</td></tr>
+        <tr><td class="cmd"><code>git push</code></td><td>Hochladen zu GitHub</td></tr>
+        <tr><td class="cmd"><code>git pull</code></td><td>Neueste Version holen</td></tr>
+        <tr><td class="cmd"><code>git log</code></td><td>Verlauf der Änderungen</td></tr>
+      </table>
+    </div>
+
+  </div>
+
+  <h2 class="claude" style="background:#7c3aed;margin-top:16px;">🇩🇪 Sonderzeichen auf der QWERTZ-Tastatur (mit AltGr)</h2>
+  <p style="font-size:11px;color:var(--grau);margin:0 0 6px 0;">
+    Die <b>AltGr</b>-Taste liegt <b>rechts neben der Leertaste</b>. Halte sie gedrückt und tippe die zweite Taste.
+  </p>
+  <div class="spalten">
+    <div class="spalte">
+      <table>
+        <tr><td class="cmd"><code>@</code> (At / E-Mail)</td><td>AltGr&nbsp;+&nbsp;Q</td></tr>
+        <tr><td class="cmd"><code>\</code> (Backslash / Pfade)</td><td>AltGr&nbsp;+&nbsp;ß</td></tr>
+        <tr><td class="cmd"><code>|</code> (Pipe / senkr. Strich)</td><td>AltGr&nbsp;+&nbsp;&lt;</td></tr>
+        <tr><td class="cmd"><code>~</code> (Tilde)</td><td>AltGr&nbsp;+&nbsp;+</td></tr>
+        <tr><td class="cmd"><code>€</code> (Euro)</td><td>AltGr&nbsp;+&nbsp;E</td></tr>
+      </table>
+    </div>
+    <div class="spalte">
+      <table>
+        <tr><td class="cmd"><code>{</code> (geschw. Klammer auf)</td><td>AltGr&nbsp;+&nbsp;7</td></tr>
+        <tr><td class="cmd"><code>}</code> (geschw. Klammer zu)</td><td>AltGr&nbsp;+&nbsp;0</td></tr>
+        <tr><td class="cmd"><code>[</code> (eckige Klammer auf)</td><td>AltGr&nbsp;+&nbsp;8</td></tr>
+        <tr><td class="cmd"><code>]</code> (eckige Klammer zu)</td><td>AltGr&nbsp;+&nbsp;9</td></tr>
+        <tr><td class="cmd"><code>/</code> (Schrägstrich)</td><td>Umschalt&nbsp;+&nbsp;7</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="tipp">
+    <b>💡 Tipp:</b> Du musst dir nichts merken — frag Claude einfach im Klartext, z. B.
+    <i>„Wie öffne ich meinen Projekt-Ordner?"</i> oder <i>„Lade meine Änderungen hoch"</i>.
+    Claude führt die passenden Befehle für dich aus. Dieser Zettel hilft dir nur, mitzulesen, was passiert.
+  </div>
+
+  <p class="fuss">Spickzettel für Luxfox 🦊 · Stand: Juni 2026 · zum Ausdrucken auf DIN A4</p>
+</div>
+
+</body>
+</html>
