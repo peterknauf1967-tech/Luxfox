@@ -1,5 +1,5 @@
-/* Luxfox Expat Tools — Service Worker (Offline-Shell) */
-const CACHE = 'fx-app-v2';
+/* Luxfox Expat Tools — Service Worker */
+const CACHE = 'fx-app-v3';
 const ASSETS = [
   'app.html',
   'manifest.json',
@@ -23,11 +23,26 @@ self.addEventListener('fetch', e => {
   const url = new URL(req.url);
 
   // Live-Kurse nie cachen (App regelt Offline-Fallback selbst via localStorage)
-  if (url.hostname.includes('er-api.com') || url.hostname.includes('exchangerate')) {
+  if (url.hostname.includes('er-api.com') || url.hostname.includes('exchangerate')) return;
+
+  const accept = req.headers.get('accept') || '';
+  const isHTML = req.mode === 'navigate' || req.destination === 'document' || accept.includes('text/html');
+
+  // HTML / Navigationen: NETWORK-FIRST -> immer frischer Inhalt; Cache nur als Offline-Fallback
+  if (isHTML) {
+    e.respondWith(
+      fetch(req).then(res => {
+        if (res && res.status === 200 && url.origin === self.location.origin) {
+          const copy = res.clone();
+          caches.open(CACHE).then(c => c.put(req, copy));
+        }
+        return res;
+      }).catch(() => caches.match(req).then(c => c || caches.match('app.html')))
+    );
     return;
   }
 
-  // App-Shell: Cache-first, im Hintergrund aktualisieren
+  // Übrige Assets (CSS/JS/Bilder): cache-first mit Hintergrund-Update
   e.respondWith(
     caches.match(req).then(cached => {
       const network = fetch(req).then(res => {
