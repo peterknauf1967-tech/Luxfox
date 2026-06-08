@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Geldautomaten in Pattaya — Karte & ATM-Gebühren 2026 | Luxfox</title>
+<meta name="description" content="Geldautomaten in Pattaya: interaktive Karte, welche Bank welche Gebühr verlangt (AEON ~150 ฿ vs. 250/350 ฿) und wie du am ATM Gebühren sparst. Für Auswanderer & Reisende.">
+<meta name="keywords" content="Geldautomaten Pattaya, ATM Pattaya, ATM Gebühren Thailand, AEON ATM Pattaya, Geld abheben Pattaya, Bargeld Thailand Gebühren">
+<link rel="canonical" href="https://luxfox.net/geldautomaten-pattaya.html">
+<meta name="theme-color" content="#0B2A5B">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="de_DE">
+<meta property="og:url" content="https://luxfox.net/geldautomaten-pattaya.html">
+<meta property="og:title" content="Geldautomaten in Pattaya — Karte & ATM-Gebühren 2026">
+<meta property="og:description" content="Interaktive ATM-Karte + Gebühren-Übersicht (AEON ~150 ฿ vs. 250/350 ฿) + Spar-Tipps.">
+<meta property="og:image" content="https://luxfox.net/luxfox-logo.png">
+<meta property="og:site_name" content="Luxfox">
+<link rel="icon" href="luxfox-logo.png">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<link rel="stylesheet" href="tools.css">
+<style>
+#map{height:360px;border-radius:14px;border:1px solid var(--line);margin-top:.4rem;z-index:0}
+.legend{display:flex;gap:1rem;flex-wrap:wrap;margin-top:.6rem;font-size:.8rem;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:.35rem}
+.dotm{width:12px;height:12px;border-radius:50%;display:inline-block;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.15)}
+.fee-table{width:100%;border-collapse:collapse;margin-top:.6rem;font-size:.86rem;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.fee-table th,.fee-table td{text-align:left;padding:.6rem .8rem;border-bottom:1px solid var(--line)}
+.fee-table th{background:#EEF2F8;color:var(--eu-blue);font-size:.78rem;text-transform:uppercase;letter-spacing:.04em}
+.fee-table tr:last-child td{border-bottom:none}
+.fee-table .good{color:#1e9e5a;font-weight:700}
+.leaflet-popup-content{font-family:inherit;font-size:.82rem;line-height:1.5}
+.leaflet-popup-content b{color:var(--eu-blue)}
+.help{background:linear-gradient(135deg,var(--eu-blue),var(--eu-blue-2));color:#fff;border-radius:14px;padding:1rem 1.1rem;margin-top:1.2rem}
+.help b{color:var(--gold-lt)}
+.help .soon{display:inline-block;font-size:.6rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:var(--gold);color:var(--eu-blue);border-radius:4px;padding:.1rem .4rem;margin-left:.4rem}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="topbar">
+    <a class="brand" href="index.html"><img src="luxfox-logo.png" alt="Luxfox"><b>Luxfox</b></a>
+    <div class="lang"><button id="l-de" class="on" onclick="setLang('de')">DE</button><button id="l-en" onclick="setLang('en')">EN</button></div>
+  </div>
+  <div class="hero-head">
+    <div class="hero-ic">🏧</div>
+    <h1 data-lang="de">Geldautomaten in Pattaya</h1>
+    <h1 data-lang="en">ATMs in Pattaya</h1>
+    <p data-lang="de">Wo stehen günstige Automaten, welche Bank verlangt welche Gebühr — und wie du am ATM richtig sparst.</p>
+    <p data-lang="en">Where the cheap machines are, which bank charges what — and how to save at the ATM.</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="lead" data-lang="de">In Thailand kostet eine Abhebung mit Auslandskarte fast überall <strong>250 ฿ (Visa) bzw. 350 ฿ (Mastercard)</strong> — Ausnahme: <strong>AEON</strong>-Automaten mit nur <strong>~150 ฿</strong>. Oben drauf kommt oft die teure „Umrechnung" (DCC). Die Karte zeigt dir günstige Spots, die Tabelle die Gebühren.</div>
+  <div class="lead" data-lang="en">In Thailand a foreign-card withdrawal costs almost everywhere <strong>250 ฿ (Visa) / 350 ฿ (Mastercard)</strong> — except <strong>AEON</strong> machines at only <strong>~150 ฿</strong>. On top there's often the costly "conversion" (DCC). The map shows cheap spots, the table the fees.</div>
+
+  <div class="sh"><span class="bar"></span><h2 data-lang="de">Karte</h2><h2 data-lang="en">Map</h2></div>
+  <div id="map"></div>
+  <div class="legend">
+    <span><i class="dotm" style="background:#1e9e5a"></i> <span data-lang="de">AEON (~150 ฿ — günstig)</span><span data-lang="en">AEON (~150 ฿ — cheap)</span></span>
+    <span><i class="dotm" style="background:#2563eb"></i> <span data-lang="de">Banken (250/350 ฿)</span><span data-lang="en">Banks (250/350 ฿)</span></span>
+  </div>
+  <p style="font-size:.74rem;color:var(--muted);margin-top:.5rem" data-lang="de">ℹ️ Markiert sind bekannte Einkaufszentren/Spots, an denen du diese Automaten findest (Orientierung). Genaue Verfügbarkeit kann sich ändern — die geplante Community-Funktion verfeinert die Karte laufend.</p>
+  <p style="font-size:.74rem;color:var(--muted);margin-top:.5rem" data-lang="en">ℹ️ Markers show well-known malls/spots where you'll find these ATMs (orientation). Exact availability can change — the planned community feature will keep refining the map.</p>
+
+  <div class="help">
+    <span data-lang="de">🙌 <b>Bald: Du hilfst mit!</b><span class="soon">Demnächst</span><br>Hat der Automat funktioniert, nicht funktioniert oder war keiner da? Mit einem Tipp meldest du es — und hilfst allen anderen Farangs in Pattaya.</span>
+    <span data-lang="en">🙌 <b>Coming soon: help out!</b><span class="soon">Soon</span><br>Did the ATM work, not work, or was none there? One tap reports it — and helps every other expat in Pattaya.</span>
+  </div>
+
+  <div class="sh"><span class="bar"></span><h2 data-lang="de">Gebühren-Übersicht (Auslandskarte)</h2><h2 data-lang="en">Fee overview (foreign card)</h2></div>
+  <table class="fee-table">
+    <thead><tr><th data-lang="de">Bank-Automat</th><th data-lang="en">Bank ATM</th><th data-lang="de">Gebühr / Abhebung</th><th data-lang="en">Fee / withdrawal</th></tr></thead>
+    <tbody>
+      <tr><td><b>AEON</b> <span data-lang="de">(in Big C, Lotus's, Makro)</span><span data-lang="en">(in Big C, Lotus's, Makro)</span></td><td class="good">~150 ฿</td></tr>
+      <tr><td>Bangkok Bank</td><td>250 ฿ (Visa) / 350 ฿ (MC)</td></tr>
+      <tr><td>Kasikorn (KBank)</td><td>250 ฿ (Visa) / 350 ฿ (MC)</td></tr>
+      <tr><td>SCB</td><td>250 ฿ (Visa) / 350 ฿ (MC)</td></tr>
+      <tr><td>Krungthai (KTB)</td><td>250 ฿ (Visa) / 350 ฿ (MC)</td></tr>
+      <tr><td>Krungsri (Ayudhya)</td><td>250 ฿ (Visa) / 350 ฿ (MC)</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:.74rem;color:var(--muted);margin-top:.5rem" data-lang="de">Stand 2026, Richtwerte — die Gebühr steht immer auf dem ATM-Bildschirm. Max. Abhebung meist 20.000–30.000 ฿ pro Vorgang.</p>
+  <p style="font-size:.74rem;color:var(--muted);margin-top:.5rem" data-lang="en">As of 2026, indicative — the fee always shows on the ATM screen. Max withdrawal usually 20,000–30,000 ฿ per transaction.</p>
+
+  <section class="content" data-lang="de">
+    <h3>So sparst du am Automaten</h3>
+    <ul>
+      <li><strong>AEON-Automat</strong> suchen (~150 statt 250/350 ฿) — in Big C, Lotus's, Makro.</li>
+      <li><strong>„Umrechnung" ablehnen:</strong> bei der Frage in Euro oder Baht → immer <strong>Baht / „Without conversion"</strong>.</li>
+      <li><strong>Großen Betrag</strong> abheben (die Gebühr ist fix pro Abhebung).</li>
+      <li><strong>Noch günstiger:</strong> gar nicht abheben, sondern per <strong>Wise/Revolut</strong> überweisen.</li>
+    </ul>
+  </section>
+  <section class="content" data-lang="en">
+    <h3>How to save at the ATM</h3>
+    <ul>
+      <li>Find an <strong>AEON</strong> machine (~150 vs 250/350 ฿) — in Big C, Lotus's, Makro.</li>
+      <li><strong>Decline "conversion":</strong> when asked EUR or THB → always <strong>THB / "Without conversion"</strong>.</li>
+      <li>Withdraw a <strong>larger amount</strong> (the fee is fixed per withdrawal).</li>
+      <li><strong>Even cheaper:</strong> don't withdraw — transfer via <strong>Wise/Revolut</strong>.</li>
+    </ul>
+  </section>
+
+  <div class="sh"><span class="bar"></span><h2 data-lang="de">Gebühr ganz vermeiden</h2><h2 data-lang="en">Avoid the fee entirely</h2></div>
+  <div class="partners">
+    <a class="pc" href="https://wise.com" target="_blank" rel="noopener sponsored">
+      <span class="ic">🏦</span><span class="tx"><span class="tt">Wise<span class="bdg" data-lang="de">Empfohlen</span><span class="bdg" data-lang="en">Top pick</span></span><span class="ss" data-lang="de">Statt abheben: zum echten Kurs überweisen.</span><span class="ss" data-lang="en">Instead of withdrawing: transfer at the real rate.</span></span><span class="go">→</span>
+    </a>
+    <a class="pc" href="https://www.revolut.com" target="_blank" rel="noopener sponsored">
+      <span class="ic">💳</span><span class="tx"><span class="tt">Revolut</span><span class="ss" data-lang="de">Multiwährungs-Karte, gute Kurse fürs Reisen.</span><span class="ss" data-lang="en">Multi-currency card, good travel rates.</span></span><span class="go">→</span>
+    </a>
+  </div>
+  <a class="tool-cta" href="app.html"><span class="ic">💱</span><span class="t" data-lang="de">Euro-Baht-Kurs checken, bevor du abhebst</span><span class="t" data-lang="en">Check the Euro-Baht rate before you withdraw</span><span class="go">→</span></a>
+
+  <div class="note" data-lang="de">💡 Der Preis ist für dich derselbe — Partner zahlen eine kleine Provision, die diesen Dienst kostenlos hält. Gebühren sind Richtwerte 2026.</div>
+  <div class="note" data-lang="en">💡 The price is the same for you — partners pay a small commission that keeps this free. Fees are 2026 estimates.</div>
+
+  <div class="sh"><span class="bar"></span><h2 data-lang="de">Häufige Fragen</h2><h2 data-lang="en">FAQ</h2></div>
+  <div class="faq" data-lang="de">
+    <details><summary>Welcher Automat in Pattaya ist am günstigsten?</summary><div class="a">AEON-Automaten (~150 ฿) sind günstiger als die großen Banken (250/350 ฿). Du findest sie u. a. in Big C, Lotus's und Makro.</div></details>
+    <details><summary>Gibt es gebührenfreie Automaten?</summary><div class="a">Für Auslandskarten praktisch nicht. Günstiger fährst du mit AEON, großen Abhebungen, abgelehnter DCC — oder per Wise/Revolut statt Bargeld.</div></details>
+    <details><summary>Wie viel kann ich pro Abhebung holen?</summary><div class="a">Meist 20.000–30.000 ฿, je nach Bank/Automat. Steht auf dem Bildschirm. Dein Heimat-Bank-Limit beachten.</div></details>
+  </div>
+  <div class="faq" data-lang="en">
+    <details><summary>Which ATM in Pattaya is cheapest?</summary><div class="a">AEON ATMs (~150 ฿) are cheaper than the big banks (250/350 ฿). Find them in Big C, Lotus's and Makro.</div></details>
+    <details><summary>Are there fee-free ATMs?</summary><div class="a">Practically none for foreign cards. Cheaper: AEON, large withdrawals, decline DCC — or use Wise/Revolut instead of cash.</div></details>
+  </div>
+</div>
+
+<footer class="ft">
+  <a class="bk" href="index.html">← <span data-lang="de">Zurück zu Luxfox</span><span data-lang="en">Back to Luxfox</span></a><br>
+  © 2026 Luxfox Limited (Hong Kong) · <a href="mailto:peter@luxfox.net">peter@luxfox.net</a>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="tools.js"></script>
+<script>
+// Bekannte Spots in Pattaya, an denen du diese Automaten findest (Orientierung; Community verfeinert später).
+var SPOTS = [
+  {name:'Big C Extra · Central Pattaya', lat:12.9360, lng:100.8895, aeon:true,  banks:'AEON + Bangkok Bank, KBank'},
+  {name:'Big C Pattaya Klang (South)',    lat:12.9182, lng:100.8885, aeon:true,  banks:'AEON + diverse Banken'},
+  {name:"Lotus's North Pattaya",          lat:12.9492, lng:100.8930, aeon:true,  banks:'AEON + KTB, SCB'},
+  {name:'Makro Pattaya (Sukhumvit)',      lat:12.9235, lng:100.9175, aeon:true,  banks:'AEON + Krungsri'},
+  {name:'Central Festival Pattaya Beach', lat:12.9291, lng:100.8772, aeon:false, banks:'Bangkok Bank, KBank, SCB'},
+  {name:'Terminal 21 Pattaya',            lat:12.9592, lng:100.8884, aeon:false, banks:'KBank, SCB, Krungsri'},
+  {name:'The Avenue Pattaya (2nd Rd)',    lat:12.9333, lng:100.8812, aeon:false, banks:'Bangkok Bank, KTB'},
+  {name:'Mike Shopping Mall (Beach Rd)',  lat:12.9302, lng:100.8731, aeon:false, banks:'SCB, KBank'},
+  {name:'Royal Garden Plaza (Beach Rd)',  lat:12.9251, lng:100.8771, aeon:false, banks:'Bangkok Bank, Krungsri'},
+  {name:"Lotus's Jomtien",                lat:12.8884, lng:100.8702, aeon:true,  banks:'AEON + Bangkok Bank'}
+];
+
+var map = L.map('map', {scrollWheelZoom:false}).setView([12.933, 100.885], 13);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19, attribution: '© OpenStreetMap'
+}).addTo(map);
+
+SPOTS.forEach(function(s){
+  var color = s.aeon ? '#1e9e5a' : '#2563eb';
+  var fee = s.aeon ? '~150 ฿ (AEON)' : '250/350 ฿';
+  L.circleMarker([s.lat, s.lng], {
+    radius:9, color:'#fff', weight:2, fillColor:color, fillOpacity:0.95
+  }).addTo(map).bindPopup('<b>'+s.name+'</b><br>'+s.banks+'<br>💸 '+fee);
+});
+</script>
+</body>
+</html>
