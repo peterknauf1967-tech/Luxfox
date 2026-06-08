@@ -102,11 +102,6 @@ a.af{text-decoration:none;color:inherit;display:block}
 .afx{cursor:pointer;transition:transform .2s,border-color .2s,box-shadow .2s}
 .afx:hover{transform:translateY(-3px);border-color:rgba(31,199,106,.4);box-shadow:0 12px 28px rgba(31,199,106,.06)}
 .af-live{display:inline-block;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:#000;background:var(--green);border-radius:3px;padding:.05rem .3rem;margin-left:.35rem;vertical-align:middle}
-.af-soon{display:inline-block;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);border:1px solid var(--border-gold);border-radius:3px;padding:.05rem .3rem;margin-left:.35rem;vertical-align:middle}
-/* COMING SOON – kleines Popover über der Kachel */
-.cs-pop{display:none;position:absolute;inset:0;flex-direction:column;align-items:center;justify-content:center;gap:.15rem;background:rgba(8,16,11,.96);border:1px solid var(--border-gold);border-radius:8px;color:var(--gold);font-size:.82rem;font-weight:700;text-align:center;padding:.5rem;cursor:pointer;z-index:2}
-.cs-pop small{color:var(--muted);font-size:.62rem;font-weight:400;letter-spacing:.02em}
-.af.open .cs-pop{display:flex}
 
 /* CONTACT */
 .contact-sec{max-width:1200px;margin:0 auto;padding:0 2rem 5rem}
@@ -357,11 +352,11 @@ body.lang-de span[data-lang="en"]{display:none}
     </div>
     <div class="app-feats fade d1">
       <a class="af afx" href="app.html"><div class="af-icon">💱</div><div class="af-t" data-lang="en">Currency Converter<span class="af-live">Live</span></div><div class="af-t" data-lang="de">Währungsrechner<span class="af-live">Live</span></div><div class="af-s" data-lang="en">Real-time · Offline mode</div><div class="af-s" data-lang="de">Echtzeit · Offline-Modus</div></a>
-      <div class="af afx" onclick="toggleSoon(this)"><div class="af-icon">🏦</div><div class="af-t" data-lang="en">Money Transfers<span class="af-soon">Soon</span></div><div class="af-t" data-lang="de">Geldtransfer<span class="af-soon">Bald</span></div><div class="af-s" data-lang="en">Best rates worldwide</div><div class="af-s" data-lang="de">Beste Kurse weltweit</div><span class="cs-pop"><span data-lang="de">🚧 Demnächst</span><span data-lang="en">🚧 Coming soon</span><small data-lang="de">tippen zum Schließen</small><small data-lang="en">tap to close</small></span></div>
-      <div class="af afx" onclick="toggleSoon(this)"><div class="af-icon">🔒</div><div class="af-t">VPN<span class="af-soon" data-lang="en">Soon</span><span class="af-soon" data-lang="de">Bald</span></div><div class="af-s" data-lang="en">Privacy &amp; security abroad</div><div class="af-s" data-lang="de">Privatsphäre &amp; Sicherheit</div><span class="cs-pop"><span data-lang="de">🚧 Demnächst</span><span data-lang="en">🚧 Coming soon</span><small data-lang="de">tippen zum Schließen</small><small data-lang="en">tap to close</small></span></div>
-      <div class="af afx" onclick="toggleSoon(this)"><div class="af-icon">📶</div><div class="af-t">eSIM<span class="af-soon" data-lang="en">Soon</span><span class="af-soon" data-lang="de">Bald</span></div><div class="af-s" data-lang="en">200+ countries, instant</div><div class="af-s" data-lang="de">200+ Länder, sofort</div><span class="cs-pop"><span data-lang="de">🚧 Demnächst</span><span data-lang="en">🚧 Coming soon</span><small data-lang="de">tippen zum Schließen</small><small data-lang="en">tap to close</small></span></div>
-      <div class="af afx" onclick="toggleSoon(this)"><div class="af-icon">🏥</div><div class="af-t" data-lang="en">Health Insurance<span class="af-soon">Soon</span></div><div class="af-t" data-lang="de">Krankenversicherung<span class="af-soon">Bald</span></div><div class="af-s" data-lang="en">Expat plans worldwide</div><div class="af-s" data-lang="de">Expat-Tarife weltweit</div><span class="cs-pop"><span data-lang="de">🚧 Demnächst</span><span data-lang="en">🚧 Coming soon</span><small data-lang="de">tippen zum Schließen</small><small data-lang="en">tap to close</small></span></div>
-      <div class="af afx" onclick="toggleSoon(this)"><div class="af-icon">💳</div><div class="af-t" data-lang="en">Multi-Currency Banking<span class="af-soon">Soon</span></div><div class="af-t" data-lang="de">Multiwährungs-Banking<span class="af-soon">Bald</span></div><div class="af-s" data-lang="en">International accounts</div><div class="af-s" data-lang="de">Internationale Konten</div><span class="cs-pop"><span data-lang="de">🚧 Demnächst</span><span data-lang="en">🚧 Coming soon</span><small data-lang="de">tippen zum Schließen</small><small data-lang="en">tap to close</small></span></div>
+      <a class="af afx" href="geld.html"><div class="af-icon">🏦</div><div class="af-t" data-lang="en">Money Transfers</div><div class="af-t" data-lang="de">Geldtransfer</div><div class="af-s" data-lang="en">Best rates worldwide</div><div class="af-s" data-lang="de">Beste Kurse weltweit</div></a>
+      <a class="af afx" href="vpn.html"><div class="af-icon">🔒</div><div class="af-t">VPN</div><div class="af-s" data-lang="en">Privacy &amp; security abroad</div><div class="af-s" data-lang="de">Privatsphäre &amp; Sicherheit</div></a>
+      <a class="af afx" href="esim.html"><div class="af-icon">📶</div><div class="af-t">eSIM</div><div class="af-s" data-lang="en">200+ countries, instant</div><div class="af-s" data-lang="de">200+ Länder, sofort</div></a>
+      <a class="af afx" href="versicherung.html"><div class="af-icon">🏥</div><div class="af-t" data-lang="en">Health Insurance</div><div class="af-t" data-lang="de">Krankenversicherung</div><div class="af-s" data-lang="en">Expat plans worldwide</div><div class="af-s" data-lang="de">Expat-Tarife weltweit</div></a>
+      <a class="af afx" href="banking.html"><div class="af-icon">💳</div><div class="af-t" data-lang="en">Multi-Currency Banking</div><div class="af-t" data-lang="de">Multiwährungs-Banking</div><div class="af-s" data-lang="en">International accounts</div><div class="af-s" data-lang="de">Internationale Konten</div></a>
     </div>
   </div>
 </section>
@@ -547,8 +542,6 @@ if(ls==='de')setLang('de');
 const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')})},{threshold:.1});
 document.querySelectorAll('.fade').forEach(el=>obs.observe(el));
 
-// Coming-soon: kleines Popover über der Kachel ein-/ausblenden
-function toggleSoon(el){document.querySelectorAll('.af.open').forEach(function(t){if(t!==el)t.classList.remove('open')});el.classList.toggle('open')}
 
 // PW (obfuscated — personal use only)
 const _k=atob('THV4Zm94MjAyNiE='); // Luxfox2026!

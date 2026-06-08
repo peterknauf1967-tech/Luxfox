@@ -1,0 +1,79 @@
+/* Luxfox Tools — gemeinsames Design für die Service-Landingpages */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --eu-blue:#0B2A5B;--eu-blue-2:#13407F;
+  --gold:#E8B23A;--gold-lt:#F6CF6B;
+  --thai-red:#A51931;
+  --ink:#16203A;--muted:#64708A;--line:#E4E8F0;
+  --bg:#F4F6FB;--card:#FFFFFF;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh;padding-bottom:env(safe-area-inset-bottom)}
+[data-lang="en"]{display:none}
+body.lang-en [data-lang="en"]{display:revert}
+body.lang-en [data-lang="de"]{display:none}
+
+/* HERO */
+.hero{position:relative;overflow:hidden;color:#fff;background:radial-gradient(1200px 500px at 80% -20%,rgba(232,178,58,.25),transparent 60%),linear-gradient(135deg,var(--eu-blue) 0%,var(--eu-blue-2) 55%,#0E316B 100%);padding:calc(1.2rem + env(safe-area-inset-top)) 1.2rem 2.4rem}
+.hero::before{content:"★ ★ ★ ★ ★ ★";position:absolute;top:-.6rem;right:-.4rem;font-size:1.1rem;letter-spacing:.5rem;color:var(--gold);opacity:.18;transform:rotate(8deg);pointer-events:none}
+.topbar{display:flex;justify-content:space-between;align-items:center;max-width:620px;margin:0 auto 1.4rem}
+.brand{display:flex;align-items:center;gap:.55rem;text-decoration:none;color:#fff}
+.brand img{width:32px;height:32px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px rgba(255,255,255,.18)}
+.brand b{font-size:.9rem;font-weight:700;letter-spacing:.04em}
+.lang{display:flex;border:1px solid rgba(255,255,255,.28);border-radius:999px;overflow:hidden}
+.lang button{background:none;border:none;color:rgba(255,255,255,.7);padding:.28rem .66rem;font-size:.72rem;font-weight:700;cursor:pointer;font-family:inherit}
+.lang button.on{background:var(--gold);color:var(--eu-blue)}
+.hero-head{max-width:620px;margin:0 auto;text-align:center}
+.hero-ic{font-size:2.6rem;line-height:1;margin-bottom:.5rem}
+.hero h1{font-size:clamp(1.5rem,5.5vw,2.1rem);font-weight:800;letter-spacing:-.02em;margin-bottom:.35rem}
+.hero p{font-size:.9rem;color:rgba(255,255,255,.82);max-width:30rem;margin:0 auto}
+
+/* WRAP */
+.wrap{max-width:620px;margin:0 auto;padding:0 1.2rem 3rem}
+.lead{margin-top:1.4rem;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.1rem 1.2rem;font-size:.93rem;color:#3A465F;line-height:1.7;box-shadow:0 12px 32px -20px rgba(11,42,91,.35)}
+.lead strong{color:var(--ink)}
+
+.sh{display:flex;align-items:center;gap:.6rem;margin:2rem 0 1rem}
+.sh .bar{width:24px;height:3px;border-radius:2px;background:var(--gold)}
+.sh h2{font-size:1.1rem;font-weight:800}
+
+/* Partner cards */
+.partners{display:grid;grid-template-columns:1fr;gap:.7rem}
+@media(min-width:520px){.partners{grid-template-columns:1fr 1fr}}
+.pc{display:flex;align-items:center;gap:.9rem;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1rem;transition:transform .2s,box-shadow .2s,border-color .2s}
+.pc:hover{transform:translateY(-2px);box-shadow:0 12px 24px -14px rgba(11,42,91,.35);border-color:#CBD6EA}
+.pc .ic{width:44px;height:44px;border-radius:11px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.4rem;background:#EEF2F8}
+.pc .tx{flex:1;min-width:0}
+.pc .tt{font-weight:700;font-size:.95rem}
+.pc .bdg{font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--thai-red);border-radius:4px;padding:.08rem .35rem;margin-left:.4rem;vertical-align:middle}
+.pc .ss{font-size:.8rem;color:var(--muted);line-height:1.45}
+.pc .go{color:var(--thai-red);font-weight:800;font-size:1.1rem;margin-left:auto;flex-shrink:0}
+
+/* Content */
+.content{margin-top:1.2rem;font-size:.92rem;line-height:1.7}
+.content h3{font-size:1rem;font-weight:800;color:var(--eu-blue);margin:1.4rem 0 .4rem}
+.content p{color:#3A465F;margin-bottom:.6rem}
+.content ul{margin:.3rem 0 .8rem 1.2rem;color:#3A465F}
+.content li{margin:.3rem 0}
+.content strong{color:var(--ink)}
+
+/* FAQ */
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:.5rem}
+.faq summary{cursor:pointer;list-style:none;padding:.8rem 1rem;font-weight:700;font-size:.88rem;color:var(--eu-blue);display:flex;justify-content:space-between;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--thai-red);font-weight:800;font-size:1.2rem;margin-left:.6rem}
+.faq details[open] summary::after{content:"–"}
+.faq .a{padding:0 1rem .85rem;font-size:.85rem;color:#3A465F;line-height:1.65}
+
+.note{font-size:.78rem;color:var(--muted);background:#fff;border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:0 10px 10px 0;padding:.8rem 1rem;margin-top:1rem;line-height:1.6}
+
+/* CTA-Link zur App */
+.tool-cta{display:flex;align-items:center;gap:.8rem;margin-top:1.4rem;background:linear-gradient(135deg,var(--eu-blue),var(--eu-blue-2));color:#fff;border-radius:14px;padding:.9rem 1.1rem;text-decoration:none}
+.tool-cta .ic{font-size:1.5rem}
+.tool-cta .t{flex:1;font-size:.88rem;font-weight:600}
+.tool-cta .go{font-weight:800}
+
+/* Footer */
+.ft{text-align:center;font-size:.76rem;color:var(--muted);padding:2.2rem 1.2rem 1rem;line-height:1.7}
+.ft a{color:var(--eu-blue);font-weight:700;text-decoration:none}
+.ft .bk{display:inline-flex;align-items:center;gap:.4rem;margin-bottom:.5rem}
