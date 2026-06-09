@@ -65,6 +65,7 @@ lieferbar (nur Konto-Region HK/SG/AU/CN) → beim Antrag erfragen; virtuelle Kar
   Die **8-stellige Nummer** im Formular = BR-Nr. **80579643**.
 
 ### 📅 Fristen / Compliance
+- **30.07.2026 — Management Report (Osome)**: erster Buchhaltungs-/Reporting-Termin; bis dahin Unterlagen/Transaktionen liefern.
 - **Business Registration gültig 08.06.2026 – 07.06.2027** (Zert.-Nr. 80579643-000-06-26-6) →
   **jährliche Erneuerung bis 07.06.2027** (i. d. R. via Osome). Nicht verpassen!
 - Bookkeeping-Details Geschäftsjahr Jun 2026 – Apr 2027 bei Osome einreichen.
