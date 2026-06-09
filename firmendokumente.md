@@ -37,12 +37,14 @@
 12. **Register of Members** — Peter Knauf (Beruf: Businessman), 100 Ordinary Shares, Cert. 1, HKD 10.000, Founder's Share, ab 08.06.2026. ✅
 13. **Proof of Address / „utility_bill"** — Wise-Kontoauszug (Wise Europe SA, Brüssel) als Adressnachweis. 🔐 persönlich
 14. **INV-54016** — Einkaufsrechnung (Buchhaltung). 🧾
+15. **Certificate of Incorporation** (公司註冊證明書) — ✅ erhalten. Companies Registry, **No. 80579643**, ausgestellt 08.06.2026 (Ms Kinnie WONG), Cap. 622 limited company. Nummer identisch mit BR-Nr. → für WorldFirst-Upload.
+16. **Customer Due Diligence (CDD) Form** — ✅ signiert. PEP: Nein, Geschäftstätigkeit 460900 + 620199, Doc Ref MGIAX-XDPTQ-EAZJU-AY63D. Director-Telefon: +49 173 7486321.
 
-## ❗ Was FEHLT
-- **Certificate of Incorporation** (公司註冊證明書, Companies Registry) — laut Board Resolutions erhalten, aber **nicht im Dokumentensatz**. → Bei Osome (Aby) anfordern. **Wird für den WorldFirst-Upload „Firmen-CI-Zertifikat" gebraucht.**
+## ✅ Vollständigkeit
+Alle relevanten Firmendokumente liegen vor (nur Reisepass-Scan + Selfie-Video separat / sensibel).
 
 ## 📌 Offene Aufgaben aus den Dokumenten
 - [ ] In Osome noch signieren: Share Certificate, First Board Resolutions, Appointment of First Director(s)
-- [ ] Certificate of Incorporation von Osome anfordern (für WorldFirst)
+- [ ] WorldFirst: Certificate of Incorporation hochladen + Nr. 80579643 (vorhanden ✓)
 - [ ] Bookkeeping-Details für Geschäftsjahr Jun 2026 – Apr 2027 einreichen
 - [ ] BR-Erneuerung bis 07.06.2027 (jährlich)
