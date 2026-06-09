@@ -40,9 +40,19 @@
 **Entscheidung (siehe [`bank-entscheidung.md`](./bank-entscheidung.md)):**
 **WorldFirst = Hauptkonto und einziges Konto.** Aspire wird nicht eröffnet.
 
-**Eröffnung läuft — Anleitung: [`worldfirst-eroeffnung.md`](./worldfirst-eroeffnung.md).**
+**Eröffnung läuft — Anleitung: [`worldfirst-eroeffnung.md`](./worldfirst-eroeffnung.md),
+Ausfüllhilfe: [`worldfirst-antrag-ausfuellhilfe.md`](./worldfirst-antrag-ausfuellhilfe.md).**
 Peter stellt den Antrag selbst (KYC). ⚠️ Physische Karte ggf. nicht direkt nach Thailand
 lieferbar (nur Konto-Region HK/SG/AU/CN) → beim Antrag erfragen; virtuelle Karte sofort nutzbar.
+
+### 🔄 Fortschritt WorldFirst (Stand 2026-06-09 nachmittags)
+- ✅ **Registrierung abgeschlossen** — B2B-Konto („外贸B2B账号"), Login: **peter@luxfox.net**, Passwort gesetzt.
+- ⏭️ **Nächster Schritt: einloggen** auf **portal.worldfirst.com** (NICHT neu registrieren!) → KYC/Verifizierung fortsetzen.
+- Sprache der Seite ggf. oben rechts auf English/Deutsch umstellen.
+- Noch offen in der Verifizierung: Firmendaten (siehe Ausfüllhilfe), **CR-Nr. & BR-Nr.** (aus Osome ablesen),
+  erwartetes Monatsvolumen, **Pass + Wohnsitznachweis hochladen**, Identitäts-Selfie/Video.
+- Passdaten: liegen in Google Drive (Datei „08 – Reisepass + Visaseite (Scan 06.05.2026).pdf") —
+  **bewusst NICHT im Repo** gespeichert; bei Bedarf aus Drive auslesen.
 
 ---
 
