@@ -26,9 +26,9 @@
 1. **Business Registration Certificate** (2 Kopien) — BR 80579643, gültig 08.06.2026–07.06.2027, Gebühr HKD 2.350. ✅
 2. **NNC1 (Incorporation Form)** — Companies Registry, BRN 80579643, Private, Code 046 Wholesale, Kapital HKD 10.000/100 Shares, E-Mail info@luxfox.net, Doc Ref 7000583824, eingereicht 08.06.2026. ✅
 3. **Articles of Association** — Cap. 622, Private Ltd by Shares, 100 Shares/HKD 10.000. ✅
-4. **Share Certificate** (Cert. No. 1) — 100 Ordinary Shares voll eingezahlt an Peter Knauf, ausgestellt 08.06.2026. ✍️ *in Osome noch „Review & sign"*
-5. **First Board Resolutions** — bestätigt Gründung 08.06.2026, First Director Knauf Peter, Secretary Osome, FYE 30.04, SCR-Bestellung. **Erwähnt: Certificate of Incorporation erhalten.** ✍️ *Review & sign*
-6. **Appointment of First Director(s)** — Founder Member bestellt Peter Knauf als First Director, 08.06.2026. ✍️ *Review & sign*
+4. **Share Certificate** (Cert. No. 1) — 100 Ordinary Shares voll eingezahlt an Peter Knauf, ausgestellt 08.06.2026. ✅ *signiert 09.06.2026*
+5. **First Board Resolutions** — bestätigt Gründung 08.06.2026, First Director Knauf Peter, Secretary Osome, FYE 30.04, SCR-Bestellung. **Erwähnt: Certificate of Incorporation erhalten.** ✅ *signiert 09.06.2026*
+6. **Appointment of First Director(s)** — Founder Member bestellt Peter Knauf als First Director, 08.06.2026. ✅ *signiert 09.06.2026*
 7. **Significant Controllers Register (SCR)** — Peter Knauf, >25 % Anteile direkt, ab 08.06.2026; Designated Rep: Osome. ✅
 8. **Acceptance of Appointment – Designated Representative (SCR)** — Osome akzeptiert, Ref. 2MKAE-MZ8QH-FSGEW-3QMTM, signiert 08.06.2026 09:59 UTC (Aby Gunawan). ✅
 9. **Acceptance of Appointment – Secretary** — Osome akzeptiert, Ref. RBJKZ-AMMVI-XSKVY-5IMWD, signiert 08.06.2026 09:58 UTC. ✅
@@ -44,7 +44,7 @@
 Alle relevanten Firmendokumente liegen vor (nur Reisepass-Scan + Selfie-Video separat / sensibel).
 
 ## 📌 Offene Aufgaben aus den Dokumenten
-- [ ] In Osome noch signieren: Share Certificate, First Board Resolutions, Appointment of First Director(s)
+- [x] In Osome signiert (09.06.2026): Share Certificate, First Board Resolutions, Appointment of First Director(s) ✓
 - [ ] WorldFirst: Certificate of Incorporation hochladen + Nr. 80579643 (vorhanden ✓)
 - [ ] Bookkeeping-Details für Geschäftsjahr Jun 2026 – Apr 2027 einreichen
 - [ ] BR-Erneuerung bis 07.06.2027 (jährlich)

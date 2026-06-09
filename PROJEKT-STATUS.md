@@ -28,7 +28,7 @@
 ### ⏳ NOCH OFFEN bei Osome (firmenbezogen — vor dem Konto erledigen)
 > Inhalt steht nur in der Osome-App (my.osome.com) — sind nur E-Mail-Benachrichtigungen.
 - [ ] **Bookkeeping-Details einreichen** (Geschäftsjahr Juni 2026 – April 2027) — *Osome wartet auf Antwort*
-- [ ] **Post-Incorporation-Dokumente unterschreiben**
+- [x] **Post-Incorporation-Dokumente unterschreiben** ✓ (09.06.2026: Share Certificate, First Board Resolutions, Appointment of First Director — alle signiert)
 - [ ] Offene Nachrichten im Vorgang „Incorporate company" lesen
 
 ---
