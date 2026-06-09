@@ -50,8 +50,12 @@ lieferbar (nur Konto-Region HK/SG/AU/CN) → beim Antrag erfragen; virtuelle Kar
 
 ### 🔄 Fortschritt WorldFirst (Stand 2026-06-09 nachmittags)
 - ✅ **Registrierung abgeschlossen** — B2B-Konto („外贸B2B账号"), Login: **peter@luxfox.net**, Passwort gesetzt.
-- ⏭️ **Nächster Schritt: einloggen** auf **portal.worldfirst.com** (NICHT neu registrieren!) → KYC/Verifizierung fortsetzen.
-- Sprache der Seite ggf. oben rechts auf English/Deutsch umstellen.
+- ✅ **KONTOERÖFFNUNGSANTRAG ABGESENDET (09.06.2026)** 🎉 — CI hochgeladen, BR-Nr. 80579643, Firmendaten, UBO Peter 100 %, Pass.
+- ⏭️ **Wartet auf WorldFirst-Verifizierung:**
+  - 📞 Anruf von Festnetz **Vorwahl 0571 (Hangzhou)** annehmen (5–10 Min Geschäftsgespräch)
+  - 📧 evtl. **Videoanruf-Einladung an peter@luxfox.net** → Postfach beobachten
+  - Hotline: 4009766666 · Freigabe i. d. R. wenige Tage
+- ⚠️ **SICHERSTELLEN, dass peter@luxfox.net Mails empfängt** (Workspace-Login ODER Gmail-Weiterleitung bestätigen) — sonst Video-Termin-Mail verpasst!
 - Noch offen in der Verifizierung: Firmendaten (siehe Ausfüllhilfe), **CR-Nr. & BR-Nr.** (aus Osome ablesen),
   erwartetes Monatsvolumen, **Pass + Wohnsitznachweis hochladen**, Identitäts-Selfie/Video.
 - Passdaten: liegen in Google Drive (Datei „08 – Reisepass + Visaseite (Scan 06.05.2026).pdf") —
