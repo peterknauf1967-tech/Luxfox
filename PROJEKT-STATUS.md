@@ -39,8 +39,10 @@
   mind. HKD 8.000 einzahlen (binnen 30 Tagen) → HKD 4.000 Cashback.
   ⚠️ Werbeangebot, nicht unser Favorit. Kontofreigabe liegt bei Aspire-Compliance.
 
-**Entscheidung offen:** Erst WorldFirst (Favorit) prüfen → Aspire nur als Backup
-oder wenn der Cashback überzeugt.
+**Entscheidung (siehe [`bank-entscheidung.md`](./bank-entscheidung.md)):**
+**WorldFirst = Hauptkonto** (optimal für Import/Großhandel EU↔Asien, FX ab 0,15 %, Empfang gratis).
+**Aspire = optionales Zweitkonto** für den HKD-4.000-Cashback + Osome-Buchhaltungs-Sync.
+Wenn nur eins → WorldFirst.
 
 ---
 
