@@ -94,6 +94,7 @@ lieferbar (nur Konto-Region HK/SG/AU/CN) → beim Antrag erfragen; virtuelle Kar
 ---
 
 ## 🔑 Kontakte
+- 🔗 **Link-Hub (alle Dienste/Vertragspartner):** Notion-Seite „🔗 Luxfox – Dienste & Vertragspartner" → https://app.notion.com/p/37ae0f028e3e8170a40ee4b819868c10
 - Osome — Aby Gunawan (Business): aby.gunawan@osome.com
 - Osome — Joshua Ven: joshua.bongbonga@osome.com
 - Osome — Ericka (KYC-Team)
