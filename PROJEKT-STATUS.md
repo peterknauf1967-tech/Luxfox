@@ -35,14 +35,14 @@
 - **Favorit: WorldFirst** — nach Gründung beantragen (worldfirst.com)
 - **Backup: Aspire (über Osome)**
 - Status: Osome wartet auf Antwort zum Thema „Bank account opening" (Nachricht von *Beatriz*, 2026-06-09)
-- **Aspire-Angebot (Osome × Aspire Kampagne):** Promo-Code `OSOMESC2605` →
-  mind. HKD 8.000 einzahlen (binnen 30 Tagen) → HKD 4.000 Cashback.
-  ⚠️ Werbeangebot, nicht unser Favorit. Kontofreigabe liegt bei Aspire-Compliance.
+- **Aspire / HKD-4.000-Cashback: VERWORFEN** (Entscheidung Peter, 2026-06-09) — nur WorldFirst.
 
 **Entscheidung (siehe [`bank-entscheidung.md`](./bank-entscheidung.md)):**
-**WorldFirst = Hauptkonto** (optimal für Import/Großhandel EU↔Asien, FX ab 0,15 %, Empfang gratis).
-**Aspire = optionales Zweitkonto** für den HKD-4.000-Cashback + Osome-Buchhaltungs-Sync.
-Wenn nur eins → WorldFirst.
+**WorldFirst = Hauptkonto und einziges Konto.** Aspire wird nicht eröffnet.
+
+**Eröffnung läuft — Anleitung: [`worldfirst-eroeffnung.md`](./worldfirst-eroeffnung.md).**
+Peter stellt den Antrag selbst (KYC). ⚠️ Physische Karte ggf. nicht direkt nach Thailand
+lieferbar (nur Konto-Region HK/SG/AU/CN) → beim Antrag erfragen; virtuelle Karte sofort nutzbar.
 
 ---
 
