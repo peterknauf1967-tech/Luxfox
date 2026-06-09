@@ -53,6 +53,15 @@ lieferbar (nur Konto-Region HK/SG/AU/CN) → beim Antrag erfragen; virtuelle Kar
   erwartetes Monatsvolumen, **Pass + Wohnsitznachweis hochladen**, Identitäts-Selfie/Video.
 - Passdaten: liegen in Google Drive (Datei „08 – Reisepass + Visaseite (Scan 06.05.2026).pdf") —
   **bewusst NICHT im Repo** gespeichert; bei Bedarf aus Drive auslesen.
+- ⚠️ **WorldFirst-Upload „Firmen-CI-Zertifikat" will die CERTIFICATE OF INCORPORATION** (公司註冊證明書,
+  Companies Registry), NICHT das Business Registration Certificate. CI in Osome herunterladen.
+  Die **8-stellige Nummer** im Formular = BR-Nr. **80579643**.
+
+### 📅 Fristen / Compliance
+- **Business Registration gültig 08.06.2026 – 07.06.2027** (Zert.-Nr. 80579643-000-06-26-6) →
+  **jährliche Erneuerung bis 07.06.2027** (i. d. R. via Osome). Nicht verpassen!
+- Bookkeeping-Details Geschäftsjahr Jun 2026 – Apr 2027 bei Osome einreichen.
+- §138 AO Meldung beim BZSt bis 31.12.2026.
 
 ---
 
