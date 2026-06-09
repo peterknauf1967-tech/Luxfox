@@ -14,6 +14,9 @@
 - Geschäftstätigkeit (HSIC, mit Osome/KYC final abgestimmt):
   - **Primär: 460900 — Non-specialised wholesale**
   - Sekundär: 620199 — Development of other software and programming
+- **Geschäftsjahresende (FYE): 30. April** → 1. Geschäftsjahr Jun 2026 – Apr 2027
+- Company Secretary: **Osome Limited** (HK BR No. 70760066)
+- 📄 **Alle Firmendokumente im Detail: [`firmendokumente.md`](./firmendokumente.md)**
 
 ### Erhaltene Gründungsdokumente (per Osome, 2026-06-08) — sichern!
 - [x] Certificate of Incorporation / NNC1 eingereicht
