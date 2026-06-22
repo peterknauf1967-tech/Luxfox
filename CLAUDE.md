@@ -102,3 +102,54 @@ Luxfox Limited (Hongkong) ist die Dachstruktur für mehrere Projekte:
 - Qualitätsregeln: Erdbeeren & Mango → IQF-Schockfroster Nord-TH/Isan; Kerne nur "Raw"/
   "Human Grade" (kein Tier-/Vogelfutter); Seidentofu lokal, in 2×2 cm würfeln + einzeln anfrieren;
   keine Pulver/Sirupe/Konzentrate.
+
+---
+
+## 100blend — Pilot-Protokoll "Smoothie-Labor Pattaya" (Stand 06.2026)
+
+> Konzeptprüfung / Proof of Concept für den ersten Pilot-Store. Ergänzt die obige
+> Produkt- & Betriebsstrategie um den konkreten Markteintritt in Pattaya.
+> Status: Vorbereitungsphase / Konzeptprüfung.
+
+### 1. Kernkonzept (Nische)
+- **Produkt:** Kompromisslose 100 %-Premium-Smoothies aus reinen Früchten am Reife-Höhepunkt.
+  Kein Zuckersirup, keine künstlichen Zusätze. Süßung (falls nötig) ausschließlich mit
+  Royal-Project-Honig. (Konsistent mit USP: kein Pulver, kein zugesetzter Zucker.)
+- **Zutaten-Herkunft:** Schockgefrostete Früchte & Fruchtpürees von **„Doi Kham" (The Royal
+  Project)** — königliche Stiftung, unterstützt Kleinbauern (u. a. Isan).
+- **Positionierung/Slogan:** Ethischer Premium-Genuss auf 5-Sterne-Niveau.
+- **Pilot-Store:** 12 m² „Smoothie-Labor" (clean, Edelstahl-Optik, einsehbare Premium-Zutaten),
+  Hochfrequenz-Standort Pattaya.
+- **Expansion:** Nach erfolgreichem Proof of Concept exzessive Skalierung über mehrere
+  Filialen & Regionen.
+
+### 2. Verpackung & Branding
+- **Becher-Größen:** Fokus auf **16 oz (≈ 470 ml)** als edler Premium-Standard. **22 oz
+  (≈ 650 ml)** als „Mahlzeiten-Upgrade" (Sportler/Expats) + psychologischer Decoy-Effekt (Up-Selling).
+- **Material:** Ausschließlich schwere, kristallklare **PET-Becher** (FPC-CUP, EPP, Vandapac) —
+  bringt Fruchtfarben zur Geltung. PP-Becher zu milchig/weich.
+- **Durchmesser-Trick:** Beide Größen mit identischem oberen Durchmesser **98 mm** → nur **ein
+  Deckel-Typ** (klarer Dome-Lid) einkaufen/lagern.
+- **Branding:** Ab Tag 1 eigenes minimalistisches Logo. B2B-Großhändler (Advance Bio) bieten
+  Logo-Siebdruck ab MOQ **1.000 Becher**. Lokaler Druckpartner Pattaya: **RCS Screen Pattaya**.
+
+### 3. Rechtliches & Markenrecht
+- **Königliches Siegel / Doi-Kham-Logo NICHT eigenmächtig** auf eigene Becher drucken
+  (Verstoß ggü. thailändischem Markenrecht / Crown Property Bureau).
+- **Legale Testphasen-Lösung:** Eigenes Logo auf die Vorderseite; auf Rückseite/Schild eine
+  Text-Story: „Proudly using 100 % genuine frozen fruits from the Royal Project (Doi Kham)" —
+  als reine Inhaltsangabe legal.
+- **Expansions-Ziel:** Bei hohen Absatzzahlen über die offizielle Doi-Kham-B2B-Plattform ein
+  **Co-Branding / „Authorized Use of Trademark"-Lizenz** für künftige Filialen anfragen.
+
+### 4. Standort & Mietpreise (Pattaya)
+- **Unternehmensform (Start):** Keine teure Company Limited für die Testphase. Thailändische
+  Partnerin meldet sich beim Bezirksamt als **Einzelunternehmerin** an (Commercial Registration /
+  Ta-bien Pa-nit) → Steuernummer für Full Tax Invoice (7 % VAT).
+- **Option A — Central Pattaya (Beach Road):** 12 m²-Kiosk ca. **30.000–60.000 THB/Monat**
+  (zonenabhängig). Häufig **GP-Modell** (20–30 % Umsatzbeteiligung an Mall). Publikum:
+  kaufkräftige Touristen, Expats, Bangkoker Wochenend-Urlauber.
+- **Option B — Makro Markt (Pattaya Nord/Süd):** 12 m²-Kiosk ca. **15.000–25.000 THB/Monat**,
+  meist feste Monatsmiete. Zutatenlager im selben Gebäude.
+- **Nebenkosten:** Strom (Mixer/Tiefkühler) ca. 3.000–5.000 THB/Monat (Mall-Tarif); Kaution
+  i. d. R. 3 Monatsmieten. Empfehlung: **Pop-up-Kurzzeitvertrag 3–6 Monate** zum risikoarmen Testen.
