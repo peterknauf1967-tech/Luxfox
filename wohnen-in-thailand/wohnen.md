@@ -160,4 +160,28 @@ Fristen: Rattenloch **bis 02.07.2026** (abdichten + Rohr nagersicher), Spots/Tra
 > Best regards,
 > Peter Knauf — Room D419, Arcadia Beach Resort Condominium
 
-**Status / Antwort des Vermieters:** _(offen — hier Datum + Antwort eintragen)_
+**Status / Antwort des Vermieters:** Vermieter meldet Termin **16.07.2026** zurück.
+
+### 2026-06-29 — Eskalation: 16.07. für Ratten abgelehnt
+16.07. nur für Spots/Trafo akzeptiert. Für den **Rattenbefall abgelehnt** (aktiver Gesundheits-/
+Hygienenotstand) — Forderung: Loch abdichten + Rohr nagersicher **bis 02.07.2026**. Bei Nichteinhaltung:
+Notmaßnahme selbst veranlassen + Kosten geltend machen (CCC § 547) und Arcadia Juristic Person über das
+gebäudeweite Lüftungsproblem informieren.
+
+**Gesendeter Text (EN, an Vermieter):**
+
+> Subject: Re: Repair request D419 – 16 July is too late for the rat problem (urgent)
+>
+> Dear Mr. Doronin,
+>
+> Thank you for your reply and for arranging a date. The 16 July is acceptable for the halogen spotlights / transformer (point 2) — no problem there.
+>
+> However, 16 July is not acceptable for the rat problem. Rats are currently entering my kitchen cabinet from the building's ventilation system through an open hole, every day. This is an active health and hygiene hazard and an uninhabitable condition — I cannot wait two and a half weeks while rats have access to my food storage and living space.
+>
+> I therefore ask you to: (1) send your approval to the Arcadia management now, and (2) arrange for the hole to be sealed and the duct made rodent-proof within the next 3 days (by 2 July 2026 at the latest). This is a separate, urgent matter from the lighting and should be treated as such. If it cannot be resolved in that time, please let me know in writing today, as I will otherwise have to arrange an emergency sealing myself and claim the necessary cost, and notify the Arcadia juristic person about the building-wide ventilation issue.
+>
+> I am available at short notice to provide access. Thank you for treating this as urgent.
+>
+> Best regards, Peter Knauf — Room D419, Arcadia Beach Resort Condominium
+
+**Status / Antwort des Vermieters (auf Eskalation):** _(offen — hier Datum + Antwort eintragen)_
