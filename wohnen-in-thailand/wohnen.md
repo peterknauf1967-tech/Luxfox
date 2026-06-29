@@ -117,3 +117,47 @@ Rückstauklappe** und mündet in einen gemeinsamen Schacht → Ratte läuft das 
 - [ ] Rattenbefall schriftlich an Condo-Verwaltung **und** Siam Best Property melden (mit Fotos)
 - [ ] Rückstauklappe + Metallgitter an Dunstabzug-Abluft besorgen/montieren lassen
 - [ ] Bei Halogenspots/Trafo-Defekt: schriftliche Meldung an Agent, Reparatur auf Vermieterkosten
+
+---
+
+## 4. Zuständigkeit Handwerker-Zutritt (Arcadia-Regel)
+
+Arcadia lässt **keinen Handwerker in die Wohnung, bevor der Vermieter/Eigentümer schriftlich
+zugestimmt hat**. Aufgabenteilung (von Arcadia bestätigt, rechtlich korrekt):
+
+| Wer | Aufgabe |
+|-----|---------|
+| **Mieter (Peter)** | Mangel beim Vermieter/Agent melden (Pflicht, CCC § 551) |
+| **Vermieter/Agent (Siam Best Property / Ivan Doronin)** | „Okay" an Arcadia senden, Handwerker + Termin organisieren, Kosten tragen |
+| **Arcadia-Verwaltung** | Handwerker einlassen, sobald Vermieter-Okay vorliegt |
+
+→ Peter muss **nur melden** — nicht selbst beauftragen oder Arcadia kontaktieren.
+
+---
+
+## 5. Vorgangsprotokoll
+
+### 2026-06-29 — Mängelmeldung an Siam Best Property / Ivan Doronin
+Offizielle Meldung gesendet (Rattenloch + Halogenspots/Trafo), mit Bitte um Zustimmung an Arcadia.
+Fristen: Rattenloch **bis 02.07.2026** (abdichten + Rohr nagersicher), Spots/Trafo **innerhalb 14 Tagen**.
+
+**Gesendeter Text (EN):**
+
+> **Subject: Urgent repair request – Room D419, Arcadia Beach Resort (rat entry hole + faulty lighting) – landlord approval needed for Arcadia**
+>
+> Dear Mr. Doronin,
+>
+> I am writing to formally report two defects in the rented unit **Room D419, Arcadia Beach Resort Condominium** (Lease Contract 419-017/1025) and to request that you, as the landlord's representative, **send your written approval to the Arcadia management** so that a technician can be admitted to the unit, and arrange the repair.
+>
+> **1. Urgent – Rat infestation through the ventilation system.** Since 28 June 2026 there are rats in the middle wall cabinet above the cooker. There is a **large open hole in the cabinet** where the cooker-hood exhaust pipe passes through, and the rats are getting from the building's **ventilation/duct system directly into my cabinet**. This is a serious hygiene and health concern and is not an acceptable living condition. The hole must be **properly sealed** and the exhaust duct fitted with a rodent-proof guard / non-return flap. **I kindly request that this is resolved by 2 July 2026 (within 3 days).**
+>
+> **2. Built-in halogen spotlights including transformer.** The fixed halogen spotlights and their transformer need to be checked/replaced. As these are part of the fixed installation, please arrange the repair. **Requested completion: within 14 days.**
+>
+> As the Arcadia management requires the **owner's/landlord's consent before any workman may enter the apartment**, please: send your approval to the Arcadia management, and arrange a technician and an appointment.
+>
+> Please confirm receipt of this message and let me know the scheduled date. I will of course provide access. Photos are attached.
+>
+> Best regards,
+> Peter Knauf — Room D419, Arcadia Beach Resort Condominium
+
+**Status / Antwort des Vermieters:** _(offen — hier Datum + Antwort eintragen)_
