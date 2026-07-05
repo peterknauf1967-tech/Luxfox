@@ -122,6 +122,12 @@ a.af{text-decoration:none;color:inherit;display:block}
 footer{padding:1.6rem 2rem;border-top:1px solid rgba(31,199,106,.07);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;font-size:.76rem;color:var(--muted)}
 footer a{color:var(--muted);text-decoration:none;transition:color .2s}
 footer a:hover{color:var(--green)}
+.about-sec{padding:5rem 2rem;max-width:1060px;margin:0 auto}
+.about-grid{display:grid;grid-template-columns:300px 1fr;gap:2.6rem;align-items:center;margin-top:2.2rem}
+.about-grid img{width:100%;border-radius:18px;box-shadow:0 14px 44px rgba(0,0,0,.5)}
+.about-txt p{color:var(--muted);line-height:1.8;font-size:.98rem}
+.about-sign{margin-top:1.1rem;color:var(--gold);font-size:.86rem;letter-spacing:.04em}
+@media(max-width:720px){.about-grid{grid-template-columns:1fr;gap:1.6rem}.about-grid img{max-width:320px;margin:0 auto}}
 .flinks{display:flex;gap:1.4rem;align-items:center}
 
 /* LOCK BUTTON */
@@ -344,6 +350,21 @@ footer a:hover{color:var(--green)}
 
 <div class="div"></div>
 
+<!-- ABOUT -->
+<section class="about-sec" id="about">
+  <p class="sec-label fade" data-i18n="about_label">About</p>
+  <h2 class="sec-title fade" data-i18n="about_title">The person behind Luxfox.</h2>
+  <div class="about-grid">
+    <img src="peter-knauf.jpg" alt="Peter Knauf, Founder of Luxfox Limited, in Pattaya" class="fade" loading="lazy">
+    <div class="about-txt fade d1">
+      <p data-i18n="about_p1">Behind Luxfox stands a person, not an anonymous corporation: Peter Knauf. Trained industrial mechanic and merchant from Germany, he built a retail chain from zero to 40 stores. Today he lives in Pattaya, Thailand, and runs Luxfox Limited (Hong Kong) — wellness products he has tested himself, the 100blend smoothie franchise, and free digital tools that make expat life easier. No call center, no ticket queue: here, the founder answers personally.</p>
+      <p class="about-sign">Peter Knauf · Founder &amp; Director, Luxfox Limited</p>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
 <!-- CONTACT -->
 <section class="contact-sec" id="contact">
   <div class="cg">
@@ -547,6 +568,9 @@ const I18N={
  contact_sub:{en:"Franchise inquiries, partnerships, product questions — direct contact only. No chatbot, no form.",de:"Franchise-Anfragen, Partnerschaften, Produktfragen — nur direkter Kontakt. Kein Chatbot, kein Formular.",th:"สอบถามแฟรนไชส์ พันธมิตร คำถามผลิตภัณฑ์ — ติดต่อโดยตรงเท่านั้น ไม่มีแชทบอท ไม่มีแบบฟอร์ม",vi:"Hỏi về nhượng quyền, hợp tác, sản phẩm — chỉ liên hệ trực tiếp. Không chatbot, không biểu mẫu.",km:"សំណួរអំពីហ្វ្រេនឆាយ ភាពជាដៃគូ ផលិតផល — ទាក់ទងផ្ទាល់តែប៉ុណ្ណោះ។ គ្មានបូតជជែក គ្មានទម្រង់បំពេញ។",lo:"ສອບຖາມແຟຣນໄຊສ໌, ການຮ່ວມມື, ຄຳຖາມສິນຄ້າ — ຕິດຕໍ່ໂດຍກົງເທົ່ານັ້ນ. ບໍ່ມີແຊັດບອດ, ບໍ່ມີແບບຟອມ.",zh:"加盟咨询、合作、产品问题 — 仅限直接联系。无聊天机器人，无表单。",ru:"Вопросы по франшизе, партнёрству, продуктам — только прямой контакт. Без чат-бота и форм."},
  imprint:{en:"Imprint",de:"Impressum",th:"ข้อมูลบริษัท",vi:"Thông tin pháp lý",km:"ព័ត៌មានច្បាប់",lo:"ຂໍ້ມູນບໍລິສັດ",zh:"公司信息",ru:"Выходные данные"},
  privacy:{en:"Privacy",de:"Datenschutz",th:"นโยบายความเป็นส่วนตัว",vi:"Quyền riêng tư",km:"ឯកជនភាព",lo:"ຄວາມເປັນສ່ວນຕົວ",zh:"隐私政策",ru:"Конфиденциальность"},
+ about_label:{en:"About",de:"Über uns",th:"เกี่ยวกับเรา",vi:"Về chúng tôi",km:"អំពីយើង",lo:"ກ່ຽວກັບເຮົາ",zh:"关于我们",ru:"О нас"},
+ about_title:{en:"The person behind Luxfox.",de:"Der Mensch hinter Luxfox.",th:"คนที่อยู่เบื้องหลัง Luxfox",vi:"Con người đằng sau Luxfox",km:"មនុស្សនៅពីក្រោយ Luxfox",lo:"ຄົນຢູ່ເບື້ອງຫຼັງ Luxfox",zh:"Luxfox 背后的人",ru:"Человек за Luxfox."},
+ about_p1:{en:"Behind Luxfox stands a person, not an anonymous corporation: Peter Knauf. Trained industrial mechanic and merchant from Germany, he built a retail chain from zero to 40 stores. Today he lives in Pattaya, Thailand, and runs Luxfox Limited (Hong Kong) — wellness products he has tested himself, the 100blend smoothie franchise, and free digital tools that make expat life easier. No call center, no ticket queue: here, the founder answers personally.",de:"Hinter Luxfox steht ein Mensch, keine anonyme Firma: Peter Knauf. Gelernter Betriebsschlosser und Kaufmann aus Deutschland, baute eine Handelskette von 0 auf 40 Filialen auf. Heute lebt er in Pattaya, Thailand, und führt Luxfox Limited (Hongkong) — Wellness-Produkte, die er selbst getestet hat, das 100blend-Smoothie-Franchise und kostenlose digitale Tools, die das Expat-Leben leichter machen. Kein Callcenter, keine Ticket-Warteschlange: Hier antwortet der Gründer persönlich.",th:"เบื้องหลัง Luxfox คือคนหนึ่งคน ไม่ใช่บริษัทนิรนาม: Peter Knauf ช่างเครื่องและนักการค้าจากเยอรมนี ผู้สร้างเครือข่ายร้านค้าจาก 0 สู่ 40 สาขา ปัจจุบันอาศัยอยู่ที่พัทยา ประเทศไทย และบริหาร Luxfox Limited (ฮ่องกง) — ผลิตภัณฑ์เวลเนสที่ทดสอบด้วยตัวเอง แฟรนไชส์สมูทตี้ 100blend และเครื่องมือดิจิทัลฟรีสำหรับชาวต่างชาติ ไม่มีคอลเซ็นเตอร์: ผู้ก่อตั้งตอบเอง",vi:"Đằng sau Luxfox là một con người, không phải công ty vô danh: Peter Knauf. Thợ cơ khí và thương nhân người Đức, đã xây dựng chuỗi bán lẻ từ 0 lên 40 cửa hàng. Hiện ông sống tại Pattaya, Thái Lan và điều hành Luxfox Limited (Hồng Kông) — sản phẩm wellness tự mình kiểm nghiệm, nhượng quyền sinh tố 100blend và công cụ số miễn phí cho người nước ngoài. Không tổng đài: người sáng lập trả lời trực tiếp.",km:"នៅពីក្រោយ Luxfox គឺមនុស្សម្នាក់ មិនមែនក្រុមហ៊ុនអនាមិកទេ៖ Peter Knauf ជាងម៉ាស៊ីន និងឈ្មួញមកពីអាល្លឺម៉ង់ ដែលបានកសាងខ្សែសង្វាក់ហាងពី 0 ដល់ 40 សាខា។ បច្ចុប្បន្នរស់នៅប៉ាតាយ៉ា ប្រទេសថៃ ដឹកនាំ Luxfox Limited (ហុងកុង) — ផលិតផលសុខភាព ហ្វ្រេនឆាយ 100blend និងឧបករណ៍ឌីជីថលឥតគិតថ្លៃ។ ស្ថាបនិកឆ្លើយតបដោយផ្ទាល់។",lo:"ຢູ່ເບື້ອງຫຼັງ Luxfox ແມ່ນຄົນຜູ້ໜຶ່ງ ບໍ່ແມ່ນບໍລິສັດນິລນາມ: Peter Knauf ຊ່າງກົນຈັກ ແລະ ນັກຄ້າຈາກເຢຍລະມັນ ຜູ້ສ້າງເຄືອຂ່າຍຮ້ານຄ້າຈາກ 0 ຫາ 40 ສາຂາ. ປັດຈຸບັນອາໄສຢູ່ພັດທະຢາ ໄທ ບໍລິຫານ Luxfox Limited (ຮົງກົງ) — ຜະລິດຕະພັນສຸຂະພາບ, ແຟຣນໄຊສ໌ 100blend ແລະ ເຄື່ອງມືດິຈິຕອລຟຣີ. ຜູ້ກໍ່ຕັ້ງຕອບເອງ.",zh:"Luxfox 背后是一个人，而不是匿名公司：Peter Knauf。来自德国的机械技师与商人，曾把一家零售连锁从 0 做到 40 家门店。如今他定居泰国芭提雅，经营 Luxfox Limited（香港）——亲自测试的健康产品、100blend 冰沙加盟以及为外籍人士打造的免费数字工具。没有呼叫中心：创始人亲自回复。",ru:"За Luxfox стоит человек, а не анонимная фирма: Петер Кнауф. Слесарь и коммерсант из Германии, построивший торговую сеть с 0 до 40 филиалов. Сегодня он живёт в Паттайе (Таиланд) и руководит Luxfox Limited (Гонконг) — wellness-продукты, проверенные им лично, франшиза смузи 100blend и бесплатные цифровые инструменты для экспатов. Никакого колл-центра: основатель отвечает лично."},
  pw_title:{en:"🔒 Admin Access",de:"🔒 Admin-Zugang",th:"🔒 เข้าสู่ระบบผู้ดูแล",vi:"🔒 Truy cập quản trị",km:"🔒 ចូលប្រើ Admin",lo:"🔒 ເຂົ້າລະບົບຜູ້ຄຸ້ມຄອງ",zh:"🔒 管理员访问",ru:"🔒 Доступ администратора"},
  pw_ph:{en:"Password",de:"Passwort",th:"รหัสผ่าน",vi:"Mật khẩu",km:"ពាក្យសម្ងាត់",lo:"ລະຫັດຜ່ານ",zh:"密码",ru:"Пароль"},
  pw_cancel:{en:"Cancel",de:"Abbrechen",th:"ยกเลิก",vi:"Hủy",km:"បោះបង់",lo:"ຍົກເລີກ",zh:"取消",ru:"Отмена"},
