@@ -15,12 +15,16 @@
   // (Format ca-pub-XXXXXXXXXXXXXXXX). Platzhalter bleibt wirkungslos.
   (function loadAds(){
     var id = (C.affiliate||{}).adsenseId || '';
-    if(/^ca-pub-\d{10,}$/.test(id)){
-      var a=document.createElement('script');
-      a.async=true; a.crossOrigin='anonymous';
-      a.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client='+id;
-      document.head.appendChild(a);
-    }
+    if(!/^ca-pub-\d{10,}$/.test(id)) return;
+    // Grundeinstellung A: Tools sauber. Nur Apps in ads.showOnApps (oder showOnAll) zeigen Werbung.
+    var cfg = C.ads || {};
+    var file = (location.pathname.split('/').pop()||'').replace(/\.html?$/i,'').toLowerCase();
+    var allow = cfg.showOnAll === true || ((cfg.showOnApps||[]).map(function(s){return (s||'').toLowerCase();}).indexOf(file) !== -1);
+    if(!allow) return;
+    var a=document.createElement('script');
+    a.async=true; a.crossOrigin='anonymous';
+    a.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client='+id;
+    document.head.appendChild(a);
   })();
 
   // 100blend-Widget einfügen (dezent, ans Ende des Hauptbereichs)

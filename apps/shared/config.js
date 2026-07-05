@@ -32,6 +32,12 @@ window.DS_CONFIG = {
     adsenseId:   "ca-pub-6577595255227351"
   },
 
+  /* ---- WERBUNG in den Apps ----
+     Grundeinstellung A = Tools bleiben SAUBER (keine Anzeigen).
+     Variante B nur für Apps OHNE Affiliate-Einnahme: Dateinamen (ohne .html)
+     in "showOnApps" eintragen, z. B. "thai-zahlen". showOnAll:true = überall. */
+  ads: { showOnAll: false, showOnApps: [] },
+
   /* ---- 3. 100BLEND (Smoothie des Tages + Franchise) ----
      Smoothie zentral hier ändern -> erscheint in ALLEN Apps. */
   hundertblend: {
