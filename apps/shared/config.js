@@ -29,7 +29,7 @@ window.DS_CONFIG = {
     nordvpn:     { status: "offen", url: "[NORDVPN-LINK]" },
     pacificprime:{ status: "offen", url: "[PACIFIC-PRIME-LINK]" },
     grab:        { status: "offen", url: "[GRAB-LINK]" },
-    adsenseId:   "[ADSENSE-CLIENT-ID]"
+    adsenseId:   "ca-pub-6577595255227351"
   },
 
   /* ---- 3. 100BLEND (Smoothie des Tages + Franchise) ----
