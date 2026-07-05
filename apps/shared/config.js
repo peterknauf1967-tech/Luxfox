@@ -24,7 +24,7 @@ window.DS_CONFIG = {
      Bei "offen" wird der Button dezent deaktiviert. */
   affiliate: {
     wise:        { status: "offen", url: "[WISE-LINK aus Partnerize]" },
-    safetywing:  { status: "offen", url: "[SAFETYWING-LINK]" },
+    safetywing:  { status: "live", url: "https://safetywing.com/?referenceID=26557404&utm_source=26557404&utm_medium=Ambassador" },
     airalo:      { status: "offen", url: "[AIRALO-LINK]" },
     nordvpn:     { status: "offen", url: "[NORDVPN-LINK]" },
     pacificprime:{ status: "offen", url: "[PACIFIC-PRIME-LINK]" },
