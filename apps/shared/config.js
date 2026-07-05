@@ -36,7 +36,7 @@ window.DS_CONFIG = {
      Grundeinstellung A = Tools bleiben SAUBER (keine Anzeigen).
      Variante B nur für Apps OHNE Affiliate-Einnahme: Dateinamen (ohne .html)
      in "showOnApps" eintragen, z. B. "thai-zahlen". showOnAll:true = überall. */
-  ads: { showOnAll: false, showOnApps: [] },
+  ads: { showOnAll: false, showOnApps: ["qr-checker"] },
 
   /* ---- 3. 100BLEND (Smoothie des Tages + Franchise) ----
      Smoothie zentral hier ändern -> erscheint in ALLEN Apps. */
