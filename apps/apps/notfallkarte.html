@@ -1,0 +1,52 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Digitale Notfallkarte</title>
+<meta name="description" content="Digitale Notfallkarte mit Blutgruppe, Diagnosen und Notfallkontakten – auf Deutsch, Englisch und Thai für den Ernstfall.">
+<link rel="stylesheet" href="../shared/shared.css">
+<style>
+.emerg{background:#fef2f2;border:2px solid #fecaca;border-radius:14px;padding:14px;margin:12px 0}
+.emerg h2{margin:0 0 8px;color:#b91c1c;font-size:18px}
+.row{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px dashed #fca5a5}
+.row b{color:#7f1d1d}
+.lang{font-size:12px;color:#b91c1c;font-weight:700;margin-top:10px}
+</style></head><body>
+<header class="app"><a class="home" href="../index.html">←</a><h1>🆘 Notfallkarte</h1><p>Im Ernstfall zeigen · DE · EN · ไทย</p></header>
+<div class="wrap"><main>
+
+<div id="view"></div>
+
+<div class="card">
+  <label>Daten bearbeiten <span class="muted">(wird nur auf diesem Gerät gespeichert)</span></label>
+  <label>Name</label><input id="f_name" placeholder="Vor- und Nachname">
+  <div class="grid two">
+    <div><label>Blutgruppe</label><input id="f_blut" placeholder="z. B. A negativ"></div>
+    <div><label>Geburtsdatum</label><input id="f_geb" placeholder="TT.MM.JJJJ"></div>
+  </div>
+  <label>Wichtige Diagnosen</label><textarea id="f_diag" rows="3" placeholder="z. B. Insulinpflichtiger Diabetes; Herzschrittmacher-abhängig (kein eigener Herzschlag)"></textarea>
+  <label>Medikamente</label><textarea id="f_med" rows="2" placeholder="z. B. Insulin"></textarea>
+  <label>Allergien</label><input id="f_all" placeholder="z. B. keine bekannt">
+  <label>Notfallkontakt 1</label><input id="f_k1" placeholder="Name + Telefon">
+  <label>Notfallkontakt 2</label><input id="f_k2" placeholder="Name + Telefon">
+  <div style="margin-top:14px"><button onclick="save()">💾 Speichern</button></div>
+</div>
+<div class="note">Tipp: Speichere diese Seite per „Zum Startbildschirm hinzufügen" und mache einen Screenshot als Sperrbildschirm – so sieht ein Helfer die wichtigsten Infos sofort.</div>
+</main></div>
+<script src="../shared/config.js"></script><script src="../shared/shared.js"></script>
+<script>
+var F=['name','blut','geb','diag','med','all','k1','k2'];
+var def={name:'Peter Knauf',blut:'A negativ',geb:'',diag:'Insulinpflichtiger Diabetes mellitus. Herzschrittmacher-abhängig – KEIN eigener Herzschlag! 100% schwerbehindert.',med:'Insulin',all:'keine bekannt',k1:'Peggy Kriesch +49 152 51684634',k2:'Jürgen Knauf +49 178 2060433'};
+function render(d){
+  var rows=[['Blutgruppe / Blood type / กรุ๊ปเลือด',d.blut],['Diagnosen / Conditions / โรคประจำตัว',d.diag],['Medikamente / Medication / ยา',d.med],['Allergien / Allergies / ภูมิแพ้',d.all]];
+  var h='<div class="emerg"><h2>⚠️ NOTFALL / EMERGENCY / ฉุกเฉิน</h2>';
+  h+='<div class="row"><b>'+(d.name||'')+'</b><span>'+(d.geb||'')+'</span></div>';
+  rows.forEach(function(r){ if(r[1]) h+='<div class="row"><b>'+r[0]+'</b></div><div style="padding:2px 0 8px">'+r[1]+'</div>'; });
+  h+='<div class="lang">Notfallkontakte / Emergency contacts:</div>';
+  if(d.k1)h+='<div>📞 '+d.k1+'</div>'; if(d.k2)h+='<div>📞 '+d.k2+'</div>';
+  h+='<div class="lang">Notruf Thailand: 1669 (Rettungsdienst) · 191 (Polizei)</div></div>';
+  document.getElementById('view').innerHTML=h;
+}
+function save(){var d={};F.forEach(function(k){d[k]=document.getElementById('f_'+k).value;});dsSave('notfall',d);render(d);alert('Gespeichert.');}
+(function(){var d=dsLoad('notfall',def);F.forEach(function(k){document.getElementById('f_'+k).value=d[k]||'';});render(d);})();
+injectFooter();
+</script>
+</body></html>

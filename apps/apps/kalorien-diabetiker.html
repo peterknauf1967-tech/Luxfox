@@ -1,0 +1,49 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kalorien & BMI für Diabetiker</title>
+<meta name="description" content="BMI berechnen und Kohlenhydrate/BE für Diabetiker tracken – einfacher Mahlzeiten-Helfer.">
+<link rel="stylesheet" href="../shared/shared.css"></head><body>
+<header class="app"><a class="home" href="../index.html">←</a><h1>🍽️ Kalorien & BMI</h1><p>für Diabetiker · BMI · Kohlenhydrate/BE</p></header>
+<div class="wrap"><main>
+<div class="card">
+  <label>BMI berechnen</label>
+  <div class="grid two">
+    <div><input id="kg" type="number" inputmode="decimal" placeholder="Gewicht kg" oninput="bmi()"><div class="muted">kg</div></div>
+    <div><input id="cm" type="number" inputmode="decimal" placeholder="Größe cm" oninput="bmi()"><div class="muted">cm</div></div>
+  </div>
+  <div class="result" id="bmiv">—</div>
+  <div style="text-align:center" id="bmis"></div>
+</div>
+<div class="card">
+  <label>Kohlenhydrate → Broteinheiten (BE)</label>
+  <input id="kh" type="number" inputmode="decimal" placeholder="Kohlenhydrate in Gramm" oninput="be()">
+  <div class="result" id="bev">—</div>
+  <p class="muted" style="text-align:center">1 BE = 12 g Kohlenhydrate (DE-Standard)</p>
+</div>
+<div class="card">
+  <label>Mahlzeiten heute (KH summieren)</label>
+  <div class="grid two"><input id="mname" placeholder="Mahlzeit"><input id="mkh" type="number" inputmode="decimal" placeholder="KH g"></div>
+  <button onclick="addM()" style="margin-top:10px">+ hinzufügen</button>
+  <div id="liste" style="margin-top:10px"></div>
+  <hr><div class="muted" style="text-align:center">Summe heute</div><div class="result" id="sum">0 g KH</div>
+</div>
+<div class="note">⚠️ Nur Orientierungshilfe, keine medizinische Beratung. Insulindosis immer nach ärztlichem Plan.</div>
+</main></div>
+<script src="../shared/config.js"></script><script src="../shared/shared.js"></script>
+<script>
+function bmi(){var w=parseFloat(document.getElementById('kg').value),h=parseFloat(document.getElementById('cm').value)/100;
+  var el=document.getElementById('bmiv'),s=document.getElementById('bmis');
+  if(w&&h){var b=w/(h*h);el.textContent=b.toFixed(1);
+    var t=b<18.5?['Untergewicht','warn']:b<25?['Normalgewicht','ok']:b<30?['Übergewicht','warn']:['Adipositas','warn'];
+    s.innerHTML='<span class="pill '+t[1]+'">'+t[0]+'</span>';}else{el.textContent='—';s.textContent='';}}
+function be(){var g=parseFloat(document.getElementById('kh').value);document.getElementById('bev').textContent=g?(g/12).toFixed(1)+' BE':'—';}
+var meals=dsLoad('meals',[]);
+function renderM(){var s=0;document.getElementById('liste').innerHTML=meals.map(function(m,i){s+=m.kh;
+  return '<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #eee">'+m.n+' <span>'+m.kh+' g <a href="#" onclick="delM('+i+');return false;" class="danger">✕</a></span></div>';}).join('');
+  document.getElementById('sum').textContent=s+' g KH ('+(s/12).toFixed(1)+' BE)';}
+function addM(){var n=document.getElementById('mname').value,kh=parseFloat(document.getElementById('mkh').value)||0;
+  if(!n)return;meals.push({n:n,kh:kh});dsSave('meals',meals);document.getElementById('mname').value='';document.getElementById('mkh').value='';renderM();}
+function delM(i){meals.splice(i,1);dsSave('meals',meals);renderM();}
+renderM();injectBlend('main');injectFooter();
+</script>
+</body></html>

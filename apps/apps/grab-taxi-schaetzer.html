@@ -1,0 +1,34 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Grab/Taxi-Preis-Schätzer</title>
+<meta name="description" content="Schätzt den Fahrtpreis in Thailand und vergleicht Grab mit Taxi-Meter.">
+<link rel="stylesheet" href="../shared/shared.css"></head><body>
+<header class="app"><a class="home" href="../index.html">←</a><h1>🚕 Fahrpreis-Schätzer</h1><p>Grab vs. Taxi-Meter (Thailand)</p></header>
+<div class="wrap"><main>
+<div class="card">
+  <label>Strecke (km)</label><input id="km" type="number" inputmode="decimal" placeholder="z. B. 8" oninput="calc()">
+  <label>Fahrzeugtyp</label>
+  <select id="typ" onchange="calc()"><option value="bike">Motorrad-Taxi (Bike)</option><option value="car" selected>Auto</option></select>
+</div>
+<div class="card">
+  <div class="grid two">
+    <div><div class="muted">Taxi-Meter (ca.)</div><div class="result" id="taxi">—</div></div>
+    <div><div class="muted">Grab (ca.)</div><div class="result" id="grab">—</div></div>
+  </div>
+  <p class="muted" style="text-align:center" id="tipp"></p>
+</div>
+<div id="grabslot"></div>
+<div class="note">Richtwerte für Thailand. Taxi-Meter: 35 ฿ Start + ~8 ฿/km. Grab variiert mit Nachfrage. Bei Taxi auf „by meter" bestehen.</div>
+</main></div>
+<script src="../shared/config.js"></script><script src="../shared/shared.js"></script>
+<script>
+function calc(){var km=parseFloat(document.getElementById('km').value)||0,t=document.getElementById('typ').value;
+  var taxi,grab;
+  if(t==='bike'){taxi=20+km*10;grab=15+km*9;}else{taxi=35+km*8;grab=40+km*10;}
+  document.getElementById('taxi').textContent=km?Math.round(taxi)+' ฿':'—';
+  document.getElementById('grab').textContent=km?Math.round(grab)+' ฿':'—';
+  document.getElementById('tipp').textContent=km?(grab<taxi?'Grab ist hier meist günstiger.':'Taxi-Meter könnte günstiger sein.'):'';}
+document.getElementById('grabslot').innerHTML='<div class="card">'+affBtn('grab','Grab-App öffnen')+'</div>';
+calc();injectBlend('main');injectFooter();
+</script>
+</body></html>

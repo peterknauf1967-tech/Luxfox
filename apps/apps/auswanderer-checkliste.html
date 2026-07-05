@@ -1,0 +1,29 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Auswanderer-Checkliste Thailand</title>
+<meta name="description" content="Schritt-für-Schritt-Checkliste für die Auswanderung nach Thailand: Visum, Konto, Versicherung, Umzug.">
+<link rel="stylesheet" href="../shared/shared.css">
+<style>.chk{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line)}.chk input{width:22px;height:22px;margin-top:2px}.prog{height:10px;background:#e5e7eb;border-radius:999px;overflow:hidden}.prog>i{display:block;height:100%;background:var(--teal)}</style></head><body>
+<header class="app"><a class="home" href="../index.html">←</a><h1>✅ Auswanderer-Checkliste</h1><p>Umzug nach Thailand · Schritt für Schritt</p></header>
+<div class="wrap"><main>
+<div class="card"><div class="prog"><i id="bar" style="width:0"></i></div><div class="muted" id="pct" style="text-align:center;margin-top:6px"></div></div>
+<div id="gruppen"></div>
+</main></div>
+<script src="../shared/config.js"></script><script src="../shared/shared.js"></script>
+<script>
+var groups={
+ "Vor der Abreise (DE)":["Visum klären (Tourist/DTV/Rente)","Auslandskrankenversicherung abschließen","Wohnung/Verträge in DE kündigen oder regeln","Wichtige Dokumente beglaubigt + digital sichern","Daueraufträge & Rente ans Ausland melden","Internationalen Führerschein besorgen","Vollmacht für Vertrauensperson in DE"],
+ "Erste Wochen (TH)":["Unterkunft mieten (Mietvertrag-Helfer nutzen)","Thai-SIM/eSIM besorgen","TM30-Meldung der Adresse","Bankkonto eröffnen (Bangkok Bank o.ä.)","Certificate of Residence beantragen"],
+ "Dauerhaft":["90-Tage-Meldung im Kalender (Visum-Tracker)","Thai-Führerschein umschreiben","Krankenversicherung jährlich prüfen","Notfallkarte ausfüllen (App)"]
+};
+function key(g,i){return 'awl_'+g.replace(/\W/g,'')+i;}
+function render(){var total=0,done=0,h='';
+ Object.keys(groups).forEach(function(g){h+='<div class="card"><h3 style="margin-top:0">'+g+'</h3>';
+   groups[g].forEach(function(t,i){total++;var k=key(g,i);var c=dsLoad(k,false);if(c)done++;
+     h+='<div class="chk"><input type="checkbox" '+(c?'checked':'')+' onchange="tog(\''+k+'\',this.checked)"><div>'+t+'</div></div>';});h+='</div>';});
+ document.getElementById('gruppen').innerHTML=h;
+ var p=total?Math.round(done/total*100):0;document.getElementById('bar').style.width=p+'%';document.getElementById('pct').textContent=done+' / '+total+' erledigt ('+p+'%)';}
+function tog(k,v){dsSave(k,v);render();}
+render();injectBlend('main');injectFooter();
+</script>
+</body></html>

@@ -1,0 +1,39 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wechselkurs-Alarm EUR/THB</title>
+<meta name="description" content="Wunschkurs für EUR/THB festlegen und beim Öffnen prüfen, ob er erreicht ist.">
+<link rel="stylesheet" href="../shared/shared.css"></head><body>
+<header class="app"><a class="home" href="../index.html">←</a><h1>🔔 Wechselkurs-Alarm</h1><p>EUR → THB · Wunschkurs im Blick</p></header>
+<div class="wrap"><main>
+<div class="card">
+  <div class="muted" style="text-align:center">Aktueller Kurs (1 EUR =)</div>
+  <div class="result" id="now">…</div>
+  <div class="muted" id="stand" style="text-align:center"></div>
+  <button class="btn secondary" onclick="load()" style="margin-top:8px">🔄 Aktualisieren</button>
+</div>
+<div class="card">
+  <label>Mein Wunschkurs (1 EUR ≥ ? THB)</label>
+  <input id="ziel" type="number" inputmode="decimal" placeholder="z. B. 40" oninput="save()">
+  <div id="status" style="text-align:center;margin-top:12px"></div>
+</div>
+<div class="note">Echte Push-Benachrichtigungen brauchen später einen Server – diese App prüft den Kurs jedes Mal, wenn du sie öffnest. Tipp: aufs Handy „Zum Startbildschirm hinzufügen".</div>
+<div id="wiseslot"></div>
+</main></div>
+<script src="../shared/config.js"></script><script src="../shared/shared.js"></script>
+<script>
+var cur=null;
+function check(){var z=parseFloat(document.getElementById('ziel').value);var s=document.getElementById('status');
+  if(!z||cur==null){s.textContent='';return;}
+  if(cur>=z)s.innerHTML='<span class="pill ok">🎉 Erreicht! '+cur.toFixed(2)+' ≥ '+z+'</span>';
+  else s.innerHTML='<span class="pill warn">noch nicht – fehlen '+(z-cur).toFixed(2)+' THB</span>';}
+function save(){dsSave('kursziel',document.getElementById('ziel').value);check();}
+function load(){document.getElementById('stand').textContent='lade…';
+  fetch('https://api.frankfurter.app/latest?from=EUR&to=THB').then(function(r){return r.json();}).then(function(d){
+    cur=d.rates.THB;document.getElementById('now').textContent=cur.toFixed(2)+' ฿';
+    document.getElementById('stand').textContent='Stand: '+d.date;check();
+  }).catch(function(){document.getElementById('now').textContent='offline';document.getElementById('stand').textContent='keine Verbindung';});}
+document.getElementById('ziel').value=dsLoad('kursziel','');
+document.getElementById('wiseslot').innerHTML='<div class="card">'+affBtn('wise','Jetzt mit Wise wechseln')+'</div>';
+load();injectBlend('main');injectFooter();
+</script>
+</body></html>

@@ -1,0 +1,40 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Medikamenten-Übersetzer DE ↔ TH</title>
+<meta name="description" content="Findet zu deutschen Medikamenten den Wirkstoff und in Thailand gängige Handelsnamen.">
+<link rel="stylesheet" href="../shared/shared.css"></head><body>
+<header class="app"><a class="home" href="../index.html">←</a><h1>💊 Medikamenten-Übersetzer</h1><p>Wirkstoff & Handelsname in Thailand</p></header>
+<div class="wrap"><main>
+<div class="card">
+  <label>Suche (Medikament oder Wirkstoff)</label>
+  <input id="q" placeholder="z. B. Ibuprofen, Metformin, Insulin" oninput="search()">
+  <div id="res" style="margin-top:12px"></div>
+</div>
+<div class="note">Wichtige Liste gängiger Wirkstoffe. Zeig dem Apotheker den <b>Wirkstoff</b> – Handelsnamen unterscheiden sich. Keine medizinische Beratung; Dosierung mit Arzt klären.</div>
+</main></div>
+<script src="../shared/config.js"></script><script src="../shared/shared.js"></script>
+<script>
+var db=[
+ {de:"Ibuprofen",w:"Ibuprofen",th:"Brufen, Nurofen",hin:"Schmerzen/Entzündung"},
+ {de:"Paracetamol",w:"Paracetamol",th:"Sara, Tylenol",hin:"Fieber/Schmerz"},
+ {de:"Metformin",w:"Metformin",th:"Glucophage",hin:"Diabetes Typ 2"},
+ {de:"Insulin",w:"Insulin (versch.)",th:"Apotheke/Krankenhaus",hin:"Diabetes – kühl lagern"},
+ {de:"Aspirin / ASS",w:"Acetylsalicylsäure",th:"Aspirin, Bufferin",hin:"Schmerz/Blutverdünnung"},
+ {de:"Omeprazol",w:"Omeprazole",th:"Miracid, Losec",hin:"Magen/Sodbrennen"},
+ {de:"Amoxicillin",w:"Amoxicillin",th:"Amoxil",hin:"Antibiotikum (Rezept)"},
+ {de:"Loperamid",w:"Loperamide",th:"Imodium",hin:"Durchfall"},
+ {de:"Cetirizin",w:"Cetirizine",th:"Zyrtec",hin:"Allergie"},
+ {de:"Diclofenac",w:"Diclofenac",th:"Voltaren",hin:"Schmerz/Entzündung"},
+ {de:"Ramipril",w:"Ramipril",th:"Tritace",hin:"Blutdruck"},
+ {de:"Simvastatin",w:"Simvastatin",th:"Zocor",hin:"Cholesterin"},
+ {de:"Salbutamol",w:"Salbutamol",th:"Ventolin",hin:"Asthma-Spray"},
+ {de:"Pantoprazol",w:"Pantoprazole",th:"Controloc",hin:"Magenschutz"}
+];
+function search(){var q=document.getElementById('q').value.toLowerCase().trim();
+  var r=db.filter(function(x){return !q||x.de.toLowerCase().includes(q)||x.w.toLowerCase().includes(q)||x.th.toLowerCase().includes(q);});
+  document.getElementById('res').innerHTML = r.length? r.map(function(x){
+    return '<div style="padding:10px 0;border-bottom:1px solid #eee"><b>'+x.de+'</b> <span class="pill info">'+x.w+'</span><br><span class="muted">TH: '+x.th+' · '+x.hin+'</span></div>';
+  }).join('') : '<p class="muted">Nicht in der Liste. Zeig dem Apotheker den Wirkstoffnamen von der Verpackung.</p>';}
+search();injectBlend('main');injectFooter();
+</script>
+</body></html>

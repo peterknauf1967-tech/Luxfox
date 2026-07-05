@@ -1,0 +1,37 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Speisekarten-Übersetzer (Diabetes/Allergie)</title>
+<meta name="description" content="Thailändische Gerichte verstehen – mit Hinweisen auf Zucker und Allergene für Diabetiker.">
+<link rel="stylesheet" href="../shared/shared.css"></head><body>
+<header class="app"><a class="home" href="../index.html">←</a><h1>📷 Speisekarten-Helfer</h1><p>Gerichte · Zucker & Allergene</p></header>
+<div class="wrap"><main>
+<div class="card">
+  <label>Gericht suchen</label>
+  <input id="q" placeholder="z. B. Pad Thai, Tom Yum, Som Tam" oninput="search()">
+  <div id="res" style="margin-top:12px"></div>
+</div>
+<div class="card note">
+  <b>📸 Foto-Übersetzung folgt:</b> Die automatische Übersetzung einer fotografierten Speisekarte braucht eine Übersetzungs-/OCR-Anbindung (kostenpflichtiger API-Schlüssel). Das richten wir ein, sobald Firma & Konto stehen. Bis dahin: die Suche unten mit gängigen Gerichten.
+</div>
+</main></div>
+<script src="../shared/config.js"></script><script src="../shared/shared.js"></script>
+<script>
+var db=[
+ {n:"Pad Thai",d:"Gebratene Reisnudeln",z:"oft süß (Tamarinde/Zucker)",a:"Erdnuss, Ei, Soja"},
+ {n:"Tom Yum",d:"Scharfe Suppe",z:"wenig Zucker",a:"Schalentiere möglich"},
+ {n:"Som Tam",d:"Papayasalat",z:"süß-scharf, Palmzucker",a:"Erdnuss, Fischsauce, Krabbe"},
+ {n:"Khao Pad",d:"Gebratener Reis",z:"wenig",a:"Ei, Soja"},
+ {n:"Massaman Curry",d:"Mildes Curry",z:"süßlich (Kokos/Zucker)",a:"Erdnuss, Kokos"},
+ {n:"Green Curry (Gaeng Keow Wan)",d:"Grünes Curry",z:"mittel (Kokos)",a:"Kokos, Fischsauce"},
+ {n:"Mango Sticky Rice",d:"Dessert",z:"SEHR süß – für Diabetiker meiden",a:"Kokos"},
+ {n:"Pad Krapao",d:"Hackfleisch mit Basilikum",z:"wenig",a:"Soja, Austernsauce"},
+ {n:"Satay",d:"Fleischspieße",z:"süße Erdnusssauce",a:"Erdnuss"}
+];
+function search(){var q=document.getElementById('q').value.toLowerCase().trim();
+  var r=db.filter(function(x){return !q||x.n.toLowerCase().includes(q);});
+  document.getElementById('res').innerHTML=r.map(function(x){
+    var warn=x.z.indexOf('süß')>=0||x.z.indexOf('SEHR')>=0?'<span class="pill warn">Zucker beachten</span>':'<span class="pill ok">ok</span>';
+    return '<div style="padding:10px 0;border-bottom:1px solid #eee"><b>'+x.n+'</b> '+warn+'<br><span class="muted">'+x.d+' · Zucker: '+x.z+' · Allergene: '+x.a+'</span></div>';}).join('')||'<p class="muted">Nicht gefunden.</p>';}
+search();injectBlend('main');injectFooter();
+</script>
+</body></html>

@@ -1,0 +1,30 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>100blend – Smoothie des Tages & Franchise</title>
+<meta name="description" content="100blend Smoothie-Franchise in Thailand – Smoothie des Tages und Franchise-Chance.">
+<link rel="stylesheet" href="../shared/shared.css"></head><body>
+<header class="app"><a class="home" href="../index.html">←</a><h1>🥤 100blend</h1><p>Frische Smoothies · Franchise-Chance</p></header>
+<div class="wrap"><main>
+<div class="card" style="text-align:center" id="hero"></div>
+<div class="card">
+  <h3 style="margin-top:0">Take my franchise 🚀</h3>
+  <p>Eigener Smoothie-Stand mit erprobtem Konzept. Niedrige Einstiegskosten, starke Marge, ideal für Pattaya & Touristen-Hotspots.</p>
+  <div id="franchise"></div>
+</div>
+<div class="card">
+  <h3 style="margin-top:0">Galerie</h3>
+  <p class="muted">[Platzhalter] Hier kommen die Smoothie-Bilder rein, sobald du Logo & Fotos lieferst.</p>
+  <div class="grid two" id="gal"></div>
+</div>
+</main></div>
+<script src="../shared/config.js"></script><script src="../shared/shared.js"></script>
+<script>
+var s=(DS_CONFIG.hundertblend&&DS_CONFIG.hundertblend.smoothieDesTages)||{};
+var fr=(DS_CONFIG.hundertblend&&DS_CONFIG.hundertblend.franchiseLink)||'#';
+document.getElementById('hero').innerHTML='<div style="font-size:60px">'+(s.emoji||'🥤')+'</div><h2 style="margin:6px 0">Smoothie des Tages</h2><div class="result">'+(s.name||'')+'</div><div class="muted">'+(s.preis||'')+'</div>';
+document.getElementById('franchise').innerHTML='<a class="aff" href="'+fr+'" target="_blank" rel="noopener">Franchise-Infos anfordern →</a>';
+var demo=['🥭 Mango','🍓 Erdbeere','🥥 Kokos','🍌 Banane'];
+document.getElementById('gal').innerHTML=demo.map(function(x){return '<div class="card" style="text-align:center;margin:0"><div style="font-size:34px">'+x.split(' ')[0]+'</div><div class="muted">'+x.split(' ')[1]+'</div></div>';}).join('');
+injectFooter();
+</script>
+</body></html>

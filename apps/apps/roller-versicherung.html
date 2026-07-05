@@ -1,0 +1,34 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Roller-/Auto-Versicherungsrechner Thailand</title>
+<meta name="description" content="Schätzt grob die Versicherungsprämie für Motorrad oder Auto in Thailand.">
+<link rel="stylesheet" href="../shared/shared.css"></head><body>
+<header class="app"><a class="home" href="../index.html">←</a><h1>🛡️ Versicherungsrechner</h1><p>Roller & Auto (TH) – Schätzung</p></header>
+<div class="wrap"><main>
+<div class="card">
+  <label>Fahrzeug</label>
+  <select id="fz" onchange="calc()"><option value="bike">Motorrad/Roller</option><option value="car">Auto</option></select>
+  <label>Deckung</label>
+  <select id="cov" onchange="calc()">
+    <option value="1">Pflicht (CTPL / พ.ร.บ.)</option>
+    <option value="3">Teilkasko (Class 3)</option>
+    <option value="1f">Vollkasko (Class 1)</option>
+  </select>
+  <label>Fahrzeugwert (THB, für Kasko)</label><input id="wert" type="number" placeholder="z. B. 60000" oninput="calc()">
+</div>
+<div class="card"><div class="muted" style="text-align:center">Geschätzte Jahresprämie</div><div class="result" id="out">—</div></div>
+<div id="slot"></div>
+<div class="note">Grobe Richtwerte. Die Pflichtversicherung (พ.ร.บ.) ist gesetzlich nötig und günstig; sie deckt aber nur Personenschäden begrenzt. Für Schäden am eigenen Fahrzeug Kasko prüfen.</div>
+</main></div>
+<script src="../shared/config.js"></script><script src="../shared/shared.js"></script>
+<script>
+function calc(){var fz=document.getElementById('fz').value,cov=document.getElementById('cov').value,wert=parseFloat(document.getElementById('wert').value)||0;
+  var p;
+  if(cov==='1')p=fz==='bike'?350:650;
+  else if(cov==='3')p=(fz==='bike'?1500:7000)+wert*0.01;
+  else p=(fz==='bike'?3000:12000)+wert*0.04;
+  document.getElementById('out').textContent='≈ '+Math.round(p).toLocaleString('de-DE')+' ฿/Jahr';}
+document.getElementById('slot').innerHTML='<div class="card">'+affBtn('pacificprime','Versicherungs-Angebot anfragen')+'</div>';
+calc();injectBlend('main');injectFooter();
+</script>
+</body></html>

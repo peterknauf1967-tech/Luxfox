@@ -1,0 +1,72 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Visum-Tracker Thailand – Ablauf & aktuelle Regeln 2026</title>
+<meta name="description" content="Thailand Visum-Ablauf verfolgen, 90-Tage-Meldung (TM47) im Blick behalten und die aktuellen Visa-Regeln 2026 kompakt sehen.">
+<link rel="stylesheet" href="../shared/shared.css">
+<style>.big{font-size:42px;font-weight:800;text-align:center;color:var(--teal-dark)}
+.rule{border-left:4px solid var(--teal);padding:8px 12px;margin:10px 0;background:#f0fdfa;border-radius:8px}
+.rule b{color:var(--teal-dark)}</style></head><body>
+<header class="app"><a class="home" href="../index.html">←</a><h1>🛂 Visum-Tracker</h1><p>Ablauf · 90-Tage-Meldung · aktuelle Regeln</p></header>
+<div class="wrap"><main>
+
+<div class="card">
+  <label>Visum-Typ</label>
+  <select id="typ" onchange="calc()">
+    <option value="60">Visafrei / Visa Exemption</option>
+    <option value="30">Touristenvisa-Verlängerung</option>
+    <option value="180">DTV (Destination Thailand Visa)</option>
+    <option value="0">Anderes / manuell</option>
+  </select>
+  <label>Einreise- / Startdatum</label>
+  <input id="start" type="date" onchange="calc()">
+  <label>Ablaufdatum (überschreibt Berechnung, optional)</label>
+  <input id="ende" type="date" onchange="calc()">
+</div>
+
+<div class="card">
+  <div class="muted" style="text-align:center">Verbleibende Tage bis Visum-Ablauf</div>
+  <div class="big" id="days">—</div>
+  <div id="status" style="text-align:center"></div>
+  <hr>
+  <div class="muted" style="text-align:center">Nächste 90-Tage-Meldung (TM47)</div>
+  <div class="result" id="tm47">—</div>
+</div>
+
+<div class="card">
+  <h3 style="margin-top:0">📌 Aktuelle Regeln (Stand Juni 2026)</h3>
+  <div class="rule"><b>Visafrei:</b> Derzeit bis zu <b>60 Tage</b> für Bürger aus 93 Ländern (inkl. DE/AT/CH). <span class="danger">Achtung: Kabinett hat am 19.05.2026 die Kürzung auf 30 Tage beschlossen – tritt erst mit Veröffentlichung im Gesetzblatt in Kraft. Vor Reise prüfen!</span></div>
+  <div class="rule"><b>Verlängerung:</b> +30 Tage beim örtlichen Immigration-Büro möglich (Gebühr ~1.900 THB).</div>
+  <div class="rule"><b>DTV-Visum:</b> 5 Jahre gültig, je Einreise bis 180 Tage (verlängerbar um 180). Nachweis 500.000 THB.</div>
+  <div class="rule"><b>TDAC:</b> Digitale Einreisekarte – kostenlos, max. 72 h vor Ankunft online ausfüllen.</div>
+  <div class="rule"><b>90-Tage-Meldung (TM47):</b> Bei Aufenthalt über 90 Tage Adresse melden – online, per Post oder vor Ort.</div>
+  <p class="muted">Regeln ändern sich häufig. Diese Anzeige dient als Orientierung, keine Rechtsberatung.</p>
+</div>
+<div class="note" id="visaagentur">Du brauchst Hilfe bei der Verlängerung? <b id="agenturbtn"></b></div>
+</main></div>
+<script src="../shared/config.js"></script><script src="../shared/shared.js"></script>
+<script>
+function addDays(d,n){var x=new Date(d);x.setDate(x.getDate()+n);return x;}
+function fmt(d){return d.toLocaleDateString('de-DE');}
+function calc(){
+  var typ=parseInt(document.getElementById('typ').value);
+  var s=document.getElementById('start').value;
+  var manEnd=document.getElementById('ende').value;
+  var end=null;
+  if(manEnd)end=new Date(manEnd);
+  else if(s&&typ>0)end=addDays(s,typ);
+  var dEl=document.getElementById('days'),st=document.getElementById('status');
+  if(end){
+    var diff=Math.ceil((end-new Date())/86400000);
+    dEl.textContent=diff;
+    if(diff<0){dEl.style.color='#dc2626';st.innerHTML='<span class="pill warn">überfällig – '+fmt(end)+'</span>';}
+    else if(diff<=7){dEl.style.color='#dc2626';st.innerHTML='<span class="pill warn">bald fällig · '+fmt(end)+'</span>';}
+    else{dEl.style.color='#0f766e';st.innerHTML='<span class="pill ok">Ablauf '+fmt(end)+'</span>';}
+  } else {dEl.textContent='—';st.textContent='';}
+  // TM47: 90 Tage ab Einreise
+  document.getElementById('tm47').textContent = s? fmt(addDays(s,90)) : '—';
+}
+// Visa-Agentur (Affiliate-Platzhalter): aktiv sobald Partner genehmigt
+document.getElementById('agenturbtn').innerHTML = affBtn('grab','Visa-Agentur-Partner').replace('Visa-Agentur-Partner','Visa-Service-Partner finden');
+calc();injectBlend('main');injectFooter();
+</script>
+</body></html>

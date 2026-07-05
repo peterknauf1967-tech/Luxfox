@@ -1,0 +1,32 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Roller-/Auto-Mietvertrag-Checkliste</title>
+<meta name="description" content="Checkliste und Schadensprotokoll vor dem Anmieten von Roller oder Auto in Thailand.">
+<link rel="stylesheet" href="../shared/shared.css">
+<style>.chk{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line)}.chk input{width:22px;height:22px;margin-top:2px}</style></head><body>
+<header class="app"><a class="home" href="../index.html">←</a><h1>🛵 Miet-Checkliste</h1><p>Roller & Auto · Schadensprotokoll</p></header>
+<div class="wrap"><main>
+<div class="card"><h3 style="margin-top:0">Vor der Anmietung prüfen</h3><div id="chk1"></div></div>
+<div class="card"><h3 style="margin-top:0">Schäden dokumentieren 📸</h3><div id="chk2"></div></div>
+<div class="card">
+  <h3 style="margin-top:0">Eckdaten speichern</h3>
+  <div class="grid two"><div><input id="v_anbieter" placeholder="Vermieter"></div><div><input id="v_preis" placeholder="Preis/Tag THB"></div></div>
+  <input id="v_kenn" placeholder="Kennzeichen" style="margin-top:8px">
+  <textarea id="v_notiz" rows="2" placeholder="Vorhandene Schäden notieren" style="margin-top:8px"></textarea>
+  <button onclick="save()" style="margin-top:10px">💾 Speichern</button>
+</div>
+<div class="note danger">⚠️ Niemals den Reisepass als Pfand abgeben! Eine Kopie reicht. Foto/Video vom Zustand vor der Fahrt machen.</div>
+</main></div>
+<script src="../shared/config.js"></script><script src="../shared/shared.js"></script>
+<script>
+var c1=['Helm vorhanden & passend','Bremsen getestet','Licht/Blinker funktionieren','Reifenprofil & Luftdruck ok','Tankfüllung notiert','Versicherung im Preis? klären','Preis schriftlich vereinbart','Internationaler Führerschein dabei'];
+var c2=['Kratzer vorne fotografiert','Kratzer hinten fotografiert','Beide Seiten fotografiert','Spiegel & Lampen','Sitz/Verkleidung','Kilometerstand notiert'];
+function build(id,arr,key){document.getElementById(id).innerHTML=arr.map(function(x,i){return '<div class="chk"><input type="checkbox" id="'+key+i+'" onchange="sv()"><div>'+x+'</div></div>';}).join('');}
+function sv(){var s={};[['a',c1],['b',c2]].forEach(function(p){p[1].forEach(function(_,i){var e=document.getElementById(p[0]+i);if(e)s[p[0]+i]=e.checked;});});dsSave('miet_chk',s);}
+function save(){dsSave('miet_eck',{a:v_anbieter.value,p:v_preis.value,k:v_kenn.value,n:v_notiz.value});alert('Gespeichert.');}
+build('chk1',c1,'a');build('chk2',c2,'b');
+(function(){var s=dsLoad('miet_chk',{});Object.keys(s).forEach(function(k){var e=document.getElementById(k);if(e)e.checked=s[k];});
+ var d=dsLoad('miet_eck',{});if(d.a)v_anbieter.value=d.a;if(d.p)v_preis.value=d.p;if(d.k)v_kenn.value=d.k;if(d.n)v_notiz.value=d.n;})();
+injectBlend('main');injectFooter();
+</script>
+</body></html>

@@ -1,0 +1,32 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Renten- & Auslandssteuer-Rechner</title>
+<meta name="description" content="Schätzt grob, wie viel deutsche Rente bei Wohnsitz im Ausland besteuert wird.">
+<link rel="stylesheet" href="../shared/shared.css"></head><body>
+<header class="app"><a class="home" href="../index.html">←</a><h1>📊 Renten-Steuer</h1><p>DE-Rente bei Wohnsitz im Ausland (Schätzung)</p></header>
+<div class="wrap"><main>
+<div class="card">
+  <label>Monatliche Bruttorente (EUR)</label><input id="rente" type="number" value="470" oninput="calc()">
+  <label>Rentenbeginn (Jahr)</label><input id="jahr" type="number" value="2030" oninput="calc()">
+</div>
+<div class="card">
+  <div class="muted" style="text-align:center">Jahresrente</div><div class="result" id="jahres">—</div>
+  <div class="muted" style="text-align:center">Steuerpflichtiger Anteil</div><div class="result" id="anteil">—</div>
+  <div class="muted" style="text-align:center">Grobe Steuerlast/Jahr*</div><div class="result" id="steuer">—</div>
+</div>
+<div class="note">* Sehr grobe Schätzung. Als im Ausland lebender Rentner bist du bei deutscher Rente oft <b>beschränkt steuerpflichtig</b> ohne Grundfreibetrag – das hängt vom Doppelbesteuerungsabkommen (DE–TH) ab. Bei Renten in dieser Höhe fällt häufig wenig/keine Steuer an. <b>Keine Steuerberatung</b> – bitte mit Steuerberater/Finanzamt Neubrandenburg klären.</div>
+</main></div>
+<script src="../shared/config.js"></script><script src="../shared/shared.js"></script>
+<script>
+function besteuerungsanteil(j){if(j<=2005)return 50;if(j>=2058)return 100;
+  if(j<=2020)return 50+(j-2005)*2; return 80+(j-2020)*0.5;}
+function calc(){var r=parseFloat(document.getElementById('rente').value)||0,j=parseInt(document.getElementById('jahr').value)||2030;
+  var jahr=r*12,a=besteuerungsanteil(j),stpfl=jahr*a/100;
+  document.getElementById('jahres').textContent=Math.round(jahr).toLocaleString('de-DE')+' €';
+  document.getElementById('anteil').textContent=a.toFixed(0)+' %  ('+Math.round(stpfl).toLocaleString('de-DE')+' €)';
+  // beschränkt steuerpflichtig: ~14% Eingangssteuersatz auf stpfl Teil, kein Grundfreibetrag (grob)
+  var steuer=stpfl*0.14;
+  document.getElementById('steuer').textContent='≈ '+Math.round(steuer).toLocaleString('de-DE')+' €';}
+calc();injectBlend('main');injectFooter();
+</script>
+</body></html>

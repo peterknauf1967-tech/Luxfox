@@ -1,0 +1,47 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rechnung & Trinkgeld-Splitter (THB)</title>
+<meta name="description" content="Restaurantrechnung in Thailand teilen und Trinkgeld in Baht berechnen.">
+<link rel="stylesheet" href="../shared/shared.css"></head><body>
+<header class="app"><a class="home" href="../index.html">←</a><h1>🧾 Trinkgeld-Splitter</h1><p>Rechnung teilen · Trinkgeld in Baht</p></header>
+<div class="wrap"><main>
+<div class="card">
+  <label>Rechnungsbetrag (THB)</label>
+  <input id="amt" type="number" inputmode="decimal" placeholder="z. B. 850" oninput="calc()">
+  <label>Trinkgeld</label>
+  <div class="grid" style="grid-template-columns:repeat(4,1fr)">
+    <button class="btn secondary" onclick="setTip(0)">0%</button>
+    <button class="btn secondary" onclick="setTip(5)">5%</button>
+    <button class="btn secondary" onclick="setTip(10)">10%</button>
+    <button class="btn secondary" onclick="setTip(15)">15%</button>
+  </div>
+  <input id="tip" type="number" inputmode="decimal" placeholder="eigener % (optional)" oninput="calc()" style="margin-top:10px">
+  <label>Anzahl Personen</label>
+  <input id="ppl" type="number" inputmode="numeric" value="1" min="1" oninput="calc()">
+</div>
+<div class="card">
+  <div class="grid two">
+    <div><div class="muted">Trinkgeld</div><div class="result" id="tipv">0</div></div>
+    <div><div class="muted">Gesamt</div><div class="result" id="tot">0</div></div>
+  </div>
+  <hr><div class="muted" style="text-align:center">Pro Person</div>
+  <div class="result" id="per">0 ฿</div>
+</div>
+</main></div>
+<script src="../shared/config.js"></script><script src="../shared/shared.js"></script>
+<script>
+var tipPct=10;
+function setTip(p){tipPct=p;document.getElementById('tip').value='';calc();}
+function calc(){
+  var amt=parseFloat(document.getElementById('amt').value)||0;
+  var custom=parseFloat(document.getElementById('tip').value);
+  var pct=isNaN(custom)?tipPct:custom;
+  var ppl=Math.max(1,parseInt(document.getElementById('ppl').value)||1);
+  var tip=amt*pct/100, tot=amt+tip;
+  document.getElementById('tipv').textContent=Math.round(tip)+' ฿';
+  document.getElementById('tot').textContent=Math.round(tot)+' ฿';
+  document.getElementById('per').textContent=(tot/ppl).toFixed(2)+' ฿';
+}
+calc();injectBlend('main');injectFooter();
+</script>
+</body></html>

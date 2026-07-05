@@ -1,0 +1,24 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Feiertags- & Behörden-Kalender Thailand 2026</title>
+<meta name="description" content="Thailändische Feiertage 2026 – wichtig für Behördengänge und Banken.">
+<link rel="stylesheet" href="../shared/shared.css"></head><body>
+<header class="app"><a class="home" href="../index.html">←</a><h1>🗓️ Feiertags-Kalender</h1><p>Thailand 2026 · Behörden & Banken zu</p></header>
+<div class="wrap"><main>
+<div class="card" id="liste"></div>
+<div class="note">An Feiertagen sind Behörden, Banken und teils Geschäfte geschlossen. An buddhistischen Feiertagen (Wan Phra, Wahltagen) gilt teils Alkoholverkaufsverbot. Termine vorher prüfen.</div>
+</main></div>
+<script src="../shared/config.js"></script><script src="../shared/shared.js"></script>
+<script>
+var f=[
+ ["01.01.","Neujahr"],["03.03.","Makha Bucha"],["06.04.","Chakri-Tag"],
+ ["13.-15.04.","Songkran (Thai Neujahr)"],["01.05.","Tag der Arbeit"],["04.05.","Krönungstag"],
+ ["01.06.","Visakha Bucha"],["03.06.","Geburtstag der Königin"],["28.07.","Geburtstag des Königs"],
+ ["30.07.","Asalha Bucha"],["12.08.","Muttertag (Geb. Königinmutter)"],["13.10.","Gedenktag König Rama IX"],
+ ["23.10.","Chulalongkorn-Tag"],["05.12.","Vatertag (Geb. Rama IX)"],["10.12.","Tag der Verfassung"],["31.12.","Silvester"]
+];
+document.getElementById('liste').innerHTML=f.map(function(x){
+  return '<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee"><b>'+x[0]+'</b><span>'+x[1]+'</span></div>';}).join('');
+injectBlend('main');injectFooter();
+</script>
+</body></html>

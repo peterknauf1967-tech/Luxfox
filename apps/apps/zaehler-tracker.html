@@ -1,0 +1,36 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Strom- & Wasser-Zähler-Tracker</title>
+<meta name="description" content="Zählerstände für Strom und Wasser erfassen und Verbrauch verfolgen.">
+<link rel="stylesheet" href="../shared/shared.css"></head><body>
+<header class="app"><a class="home" href="../index.html">←</a><h1>📸 Zähler-Tracker</h1><p>Strom & Wasser · Verbrauch verfolgen</p></header>
+<div class="wrap"><main>
+<div class="card">
+  <label>Neuen Stand erfassen</label>
+  <div class="grid two"><div><select id="art"><option>Strom (kWh)</option><option>Wasser (m³)</option></select></div>
+  <div><input id="stand" type="number" inputmode="decimal" placeholder="Zählerstand"></div></div>
+  <input id="datum" type="date" style="margin-top:8px">
+  <button onclick="add()" style="margin-top:10px">+ Speichern</button>
+</div>
+<div class="card">
+  <label>Verlauf</label>
+  <div id="liste"></div>
+</div>
+<div class="note">Tipp: Fotografiere den Zähler beim Einzug und jeden Monat – mit Datum. So kannst du falsche Abrechnungen widerlegen.</div>
+</main></div>
+<script src="../shared/config.js"></script><script src="../shared/shared.js"></script>
+<script>
+document.getElementById('datum').value=new Date().toISOString().slice(0,10);
+var data=dsLoad('zaehler',[]);
+function add(){var s=parseFloat(document.getElementById('stand').value);if(isNaN(s))return;
+  data.push({art:document.getElementById('art').value,stand:s,datum:document.getElementById('datum').value});
+  data.sort(function(a,b){return a.datum<b.datum?-1:1});dsSave('zaehler',data);document.getElementById('stand').value='';render();}
+function delE(i){data.splice(i,1);dsSave('zaehler',data);render();}
+function render(){var prev={};
+  document.getElementById('liste').innerHTML=data.map(function(e,i){
+    var diff=prev[e.art]!=null?(' · Verbrauch: <b>'+(e.stand-prev[e.art]).toFixed(1)+'</b>'):'';prev[e.art]=e.stand;
+    return '<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee"><span>'+e.datum+' · '+e.art+': <b>'+e.stand+'</b>'+diff+'</span><a href="#" class="danger" onclick="delE('+i+');return false;">✕</a></div>';
+  }).join('')||'<p class="muted">Noch keine Einträge.</p>';}
+render();injectBlend('main');injectFooter();
+</script>
+</body></html>

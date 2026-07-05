@@ -1,0 +1,56 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Währungsrechner THB · EUR · VND · KHR · LAK</title>
+<meta name="description" content="Währungsrechner für Südostasien: Baht, Euro, Dong, Riel und Kip schnell umrechnen – offline nutzbar.">
+<link rel="stylesheet" href="../shared/shared.css"></head><body>
+<header class="app"><a class="home" href="../index.html">←</a><h1>💱 Währungsrechner</h1><p>EUR · THB · VND · KHR · LAK</p></header>
+<div class="wrap"><main>
+<div class="card">
+  <label>Betrag</label><input id="amt" type="number" inputmode="decimal" value="100" oninput="calc()">
+  <div class="grid two">
+    <div><label>Von</label><select id="from" onchange="calc()"></select></div>
+    <div><label>Nach</label><select id="to" onchange="calc()"></select></div>
+  </div>
+  <div class="result" id="out">—</div>
+  <div class="muted" id="rate" style="text-align:center"></div>
+  <div style="margin-top:12px"><button class="btn secondary" onclick="upd()">🔄 Kurse aktualisieren</button></div>
+  <div class="muted" id="stand" style="text-align:center;margin-top:6px"></div>
+</div>
+<div class="card">
+  <label>Kurse manuell anpassen (1 EUR = …)</label>
+  <div id="editor" class="grid"></div>
+  <button onclick="saveRates()" style="margin-top:10px">💾 Kurse speichern</button>
+</div>
+<div id="wiseslot"></div>
+</main></div>
+<script src="../shared/config.js"></script><script src="../shared/shared.js"></script>
+<script>
+// EUR-basierte Default-Kurse (Richtwerte – mit Button/manuell aktualisierbar)
+var def={EUR:1,THB:39,USD:1.08,VND:27500,KHR:4400,LAK:23500};
+var names={EUR:'Euro',THB:'Thai Baht',USD:'US-Dollar',VND:'Vietnam Dong',KHR:'Kambodscha Riel',LAK:'Laos Kip'};
+var rates=dsLoad('rates',def), keys=Object.keys(names);
+function fillSel(){var f=document.getElementById('from'),t=document.getElementById('to');
+  keys.forEach(function(k){f.add(new Option(k+' – '+names[k],k));t.add(new Option(k+' – '+names[k],k));});
+  f.value='EUR';t.value='THB';}
+function calc(){var a=parseFloat(document.getElementById('amt').value)||0;
+  var fr=document.getElementById('from').value,to=document.getElementById('to').value;
+  var eur=a/rates[fr], res=eur*rates[to];
+  document.getElementById('out').textContent=res.toLocaleString('de-DE',{maximumFractionDigits:2})+' '+to;
+  var one=(rates[to]/rates[fr]);
+  document.getElementById('rate').textContent='1 '+fr+' = '+one.toLocaleString('de-DE',{maximumFractionDigits:4})+' '+to;}
+function buildEditor(){document.getElementById('editor').innerHTML=keys.filter(function(k){return k!=='EUR';}).map(function(k){
+  return '<div><label>'+k+'</label><input type="number" id="r_'+k+'" value="'+rates[k]+'"></div>';}).join('');}
+function saveRates(){keys.forEach(function(k){if(k!=='EUR'){var v=parseFloat(document.getElementById('r_'+k).value);if(v)rates[k]=v;}});
+  dsSave('rates',rates);dsSave('rates_stand','manuell '+new Date().toLocaleDateString('de-DE'));showStand();calc();alert('Kurse gespeichert.');}
+function showStand(){document.getElementById('stand').textContent='Kurse: '+dsLoad('rates_stand','Richtwerte (bitte aktualisieren)');}
+function upd(){document.getElementById('stand').textContent='aktualisiere…';
+  fetch('https://api.frankfurter.app/latest?from=EUR&to=THB,USD').then(function(r){return r.json();}).then(function(d){
+    if(d&&d.rates){if(d.rates.THB)rates.THB=d.rates.THB;if(d.rates.USD)rates.USD=d.rates.USD;
+      dsSave('rates',rates);dsSave('rates_stand','online '+(d.date||'')+' (THB/USD live, übrige Richtwerte)');showStand();buildEditor();calc();}
+  }).catch(function(){document.getElementById('stand').textContent='Offline – gespeicherte Kurse aktiv.';});}
+fillSel();buildEditor();showStand();calc();
+// Wise-Affiliate-Slot (aktiv sobald Link genehmigt)
+document.getElementById('wiseslot').innerHTML='<div class="card">'+affBtn('wise','💸 Günstig Geld nach Thailand senden mit Wise')+'<p class="muted">'+(DS_CONFIG.affiliateHinweis||'')+'</p></div>';
+injectBlend('main');injectFooter();
+</script>
+</body></html>

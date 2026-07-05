@@ -1,0 +1,38 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Regenzeit- & Wetter-Planer Südostasien</title>
+<meta name="description" content="Beste Reisemonate und Regenwahrscheinlichkeit für Thailand, Vietnam, Kambodscha und Laos.">
+<link rel="stylesheet" href="../shared/shared.css"></head><body>
+<header class="app"><a class="home" href="../index.html">←</a><h1>🌧️ Regenzeit-Planer</h1><p>Beste Reisemonate · SEA</p></header>
+<div class="wrap"><main>
+<div class="card">
+  <label>Region</label>
+  <select id="reg" onchange="render()">
+    <option value="th_n">Thailand Nord (Chiang Mai)</option>
+    <option value="th_bkk">Thailand Mitte (Bangkok/Pattaya)</option>
+    <option value="th_s">Thailand Süd (Phuket/Krabi)</option>
+    <option value="vn">Vietnam (Mitte/Süd)</option>
+    <option value="kh">Kambodscha</option>
+    <option value="la">Laos</option>
+  </select>
+</div>
+<div id="out"></div>
+<div class="note">Klima-Richtwerte. „🌞 trocken" = beste Reisezeit, „🌧️ Regenzeit" = Monsun (kurze, heftige Schauer), „🔥 heiß".</div>
+</main></div>
+<script src="../shared/config.js"></script><script src="../shared/shared.js"></script>
+<script>
+var M=['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'];
+var data={
+ th_n:"🌞🌞🔥🔥🌧️🌧️🌧️🌧️🌧️🌧️🌞🌞",
+ th_bkk:"🌞🌞🔥🔥🌧️🌧️🌧️🌧️🌧️🌧️🌞🌞",
+ th_s:"🌞🌞🌞🌞🌧️🌧️🌧️🌧️🌧️🌧️🌧️🌞",
+ vn:"🌞🌞🌞🌞🌧️🌧️🌧️🌧️🌧️🌧️🌧️🌞",
+ kh:"🌞🌞🔥🔥🌧️🌧️🌧️🌧️🌧️🌧️🌞🌞",
+ la:"🌞🌞🔥🔥🌧️🌧️🌧️🌧️🌧️🌞🌞🌞"};
+function render(){var s=data[document.getElementById('reg').value];
+  var h='<div class="card">';
+  for(var i=0;i<12;i++){h+='<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #eee"><span>'+M[i]+'</span><span style="font-size:18px">'+s[i]+'</span></div>';}
+  h+='</div>';document.getElementById('out').innerHTML=h;}
+render();injectBlend('main');injectFooter();
+</script>
+</body></html>

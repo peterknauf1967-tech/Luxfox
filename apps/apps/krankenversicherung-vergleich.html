@@ -1,0 +1,34 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Expat-Krankenversicherung Vergleich</title>
+<meta name="description" content="Krankenversicherungen für Langzeit-Aufenthalt in Südostasien vergleichen: SafetyWing, Cigna, Pacific Prime, Luma.">
+<link rel="stylesheet" href="../shared/shared.css"></head><body>
+<header class="app"><a class="home" href="../index.html">←</a><h1>🏥 Versicherungs-Vergleich</h1><p>Expat-Krankenversicherung SEA</p></header>
+<div class="wrap"><main>
+<div class="card">
+  <label>Was ist dir wichtig?</label>
+  <select id="filter" onchange="render()">
+    <option value="all">Alle anzeigen</option>
+    <option value="budget">Günstig / flexibel</option>
+    <option value="full">Voller Schutz / langfristig</option>
+  </select>
+</div>
+<div id="liste"></div>
+<div class="note">Übersicht zur Orientierung, keine Versicherungsberatung. Leistungen, Alter und Vorerkrankungen (z. B. Diabetes, Herzschrittmacher) beeinflussen Aufnahme & Preis stark – immer direkt anfragen.</div>
+</main></div>
+<script src="../shared/config.js"></script><script src="../shared/shared.js"></script>
+<script>
+var v=[
+ {n:"SafetyWing",t:"budget",b:"Flexibel monatlich kündbar, ideal für Nomaden & Langzeit-Reisende.",k:"safetywing"},
+ {n:"Cigna Global",t:"full",b:"Umfassender internationaler Schutz, weltweit, modular.",k:null},
+ {n:"Pacific Prime",t:"full",b:"Makler – vergleicht viele Anbieter, gut bei Vorerkrankungen.",k:"pacificprime"},
+ {n:"Luma (Thailand)",t:"full",b:"Lokaler Thai-Anbieter, gut für dauerhaften Wohnsitz.",k:null}
+];
+function render(){var f=document.getElementById('filter').value;
+  document.getElementById('liste').innerHTML=v.filter(function(x){return f==='all'||x.t===f;}).map(function(x){
+    var btn=x.k?affBtn(x.k,'Mehr erfahren / Angebot'):'<a class="aff disabled">Direkt anfragen</a>';
+    return '<div class="card"><div style="display:flex;justify-content:space-between"><b>'+x.n+'</b><span class="pill info">'+(x.t==='budget'?'flexibel':'umfassend')+'</span></div><p class="muted">'+x.b+'</p>'+btn+'</div>';
+  }).join('');}
+render();injectBlend('main');injectFooter();
+</script>
+</body></html>

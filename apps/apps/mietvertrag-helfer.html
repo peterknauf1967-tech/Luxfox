@@ -1,0 +1,65 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mietvertrag-Helfer Thailand – Kaution, Kosten & Foto-Schutz</title>
+<meta name="description" content="Mietvertrag in Thailand: Kaution und Einzugskosten berechnen, Kaution richtig überweisen und mit Fotos absichern. Vertrag speichern.">
+<link rel="stylesheet" href="../shared/shared.css">
+<style>.chk{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line)}
+.chk input{width:22px;height:22px;margin-top:2px}</style></head><body>
+<header class="app"><a class="home" href="../index.html">←</a><h1>📄 Mietvertrag-Helfer</h1><p>Kosten · Kaution · Foto-Schutz</p></header>
+<div class="wrap"><main>
+
+<div class="card">
+  <h3 style="margin-top:0">1. Was kostet der Einzug?</h3>
+  <label>Monatsmiete (THB)</label><input id="miete" type="number" inputmode="decimal" placeholder="z. B. 12000" oninput="calc()">
+  <label>Kaution (Monate)</label>
+  <select id="kmon" onchange="calc()"><option value="2">2 Monate (üblich)</option><option value="1">1 Monat</option><option value="3">3 Monate</option></select>
+  <label>Vormiete im Voraus (Monate)</label>
+  <select id="vmon" onchange="calc()"><option value="1">1 Monat</option><option value="0">0</option><option value="2">2 Monate</option></select>
+  <hr>
+  <div class="note">Beim Unterschreiben fällig:</div>
+  <div class="result" id="total">—</div>
+  <div class="muted" id="break" style="text-align:center"></div>
+</div>
+
+<div class="card">
+  <h3 style="margin-top:0">2. Kaution richtig & sicher zahlen</h3>
+  <div class="chk"><span>✅</span><div>Kaution möglichst per <b>Überweisung</b> zahlen (nicht nur bar) – dann hast du einen Nachweis. Verwendungszweck: „Deposit + Adresse + dein Name".</div></div>
+  <div class="chk"><span>✅</span><div>Quittung verlangen: Betrag, Datum, Unterschrift des Vermieters, Wort <b>„Deposit (refundable)"</b>.</div></div>
+  <div class="chk"><span>✅</span><div>Im Vertrag prüfen: <b>unter welchen Bedingungen</b> bekommst du die Kaution zurück und <b>wann</b> (üblich: 30 Tage nach Auszug).</div></div>
+  <div class="chk"><span>✅</span><div>Vorsicht bei „Kaution = letzte Miete" – das ist oft nicht dasselbe. Schriftlich klären.</div></div>
+</div>
+
+<div class="card">
+  <h3 style="margin-top:0">3. Foto-Schutz vor dem Einzug 📸</h3>
+  <p class="muted">Mache VOR dem Einzug von der ganzen Wohnung viele Fotos/Videos mit Datum. Das schützt deine Kaution. Abhaken:</p>
+  <div id="fotos"></div>
+</div>
+
+<div class="card">
+  <h3 style="margin-top:0">4. Vertrag speichern</h3>
+  <label>Vermieter / Kontakt</label><input id="v_ll" placeholder="Name + Telefon">
+  <label>Adresse der Wohnung</label><input id="v_adr" placeholder="Adresse">
+  <label>Mietbeginn / -ende</label><input id="v_zeit" placeholder="z. B. 01.07.2026 – 30.06.2027">
+  <label>Notizen (Möbel, Zählerstände, Sondervereinbarungen)</label><textarea id="v_note" rows="3"></textarea>
+  <div style="margin-top:12px"><button onclick="saveV()">💾 Vertrag speichern</button></div>
+</div>
+</main></div>
+<script src="../shared/config.js"></script><script src="../shared/shared.js"></script>
+<script>
+function calc(){
+  var m=parseFloat(document.getElementById('miete').value)||0;
+  var k=parseInt(document.getElementById('kmon').value);
+  var v=parseInt(document.getElementById('vmon').value);
+  var t=m*(k+v);
+  document.getElementById('total').textContent=t?Math.round(t).toLocaleString('de-DE')+' ฿':'—';
+  document.getElementById('break').textContent=m?('Kaution '+k+'× + Vormiete '+v+'× = '+(k+v)+' Monatsmieten'):'';
+}
+var fotoItems=['Wände & Decken (Risse, Flecken)','Boden','Bad & WC (Dichtungen, Schimmel)','Küche & Geräte','Klimaanlage (an/aus testen)','Fenster, Türen, Schlösser','Vorhandene Möbel','Strom- & Wasserzähler-Stand','vorhandene Schäden gezielt'];
+document.getElementById('fotos').innerHTML=fotoItems.map(function(x,i){return '<div class="chk"><input type="checkbox" id="ck'+i+'" onchange="saveCk()"><div>'+x+'</div></div>';}).join('');
+function saveCk(){var s={};fotoItems.forEach(function(_,i){s[i]=document.getElementById('ck'+i).checked;});dsSave('miet_ck',s);}
+function saveV(){var d={ll:v_ll.value,adr:v_adr.value,zeit:v_zeit.value,note:v_note.value};dsSave('miet_v',d);alert('Vertrag gespeichert (nur auf diesem Gerät).');}
+(function(){var s=dsLoad('miet_ck',{});fotoItems.forEach(function(_,i){if(s[i])document.getElementById('ck'+i).checked=true;});
+ var d=dsLoad('miet_v',{});if(d.ll)v_ll.value=d.ll;if(d.adr)v_adr.value=d.adr;if(d.zeit)v_zeit.value=d.zeit;if(d.note)v_note.value=d.note;})();
+calc();injectBlend('main');injectFooter();
+</script>
+</body></html>

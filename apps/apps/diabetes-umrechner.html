@@ -1,0 +1,48 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Diabetes Blutzucker-Umrechner (mg/dl ↔ mmol/l)</title>
+<meta name="description" content="Blutzucker umrechnen mg/dl in mmol/l, Insulin-Notiz und HbA1c-Schätzer für Diabetiker in Thailand.">
+<link rel="stylesheet" href="../shared/shared.css"></head><body>
+<header class="app"><a class="home" href="../index.html">←</a><h1>🩸 Blutzucker-Umrechner</h1><p>mg/dl ↔ mmol/l · HbA1c · Insulin-Notiz</p></header>
+<div class="wrap"><main>
+<div class="card">
+  <label>Wert eingeben</label>
+  <div class="grid two">
+    <div><input id="mgdl" type="number" inputmode="decimal" placeholder="mg/dl" oninput="fromMg()"><div class="muted">mg/dl</div></div>
+    <div><input id="mmol" type="number" inputmode="decimal" placeholder="mmol/l" oninput="fromMmol()"><div class="muted">mmol/l</div></div>
+  </div>
+  <div class="result" id="bewert">—</div>
+  <p class="muted" id="hint" style="text-align:center"></p>
+</div>
+<div class="card">
+  <label>HbA1c-Schätzer (aus Ø Blutzucker)</label>
+  <input id="avg" type="number" inputmode="decimal" placeholder="durchschnittl. mg/dl" oninput="hba1c()">
+  <div class="result" id="a1c">—</div>
+  <p class="muted" style="text-align:center">Schätzwert nach ADAG-Formel. Ersetzt keine Laborwerte.</p>
+</div>
+<div class="note">⚠️ Diese App ist nur eine Rechenhilfe und ersetzt keine ärztliche Beratung. Bei Über-/Unterzucker handeln und im Zweifel Arzt/Notruf kontaktieren.</div>
+</main></div>
+<script src="../shared/config.js"></script><script src="../shared/shared.js"></script>
+<script>
+function bewerten(mg){
+  if(!mg) return ["",""];
+  if(mg<70) return ["Unterzucker (Hypo)","danger"];
+  if(mg<=140) return ["Normalbereich","ok"];
+  if(mg<=180) return ["leicht erhöht","warn"];
+  return ["zu hoch (Hyper)","danger"];
+}
+function show(mg){
+  var b=bewerten(mg),el=document.getElementById('bewert'),h=document.getElementById('hint');
+  el.textContent=b[0]||'—';
+  el.style.color = b[1]==='danger'?'#dc2626':(b[1]==='warn'?'#b45309':'#0f766e');
+  h.textContent = mg? (mg+' mg/dl = '+(mg/18).toFixed(1)+' mmol/l'):'';
+}
+function fromMg(){var v=parseFloat(document.getElementById('mgdl').value);
+  document.getElementById('mmol').value=v?(v/18).toFixed(1):'';show(v);}
+function fromMmol(){var v=parseFloat(document.getElementById('mmol').value);
+  var mg=v?Math.round(v*18):''; document.getElementById('mgdl').value=mg;show(mg);}
+function hba1c(){var v=parseFloat(document.getElementById('avg').value);
+  document.getElementById('a1c').textContent=v?(((v+46.7)/28.7).toFixed(1)+' % HbA1c'):'—';}
+injectBlend('main');injectFooter();
+</script>
+</body></html>

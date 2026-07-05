@@ -1,0 +1,31 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Thai-Zahlen & Preise lernen</title>
+<meta name="description" content="Thailändische Zahlen, Preise und Feilsch-Sätze lernen.">
+<link rel="stylesheet" href="../shared/shared.css"></head><body>
+<header class="app"><a class="home" href="../index.html">←</a><h1>🔢 Thai-Zahlen lernen</h1><p>Zahlen · Preise · Feilschen</p></header>
+<div class="wrap"><main>
+<div class="card"><label>Zahl eingeben (0–9999)</label><input id="n" type="number" placeholder="z. B. 250" oninput="conv()">
+  <div class="result" id="thai">—</div><div class="muted" id="lautschrift" style="text-align:center"></div></div>
+<div class="card"><h3 style="margin-top:0">Grundzahlen</h3><div id="grund"></div></div>
+<div class="card"><h3 style="margin-top:0">Nützliche Sätze beim Feilschen</h3><div id="saetze"></div></div>
+</main></div>
+<script src="../shared/config.js"></script><script src="../shared/shared.js"></script>
+<script>
+var ones=['ศูนย์','หนึ่ง','สอง','สาม','สี่','ห้า','หก','เจ็ด','แปด','เก้า'];
+var onesL=['suun','neung','song','saam','sii','haa','hok','jet','paet','kao'];
+function conv(){var n=parseInt(document.getElementById('n').value);if(isNaN(n)||n<0||n>9999){document.getElementById('thai').textContent='—';document.getElementById('lautschrift').textContent='';return;}
+  // einfache Zusammensetzung
+  var th='',la='';var units=['','สิบ','ร้อย','พัน'];var unitsL=['','sip','roi','phan'];
+  var s=String(n).split('').reverse();
+  for(var i=s.length-1;i>=0;i--){var d=parseInt(s[i]);if(d===0)continue;
+    if(i===1&&d===1){th+='สิบ';la+='sip ';}
+    else if(i===1&&d===2){th+='ยี่สิบ';la+='yii-sip ';}
+    else{th+=ones[d]+units[i];la+=onesL[d]+' '+unitsL[i]+' ';}}
+  document.getElementById('thai').textContent=th||'ศูนย์';document.getElementById('lautschrift').textContent=(la||'suun').trim()+' Baht';}
+document.getElementById('grund').innerHTML=ones.map(function(t,i){return '<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #eee"><b>'+i+'</b><span>'+t+' · '+onesL[i]+'</span></div>';}).join('');
+var saetze=[['Wie viel kostet das?','ราคาเท่าไหร่ · raa-khaa thao-rai'],['Zu teuer!','แพงไป · phaeng pai'],['Geht billiger?','ลดได้ไหม · lot dai mai'],['Ich nehme es','เอา · ao'],['Danke','ขอบคุณ · khop khun']];
+document.getElementById('saetze').innerHTML=saetze.map(function(x){return '<div style="padding:6px 0;border-bottom:1px solid #eee"><b>'+x[0]+'</b><br><span class="muted">'+x[1]+'</span></div>';}).join('');
+injectBlend('main');injectFooter();
+</script>
+</body></html>

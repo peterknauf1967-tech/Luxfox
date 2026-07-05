@@ -1,0 +1,37 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Überweisungs-Gebühren-Vergleich Wise vs. Bank</title>
+<meta name="description" content="Echte Kosten beim Geldtransfer von Deutschland nach Thailand vergleichen: Wise vs. klassische Bank.">
+<link rel="stylesheet" href="../shared/shared.css"></head><body>
+<header class="app"><a class="home" href="../index.html">←</a><h1>💸 Gebühren-Vergleich</h1><p>DE → TH · Wise vs. Bank</p></header>
+<div class="wrap"><main>
+<div class="card">
+  <label>Betrag in EUR</label><input id="eur" type="number" inputmode="decimal" value="1000" oninput="calc()">
+  <label>Mittelkurs (1 EUR = ? THB)</label><input id="kurs" type="number" inputmode="decimal" value="39" oninput="calc()">
+</div>
+<div class="card">
+  <div style="display:flex;justify-content:space-between"><b>Wise (typisch)</b><span class="pill ok" id="wbest"></span></div>
+  <p class="muted">~0,5 % Gebühr, echter Mittelkurs</p>
+  <div class="result" id="wout">—</div>
+</div>
+<div class="card">
+  <div><b>Klassische Bank (typisch)</b></div>
+  <p class="muted">~15 € Fixgebühr + ~3 % schlechterer Kurs</p>
+  <div class="result" id="bout">—</div>
+</div>
+<div class="card" style="text-align:center"><div class="muted">Dein Vorteil mit Wise</div><div class="result" id="diff" style="color:#16a34a">—</div></div>
+<div id="wiseslot"></div>
+</main></div>
+<script src="../shared/config.js"></script><script src="../shared/shared.js"></script>
+<script>
+function calc(){var eur=parseFloat(document.getElementById('eur').value)||0,k=parseFloat(document.getElementById('kurs').value)||0;
+  var wise=(eur*(1-0.005))*k;
+  var bank=(eur-15)*(k*0.97);
+  document.getElementById('wout').textContent=Math.round(wise).toLocaleString('de-DE')+' ฿';
+  document.getElementById('bout').textContent=Math.round(bank).toLocaleString('de-DE')+' ฿';
+  var d=wise-bank;document.getElementById('diff').textContent='+'+Math.round(d).toLocaleString('de-DE')+' ฿';
+  document.getElementById('wbest').textContent=d>=0?'günstiger':'';}
+document.getElementById('wiseslot').innerHTML='<div class="card">'+affBtn('wise','Mit Wise senden')+'<p class="muted">'+(DS_CONFIG.affiliateHinweis||'')+'</p></div>';
+calc();injectBlend('main');injectFooter();
+</script>
+</body></html>

@@ -1,0 +1,48 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Expat-Tools – Apps für Auswanderer in Südostasien</title>
+<meta name="description" content="Kostenlose kleine Apps für deutschsprachige Auswanderer in Thailand, Vietnam, Kambodscha und Laos: Währung, Visum, Gesundheit, Alltag.">
+<link rel="stylesheet" href="shared/shared.css">
+</head><body>
+<header class="app"><h1>🌴 Expat-Tools</h1><p>Kleine Helfer für Auswanderer in Thailand · Vietnam · Kambodscha · Laos</p></header>
+<div class="wrap"><main>
+<p class="muted" style="text-align:center">Tippe auf eine App. Alle laufen direkt im Browser – auf dem Handy per „Zum Startbildschirm hinzufügen" installierbar.</p>
+<div class="tiles" id="tiles"></div>
+</main></div>
+<script src="shared/config.js"></script><script src="shared/shared.js"></script>
+<script>
+var apps=[
+ {n:"Währungsrechner",d:"THB/EUR/VND/KHR/LAK",i:"💱",u:"apps/waehrungsrechner.html"},
+ {n:"Visum-Tracker",d:"Ablauf + Regeln 2026",i:"🛂",u:"apps/visum-tracker.html"},
+ {n:"Krankenvers.-Vergleich",d:"Expat-Versicherung",i:"🏥",u:"apps/krankenversicherung-vergleich.html"},
+ {n:"eSIM-Finder",d:"Datenpakete SEA",i:"📶",u:"apps/esim-finder.html"},
+ {n:"Diabetes-Umrechner",d:"mg/dl ↔ mmol/l",i:"🩸",u:"apps/diabetes-umrechner.html"},
+ {n:"Trinkgeld-Splitter",d:"Rechnung teilen (THB)",i:"🧾",u:"apps/trinkgeld-splitter.html"},
+ {n:"Thai-Zahlen lernen",d:"Preise & Feilschen",i:"🔢",u:"apps/thai-zahlen.html"},
+ {n:"Wechselkurs-Alarm",d:"Wunschkurs EUR/THB",i:"🔔",u:"apps/wechselkurs-alarm.html"},
+ {n:"Renten-Steuer-Rechner",d:"DE-Rente im Ausland",i:"📊",u:"apps/renten-steuer-rechner.html"},
+ {n:"90-Tage-Reminder",d:"TM30/TM47 Countdown",i:"📅",u:"apps/visum-tracker.html"},
+ {n:"Feiertags-Kalender",d:"Thailand 2026",i:"🗓️",u:"apps/feiertags-kalender.html"},
+ {n:"Nebenkosten-Rechner",d:"Strom & Wohnung",i:"⚡",u:"apps/nebenkosten-rechner.html"},
+ {n:"Mietwagen-Checkliste",d:"Roller & Auto",i:"🛵",u:"apps/mietwagen-checkliste.html"},
+ {n:"Digitale Notfallkarte",d:"Blutgruppe & Diagnosen",i:"🆘",u:"apps/notfallkarte.html"},
+ {n:"Medikamenten-Übersetzer",d:"DE↔TH Wirkstoff",i:"💊",u:"apps/medikamenten-uebersetzer.html"},
+ {n:"Kalorien für Diabetiker",d:"BMI & Kohlenhydrate",i:"🍽️",u:"apps/kalorien-diabetiker.html"},
+ {n:"Grab/Taxi-Schätzer",d:"Fahrtpreis vergleichen",i:"🚕",u:"apps/grab-taxi-schaetzer.html"},
+ {n:"Gebühren-Vergleich",d:"Wise vs. Bank",i:"💸",u:"apps/gebuehren-vergleich.html"},
+ {n:"Mietvertrag-Helfer",d:"Kaution & Fotos sichern",i:"📄",u:"apps/mietvertrag-helfer.html"},
+ {n:"Regenzeit-Planer",d:"Beste Reisemonate",i:"🌧️",u:"apps/regenzeit-planer.html"},
+ {n:"Roller-Versicherung",d:"Prämie schätzen",i:"🛡️",u:"apps/roller-versicherung.html"},
+ {n:"Speisekarten-Helfer",d:"Zucker & Allergene",i:"📷",u:"apps/speisekarten-uebersetzer.html"},
+ {n:"Auswanderer-Checkliste",d:"Umzug Schritt für Schritt",i:"✅",u:"apps/auswanderer-checkliste.html"},
+ {n:"Zähler-Tracker",d:"Strom & Wasser",i:"📸",u:"apps/zaehler-tracker.html"},
+ {n:"100blend Smoothie",d:"Franchise & Smoothie",i:"🥤",u:"apps/hundertblend-showcase.html"}
+];
+var h="";apps.forEach(function(a){
+  if(a.u){h+='<a class="tile" href="'+a.u+'"><div class="ico">'+a.i+'</div><h3>'+a.n+'</h3><p>'+a.d+'</p></a>';}
+  else{h+='<div class="tile soon"><div class="ico">'+a.i+'</div><h3>'+a.n+'</h3><p>'+a.d+' · bald</p></div>';}
+});
+document.getElementById('tiles').innerHTML=h;
+injectBlend('main');injectFooter();
+</script>
+</body></html>

@@ -1,0 +1,59 @@
+/* Projekt Digital Service – gemeinsames Design */
+:root{
+  --teal:#0d9488; --teal-dark:#0f766e; --teal-light:#ccfbf1;
+  --ink:#1f2937; --muted:#6b7280; --line:#e5e7eb; --bg:#f8fafc;
+  --card:#ffffff; --accent:#f59e0b; --danger:#dc2626; --ok:#16a34a;
+  --radius:16px; --shadow:0 4px 18px rgba(15,23,42,.08);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  color:var(--ink);background:var(--bg);line-height:1.5;-webkit-text-size-adjust:100%}
+.wrap{max-width:680px;margin:0 auto;padding:16px}
+header.app{background:linear-gradient(135deg,var(--teal),var(--teal-dark));
+  color:#fff;padding:20px 16px;text-align:center}
+header.app .home{position:absolute;left:12px;top:14px;color:#fff;text-decoration:none;font-size:22px;opacity:.9}
+header.app{position:relative}
+header.app h1{margin:0;font-size:22px}
+header.app p{margin:4px 0 0;opacity:.9;font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:18px;margin:16px 0}
+label{display:block;font-weight:600;margin:12px 0 6px;font-size:14px}
+input,select,textarea{width:100%;padding:13px;border:1px solid var(--line);border-radius:12px;
+  font-size:16px;background:#fff;color:var(--ink)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--teal)}
+button,.btn{display:inline-block;background:var(--teal);color:#fff;border:0;border-radius:12px;
+  padding:13px 18px;font-size:16px;font-weight:600;cursor:pointer;text-decoration:none;text-align:center}
+button:active,.btn:active{transform:translateY(1px)}
+.btn.secondary{background:#fff;color:var(--teal);border:1.5px solid var(--teal)}
+.result{font-size:30px;font-weight:800;color:var(--teal-dark);text-align:center;margin:10px 0}
+.grid{display:grid;gap:12px}
+.grid.two{grid-template-columns:1fr 1fr}
+.muted{color:var(--muted);font-size:13px}
+.pill{display:inline-block;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:600}
+.pill.ok{background:#dcfce7;color:#166534}.pill.warn{background:#fef9c3;color:#854d0e}
+.pill.info{background:var(--teal-light);color:var(--teal-dark)}
+.note{background:#fff7ed;border:1px solid #fed7aa;border-radius:12px;padding:12px;font-size:14px}
+.danger{color:var(--danger)}
+hr{border:0;border-top:1px solid var(--line);margin:16px 0}
+/* App-Kacheln (Hub) */
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:16px;text-decoration:none;color:var(--ink);box-shadow:var(--shadow);transition:transform .1s}
+.tile:active{transform:scale(.98)}
+.tile .ico{font-size:30px}
+.tile h3{margin:8px 0 4px;font-size:15px}
+.tile p{margin:0;font-size:12px;color:var(--muted)}
+.tile.soon{opacity:.55}
+/* 100blend Widget */
+.blend{display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,#fff7ed,#fef3c7);
+  border:1px solid #fde68a;border-radius:14px;padding:12px;margin:16px 0}
+.blend .emoji{font-size:30px}
+.blend .txt{flex:1;min-width:0}
+.blend .txt b{display:block;font-size:14px}
+.blend .txt span{font-size:12px;color:var(--muted)}
+.blend a.fr{font-size:12px;font-weight:700;color:#b45309;text-decoration:none;white-space:nowrap}
+/* Footer */
+footer.app{padding:18px 16px 40px;text-align:center;color:var(--muted);font-size:12px}
+footer.app a{color:var(--teal-dark)}
+.aff{display:block;margin:8px 0;background:var(--teal);color:#fff;border-radius:12px;padding:12px;text-decoration:none;font-weight:600;text-align:center}
+.aff.disabled{background:#e5e7eb;color:#9ca3af;pointer-events:none}
