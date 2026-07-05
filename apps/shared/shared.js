@@ -2,6 +2,27 @@
 (function(){
   var C = window.DS_CONFIG || {};
 
+  // Basis-Pfad des App-Bundles aus dem eigenen <script src> ableiten (portabel,
+  // funktioniert für Hub /apps/ und Einzel-Apps /apps/apps/)
+  var DS_BASE = (function(){
+    var s = document.currentScript;
+    if(!s){ var ss=document.getElementsByTagName('script');
+      for(var i=0;i<ss.length;i++){ if(/shared\/shared\.js/.test(ss[i].src||'')){ s=ss[i]; break; } } }
+    return s ? (s.src||'').replace(/shared\/shared\.js.*$/,'') : '';
+  })();
+
+  // Google AdSense laden – NUR wenn eine echte Publisher-ID in config.js steht
+  // (Format ca-pub-XXXXXXXXXXXXXXXX). Platzhalter bleibt wirkungslos.
+  (function loadAds(){
+    var id = (C.affiliate||{}).adsenseId || '';
+    if(/^ca-pub-\d{10,}$/.test(id)){
+      var a=document.createElement('script');
+      a.async=true; a.crossOrigin='anonymous';
+      a.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client='+id;
+      document.head.appendChild(a);
+    }
+  })();
+
   // 100blend-Widget einfügen (dezent, ans Ende des Hauptbereichs)
   window.injectBlend = function(targetSel){
     if(!C.hundertblend) return;
@@ -35,8 +56,8 @@
     el.innerHTML =
       '<p class="muted">'+(C.affiliateHinweis||'')+'</p>'+
       '<p class="muted">© '+(new Date().getFullYear())+' '+(f.name||'')+
-      ' · <a href="#" onclick="alert(\'Impressum:\\n'+
-      (f.name||'')+'\\n'+(f.adresse||'')+'\\n'+(f.register||'')+'\\n'+(f.email||'')+'\');return false;">Impressum</a></p>';
+      ' · <a href="'+DS_BASE+'impressum.html">Impressum</a>'+
+      ' · <a href="'+DS_BASE+'datenschutz.html">Datenschutz</a></p>';
     document.body.appendChild(el);
   };
 
