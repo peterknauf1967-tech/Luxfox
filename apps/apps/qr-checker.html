@@ -141,22 +141,41 @@ function wifi(raw){
 /* PromptPay / EMV */
 function emv(raw){
   var t=tlv(raw), warn=[], ampel='gruen';
-  var merchant=null, art='—';
+  var merchant=null, art='—', aid='';
   for(var id=26; id<=51; id++){ if(t[pad(id)]){ var sub=tlv(t[pad(id)]);
-    if((sub['00']||'').toUpperCase().indexOf('A000000677010111')===0){ merchant=sub; break; }
+    var a=(sub['00']||'').toUpperCase();
+    if(a.indexOf('A00000067701011')===0){ merchant=sub; aid=a; break; }
     if(!merchant && sub['00']) merchant=sub;
   }}
-  var empf='' , empfLabel='Empfänger';
+  var empf='' , empfLabel='Empfänger', refs=[];
   if(merchant){
-    if(merchant['01']){ empf=fmtPhone(merchant['01']); empfLabel='Empfänger-Telefon'; art='PromptPay (Telefonnummer)'; }
-    else if(merchant['02']){ empf=merchant['02']; empfLabel='Empfänger Tax-ID'; art='PromptPay (Steuer-ID)'; }
-    else if(merchant['03']){ empf=merchant['03']; empfLabel='eWallet-ID'; art='PromptPay (eWallet)'; }
-    else { empf=merchant['00']||'—'; }
+    if(aid==='A000000677010112'){
+      /* Bill Payment: 01 = Biller-ID (Firmen-Steuernummer, 13-15 Stellen) */
+      empf=merchant['01']||'—'; empfLabel='Firmen-ID (Steuernummer)';
+      art='PromptPay Händler-/Rechnungszahlung';
+      if(merchant['02']) refs.push(['Referenz 1', merchant['02']]);
+      if(merchant['03']) refs.push(['Referenz 2', merchant['03']]);
+    } else {
+      var p1=merchant['01'];
+      if(p1 && (/^0066/.test(p1) || p1.replace(/\D/g,'').length<=10)){
+        empf=fmtPhone(p1); empfLabel='Empfänger-Telefon'; art='PromptPay (Telefonnummer)';
+      } else if(p1 && p1.length===13){
+        empf=p1; empfLabel = p1.charAt(0)==='0' ? 'Firmen-Steuernummer (13-stellig)' : 'Bürger-/Steuer-ID (13-stellig)';
+        art='PromptPay (ID statt Telefon)';
+      } else if(p1){ empf=p1; empfLabel='Empfänger-ID'; art='PromptPay'; }
+      else if(merchant['02']){ empf=merchant['02']; empfLabel='Empfänger Tax-ID'; art='PromptPay (Steuer-ID)'; }
+      else if(merchant['03']){ empf=merchant['03']; empfLabel='eWallet-ID'; art='PromptPay (eWallet)'; }
+      else { empf=merchant['00']||'—'; }
+    }
   }
   var betrag=t['54']?parseFloat(t['54']).toLocaleString('de-DE',{minimumFractionDigits:2})+' '+(t['53']==='764'?'THB':('Währung '+t['53'])):null;
   var dyn = t['01']==='12';
   var felder=[['Art', art + (dyn?' · dynamisch (einmalig)':' · statischer Code')]];
   felder.push([empfLabel, empf||'—']);
+  refs.forEach(function(r){ felder.push(r); });
+  if(empfLabel.indexOf('Steuernummer')>-1 || empfLabel.indexOf('Firmen-ID')>-1){
+    warn.push('Empfänger ist eine FIRMA (13-stellige Steuernummer, beginnt mit 0) — das ist bei Läden/Restaurants normal und eher vertrauenswürdig als ein Privatkonto. Firmenname kannst du kostenlos prüfen: datawarehouse.dbd.go.th (Thai-Handelsregister).');
+  }
   if(t['59'] && t['59']!=='NA') felder.push(['Name laut Code', t['59']]);
   else felder.push(['Name laut Code', '— nicht im Code enthalten (bei privaten PromptPay-Codes normal)']);
   if(t['60']) felder.push(['Ort', t['60']]);
@@ -168,7 +187,7 @@ function emv(raw){
 }
 function tlv(s){ var o={},i=0; while(i+4<=s.length){ var id=s.substr(i,2), len=parseInt(s.substr(i+2,2),10); if(isNaN(len)) break; o[id]=s.substr(i+4,len); i+=4+len; } return o; }
 function pad(n){ return (n<10?'0':'')+n; }
-function fmtPhone(v){ var p=v.replace(/^0066/,'0'); if(/^00/.test(v)&&!/^0066/.test(v)) p='+'+v.slice(2); return p; }
+function fmtPhone(v){ var p=v.replace(/^0066/,'0'); if(/^00/.test(v)&&!/^0066/.test(v)) p='+'+v.slice(2); if(/^0\d{9}$/.test(p)) p=p.slice(0,3)+'-'+p.slice(3,6)+'-'+p.slice(6); return p; }
 /* Anzeige */
 function simple(titel,wert,ampel,hinweis){ zeige(ampel, titel.split(' ')[0]+' '+ (ampel==='rot'?'':''), [[titel.replace(/^[^ ]+ /,''), wert]], hinweis?[hinweis]:[], '', titel); }
 function zeige(ampel,titel,felder,warn,aktionHtml,typ){
