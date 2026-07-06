@@ -597,13 +597,15 @@ setLang(localStorage.getItem('lf-lang')||'en');
 const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')})},{threshold:.1});
 document.querySelectorAll('.fade').forEach(el=>obs.observe(el));
 
-// PW (obfuscated — personal use only)
-const _k=atob('THV4Zm94MjAyNiE='); // Luxfox2026!
+// PW-Check via SHA-256-Hash (Klartext steht nicht mehr im Code)
+const _h='c4dcd7fe364e10e38666c24cb23762543efebd23b64012eaa99d6b83ce33bee7';
 function openPw(){document.getElementById('pw-modal').classList.add('open');setTimeout(()=>document.getElementById('pw-input').focus(),150)}
 function closePw(){document.getElementById('pw-modal').classList.remove('open');document.getElementById('pw-input').value='';document.getElementById('pw-err').textContent=''}
-function checkPw(){
+async function checkPw(){
   const v=document.getElementById('pw-input').value;
-  if(v===_k){closePw();openAdm()}
+  const buf=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(v));
+  const hex=[...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('');
+  if(hex===_h){closePw();openAdm()}
   else{document.getElementById('pw-err').textContent='Wrong password';document.getElementById('pw-input').value='';document.getElementById('pw-input').focus()}
 }
 function openAdm(){
