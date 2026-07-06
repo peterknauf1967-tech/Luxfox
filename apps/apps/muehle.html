@@ -33,6 +33,11 @@ svg{width:100%;height:auto;display:block;touch-action:manipulation}
     <button class="btn" id="mCpu" onclick="newGame('cpu')">🤖 Gegen Computer</button>
     <button class="btn secondary" id="m2p" onclick="newGame('2p')">👥 Zu zweit</button>
   </div>
+  <label style="margin-top:10px">Computer-Stärke</label>
+  <select id="lvl" onchange="newGame('cpu')" style="background:#141414;color:#e8e4da;border-color:#2a2a2a">
+    <option value="hard" selected>😈 Stark — denkt voraus</option>
+    <option value="easy">😊 Locker — für den Feierabend</option>
+  </select>
   <div class="status" id="status">Wähle einen Modus</div>
   <div class="substatus" id="sub"></div>
   <div class="board-wrap"><svg id="brd" viewBox="-0.55 -0.55 7.1 7.1"></svg></div>
@@ -143,13 +148,80 @@ function winName(){ return turn===1?'⚪ Du':'⚫ '+(mode==='cpu'?'Computer':'Sp
 /* Computer-Gegner */
 function cpuTurn(){
   busy=false; if(over||turn!==2) return;
-  var mv=pickMove(2);
+  var hard = document.getElementById('lvl').value==='hard';
+  var mv = hard ? bestMoveHard() : pickMove(2);
   if(!mv){ over=true; turn=1; draw(); say('⚪ Du gewinnst — Computer ist blockiert!'); return; }
   if(mv.from!==undefined){ board[mv.from]=0; }
   else { toPlace[2]--; }
   board[mv.to]=2;
+  if(mv.remove!==undefined){ removing=true; draw(); say();
+    setTimeout(function(){ board[mv.remove]=0; removing=false; endTurn(); },650); return; }
   if(inMill(mv.to)){ removing=true; draw(); say(); setTimeout(cpuRemove,600); return; }
   endTurn();
+}
+
+/* ==== Starke Engine: Minimax mit Alpha-Beta (denkt 2-3 Zuege voraus) ==== */
+function millAt(b,i,p){ return MILLS.some(function(m){ return m.indexOf(i)>-1 && m.every(function(x){return b[x]===p}); }); }
+function removableIn(b,p){ var all=[],free=[];
+  for(var i=0;i<24;i++) if(b[i]===p){ all.push(i); if(!millAt(b,i,p)) free.push(i); }
+  return free.length?free:all; }
+function genMoves(st,p){
+  var b=st.b, out=[], targets=[];
+  var ph = st.tp[p]>0?'set':(cnt(b,p)===3?'fly':'move');
+  if(ph==='set'){ for(var i=0;i<24;i++) if(!b[i]) targets.push({to:i}); }
+  else for(var f=0;f<24;f++){ if(b[f]!==p) continue;
+    (ph==='fly'?allEmpty(b):ADJ[f].filter(function(t){return !b[t]})).forEach(function(t){targets.push({from:f,to:t})}); }
+  targets.forEach(function(m){
+    var nb=b.slice(); if(m.from!==undefined) nb[m.from]=0; nb[m.to]=p;
+    if(millAt(nb,m.to,p)) removableIn(nb,3-p).forEach(function(r){ out.push({from:m.from,to:m.to,remove:r}); });
+    else out.push(m);
+  });
+  /* Zuege mit Schlag zuerst pruefen (schnellere Suche) */
+  out.sort(function(a,b2){ return (b2.remove!==undefined)-(a.remove!==undefined); });
+  return out;
+}
+function applyM(st,p,m){ var b=st.b.slice(), tp={1:st.tp[1],2:st.tp[2]};
+  if(m.from!==undefined) b[m.from]=0; else tp[p]=tp[p]-1;
+  b[m.to]=p; if(m.remove!==undefined) b[m.remove]=0;
+  return {b:b,tp:tp}; }
+function countMillsOf(b,p){ var n=0; MILLS.forEach(function(m){ if(m.every(function(x){return b[x]===p})) n++; }); return n; }
+function twoOpen(b,p){ var n=0; MILLS.forEach(function(m){
+  var own=0,emp=0; m.forEach(function(x){ if(b[x]===p)own++; else if(!b[x])emp++; });
+  if(own===2&&emp===1) n++; }); return n; }
+function mobil(st,p){ if(st.tp[p]>0) return 6; var b=st.b,n=0;
+  if(cnt(b,p)===3) return 8;
+  for(var f=0;f<24;f++) if(b[f]===p) ADJ[f].forEach(function(t){ if(!b[t]) n++; });
+  return n; }
+function evalState(st){
+  var b=st.b;
+  var tot2=cnt(b,2)+st.tp[2], tot1=cnt(b,1)+st.tp[1];
+  if(st.tp[1]===0 && tot1<3) return 9000;
+  if(st.tp[2]===0 && tot2<3) return -9000;
+  return (tot2-tot1)*16 + (mobil(st,2)-mobil(st,1))*0.7
+       + (countMillsOf(b,2)-countMillsOf(b,1))*4 + (twoOpen(b,2)-twoOpen(b,1))*2;
+}
+function minimax(st,p,depth,alpha,beta){
+  var tot={1:cnt(st.b,1)+st.tp[1], 2:cnt(st.b,2)+st.tp[2]};
+  if(tot[1]<3) return {score:9000+depth};
+  if(tot[2]<3) return {score:-9000-depth};
+  var moves=genMoves(st,p);
+  if(!moves.length) return {score: p===2 ? -9000-depth : 9000+depth};
+  if(depth===0) return {score:evalState(st)};
+  var best=null;
+  if(p===2){ var v=-Infinity;
+    for(var i=0;i<moves.length;i++){ var r=minimax(applyM(st,2,moves[i]),1,depth-1,alpha,beta);
+      if(r.score>v){v=r.score;best=moves[i];} alpha=Math.max(alpha,v); if(beta<=alpha)break; }
+    return {score:v,move:best};
+  } else { var w=Infinity;
+    for(var j=0;j<moves.length;j++){ var r2=minimax(applyM(st,1,moves[j]),2,depth-1,alpha,beta);
+      if(r2.score<w){w=r2.score;best=moves[j];} beta=Math.min(beta,w); if(beta<=alpha)break; }
+    return {score:w,move:best}; }
+}
+function bestMoveHard(){
+  var st={b:board.slice(), tp:{1:toPlace[1],2:toPlace[2]}};
+  var depth = (st.tp[1]>0||st.tp[2]>0) ? 2 : 3;
+  var r=minimax(st,2,depth,-Infinity,Infinity);
+  return r.move || pickMove(2);
 }
 function cpuRemove(){
   var opts=removable(1);
