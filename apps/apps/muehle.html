@@ -1,0 +1,186 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mühle — das Brettspiel-Duell gegen den Computer</title>
+<meta name="description" content="Mühle (Nine Men's Morris) online spielen — gegen den Computer oder zu zweit. Kostenlos, ohne Anmeldung, offline spielbar.">
+<link rel="stylesheet" href="../shared/shared.css">
+<style>
+.board-wrap{max-width:440px;margin:0 auto}
+svg{width:100%;height:auto;display:block;touch-action:manipulation}
+.status{text-align:center;font-weight:700;font-size:1.05rem;margin:10px 0 4px}
+.substatus{text-align:center;font-size:.85rem;opacity:.7;min-height:1.2em}
+.line{stroke:#8b8b8b;stroke-width:2.5}
+.spot{fill:#8b8b8b;cursor:pointer}
+.spot.empty:hover{fill:#4a90d9}
+.stone{cursor:pointer;stroke-width:2.5}
+.stone.w{fill:#f5f0e6;stroke:#b9ad94}
+.stone.b{fill:#2e3338;stroke:#11151a}
+.stone.sel{stroke:#4a90d9;stroke-width:4}
+.stone.zap{stroke:#e05555;stroke-width:4;stroke-dasharray:4}
+.hint{fill:#4a90d9;opacity:.45;cursor:pointer}
+.counter{display:flex;justify-content:space-between;font-size:.9rem;margin-top:6px}
+</style></head><body>
+<header class="app"><a class="home" href="../index.html">←</a><h1>⚪ Mühle</h1><p>Der Klassiker — gegen den Computer oder zu zweit</p></header>
+<div class="wrap"><main>
+
+<div class="card">
+  <div class="grid two">
+    <button class="btn" id="mCpu" onclick="newGame('cpu')">🤖 Gegen Computer</button>
+    <button class="btn secondary" id="m2p" onclick="newGame('2p')">👥 Zu zweit</button>
+  </div>
+  <div class="status" id="status">Wähle einen Modus</div>
+  <div class="substatus" id="sub"></div>
+  <div class="board-wrap"><svg id="brd" viewBox="-0.55 -0.55 7.1 7.1"></svg></div>
+  <div class="counter"><span>⚪ Du: <b id="cw">9</b> zu setzen · <b id="lw">0</b> im Spiel</span><span>⚫ <span id="oppname">Computer</span>: <b id="cb">9</b> · <b id="lb">0</b></span></div>
+</div>
+
+<div class="card">
+  <b>So geht's:</b>
+  <p style="font-size:.9rem;margin-top:6px">Erst setzen beide je 9 Steine, dann wird auf Nachbarpunkte gezogen. <b>Drei in einer Reihe = Mühle</b> → du darfst einen gegnerischen Stein entfernen (aus geschlossenen Mühlen nur, wenn nichts anderes frei ist). Mit nur noch 3 Steinen darfst du springen. Wer weniger als 3 Steine hat oder nicht mehr ziehen kann, verliert.</p>
+</div>
+
+</main></div>
+<script src="../shared/config.js"></script><script src="../shared/shared.js"></script>
+<script>
+/* Brett-Topologie */
+var XY=[[0,0],[3,0],[6,0],[1,1],[3,1],[5,1],[2,2],[3,2],[4,2],[0,3],[1,3],[2,3],[4,3],[5,3],[6,3],[2,4],[3,4],[4,4],[1,5],[3,5],[5,5],[0,6],[3,6],[6,6]];
+var ADJ=[[1,9],[0,2,4],[1,14],[4,10],[1,3,5,7],[4,13],[7,11],[4,6,8],[7,12],[0,10,21],[3,9,11,18],[6,10,15],[8,13,17],[5,12,14,20],[2,13,23],[11,16],[15,17,19],[12,16],[10,19],[16,18,20,22],[13,19],[9,22],[19,21,23],[14,22]];
+var MILLS=[[0,1,2],[3,4,5],[6,7,8],[15,16,17],[18,19,20],[21,22,23],[0,9,21],[3,10,18],[6,11,15],[8,12,17],[5,13,20],[2,14,23],[1,4,7],[16,19,22],[9,10,11],[12,13,14]];
+var SEGS=[[0,1],[1,2],[3,4],[4,5],[6,7],[7,8],[15,16],[16,17],[18,19],[19,20],[21,22],[22,23],[0,9],[9,21],[3,10],[10,18],[6,11],[11,15],[8,12],[12,17],[5,13],[13,20],[2,14],[14,23],[1,4],[4,7],[16,19],[19,22],[9,10],[10,11],[12,13],[13,14]];
+
+var mode=null, board, toPlace, turn, sel, removing, over, busy=false;
+
+function newGame(m){
+  mode=m; board=Array(24).fill(0); toPlace={1:9,2:9}; turn=1; sel=-1; removing=false; over=false; busy=false;
+  document.getElementById('oppname').textContent = m==='cpu'?'Computer':'Spieler 2';
+  draw(); say();
+}
+function phase(p){ if(toPlace[p]>0) return 'set'; return count(p)===3?'fly':'move'; }
+function count(p){ var n=0; for(var i=0;i<24;i++) if(board[i]===p) n++; return n; }
+function inMill(i,b){ b=b||board; var p=b[i]; if(!p) return false;
+  return MILLS.some(function(m){ return m.indexOf(i)>-1 && m.every(function(x){return b[x]===p}); }); }
+function makesMill(i,p,b){ b=b||board; var t=b.slice(); t[i]=p;
+  return MILLS.some(function(m){ return m.indexOf(i)>-1 && m.every(function(x){return t[x]===p}); }); }
+function legalMoves(p,b){ b=b||board; var mv=[], ph=toPlace[p]>0?'set':(cnt(b,p)===3?'fly':'move');
+  if(ph==='set'){ for(var i=0;i<24;i++) if(!b[i]) mv.push({to:i}); return mv; }
+  for(var f=0;f<24;f++){ if(b[f]!==p) continue;
+    var tos = ph==='fly' ? allEmpty(b) : ADJ[f].filter(function(t){return !b[t]});
+    tos.forEach(function(t){ mv.push({from:f,to:t}); }); }
+  return mv; }
+function cnt(b,p){ var n=0;for(var i=0;i<24;i++) if(b[i]===p)n++; return n; }
+function allEmpty(b){ var e=[];for(var i=0;i<24;i++) if(!b[i])e.push(i); return e; }
+function removable(p){ var opp=[],free=[];
+  for(var i=0;i<24;i++) if(board[i]===p){ opp.push(i); if(!inMill(i)) free.push(i); }
+  return free.length?free:opp; }
+
+/* Rendering */
+function draw(){
+  var s='';
+  SEGS.forEach(function(g){ s+='<line class="line" x1="'+XY[g[0]][0]+'" y1="'+XY[g[0]][1]+'" x2="'+XY[g[1]][0]+'" y2="'+XY[g[1]][1]+'"/>'; });
+  for(var i=0;i<24;i++){
+    var x=XY[i][0],y=XY[i][1];
+    if(board[i]===0){
+      var hint = !over && !removing && ((phase(turn)==='set' && myTurn()) || (sel>-1 && canGo(sel,i)));
+      s+='<circle class="'+(hint?'hint':'spot empty')+'" data-i="'+i+'" cx="'+x+'" cy="'+y+'" r="'+(hint?0.34:0.14)+'"/>';
+    } else {
+      var cls='stone '+(board[i]===1?'w':'b');
+      if(i===sel) cls+=' sel';
+      if(removing && board[i]===(3-turn) && removable(3-turn).indexOf(i)>-1) cls+=' zap';
+      s+='<circle class="'+cls+'" data-i="'+i+'" cx="'+x+'" cy="'+y+'" r="0.34"/>';
+    }
+  }
+  document.getElementById('brd').innerHTML=s;
+  document.getElementById('cw').textContent=toPlace[1]; document.getElementById('cb').textContent=toPlace[2];
+  document.getElementById('lw').textContent=count(1); document.getElementById('lb').textContent=count(2);
+}
+function canGo(f,t){ if(board[t]) return false; return phase(turn)==='fly' || ADJ[f].indexOf(t)>-1; }
+function myTurn(){ return !(mode==='cpu' && turn===2); }
+function say(msg){
+  var st=document.getElementById('status'), sb=document.getElementById('sub');
+  if(over){ st.textContent=msg; sb.textContent='Nochmal? Oben neuen Modus wählen.'; return; }
+  var who = turn===1?'⚪ Du':'⚫ '+(mode==='cpu'?'Computer':'Spieler 2');
+  if(removing) st.textContent=who+' — Mühle! Stein entfernen';
+  else st.textContent=who+' '+(phase(turn)==='set'?'— Stein setzen':(phase(turn)==='fly'?'— springen (nur 3 Steine)':'— ziehen'));
+  sb.textContent = msg||'';
+}
+
+/* Interaktion */
+document.getElementById('brd').addEventListener('click',function(e){
+  var t=e.target.getAttribute('data-i'); if(t===null||over||busy) return;
+  var i=+t;
+  if(mode==='cpu' && turn===2) return;
+  if(removing){ if(board[i]===(3-turn) && removable(3-turn).indexOf(i)>-1) doRemove(i); return; }
+  if(phase(turn)==='set'){ if(!board[i]) doPlace(i); return; }
+  if(board[i]===turn){ sel=(sel===i?-1:i); draw(); say(); return; }
+  if(sel>-1 && canGo(sel,i)) doMove(sel,i);
+});
+function doPlace(i){ board[i]=turn; toPlace[turn]--; after(makesMillNow(i)); }
+function doMove(f,t){ board[f]=0; board[t]=turn; sel=-1; after(makesMillNow(t)); }
+function makesMillNow(i){ return inMill(i); }
+function doRemove(i){ board[i]=0; removing=false; endTurn(); }
+function after(mill){
+  if(mill){ removing=true; draw(); say();
+    if(mode==='cpu'&&turn===2) setTimeout(cpuRemove,600);
+    return; }
+  endTurn();
+}
+function endTurn(){
+  var next=3-turn;
+  if(toPlace[next]===0){
+    if(count(next)<3){ over=true; draw(); say(winName()+' gewinnt — Gegner hat unter 3 Steine!'); return; }
+    if(legalMoves(next).length===0){ over=true; draw(); say(winName()+' gewinnt — Gegner ist blockiert!'); return; }
+  }
+  turn=next; sel=-1; draw(); say();
+  if(mode==='cpu' && turn===2 && !over){ busy=true; setTimeout(cpuTurn,650); }
+}
+function winName(){ return turn===1?'⚪ Du':'⚫ '+(mode==='cpu'?'Computer':'Spieler 2'); }
+
+/* Computer-Gegner */
+function cpuTurn(){
+  busy=false; if(over||turn!==2) return;
+  var mv=pickMove(2);
+  if(!mv){ over=true; turn=1; draw(); say('⚪ Du gewinnst — Computer ist blockiert!'); return; }
+  if(mv.from!==undefined){ board[mv.from]=0; }
+  else { toPlace[2]--; }
+  board[mv.to]=2;
+  if(inMill(mv.to)){ removing=true; draw(); say(); setTimeout(cpuRemove,600); return; }
+  endTurn();
+}
+function cpuRemove(){
+  var opts=removable(1);
+  /* bevorzugt Steine, die dem Spieler bald eine Mühle bringen würden */
+  var best=opts[0], bestScore=-1;
+  opts.forEach(function(i){
+    var sc=0;
+    MILLS.forEach(function(m){ if(m.indexOf(i)>-1){ var own=m.filter(function(x){return board[x]===1}).length; if(own===2) sc+=2; if(own===1) sc+=0.3; }});
+    sc+=ADJ[i].length*0.1;
+    if(sc>bestScore){bestScore=sc;best=i;}
+  });
+  board[best]=0; removing=false; endTurn();
+}
+function pickMove(p){
+  var mv=legalMoves(p); if(!mv.length) return null;
+  var opp=3-p;
+  function score(m){
+    var b=board.slice(); if(m.from!==undefined) b[m.from]=0; b[m.to]=p;
+    var s=Math.random()*0.2;
+    if(makesMill(m.to,p,boardAfter(m,p))) s+=100;                       /* eigene Mühle schließen */
+    if(makesMill(m.to,opp,boardWithout(m))) s+=50;                      /* Gegner-Mühle blockieren */
+    /* zukünftige Doppel-Chancen */
+    MILLS.forEach(function(mi){ if(mi.indexOf(m.to)>-1){
+      var own=mi.filter(function(x){return b[x]===p}).length, emp=mi.filter(function(x){return !b[x]}).length;
+      if(own===2&&emp===1) s+=6; if(own===1&&emp===2) s+=1; }});
+    s+=ADJ[m.to].length*0.4;
+    /* nicht die eigene Mühle grundlos öffnen */
+    if(m.from!==undefined && inMill(m.from)) s-=3;
+    return s;
+  }
+  function boardAfter(m,pp){ var b=board.slice(); if(m.from!==undefined)b[m.from]=0; return b; }
+  function boardWithout(m){ var b=board.slice(); if(m.from!==undefined)b[m.from]=0; return b; }
+  mv.sort(function(a,b){return score(b)-score(a)});
+  return mv[0];
+}
+
+newGame('cpu');
+injectBlend('main'); injectFooter();
+</script>
+</body></html>
