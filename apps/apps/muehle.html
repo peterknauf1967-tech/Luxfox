@@ -8,14 +8,14 @@
 svg{width:100%;height:auto;display:block;touch-action:manipulation}
 .status{text-align:center;font-weight:700;font-size:1.05rem;margin:10px 0 4px}
 .substatus{text-align:center;font-size:.85rem;opacity:.7;min-height:1.2em}
-.line{stroke:#8b8b8b;stroke-width:2.5}
+.line{stroke:#8b8b8b;stroke-width:0.07;stroke-linecap:round}
 .spot{fill:#8b8b8b;cursor:pointer}
 .spot.empty:hover{fill:#4a90d9}
-.stone{cursor:pointer;stroke-width:2.5}
+.stone{cursor:pointer;stroke-width:0.05}
 .stone.w{fill:#f5f0e6;stroke:#b9ad94}
 .stone.b{fill:#2e3338;stroke:#11151a}
-.stone.sel{stroke:#4a90d9;stroke-width:4}
-.stone.zap{stroke:#e05555;stroke-width:4;stroke-dasharray:4}
+.stone.sel{stroke:#4a90d9;stroke-width:0.09}
+.stone.zap{stroke:#e05555;stroke-width:0.09;stroke-dasharray:0.12}
 .hint{fill:#4a90d9;opacity:.45;cursor:pointer}
 .counter{display:flex;justify-content:space-between;font-size:.9rem;margin-top:6px}
 </style></head><body>
@@ -75,7 +75,7 @@ function removable(p){ var opp=[],free=[];
 /* Rendering */
 function draw(){
   var s='';
-  SEGS.forEach(function(g){ s+='<line class="line" x1="'+XY[g[0]][0]+'" y1="'+XY[g[0]][1]+'" x2="'+XY[g[1]][0]+'" y2="'+XY[g[1]][1]+'"/>'; });
+  SEGS.forEach(function(g){ s+='<line class="line" stroke="#8b8b8b" stroke-width="0.07" stroke-linecap="round" x1="'+XY[g[0]][0]+'" y1="'+XY[g[0]][1]+'" x2="'+XY[g[1]][0]+'" y2="'+XY[g[1]][1]+'"/>'; });
   for(var i=0;i<24;i++){
     var x=XY[i][0],y=XY[i][1];
     if(board[i]===0){
