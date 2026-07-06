@@ -184,6 +184,37 @@ function emv(raw){
   var titel = ampel==='gruen'?'✅ Thai-Zahlungscode (PromptPay)':'⚠️ Zahlungscode — Empfänger prüfen!';
   var hinweis='<div class="hinweis"><b>So prüfst du den Empfänger richtig:</b> Der Kontoinhaber-Name steckt technisch NICHT im QR-Code — nur die Nummer/ID oben. Aber: <b>Deine Banking-App zeigt dir den Empfängernamen an, BEVOR du bestätigst.</b> Dort gilt: Name unbekannt oder anders als erwartet → <b>abbrechen, nicht zahlen.</b> Zusatz-Check bei Privatpersonen: Ist die angezeigte Telefonnummer wirklich die deines Empfängers?</div>';
   zeige(ampel, titel, felder, warn, hinweis, '💸 Bezahl-QR (EMV/PromptPay)');
+  var idNum=(empf||'').replace(/\D/g,'');
+  if(idNum.length===13 && empfLabel.indexOf('Telefon')===-1) dbdLookup(idNum);
+}
+/* Live-Abfrage Thai-Handelsregister (DBD Open API) — zeigt Firmenname zur Steuernummer */
+function dbdLookup(id){
+  var host=document.getElementById('haupt');
+  var row=document.createElement('div'); row.className='kv';
+  row.innerHTML='<span class="muted">Handelsregister (DBD)</span><b>⏳ wird geprüft…</b>';
+  host.appendChild(row);
+  fetch('https://openapi.dbd.go.th/api/v1/juristic_person/'+id)
+   .then(function(r){ return r.json(); })
+   .then(function(j){
+     var ok = j && j.status && j.status.code==='1000' && j.data && j.data.length;
+     if(ok){
+       var p=j.data[0]['cd:OrganizationJuristicPerson']||{};
+       var nEN=p['cd:OrganizationJuristicNameEN']||'', nTH=p['cd:OrganizationJuristicNameTH']||'';
+       var st=p['cd:OrganizationJuristicStatus']||'';
+       var aktiv = st.indexOf('ยังดำเนิน')>-1;
+       var reg=(p['cd:OrganizationJuristicRegisterDate']||''); if(/^\d{8}$/.test(reg)) reg=reg.slice(6)+'.'+reg.slice(4,6)+'.'+reg.slice(0,4);
+       var obj=((p['cd:OrganizationJuristicObjective']||{})['td:JuristicObjective']||{})['td:JuristicObjectiveTextEN']||'';
+       row.innerHTML='<span class="muted">✅ Registrierte Firma</span><b class="bigval">'+esc(nEN||nTH)+'</b>';
+       var extra=document.createElement('div'); extra.className='kv';
+       extra.innerHTML='<span class="muted">Firmen-Status</span><b>'+(aktiv?'✅ aktiv':'⚠️ '+esc(st))+(reg?' · gegründet '+esc(reg):'')+(obj?' · '+esc(obj):'')+'</b>';
+       host.appendChild(extra);
+       if(nTH && nEN){ var th=document.createElement('div'); th.className='kv';
+         th.innerHTML='<span class="muted">Thai-Name</span><b>'+esc(nTH)+'</b>'; host.appendChild(th); }
+     } else {
+       row.innerHTML='<span class="muted">Handelsregister (DBD)</span><b>— kein Firmeneintrag zu dieser ID (Einzelunternehmer, Privatperson oder eWallet-Anbieter)</b>';
+     }
+   })
+   .catch(function(){ row.innerHTML='<span class="muted">Handelsregister (DBD)</span><b>Abfrage gerade nicht möglich (Internet nötig)</b>'; });
 }
 function tlv(s){ var o={},i=0; while(i+4<=s.length){ var id=s.substr(i,2), len=parseInt(s.substr(i+2,2),10); if(isNaN(len)) break; o[id]=s.substr(i+4,len); i+=4+len; } return o; }
 function pad(n){ return (n<10?'0':'')+n; }
