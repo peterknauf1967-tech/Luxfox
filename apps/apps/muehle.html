@@ -4,20 +4,26 @@
 <meta name="description" content="Mühle (Nine Men's Morris) online spielen — gegen den Computer oder zu zweit. Kostenlos, ohne Anmeldung, offline spielbar.">
 <link rel="stylesheet" href="../shared/shared.css">
 <style>
+/* Dunkles Augen-Schon-Design: schwarze Seite, beiges Brett, schwarze Linien */
+body{background:#000;color:#e8e4da}
+header.app{background:#0d0d0d;color:#e8e4da}
+.card{background:#141414;border-color:#2a2a2a;box-shadow:none;color:#e8e4da}
+.muted{color:#9a958a}
+.btn.secondary{background:#141414;color:#39b3a6;border-color:#39b3a6}
 .board-wrap{max-width:440px;margin:0 auto}
 svg{width:100%;height:auto;display:block;touch-action:manipulation}
-.status{text-align:center;font-weight:700;font-size:1.05rem;margin:10px 0 4px}
-.substatus{text-align:center;font-size:.85rem;opacity:.7;min-height:1.2em}
-.line{stroke:#8b8b8b;stroke-width:0.07;stroke-linecap:round}
-.spot{fill:#8b8b8b;cursor:pointer}
-.spot.empty:hover{fill:#4a90d9}
+.status{text-align:center;font-weight:700;font-size:1.05rem;margin:10px 0 4px;color:#f0ecdf}
+.substatus{text-align:center;font-size:.85rem;opacity:.75;min-height:1.2em}
+.line{stroke:#1a1a1a;stroke-width:0.07;stroke-linecap:round}
+.spot{fill:#1a1a1a;cursor:pointer}
+.spot.empty:hover{fill:#2456a8}
 .stone{cursor:pointer;stroke-width:0.05}
-.stone.w{fill:#f5f0e6;stroke:#b9ad94}
-.stone.b{fill:#2e3338;stroke:#11151a}
-.stone.sel{stroke:#4a90d9;stroke-width:0.09}
-.stone.zap{stroke:#e05555;stroke-width:0.09;stroke-dasharray:0.12}
-.hint{fill:#4a90d9;opacity:.45;cursor:pointer}
-.counter{display:flex;justify-content:space-between;font-size:.9rem;margin-top:6px}
+.stone.w{fill:#f5efe0;stroke:#3a342a}
+.stone.b{fill:#141414;stroke:#e3d9bf}
+.stone.sel{stroke:#2b6fd6;stroke-width:0.1}
+.stone.zap{stroke:#d64040;stroke-width:0.1;stroke-dasharray:0.12}
+.hint{fill:#2b6fd6;opacity:.4;cursor:pointer}
+.counter{display:flex;justify-content:space-between;font-size:.9rem;margin-top:6px;color:#cfc9ba}
 </style></head><body>
 <header class="app"><a class="home" href="../index.html">←</a><h1>⚪ Mühle</h1><p>Der Klassiker — gegen den Computer oder zu zweit</p></header>
 <div class="wrap"><main>
@@ -74,8 +80,8 @@ function removable(p){ var opp=[],free=[];
 
 /* Rendering */
 function draw(){
-  var s='';
-  SEGS.forEach(function(g){ s+='<line class="line" stroke="#8b8b8b" stroke-width="0.07" stroke-linecap="round" x1="'+XY[g[0]][0]+'" y1="'+XY[g[0]][1]+'" x2="'+XY[g[1]][0]+'" y2="'+XY[g[1]][1]+'"/>'; });
+  var s='<rect x="-0.55" y="-0.55" width="7.1" height="7.1" rx="0.28" fill="#d8b872" stroke="#8a6d2f" stroke-width="0.06"/>';
+  SEGS.forEach(function(g){ s+='<line class="line" stroke="#1a1a1a" stroke-width="0.07" stroke-linecap="round" x1="'+XY[g[0]][0]+'" y1="'+XY[g[0]][1]+'" x2="'+XY[g[1]][0]+'" y2="'+XY[g[1]][1]+'"/>'; });
   for(var i=0;i<24;i++){
     var x=XY[i][0],y=XY[i][1];
     if(board[i]===0){
