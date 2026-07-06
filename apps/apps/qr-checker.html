@@ -182,11 +182,17 @@ function emv(raw){
   var hinweis='<div class="hinweis"><b>So prüfst du den Empfänger richtig:</b> Der Kontoinhaber-Name steckt technisch NICHT im QR-Code — nur die Nummer/ID oben. Aber: <b>Deine Banking-App zeigt dir den Empfängernamen an, BEVOR du bestätigst.</b> Dort gilt: Name unbekannt oder anders als erwartet → <b>abbrechen, nicht zahlen.</b> Zusatz-Check bei Privatpersonen: Ist die angezeigte Telefonnummer wirklich die deines Empfängers?</div>';
   zeige(ampel, titel, felder, warn, hinweis, '💸 Bezahl-QR (EMV/PromptPay)');
   var idNum=(empf||'').replace(/\D/g,'');
-  if(idNum.length===13 && empfLabel.indexOf('Telefon')===-1) dbdLookup(idNum);
+  /* Biller-IDs (14/15-stellig) = 13-stellige Steuernummer + Filial-/Servicecode → Register mit den ersten 13 abfragen */
+  if(idNum.length>=13 && empfLabel.indexOf('Telefon')===-1) dbdLookup(idNum.slice(0,13), idNum.length>13 ? idNum.slice(13) : '');
 }
 /* Live-Abfrage Thai-Handelsregister (DBD Open API) — zeigt Firmenname zur Steuernummer */
-function dbdLookup(id){
+function dbdLookup(id, suffix){
   var host=document.getElementById('haupt');
+  if(suffix){
+    var zer=document.createElement('div'); zer.className='kv';
+    zer.innerHTML='<span class="muted">Aufschlüsselung</span><b style="word-break:break-all">Steuernummer '+esc(id)+' · Filial-/Servicecode '+esc(suffix)+'</b>';
+    host.appendChild(zer);
+  }
   var row=document.createElement('div'); row.className='kv';
   row.innerHTML='<span class="muted">Handelsregister (DBD)</span><b>⏳ wird geprüft…</b>';
   host.appendChild(row);
@@ -231,7 +237,7 @@ function zeige(ampel,titel,felder,warn,aktionHtml,typ){
   a.className='ampel '+ampel; a.style.display='block'; a.textContent=titel;
   document.getElementById('typzeile').textContent = typ||'';
   var h='';
-  felder.forEach(function(f){ h+='<div class="kv"><span class="muted">'+f[0]+'</span><b'+(f[0].indexOf('Empfänger')>-1||f[0]==='Betrag'?' class="bigval"':'')+'>'+esc(String(f[1]))+'</b></div>'; });
+  felder.forEach(function(f){ h+='<div class="kv"><span class="muted">'+f[0]+'</span><b style="word-break:break-all"'+(f[0].indexOf('Empfänger')>-1||f[0]==='Betrag'?' class="bigval"':'')+'>'+esc(String(f[1]))+'</b></div>'; });
   document.getElementById('haupt').innerHTML=h;
   var w=document.getElementById('warnungen');
   if(warn.length){ w.style.display='block'; w.innerHTML=warn.map(function(x){return '<li>⚠️ '+esc(x)+'</li>'}).join(''); } else w.style.display='none';
