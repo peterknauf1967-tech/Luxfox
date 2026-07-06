@@ -157,12 +157,13 @@ function emv(raw){
   var dyn = t['01']==='12';
   var felder=[['Art', art + (dyn?' · dynamisch (einmalig)':' · statischer Code')]];
   felder.push([empfLabel, empf||'—']);
-  if(t['59']) felder.push(['Name', t['59']]);
+  if(t['59'] && t['59']!=='NA') felder.push(['Name laut Code', t['59']]);
+  else felder.push(['Name laut Code', '— nicht im Code enthalten (bei privaten PromptPay-Codes normal)']);
   if(t['60']) felder.push(['Ort', t['60']]);
   felder.push(['Betrag', betrag||'— (Betrag gibst du selbst ein)']);
   if(!betrag && !dyn){ warn.push('Statischer Code ohne festen Betrag — genau prüfen, an WEN du zahlst (Aufkleber können überklebt sein!).'); ampel='gelb'; }
   var titel = ampel==='gruen'?'✅ Thai-Zahlungscode (PromptPay)':'⚠️ Zahlungscode — Empfänger prüfen!';
-  var hinweis='<div class="hinweis">Vergleiche die Empfänger-Daten mit dem, was der Händler dir nennt. Stimmen Name/Nummer nicht → NICHT zahlen.</div>';
+  var hinweis='<div class="hinweis"><b>So prüfst du den Empfänger richtig:</b> Der Kontoinhaber-Name steckt technisch NICHT im QR-Code — nur die Nummer/ID oben. Aber: <b>Deine Banking-App zeigt dir den Empfängernamen an, BEVOR du bestätigst.</b> Dort gilt: Name unbekannt oder anders als erwartet → <b>abbrechen, nicht zahlen.</b> Zusatz-Check bei Privatpersonen: Ist die angezeigte Telefonnummer wirklich die deines Empfängers?</div>';
   zeige(ampel, titel, felder, warn, hinweis, '💸 Bezahl-QR (EMV/PromptPay)');
 }
 function tlv(s){ var o={},i=0; while(i+4<=s.length){ var id=s.substr(i,2), len=parseInt(s.substr(i+2,2),10); if(isNaN(len)) break; o[id]=s.substr(i+4,len); i+=4+len; } return o; }
