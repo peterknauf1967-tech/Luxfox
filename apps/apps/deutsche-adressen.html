@@ -1,0 +1,254 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Deutsche Adressen Pattaya – Bäcker, Ärzte, Visa & Co. auf der Karte</title>
+<meta name="description" content="Kuratierte Karte für Deutsche in Pattaya: Bäckereien mit echtem Brot, deutsche Restaurants, Supermärkte, deutschsprachige Ärzte, Visa-Agenten, Versicherungen, Transporte nach Deutschland.">
+<link rel="stylesheet" href="../shared/shared.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+#map{height:52vh;min-height:320px;border-radius:var(--radius);border:1px solid var(--line);box-shadow:var(--shadow);z-index:0}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 0 8px;-webkit-overflow-scrolling:touch}
+.chip{flex:0 0 auto;border:1.5px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:8px 14px;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap}
+.chip.on{background:var(--teal);border-color:var(--teal);color:#fff}
+.eintrag{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.eintrag:last-child{border-bottom:0}
+.eintrag .ico{font-size:26px;flex:0 0 auto}
+.eintrag h3{margin:0;font-size:15px}
+.eintrag p{margin:2px 0 0;font-size:13px;color:var(--muted)}
+.eintrag .ok{color:var(--ok);font-weight:600}
+.popupbox{font-size:14px;line-height:1.45;max-width:240px}
+.popupbox b{font-size:15px}
+.popupbox a.route{display:inline-block;margin-top:8px;background:var(--teal);color:#fff;border-radius:10px;padding:8px 12px;text-decoration:none;font-weight:600;font-size:13px}
+.popupbox a.tel{color:var(--teal-dark);text-decoration:none;font-weight:600}
+.popupbox .q{font-size:11px;color:var(--muted)}
+.locbtn{position:relative}
+.leaflet-container{font:inherit}
+.hinweis-klein{font-size:12px;color:var(--muted);margin-top:6px}
+</style></head><body>
+<header class="app"><a class="home" href="../index.html">←</a><h1>🇩🇪 Deutsche Adressen</h1><p>Pattaya · Jomtien · Naklua — von Deutschen empfohlen</p></header>
+<div class="wrap"><main>
+
+<div class="card" style="padding:12px">
+  <div class="chips" id="chips"></div>
+  <input id="suche" type="search" placeholder="🔍 Suchen: Name, Stichwort (z. B. Schwarzbrot, Zahnarzt) …" oninput="update()">
+</div>
+
+<div id="map"></div>
+<div class="grid two" style="margin-top:10px">
+  <button onclick="meinStandort()">📍 Mein Standort</button>
+  <button class="btn secondary" onclick="document.getElementById('melden').scrollIntoView({behavior:'smooth'})">➕ Ort melden</button>
+</div>
+
+<div class="card">
+  <div class="muted" id="anzahl"></div>
+  <div id="liste"></div>
+</div>
+
+<div class="card" id="melden">
+  <b>➕ Du kennst einen Ort, der hier fehlt?</b>
+  <p style="font-size:14px">Schwarmwissen macht diese Karte besser: Schick uns Name, Lage (am besten ein Google-Maps-Link) und was dort deutsch/empfehlenswert ist. Wir prüfen jeden Hinweis, bevor er auf die Karte kommt — so bleibt die Liste verlässlich.</p>
+  <a class="btn" href="mailto:info@luxfox.net?subject=Neuer%20Ort%20f%C3%BCr%20Deutsche%20Adressen%20Pattaya&body=Name%20des%20Ortes%3A%0AKategorie%20(B%C3%A4ckerei%2FRestaurant%2FSupermarkt%2FArzt%2FVisa%2FVersicherung%2FTransport%2FVerein)%3A%0AGoogle-Maps-Link%20oder%20Adresse%3A%0A%C3%96ffnungszeiten%3A%0AWas%20ist%20dort%20deutsch%2Fempfehlenswert%3F%3A%0A">✉️ Ort melden</a>
+  <p class="hinweis-klein">Auch Korrekturen melden — z. B. wenn ein Ort geschlossen hat oder umgezogen ist.</p>
+</div>
+
+<p class="muted" style="text-align:center;margin:20px 0">Deutsche Adressen Pattaya · Version 1.0 · Alle Angaben ohne Gewähr — Öffnungszeiten können sich ändern.</p>
+
+</main></div>
+<script src="../shared/config.js"></script><script src="../shared/shared.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+/* ---------- Kategorien ---------- */
+var KAT={
+  baeckerei:   {n:"Bäckerei",     i:"🥨"},
+  restaurant:  {n:"Restaurant",   i:"🍽️"},
+  supermarkt:  {n:"Einkaufen",    i:"🛒"},
+  arzt:        {n:"Arzt/Gesundheit", i:"⚕️"},
+  visa:        {n:"Visa",         i:"🛂"},
+  versicherung:{n:"Versicherung", i:"🛡️"},
+  transport:   {n:"Transport DE", i:"📦"},
+  recht:       {n:"Recht/Übersetzer", i:"⚖️"},
+  institution: {n:"Botschaft/Vereine", i:"🇩🇪"}
+};
+
+/* ---------- Daten (kuratiert, Stand 10.07.2026; Meldungen via ➕ Ort melden) ---------- */
+var ORTE=[
+/* Bäckereien */
+{"id":"back-fabrik","name":"Back Fabrik","kategorie":"baeckerei","adresse":"350/76-78 Moo 12, Jomtien Second Road","lat":12.8904,"lng":100.8793,"genauigkeit":"genau","oeffnungszeiten":"täglich 07:30–18:30","telefon":"+66 92 412 3234","beschreibung":"Deutsche Bäckerei mit Restaurant — täglich frisches Brot, Brötchen, Wurst-Theke, deutsches Frühstück.","quelle":"https://www.tripadvisor.com/Restaurant_Review-g293919-d6975861"},
+{"id":"german-fresh-bakery","name":"German Fresh Bakery","kategorie":"baeckerei","adresse":"315/56 Thepprasit Road (vor der Thappraya Road)","lat":12.8905,"lng":100.8775,"genauigkeit":"ungefähr","oeffnungszeiten":"täglich 08:00–20:00","telefon":"+66 38 303 903","beschreibung":"Traditionsbäckerei — Brote und Brötchen täglich frisch, ausschließlich mit Sauerteig; Kuchen und Torten.","quelle":"https://der-farang.com/de/pages/german-fresh-bakery"},
+{"id":"german-bake-for-you","name":"German Bake for You","kategorie":"baeckerei","adresse":"Soi Map Yai Lia 24, East Pattaya (Darkside)","lat":null,"lng":null,"genauigkeit":null,"oeffnungszeiten":"Mo–Sa 07:00–15:00","telefon":"+66 65 662 3005","beschreibung":"Seit 2014: Sauerteig- und Roggenbrote, Zopf, Bienenstich, eigene Metzgerei-Theke; liefert in ganz Pattaya.","quelle":"https://der-farang.com/de/pages/jubilaeumsparty-bei-german-bake-for-you"},
+{"id":"grottinos","name":"Grottino's Swiss Restaurant & Bakery","kategorie":"baeckerei","adresse":"20/65-67 Soi Day Night 2, Süd-Pattaya","lat":12.922397,"lng":100.878746,"genauigkeit":"genau","oeffnungszeiten":"täglich 08:00–18:00","telefon":null,"beschreibung":"Schweizer Café mit Backstube — Basler Ruchbrot, Brezeln, Quiches, hausgemachte Kuchen.","quelle":"https://www.tripadvisor.com/Restaurant_Review-g293919-d3877773"},
+{"id":"guldbageren","name":"Guldbageren (dänische Bäckerei)","kategorie":"baeckerei","adresse":"Jomtien Soi 7","lat":12.879,"lng":100.874,"genauigkeit":"ungefähr","oeffnungszeiten":"Di–So 07:00–20:00, Mo zu","telefon":"+66 95 832 8751","beschreibung":"Dunkles Vollkorn-Roggenbrot (Rugbrød), Grahambrot — kommt deutschem Schwarzbrot am nächsten; Lieferung ab 1.000 Baht.","quelle":"https://pattaya.guldbageren.com/"},
+{"id":"la-baguette","name":"La Baguette (Woodlands)","kategorie":"baeckerei","adresse":"Naklua Road / Ecke North Pattaya Road, Naklua","lat":12.948,"lng":100.889,"genauigkeit":"ungefähr","oeffnungszeiten":null,"telefon":null,"beschreibung":"Gehobene Konditorei & Café — Backwaren, Torten, Frühstück; bei deutschen Residenten in Naklua beliebt.","quelle":"https://www.pattayafans.de/la-baguette-pattaya-naklua-road.htm"},
+/* Restaurants */
+{"id":"bramburi","name":"Beergarden Bramburi","kategorie":"restaurant","adresse":"Naklua Soi 12","lat":12.968353,"lng":100.898966,"genauigkeit":"genau","oeffnungszeiten":"Di–Sa 09:00–21:00, So bis 17:00, Mo zu","telefon":null,"beschreibung":"Deutsches Restaurant ohne Kompromisse: knusprige Schweinshaxe, Eisbein, tellergroße Schnitzel; sonntags Buffet.","quelle":"https://bramburi.de/"},
+{"id":"iss-was","name":"Iss Was","kategorie":"restaurant","adresse":"178/2 Moo 11, Soi Boon Kanchana 2, Jomtien/Ost-Pattaya","lat":12.8929879,"lng":100.8910999,"genauigkeit":"genau","oeffnungszeiten":"Di–So 09:00–21:00, Mo zu","telefon":"+66 84 414 4193","beschreibung":"Deutscher Open-Air-Biergarten: Jägerschnitzel, Cordon Bleu, hausgemachte Schwarzwälder Kirschtorte (4,4/5 bei ~900 Bewertungen).","quelle":"https://restaurantguru.com/Iss-Was-Pattaya"},
+{"id":"klein-heidelberg","name":"Klein Heidelberg","kategorie":"restaurant","adresse":"Soi Wongamat / Naklua Soi 18","lat":12.9560733,"lng":100.8900399,"genauigkeit":"genau","oeffnungszeiten":"täglich 08:00–22:00","telefon":"+66 38 370 756","beschreibung":"Deutsches Traditionslokal (80+ Plätze), täglich wechselnde deutsche Abendkarte, Haxe, Bratwürste; Gästehaus.","quelle":"https://restaurantguru.com/Klein-Heidelberg-Pattaya"},
+{"id":"schnitzelwirt","name":"Zum Schnitzelwirt","kategorie":"restaurant","adresse":"157/102 Soi Wong Amat (neben Klein Heidelberg), Naklua","lat":12.9563829,"lng":100.889958,"genauigkeit":"genau","oeffnungszeiten":"täglich 15:00–22:00","telefon":"+66 93 604 5786","beschreibung":"Österreichisch geführt, seit fast 30 Jahren: dünne, tellergroße Wiener Schnitzel zu kleinen Preisen.","quelle":"https://restaurantguru.com/Zum-Schnitzel-Wirt-Pattaya"},
+{"id":"tortis","name":"Torti's Biergarten","kategorie":"restaurant","adresse":"Naklua Road zwischen Soi 14 und 14/1","lat":12.966,"lng":100.887,"genauigkeit":"ungefähr","oeffnungszeiten":"Do 12–24, Fr–Di 15–24, Mi zu","telefon":"+66 65 976 4409","beschreibung":"Von vielen als bestes deutsches Essen Pattayas gelobt (4,6/5): Schnitzel, Currywurst, Medaillons im Speckmantel.","quelle":"https://www.tripadvisor.com/Restaurant_Review-g293919-d27511195"},
+{"id":"bazi-leckerle","name":"Zum Bazi & Leckerle","kategorie":"restaurant","adresse":"Windmill Plaza, 655 Naklua Road / Soi 33","lat":12.9525,"lng":100.889,"genauigkeit":"ungefähr","oeffnungszeiten":"täglich 08:00–22:00","telefon":"+66 38 370 698","beschreibung":"Bayerisches Restaurant mit Café/Eiscafé „Leckerle" — deutsche Würste, Schnitzel, Oktoberfest-Events.","quelle":"https://www.bazi-leckerle-pattaya.com/"},
+{"id":"berliner-bistro","name":"Das Berliner Bistro","kategorie":"restaurant","adresse":"482 Moo 10, Soi 13 (zwischen Beach Road und Second Road)","lat":12.9303488,"lng":100.8799799,"genauigkeit":"genau","oeffnungszeiten":"täglich 09:00–22:00","telefon":"+66 89 803 0283","beschreibung":"Berliner Eckkneipe seit 20+ Jahren — laut Stammgästen die beste Currywurst Pattayas; Tagesgerichte ab 149 Baht.","quelle":"https://restaurantguru.com/Das-Berliner-Bistro-Pattaya"},
+{"id":"nachtcafe","name":"Nachtcafé","kategorie":"restaurant","adresse":"Naklua Soi 19 (Nähe Soi Photisarn)","lat":12.960398,"lng":100.8962,"genauigkeit":"genau","oeffnungszeiten":"Di–So 16:00–02:00, Mo zu","telefon":null,"beschreibung":"Gemütliches deutsches Gartenrestaurant (seit 2013) mit günstiger deutscher und thailändischer Küche; Sa-Stammtisch.","quelle":"https://www.tripadvisor.com/Restaurant_Review-g293919-d20255754"},
+{"id":"old-germany","name":"Old Germany","kategorie":"restaurant","adresse":"Naklua Road (Bereich Soi 12)","lat":12.96736,"lng":100.89946,"genauigkeit":"ungefähr","oeffnungszeiten":null,"telefon":null,"beschreibung":"Deutsch-thailändisches Restaurant mit Steak-Spezialitäten und deutschen Klassikern.","quelle":"https://restaurantguru.com/Old-Germany-Restaurant-Pattaya-3"},
+{"id":"heisse-pfanne","name":"Heisse Pfanne","kategorie":"restaurant","adresse":"334/34 Soi Welcome, nahe Jomtien Beach Road","lat":null,"lng":null,"genauigkeit":null,"oeffnungszeiten":"täglich 09:00–23:00","telefon":"+66 81 493 9067","beschreibung":"Kleines familiäres deutsches Restaurant — Schnitzel und deftige Pfannengerichte zu günstigen Preisen.","quelle":"https://restaurantguru.com/Heisse-Pfanne-Pattaya"},
+{"id":"pfaelzer-stueble","name":"Pfälzer Stüble","kategorie":"restaurant","adresse":"Soi 7 (zwischen Beach Road und Second Road)","lat":12.944,"lng":100.8815,"genauigkeit":"ungefähr","oeffnungszeiten":null,"telefon":"+66 89 085 8232","beschreibung":"Seit 15+ Jahren pfälzische Hausmannskost: Rindergulasch mit Spätzle, Sauerbraten, Leberknödel mit Sauerkraut.","quelle":"https://restaurantguru.com/Pfalzer-Stuble-Pattaya"},
+{"id":"bei-gerhard","name":"Bei Gerhard","kategorie":"restaurant","adresse":"Naklua Road, Bereich Soi 31","lat":12.953,"lng":100.888,"genauigkeit":"ungefähr","oeffnungszeiten":null,"telefon":"+66 98 354 8382","beschreibung":"Schwäbische Spezialitäten, Inhaber steht selbst am Herd — hausgemachte Spätzle, Sauerbraten, samstags Eintopf (4,8/5).","quelle":"https://restaurantguru.com/Bei-Gerhard-Pattaya"},
+{"id":"villa-germania","name":"Villa Germania","kategorie":"restaurant","adresse":"32 Soi 4, Chaiyapruk 1, Jomtien/Ost-Pattaya","lat":12.88144,"lng":100.89138,"genauigkeit":"genau","oeffnungszeiten":"täglich 09:00–21:00","telefon":"+66 38 232 963","beschreibung":"Hausrestaurant der deutsch geführten Ferienanlage — deutsch-thailändische Küche, Bar, Pool; Treff deutscher Residenten.","quelle":"https://www.wochenblitz.com/deutschsprachige-restaurants-in-pattaya-die-besten-adressen/"},
+{"id":"borussia-park","name":"Borussia Park","kategorie":"restaurant","adresse":"Naklua Road","lat":null,"lng":null,"genauigkeit":null,"oeffnungszeiten":"So ab 11:00 Schlager-Frühschoppen","telefon":"+66 82 969 3403","beschreibung":"Fußballkneipe (Borussia Mönchengladbach) mit deutscher Küche, Bundesliga-Übertragungen und Gästehaus.","quelle":"https://www.facebook.com/borussiaparkpattaya/"},
+{"id":"meeting-point","name":"Meeting Point Darkside","kategorie":"restaurant","adresse":"Ecke Soi Khao Talo / Soi Khao Noi, Ost-Pattaya","lat":12.9094,"lng":100.917025,"genauigkeit":"genau","oeffnungszeiten":"Mo–Sa 08:00–20:00, So zu","telefon":"+66 84 871 1512","beschreibung":"Deutsches Café-Restaurant auf der Darkside — „richtige Brötchen", Wurst, Schnitzel (4,3/5 bei 400+ Bewertungen).","quelle":"https://wanderlog.com/place/details/3633998/meeting-point-darkside"},
+{"id":"nachrichtentreff","name":"Nachrichtentreff","kategorie":"restaurant","adresse":"157/128 Naklua Road (Wongamat-Areal)","lat":12.9563,"lng":100.8898,"genauigkeit":"ungefähr","oeffnungszeiten":null,"telefon":"+66 38 370 173","beschreibung":"Deutscher Stammtisch-Klassiker mit deutscher Hausmannskost und Treffpunkt-Atmosphäre.","quelle":"https://www.soidb.com/pattaya/restaurant/nachrichtentreff.html"},
+{"id":"edelweiss","name":"Edelweiss Fondue House","kategorie":"restaurant","adresse":"391/86 Moo 10, Thappraya Soi 13, Pratumnak/Jomtien","lat":12.913518,"lng":100.87093,"genauigkeit":"genau","oeffnungszeiten":"Di–So 16:00–23:00, Mo zu","telefon":"+66 98 111 7461","beschreibung":"Seit 25+ Jahren Schweizer Küche: Käsefondue, Raclette, Rösti, gratis Salatbuffet.","quelle":"https://www.tripadvisor.com/Restaurant_Review-g293919-d6474024"},
+{"id":"chalet-suisse","name":"Chalet Suisse","kategorie":"restaurant","adresse":"1/17-18 Moo 10, Central Pattaya Road","lat":12.9369908,"lng":100.8846258,"genauigkeit":"genau","oeffnungszeiten":null,"telefon":"+66 85 435 7710","beschreibung":"Schweizer Restaurant & Gästehaus, persönlich geführt — Rahmschnitzel, Pfeffersteak, Fondue.","quelle":"https://swisshelpingpoint.com/CH_EN/chalet-suisse/"},
+{"id":"casa-pascal","name":"Casa Pascal","kategorie":"restaurant","adresse":"485 Second Road (gegenüber Royal Garden Plaza)","lat":12.9286669,"lng":100.8798549,"genauigkeit":"genau","oeffnungszeiten":"täglich 08–14 und 18–23","telefon":"+66 61 643 9969","beschreibung":"Schweizer Fine-Dining (seit 2001) mit deutschsprachiger Karte und hausgebackenen deutschen/Schweizer Broten.","quelle":"https://restaurantguru.com/Casa-Pascal-Pattaya"},
+/* Einkaufen */
+{"id":"foodland-klang","name":"Foodland (Pattaya Klang)","kategorie":"supermarkt","adresse":"190/16 Moo 9, Central Pattaya Road","lat":12.9368,"lng":100.8903,"genauigkeit":"ungefähr","oeffnungszeiten":"täglich 24 Stunden","telefon":"+66 38 422 426","beschreibung":"24-Std.-Supermarkt mit großer Import-Abteilung, Metzger-/Bäckereitheke und deutschen Wurstwaren (TGM, BMS-Food).","quelle":"https://www.soidb.com/pattaya/supermarket/foodland-pattaya.html"},
+{"id":"foodland-t21","name":"Foodland (Terminal 21)","kategorie":"supermarkt","adresse":"Terminal 21, North Pattaya Road / Second Road","lat":12.9505,"lng":100.8852,"genauigkeit":"ungefähr","oeffnungszeiten":null,"telefon":null,"beschreibung":"Foodland-Filiale im Terminal 21 mit Importwaren, europäischem Käse und deutschen Wurstprodukten.","quelle":"https://www.facebook.com/Foodland24hours/"},
+{"id":"best-naklua","name":"Best Supermarket (Naklua)","kategorie":"supermarkt","adresse":"179/178 Naklua Road (nach Soi 18)","lat":12.9572,"lng":100.8896,"genauigkeit":"ungefähr","oeffnungszeiten":"täglich 24 Stunden","telefon":"+66 38 429 101","beschreibung":"Bei deutschen Residenten beliebt: täglich frisches deutsches Brot, deutsche Wurst, deutsches Bier.","quelle":"https://www.pattayafans.de/best-supermarket-pattaya.htm"},
+{"id":"friendship","name":"Friendship Supermarket","kategorie":"supermarkt","adresse":"310/4 Moo 10, South Pattaya Road (nahe Tukcom)","lat":12.9261,"lng":100.8832,"genauigkeit":"ungefähr","oeffnungszeiten":"täglich ca. 07:00–24:00","telefon":"+66 38 723 513","beschreibung":"Traditions-Expat-Supermarkt (seit 1996): frisches deutsches Brot, Salami, europäischer Käse.","quelle":"https://www.myguidepattaya.com/shopping/friendship-supermarket"},
+{"id":"bigc-extra","name":"Big C Extra (Pattaya Klang)","kategorie":"supermarkt","adresse":"333 Moo 9, Central Pattaya Road","lat":12.9375,"lng":100.8930,"genauigkeit":"ungefähr","oeffnungszeiten":null,"telefon":null,"beschreibung":"Hypermarkt mit laut Expat-Quellen größter Auswahl an deutschen Wurstprodukten der Stadt.","quelle":"https://www.pattayafans.de/wurst.htm"},
+{"id":"villa-market","name":"Villa Market (Avenue)","kategorie":"supermarkt","adresse":"The Avenue Mall, Pattaya Second Road","lat":12.9315,"lng":100.8798,"genauigkeit":"ungefähr","oeffnungszeiten":"täglich 24 Stunden","telefon":null,"beschreibung":"Internationale Kette mit großem Import-Sortiment: deutsche Würste, europäische Molkerei- und Käseprodukte.","quelle":"https://www.pattayaland.com/en/activities/villa-market-pattaya"},
+{"id":"ma-foodshop","name":"M&A Foodshop (Darkside)","kategorie":"supermarkt","adresse":"311/4 Moo 6, Pornprapanimit Road, East Pattaya","lat":null,"lng":null,"genauigkeit":null,"oeffnungszeiten":"täglich 09:00–19:00","telefon":"+66 95 901 0709","beschreibung":"Deutscher Lebensmittelladen: Käse, Wurst, Bierknacker, Rollmops, Räucherfisch; liefert thailandweit.","quelle":"https://der-farang.com/de/pages/kaese-und-wurst-im-ma-food-shop"},
+{"id":"meat-stuff","name":"Meat Stuff","kategorie":"supermarkt","adresse":"62/147 Moo 12, Thepprasit Soi 8","lat":12.9105,"lng":100.8870,"genauigkeit":"ungefähr","oeffnungszeiten":"Mo–Sa 08:00–17:00","telefon":"+66 38 416 285","beschreibung":"Fleisch- und Wursthandel mit Ladengeschäft: europäische Würste, Käse, Premium-Fleisch.","quelle":"https://meatstuffpattaya.com/contact-us/"},
+{"id":"prime-food","name":"Prime Food Service (Werksverkauf)","kategorie":"supermarkt","adresse":"82/49 Moo 6, Soi Nernplubwan, East Pattaya","lat":null,"lng":null,"genauigkeit":null,"oeffnungszeiten":"Mo–Sa 09:00–16:30 (Pause 12:30–13:30)","telefon":null,"beschreibung":"Metzgerei-Produzent mit Werksverkauf: Würste, Schinken, Bacon, Steaks nach europäischer Art.","quelle":"https://www.primefoodservice.net/our-shop/"},
+{"id":"siamburys","name":"Siambury's Food Mart","kategorie":"supermarkt","adresse":"Soi Khao Talo, East Pattaya","lat":12.9043,"lng":100.9010,"genauigkeit":"ungefähr","oeffnungszeiten":"Mo–Fr 09–20, Sa/So 10–19","telefon":null,"beschreibung":"Expat-Markt mit importierten britischen/europäischen Waren: Käse, Wurst, Konserven, Backwaren.","quelle":"https://pattaya.guide/guides/expat-groceries-guide/"},
+{"id":"food-mart","name":"Food Mart (Thappraya)","kategorie":"supermarkt","adresse":"316/3 Moo 12, Thappraya Road","lat":12.9035,"lng":100.8715,"genauigkeit":"ungefähr","oeffnungszeiten":"täglich 06:00–24:00","telefon":"+66 38 197 457","beschreibung":"Internationaler Supermarkt mit europäischen Importwaren (Frankfurter, Salami, Heringe, Sauerrahm).","quelle":"https://buzzinpattaya.com/food-mart/"},
+{"id":"aka-traders","name":"AKA Traders (Showroom)","kategorie":"supermarkt","adresse":"Thepprasit Soi 8 (neben Amber Restaurant)","lat":null,"lng":null,"genauigkeit":null,"oeffnungszeiten":"Mo–Sa 09:00–18:00","telefon":null,"beschreibung":"Importeur mit Showroom: europäische Würste, Bacon, Räucherfisch, Käse, internationale Weine.","quelle":"https://pattaya.guide/guides/expat-groceries-guide/"},
+/* Ärzte & Gesundheit */
+{"id":"dr-olivier","name":"Dr. Olivier Clinic","kategorie":"arzt","adresse":"315/336 Moo 12, Thepprasit Soi 12","lat":12.9018,"lng":100.8752,"genauigkeit":"ungefähr","oeffnungszeiten":"Mo–Fr 09:00–14:00","telefon":"+66 38 303 331","beschreibung":"Schweizer Allgemeinmediziner (Deutsch/Französisch/Englisch/Thai), Vertrauensarzt der Schweizer Botschaft; inkl. Labor.","quelle":"https://dr-olivier-clinic.com/"},
+{"id":"deutsche-dental","name":"Deutsche Dental Clinic (Dr. Yachkaschi)","kategorie":"arzt","adresse":"315/334-335 Moo 12, Thepprasit Soi 12 (T.W. Palm Resort)","lat":12.9019,"lng":100.8753,"genauigkeit":"ungefähr","oeffnungszeiten":"Mo–Fr 10:00–18:00","telefon":"+66 33 002 898","beschreibung":"Praxis des einzigen deutschen Zahnarztes in Thailand (Implantate, Kronen, Prothetik) mit eigenem deutschen Dentallabor.","quelle":"https://www.travel-dental.com/"},
+{"id":"bangkok-hospital","name":"Bangkok Hospital Pattaya","kategorie":"arzt","adresse":"301 Moo 6, Sukhumvit Road Km 143, Naklua","lat":12.9538,"lng":100.9054,"genauigkeit":"ungefähr","oeffnungszeiten":"24 Std. Notaufnahme","telefon":"+66 38 259 999","beschreibung":"Großes Privatkrankenhaus mit deutschen Dolmetschern und Direktabrechnung mit deutschen Versicherungen.","quelle":"https://www.bangkokhospital.com/en/pattaya/visit/international-services-bph"},
+/* Visa */
+{"id":"fs-consulting","name":"FS Consulting","kategorie":"visa","adresse":"491 Moo 12, Pratumnak Soi 4","lat":null,"lng":null,"genauigkeit":null,"oeffnungszeiten":"Mo–Fr 09–15 (vor Ort), 15–17 (online)","telefon":"+66 82 001 3126","beschreibung":"Deutscher Visa-Service (DTV, Retirement, Schengen, LTR, Kontoeröffnung, Führerschein) — 4,9★ bei 440+ Bewertungen.","quelle":"https://fsconsultings.com/"},
+{"id":"ricos-visa","name":"Rico's Visa-Service","kategorie":"visa","adresse":"399/37 Thepprasit Soi 6 / Soi Khopai","lat":12.9042,"lng":100.8757,"genauigkeit":"ungefähr","oeffnungszeiten":"Mo–Sa 10:00–18:00","telefon":"+66 80 828 2844","beschreibung":"Deutschsprachiger Visa-Service (Verlängerungen, Visa-Runs), regelmäßig im Farang präsent.","quelle":"https://www.facebook.com/p/Ricos-Visa-Service-100042115760119/"},
+{"id":"judiths-visa","name":"Judiths Visa Service","kategorie":"visa","adresse":"nur telefonisch/online","lat":null,"lng":null,"genauigkeit":null,"oeffnungszeiten":null,"telefon":"+66 89 790 7746","beschreibung":"Seit 2009 deutschsprachige Beratung zu Heirats-, Besuchs- und Schengen-Visa, Familiennachzug; kostenlose Erstberatung.","quelle":"https://judiths-visa-service.com/"},
+{"id":"dp-german","name":"DP German Thai","kategorie":"visa","adresse":"373/24 Moo 9, Pattaya 3rd Road","lat":null,"lng":null,"genauigkeit":null,"oeffnungszeiten":null,"telefon":"+66 99 352 8340","beschreibung":"Deutschsprachige Beratung: Visa (u.a. Thailand Privilege), Firmengründung, Arbeitserlaubnis, Steuern.","quelle":"https://dpgermanthai.com/de/anwalt-dienstleistungen/"},
+/* Versicherung */
+{"id":"apg","name":"APG Consulting","kategorie":"versicherung","adresse":"Pattaya Beach Condo, Pattaya 2nd Road Soi 13","lat":null,"lng":null,"genauigkeit":null,"oeffnungszeiten":"Mo–Fr 09:30–17:00","telefon":"+66 33 641 520","beschreibung":"Deutschsprachiger Versicherungsmakler (Kranken, Unfall, Kfz, Gebäude, Haftpflicht) plus Übersetzungen und Visa-Hilfe.","quelle":"https://apg-thailand.com/"},
+{"id":"global-insurance","name":"Global Insurance Broker","kategorie":"versicherung","adresse":"565/56 Moo 10 (nahe Big C South)","lat":null,"lng":null,"genauigkeit":null,"oeffnungszeiten":null,"telefon":"+66 82 469 5552","beschreibung":"Seit 2001: deutschsprachige Ansprechpartner (Familie Heinzmann) für Kranken-, Kfz- und weitere Versicherungen.","quelle":"https://www.globalinsurancethailand.com/"},
+{"id":"aa-insurance","name":"AA Insurance Brokers","kategorie":"versicherung","adresse":"565/62 Moo 10 (neben Big C South)","lat":null,"lng":null,"genauigkeit":null,"oeffnungszeiten":"Mo–Fr 09:00–17:00","telefon":"+66 38 415 795","beschreibung":"Großer Makler (Schwerpunkt Expat-Krankenversicherung) mit deutschsprachigem Team im Pattaya-Büro.","quelle":"https://www.aainsure.net/contact_pattaya.html"},
+{"id":"solidor","name":"Global Solidor (German-Thai Group)","kategorie":"versicherung","adresse":"157/142 Moo 5, Naklua Road","lat":12.9623,"lng":100.8956,"genauigkeit":"ungefähr","oeffnungszeiten":"Mo–Fr 08:30–17:30","telefon":"+66 38 420 720","beschreibung":"Makler mit 20+ Versicherungsarten plus Rechts- und Immobilienabteilung — Teil der deutschsprachigen German-Thai Group.","quelle":"https://global-solidor.com/"},
+/* Transport DE↔TH */
+{"id":"thaitransport","name":"Thaitransport GmbH","kategorie":"transport","adresse":"Sitz in Deutschland — Haus-zu-Haus bis Pattaya via Laem Chabang","lat":null,"lng":null,"genauigkeit":null,"oeffnungszeiten":null,"telefon":"+49 8375 3719500","beschreibung":"Umzugs- und Seecontainer-Spezialist DE↔TH (20+ Jahre, 1.000+ Umzüge/Jahr); Kontakt per WhatsApp/LINE auf Deutsch.","quelle":"https://thaitransport.de/"},
+{"id":"pangaea","name":"Pangaea Cargo","kategorie":"transport","adresse":"Sitz in Bremen — Partner in Bangkok und Laem Chabang","lat":null,"lng":null,"genauigkeit":null,"oeffnungszeiten":null,"telefon":"+49 421 649 2270","beschreibung":"Deutsche Spedition mit regelmäßigem Sammelcontainer DE↔TH in beide Richtungen (Umzugsgut, Pakete, Container).","quelle":"https://www.pangaeacargo.com/umzug-transport-thailand/"},
+{"id":"lanna-logistics","name":"Lanna International Logistics","kategorie":"transport","adresse":"nur telefonisch/online (Lager in DE)","lat":null,"lng":null,"genauigkeit":null,"oeffnungszeiten":null,"telefon":"+49 151 6882 2146","beschreibung":"Deutschsprachige See-/Luftfracht und Umzüge TH↔DE/EU, Sammelcontainer 1–2× monatlich.","quelle":"https://www.lannainternationallogistics.com/de/unsereleistungen"},
+/* Recht & Übersetzer */
+{"id":"cta","name":"CTA – Certified Translation","kategorie":"recht","adresse":"202/88 Moo 9, Soi Paniadchang 10 (nähe Big C Extra)","lat":null,"lng":null,"genauigkeit":null,"oeffnungszeiten":"Mo–Fr 10:00–14:00","telefon":null,"beschreibung":"Seit 15+ Jahren beglaubigte Übersetzungen Deutsch–Thai, Rechtsberatung (Immobilien, Familie, Testament).","quelle":"https://www.ctapattaya.de/"},
+{"id":"german-thai-group","name":"German-Thai Group (Kanzlei & Notar)","kategorie":"recht","adresse":"157/142 Moo 5, Naklua Road","lat":12.9622,"lng":100.8957,"genauigkeit":"ungefähr","oeffnungszeiten":"Mo–Fr 08:30–17:30","telefon":"+66 38 420 720","beschreibung":"Seit 1986: Anwälte, Notar, Übersetzer und Visa-Experten — Rechts-, Immobilien- und Buchhaltungsservices auf Deutsch.","quelle":"https://german-thai.com/"},
+{"id":"thairecht","name":"RA Marcus Scholz (thairecht.com)","kategorie":"recht","adresse":"nur telefonisch/online (berät u.a. in Pattaya)","lat":null,"lng":null,"genauigkeit":null,"oeffnungszeiten":null,"telefon":"+66 89 419 3075","beschreibung":"In Deutschland zugelassener Anwalt, berät mit Thai-Anwälten auf Deutsch (Visa, Testament, Firma, Immobilien, Miete).","quelle":"https://www.thairecht.com/"},
+/* Botschaft & Vereine */
+{"id":"botschaft","name":"Deutsche Botschaft Bangkok","kategorie":"institution","adresse":"9 South Sathorn Road, Bangkok","lat":13.7203,"lng":100.5300,"genauigkeit":"ungefähr","oeffnungszeiten":"Mo–Fr 8:30–11:30, nur mit Termin","telefon":"+66 2 287 9000","beschreibung":"Konsularreferat (Pässe, Beglaubigungen, Rente, Notfälle). Notfall außerhalb der Dienstzeiten: +66 81 845 6224.","quelle":"https://bangkok.diplo.de/th-de/ueber-uns/oeffnungszeiten-1498676"},
+{"id":"honorarkonsul","name":"Deutsches Honorarkonsulat Pattaya","kategorie":"institution","adresse":"179/168 Moo 5, North Pattaya Road, Naklua","lat":12.948,"lng":100.893,"genauigkeit":"ungefähr","oeffnungszeiten":"Mo–Do 10:00–16:00","telefon":"+66 38 422 634","beschreibung":"Honorarkonsul Rudolf Hofer — hilft bei Notfällen, Todesfällen, Passangelegenheiten (pattaya@hk-diplo.de).","quelle":"https://bangkok.diplo.de/th-de/ueber-uns/honorarkonsuln/honorarkonsul-pattaya-1352858"},
+{"id":"bzp","name":"Begegnungszentrum Pattaya (BZP)","kategorie":"institution","adresse":"678/38 Moo 5, Naklua Road (zwischen Soi 11 und 13)","lat":12.959,"lng":100.885,"genauigkeit":"ungefähr","oeffnungszeiten":"Di–Sa 11–18, So 10–17, Mo zu","telefon":"+66 96 074 6695","beschreibung":"Deutschsprachiges Begegnungszentrum mit Wochenprogramm, Beratung, Restaurant, Gottesdiensten und Do-Stammtisch.","quelle":"https://www.bzpattaya.com/about"},
+{"id":"ev-gemeinde","name":"Evangelische Gemeinde Pattaya","kategorie":"institution","adresse":"im Begegnungszentrum, Naklua Road","lat":12.9592,"lng":100.8852,"genauigkeit":"ungefähr","oeffnungszeiten":"Gottesdienst 2. und letzter So im Monat, 11:00","telefon":"+66 96 074 6695","beschreibung":"Deutschsprachige evangelische Gemeinde mit Pastor Peter Hirsekorn.","quelle":"https://www.egpattaya.com/t/gottesdienste"},
+{"id":"kath-gemeinde","name":"Katholische Gemeinde (St. Nikolaus)","kategorie":"institution","adresse":"197/2 Moo 6, Sukhumvit Road (Ecke Pattaya Klang)","lat":12.941,"lng":100.902,"genauigkeit":"ungefähr","oeffnungszeiten":"Messe i.d.R. 1. und 3. Sa im Monat, 11:00","telefon":null,"beschreibung":"Deutschsprachige katholische Gottesdienste (Filialgemeinde von St. Marien Bangkok).","quelle":"https://www.gemeinde-bangkok.com/pattaya/"},
+{"id":"expats-club","name":"Deutschsprachiger Pattaya Expats Club","kategorie":"institution","adresse":"Wat Chaimongkol, South Pattaya Road / Second Road","lat":12.928,"lng":100.879,"genauigkeit":"ungefähr","oeffnungszeiten":"Treffen 1. Sa im Monat, 10:00","telefon":null,"beschreibung":"Vorträge zu Visa-, Renten- und Alltagsthemen; Lebensmitgliedschaft 600 Baht.","quelle":"https://der-farang.com/de/pages/deutschsprachiger-pattaya-expats-club"},
+{"id":"rotary-phoenix","name":"Rotary Club Phönix Pattaya","kategorie":"institution","adresse":"Holiday Inn Pattaya, Beach Road Soi 1","lat":12.9455,"lng":100.8805,"genauigkeit":"ungefähr","oeffnungszeiten":"Clubtreffen dienstags 19:00","telefon":null,"beschreibung":"Deutschsprachiger Rotary-Club, unterstützt Sozial- und Hilfsprojekte in der Region.","quelle":"https://rotary-phoenix-pattaya.org/"},
+{"id":"farang-redaktion","name":"DER FARANG – Redaktion","kategorie":"institution","adresse":"576/25 Moo 5, Photisarn Road, Naklua","lat":12.956,"lng":100.892,"genauigkeit":"ungefähr","oeffnungszeiten":null,"telefon":"+66 33 005 038","beschreibung":"Redaktion des größten deutschsprachigen Magazins Thailands (info@der-farang.com).","quelle":"https://www.deutsche-im-ausland.org/adressen-im-ausland/der-farang-deutschsprachiges-magazin-in-thailand.html"},
+{"id":"hhn","name":"Human Help Network Foundation","kategorie":"institution","adresse":"Nongprue / Banglamung (Drop-In-Center & Kinderschutzdorf)","lat":null,"lng":null,"genauigkeit":null,"oeffnungszeiten":null,"telefon":null,"beschreibung":"Partnerstiftung der deutschen Hilfsorganisation HHN e.V. (Mainz): Straßensozialarbeit und Kinderschutzdorf.","quelle":"https://www.hhn.org/projekte/thailand/"},
+{"id":"stammtische","name":"Deutschsprachige Stammtische (Übersicht)","kategorie":"institution","adresse":"verschiedene Lokale in Pattaya und Naklua","lat":null,"lng":null,"genauigkeit":null,"oeffnungszeiten":"Di 13:00 PS Bowling · Mi 18:00 Bodega Bar · Do 15:00 Begegnungszentrum · Fr 19:00 Zee Bar (Billard) · Sa 18:00 Nachtcafé · So 11:00 Borussia Park (Frühschoppen)","telefon":null,"beschreibung":"Offene deutschsprachige Stammtisch-Runden an fast jedem Wochentag — Termine laut Der Farang.","quelle":"https://der-farang.com/de/pages/deutschsprachige-stammtische"}
+];
+
+/* ---------- Karte ---------- */
+var map=L.map('map',{zoomControl:true}).setView([12.9236,100.8825],13); /* Pattaya Zentrum */
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+  maxZoom:19, attribution:'© OpenStreetMap'
+}).addTo(map);
+var markerLayer=L.layerGroup().addTo(map);
+var aktiveKat='alle';
+
+function icon(kat){
+  return L.divIcon({className:'', html:'<div style="font-size:26px;line-height:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,.4))">'+(KAT[kat]||{}).i+'</div>', iconSize:[26,26], iconAnchor:[13,24], popupAnchor:[0,-22]});
+}
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]}); }
+function gmapsLink(o){
+  if(o.lat!=null && o.lng!=null) return 'https://www.google.com/maps/dir/?api=1&destination='+o.lat+','+o.lng;
+  return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(o.name+' Pattaya');
+}
+function popupHtml(o){
+  var k=KAT[o.kategorie]||{n:o.kategorie,i:'📌'};
+  var h='<div class="popupbox"><b>'+k.i+' '+esc(o.name)+'</b><br><span class="pill info">'+k.n+'</span><br>';
+  if(o.beschreibung) h+=esc(o.beschreibung)+'<br>';
+  if(o.adresse) h+='📍 '+esc(o.adresse)+'<br>';
+  if(o.oeffnungszeiten) h+='🕒 '+esc(o.oeffnungszeiten)+'<br>';
+  if(o.telefon) h+='📞 <a class="tel" href="tel:'+esc(String(o.telefon).replace(/[^\d+]/g,''))+'">'+esc(o.telefon)+'</a><br>';
+  if(o.genauigkeit==='ungefähr') h+='<span class="q">⚠️ Lage ungefähr — vor Ort ggf. fragen</span><br>';
+  h+='<a class="route" href="'+gmapsLink(o)+'" target="_blank" rel="noopener">🧭 Route (Google Maps)</a>';
+  h+='</div>';
+  return h;
+}
+
+/* ---------- Filter-Chips ---------- */
+function baueChips(){
+  var counts={};
+  ORTE.forEach(function(o){ counts[o.kategorie]=(counts[o.kategorie]||0)+1; });
+  var h='<button class="chip on" data-k="alle" onclick="setKat(\'alle\',this)">Alle ('+ORTE.length+')</button>';
+  Object.keys(KAT).forEach(function(k){
+    if(!counts[k]) return;
+    h+='<button class="chip" data-k="'+k+'" onclick="setKat(\''+k+'\',this)">'+KAT[k].i+' '+KAT[k].n+' ('+counts[k]+')</button>';
+  });
+  document.getElementById('chips').innerHTML=h;
+}
+function setKat(k,btn){
+  aktiveKat=k;
+  document.querySelectorAll('.chip').forEach(function(c){c.classList.remove('on')});
+  btn.classList.add('on');
+  update();
+}
+
+/* ---------- Liste + Marker ---------- */
+var markerById={};
+function update(){
+  var q=(document.getElementById('suche').value||'').toLowerCase().trim();
+  markerLayer.clearLayers(); markerById={};
+  var sichtbar=ORTE.filter(function(o){
+    if(aktiveKat!=='alle' && o.kategorie!==aktiveKat) return false;
+    if(q){ var blob=(o.name+' '+(o.beschreibung||'')+' '+(o.adresse||'')+' '+(KAT[o.kategorie]||{}).n).toLowerCase();
+      if(blob.indexOf(q)===-1) return false; }
+    return true;
+  });
+  var bounds=[];
+  var h='';
+  sichtbar.forEach(function(o,idx){
+    var k=KAT[o.kategorie]||{n:o.kategorie,i:'📌'};
+    if(o.lat!=null && o.lng!=null){
+      var m=L.marker([o.lat,o.lng],{icon:icon(o.kategorie)}).bindPopup(popupHtml(o));
+      markerLayer.addLayer(m); markerById[o.id]=m; bounds.push([o.lat,o.lng]);
+    }
+    h+='<div class="eintrag" onclick="zeigeOrt(\''+o.id+'\')">'+
+       '<div class="ico">'+k.i+'</div><div>'+
+       '<h3>'+esc(o.name)+'</h3>'+
+       '<p>'+esc(o.beschreibung||k.n)+'</p>'+
+       (o.oeffnungszeiten?'<p>🕒 '+esc(o.oeffnungszeiten)+'</p>':'')+
+       ((o.lat==null)?'<p>📍 Lage nicht exakt erfasst — Liste unten „Route" nutzt Namenssuche</p>':'')+
+       '</div></div>';
+  });
+  document.getElementById('liste').innerHTML=h||'<p class="muted">Nichts gefunden — Filter oder Suchwort ändern.</p>';
+  document.getElementById('anzahl').textContent=sichtbar.length+' Orte'+(aktiveKat!=='alle'?' in dieser Kategorie':'')+(q?' für „'+q+'"':'');
+}
+function zeigeOrt(id){
+  var o=null; ORTE.forEach(function(x){ if(x.id===id) o=x; });
+  if(!o) return;
+  if(o.lat!=null && markerById[id]){
+    map.setView([o.lat,o.lng],16,{animate:true});
+    markerById[id].openPopup();
+    document.getElementById('map').scrollIntoView({behavior:'smooth'});
+  } else {
+    window.open(gmapsLink(o),'_blank','noopener');
+  }
+}
+
+/* ---------- Eigener Standort ---------- */
+var meinMarker=null, meinKreis=null;
+function meinStandort(){
+  if(!navigator.geolocation){ alert('Standort wird von diesem Browser nicht unterstützt.'); return; }
+  navigator.geolocation.getCurrentPosition(function(pos){
+    var la=pos.coords.latitude, ln=pos.coords.longitude, acc=pos.coords.accuracy||0;
+    if(meinMarker){ map.removeLayer(meinMarker); map.removeLayer(meinKreis); }
+    meinMarker=L.circleMarker([la,ln],{radius:8,color:'#fff',weight:2,fillColor:'#2563eb',fillOpacity:1}).addTo(map).bindPopup('📍 Du bist hier');
+    meinKreis=L.circle([la,ln],{radius:acc,color:'#2563eb',weight:1,fillOpacity:.08}).addTo(map);
+    map.setView([la,ln],15,{animate:true});
+  },function(){ alert('Standort nicht verfügbar — bitte Standortfreigabe im Browser erlauben.'); },{enableHighAccuracy:true,timeout:10000});
+}
+
+baueChips(); update();
+injectBlend('main'); injectFooter();
+</script>
+</body></html>
