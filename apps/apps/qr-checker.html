@@ -179,8 +179,13 @@ function emv(raw){
   felder.push(['Betrag', betrag||'— (Betrag gibst du selbst ein)']);
   if(!betrag && !dyn){ warn.push('Statischer Code ohne festen Betrag — den Betrag tippst du selbst ein. Wichtig ist, an WEN er geht: siehe Überkleb-Check unten.'); ampel='gelb'; }
   var titel = ampel==='gruen'?'✅ Thai-Zahlungscode (PromptPay)':'⚠️ Zahlungscode — Empfänger prüfen!';
+  var aktion='';
+  if(empfLabel==='Empfänger-Telefon'){
+    aktion='<button class="btn" onclick="location.href=\''+telHref(empf)+'\'">📞 Anruf-Check: Nummer anrufen</button>'+
+      '<div class="hinweis">Klingelt jetzt das Handy deines Gegenübers? ✅ Dann gehört die Nummer wirklich ihm. ❌ Klingelt nichts / fremde Stimme → nicht zahlen!</div>';
+  }
   var hinweis='<div class="hinweis"><b>So prüfst du den Empfänger richtig:</b> Der Kontoinhaber-Name steckt technisch NICHT im QR-Code — nur die Nummer/ID oben. Aber: <b>Deine Banking-App zeigt dir den Empfängernamen an, BEVOR du bestätigst.</b> Dort gilt: Name unbekannt oder anders als erwartet → <b>abbrechen, nicht zahlen.</b> Zusatz-Check bei Privatpersonen: Ist die angezeigte Telefonnummer wirklich die deines Empfängers?</div>';
-  zeige(ampel, titel, felder, warn, hinweis, '💸 Bezahl-QR (EMV/PromptPay)');
+  zeige(ampel, titel, felder, warn, aktion+hinweis, '💸 Bezahl-QR (EMV/PromptPay)');
   var idNum=(empf||'').replace(/\D/g,'');
   /* Biller-IDs (14/15-stellig) = 13-stellige Steuernummer + Filial-/Servicecode → Register mit den ersten 13 abfragen */
   if(idNum.length>=13 && empfLabel.indexOf('Telefon')===-1) dbdLookup(idNum.slice(0,13), idNum.length>13 ? idNum.slice(13) : '');
@@ -230,6 +235,7 @@ function dbdLookup(id, suffix){
 function tlv(s){ var o={},i=0; while(i+4<=s.length){ var id=s.substr(i,2), len=parseInt(s.substr(i+2,2),10); if(isNaN(len)) break; o[id]=s.substr(i+4,len); i+=4+len; } return o; }
 function pad(n){ return (n<10?'0':'')+n; }
 function fmtPhone(v){ var p=v.replace(/^0066/,'0'); if(/^00/.test(v)&&!/^0066/.test(v)) p='+'+v.slice(2); if(/^0\d{9}$/.test(p)) p=p.slice(0,3)+'-'+p.slice(3,6)+'-'+p.slice(6); return p; }
+function telHref(anzeige){ return 'tel:'+String(anzeige).replace(/[^\d+]/g,''); }
 /* Anzeige */
 function simple(titel,wert,ampel,hinweis){ zeige(ampel, titel.split(' ')[0]+' '+ (ampel==='rot'?'':''), [[titel.replace(/^[^ ]+ /,''), wert]], hinweis?[hinweis]:[], '', titel); }
 function zeige(ampel,titel,felder,warn,aktionHtml,typ){
