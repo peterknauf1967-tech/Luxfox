@@ -149,8 +149,9 @@ var ORTE=[
 
 /* ---------- Karte ---------- */
 var map=L.map('map',{zoomControl:true}).setView([12.9236,100.8825],13); /* Pattaya Zentrum */
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-  maxZoom:19, attribution:'© OpenStreetMap'
+/* Deutscher OSM-Stil: Straßen-/Ortsnamen in lateinischer Schrift statt Thai */
+L.tileLayer('https://tile.openstreetmap.de/{z}/{x}/{y}.png',{
+  maxZoom:19, attribution:'© OpenStreetMap (DE)'
 }).addTo(map);
 var markerLayer=L.layerGroup().addTo(map);
 var aktiveKat='alle';
