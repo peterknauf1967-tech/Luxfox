@@ -350,6 +350,22 @@ footer a:hover{color:var(--green)}
 
 <div class="div"></div>
 
+<!-- GUIDES / RATGEBER -->
+<section class="app-sec" id="guides">
+  <p class="sec-label fade" data-i18n="g_label">Knowledge Base</p>
+  <h2 class="sec-title fade" data-i18n="g_title">Thailand guides for expats.</h2>
+  <div class="app-feats fade d1" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
+    <a class="af afx" href="umzug-nach-thailand.html"><div class="af-icon">📦</div><div class="af-t" data-i18n="g1_t">Moving to Thailand: checklist</div><div class="af-s" data-i18n="g1_s">Deregistration, pension, documents, arrival — the full roadmap</div></a>
+    <a class="af afx" href="geld-abheben-thailand.html"><div class="af-icon">🏧</div><div class="af-t" data-i18n="g2_t">Cash &amp; transfers without high fees</div><div class="af-s" data-i18n="g2_s">ATM fees, the DCC trap, card strategy</div></a>
+    <a class="af afx" href="internet-esim-thailand.html"><div class="af-icon">🌐</div><div class="af-t" data-i18n="g3_t">Internet &amp; eSIM in Thailand</div><div class="af-s" data-i18n="g3_s">From landing-day eSIM to home fibre</div></a>
+    <a class="af afx" href="krankenversicherung-langzeit.html"><div class="af-icon">🏥</div><div class="af-t" data-i18n="g4_t">Health insurance for long stays</div><div class="af-s" data-i18n="g4_s">Travel cover vs. full insurance, broker vs. comparison</div></a>
+    <a class="af afx" href="visa-grundlagen-thailand.html"><div class="af-icon">🛂</div><div class="af-t" data-i18n="g5_t">Thailand visa basics</div><div class="af-s" data-i18n="g5_s">How the system works — overview, no legal advice</div></a>
+    <a class="af afx" href="ratgeber.html"><div class="af-icon">📚</div><div class="af-t" data-i18n="g6_t">All guides</div><div class="af-s" data-i18n="g6_s">The complete knowledge base for German expats</div></a>
+  </div>
+</section>
+
+<div class="div"></div>
+
 <!-- ABOUT -->
 <section class="about-sec" id="about">
   <p class="sec-label fade" data-i18n="about_label">About</p>
@@ -386,6 +402,8 @@ footer a:hover{color:var(--green)}
   <span>© 2026 Luxfox Limited (Hong Kong) · BR No. 80579643</span>
   <div class="flinks">
     <button class="lock-btn" onclick="openPw()" title="Admin">🔒</button>
+    <a href="ratgeber.html" data-i18n="g_label">Knowledge Base</a>
+    <a href="ueber-luxfox.html" data-i18n="about_label">About</a>
     <a href="impressum.html" data-i18n="imprint">Imprint</a>
     <a href="datenschutz.html" data-i18n="privacy">Privacy</a>
     <a href="mailto:peter@luxfox.net">peter@luxfox.net</a>
@@ -562,6 +580,20 @@ const I18N={
  feat_bank_s:{en:"International accounts",de:"Internationale Konten",th:"บัญชีระหว่างประเทศ",vi:"Tài khoản quốc tế",km:"គណនីអន្តរជាតិ",lo:"ບັນຊີສາກົນ",zh:"国际账户",ru:"Международные счета"},
  feat_atm_t:{en:"ATMs Pattaya",de:"Geldautomaten Pattaya",th:"ตู้เอทีเอ็ม พัทยา",vi:"ATM Pattaya",km:"ម៉ាស៊ីន ATM ផាតៃយ៉ា",lo:"ຕູ້ ATM ພັດທະຍາ",zh:"芭提雅 ATM",ru:"Банкоматы Паттайи"},
  feat_atm_s:{en:"Map &amp; fees",de:"Karte &amp; Gebühren",th:"แผนที่ &amp; ค่าธรรมเนียม",vi:"Bản đồ &amp; phí",km:"ផែនទី &amp; ថ្លៃសេវា",lo:"ແຜນທີ່ &amp; ຄ່າທຳນຽມ",zh:"地图与费用",ru:"Карта и комиссии"},
+ g_label:{en:"Knowledge Base",de:"Ratgeber",th:"Knowledge Base",vi:"Knowledge Base",km:"Knowledge Base",lo:"Knowledge Base",zh:"Knowledge Base",ru:"Knowledge Base"},
+ g_title:{en:"Thailand guides for expats.",de:"Thailand-Ratgeber für Auswanderer.",th:"Thailand guides for expats.",vi:"Thailand guides for expats.",km:"Thailand guides for expats.",lo:"Thailand guides for expats.",zh:"Thailand guides for expats.",ru:"Thailand guides for expats."},
+ g1_t:{en:"Moving to Thailand: checklist",de:"Umzug nach Thailand: Checkliste",th:"Moving to Thailand: checklist",vi:"Moving to Thailand: checklist",km:"Moving to Thailand: checklist",lo:"Moving to Thailand: checklist",zh:"Moving to Thailand: checklist",ru:"Moving to Thailand: checklist"},
+ g1_s:{en:"Deregistration, pension, documents, arrival — the full roadmap",de:"Abmeldung, Rente, Dokumente, Ankunft — der komplette Fahrplan",th:"Deregistration, pension, documents, arrival — the full roadmap",vi:"Deregistration, pension, documents, arrival — the full roadmap",km:"Deregistration, pension, documents, arrival — the full roadmap",lo:"Deregistration, pension, documents, arrival — the full roadmap",zh:"Deregistration, pension, documents, arrival — the full roadmap",ru:"Deregistration, pension, documents, arrival — the full roadmap"},
+ g2_t:{en:"Cash &amp; transfers without high fees",de:"Geld abheben &amp; überweisen ohne hohe Gebühren",th:"Cash &amp; transfers without high fees",vi:"Cash &amp; transfers without high fees",km:"Cash &amp; transfers without high fees",lo:"Cash &amp; transfers without high fees",zh:"Cash &amp; transfers without high fees",ru:"Cash &amp; transfers without high fees"},
+ g2_s:{en:"ATM fees, the DCC trap, card strategy",de:"ATM-Gebühren, DCC-Falle, Karten-Strategie",th:"ATM fees, the DCC trap, card strategy",vi:"ATM fees, the DCC trap, card strategy",km:"ATM fees, the DCC trap, card strategy",lo:"ATM fees, the DCC trap, card strategy",zh:"ATM fees, the DCC trap, card strategy",ru:"ATM fees, the DCC trap, card strategy"},
+ g3_t:{en:"Internet &amp; eSIM in Thailand",de:"Internet &amp; eSIM in Thailand",th:"Internet &amp; eSIM in Thailand",vi:"Internet &amp; eSIM in Thailand",km:"Internet &amp; eSIM in Thailand",lo:"Internet &amp; eSIM in Thailand",zh:"Internet &amp; eSIM in Thailand",ru:"Internet &amp; eSIM in Thailand"},
+ g3_s:{en:"From landing-day eSIM to home fibre",de:"Von der eSIM am Landetag bis zum Glasfaser-Anschluss",th:"From landing-day eSIM to home fibre",vi:"From landing-day eSIM to home fibre",km:"From landing-day eSIM to home fibre",lo:"From landing-day eSIM to home fibre",zh:"From landing-day eSIM to home fibre",ru:"From landing-day eSIM to home fibre"},
+ g4_t:{en:"Health insurance for long stays",de:"Krankenversicherung für Langzeit-Aufenthalte",th:"Health insurance for long stays",vi:"Health insurance for long stays",km:"Health insurance for long stays",lo:"Health insurance for long stays",zh:"Health insurance for long stays",ru:"Health insurance for long stays"},
+ g4_s:{en:"Travel cover vs. full insurance, broker vs. comparison",de:"Reiseversicherung vs. Vollversicherung, Makler vs. Vergleich",th:"Travel cover vs. full insurance, broker vs. comparison",vi:"Travel cover vs. full insurance, broker vs. comparison",km:"Travel cover vs. full insurance, broker vs. comparison",lo:"Travel cover vs. full insurance, broker vs. comparison",zh:"Travel cover vs. full insurance, broker vs. comparison",ru:"Travel cover vs. full insurance, broker vs. comparison"},
+ g5_t:{en:"Thailand visa basics",de:"Visa-Grundlagen Thailand",th:"Thailand visa basics",vi:"Thailand visa basics",km:"Thailand visa basics",lo:"Thailand visa basics",zh:"Thailand visa basics",ru:"Thailand visa basics"},
+ g5_s:{en:"How the system works — overview, no legal advice",de:"Wie das System funktioniert — Überblick, keine Rechtsberatung",th:"How the system works — overview, no legal advice",vi:"How the system works — overview, no legal advice",km:"How the system works — overview, no legal advice",lo:"How the system works — overview, no legal advice",zh:"How the system works — overview, no legal advice",ru:"How the system works — overview, no legal advice"},
+ g6_t:{en:"All guides",de:"Alle Ratgeber",th:"All guides",vi:"All guides",km:"All guides",lo:"All guides",zh:"All guides",ru:"All guides"},
+ g6_s:{en:"The complete knowledge base for German expats",de:"Die komplette Wissensbasis für deutsche Expats",th:"The complete knowledge base for German expats",vi:"The complete knowledge base for German expats",km:"The complete knowledge base for German expats",lo:"The complete knowledge base for German expats",zh:"The complete knowledge base for German expats",ru:"The complete knowledge base for German expats"},
  contact_label:{en:"Get in touch",de:"Kontakt",th:"ติดต่อเรา",vi:"Liên hệ",km:"ទាក់ទងមកយើង",lo:"ຕິດຕໍ່ພວກເຮົາ",zh:"联系我们",ru:"Связаться"},
  contact_title:{en:"Let's build<br><span class=\"acc\">something.</span>",de:"Lass uns<br><span class=\"acc\">aufbauen.</span>",th:"มาสร้าง<br><span class=\"acc\">บางสิ่งกัน</span>",vi:"Cùng nhau<br><span class=\"acc\">kiến tạo.</span>",km:"តោះកសាង<br><span class=\"acc\">អ្វីមួយ។</span>",lo:"ມາສ້າງ<br><span class=\"acc\">ບາງສິ່ງນຳກັນ</span>",zh:"一起<br><span class=\"acc\">创造。</span>",ru:"Давайте<br><span class=\"acc\">создавать.</span>"},
  contact_sub:{en:"Franchise inquiries, partnerships, product questions — direct contact only. No chatbot, no form.",de:"Franchise-Anfragen, Partnerschaften, Produktfragen — nur direkter Kontakt. Kein Chatbot, kein Formular.",th:"สอบถามแฟรนไชส์ พันธมิตร คำถามผลิตภัณฑ์ — ติดต่อโดยตรงเท่านั้น ไม่มีแชทบอท ไม่มีแบบฟอร์ม",vi:"Hỏi về nhượng quyền, hợp tác, sản phẩm — chỉ liên hệ trực tiếp. Không chatbot, không biểu mẫu.",km:"សំណួរអំពីហ្វ្រេនឆាយ ភាពជាដៃគូ ផលិតផល — ទាក់ទងផ្ទាល់តែប៉ុណ្ណោះ។ គ្មានបូតជជែក គ្មានទម្រង់បំពេញ។",lo:"ສອບຖາມແຟຣນໄຊສ໌, ການຮ່ວມມື, ຄຳຖາມສິນຄ້າ — ຕິດຕໍ່ໂດຍກົງເທົ່ານັ້ນ. ບໍ່ມີແຊັດບອດ, ບໍ່ມີແບບຟອມ.",zh:"加盟咨询、合作、产品问题 — 仅限直接联系。无聊天机器人，无表单。",ru:"Вопросы по франшизе, партнёрству, продуктам — только прямой контакт. Без чат-бота и форм."},

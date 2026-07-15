@@ -41,6 +41,41 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://luxfox.net/ratgeber.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://luxfox.net/umzug-nach-thailand.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://luxfox.net/geld-abheben-thailand.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://luxfox.net/internet-esim-thailand.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://luxfox.net/krankenversicherung-langzeit.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://luxfox.net/visa-grundlagen-thailand.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://luxfox.net/ueber-luxfox.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://luxfox.net/shop.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

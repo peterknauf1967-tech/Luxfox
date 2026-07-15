@@ -26,7 +26,7 @@ window.DS_CONFIG = {
     wise:        { status: "offen", url: "[WISE-LINK aus Partnerize]" },
     safetywing:  { status: "live", url: "https://safetywing.com/?referenceID=26557404&utm_source=26557404&utm_medium=Ambassador" },
     airalo:      { status: "offen", url: "[AIRALO-LINK]" },
-    nordvpn:     { status: "offen", url: "[NORDVPN-LINK]" },
+    nordvpn:     { status: "live", url: "https://go.nordvpn.net/aff_c?offer_id=15&aff_id=152036" },
     pacificprime:{ status: "offen", url: "[PACIFIC-PRIME-LINK]" },
     grab:        { status: "offen", url: "[GRAB-LINK]" },
     adsenseId:   "ca-pub-6577595255227351"
