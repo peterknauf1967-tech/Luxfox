@@ -10,7 +10,7 @@
 window.DS_CONFIG = {
 
   /* ---- 0. VERSION (bei jeder Änderung hochzählen) ---- */
-  version: "2.0.0 · 24.07.2026",
+  version: "2.0.1 · 24.07.2026",
 
   /* ---- 1. FIRMENDATEN (für Impressum) ---- */
   firma: {
@@ -31,7 +31,12 @@ window.DS_CONFIG = {
     nordvpn:     { status: "live", url: "https://go.nordvpn.net/aff_c?offer_id=15&aff_id=152036" },
     pacificprime:{ status: "offen", url: "[PACIFIC-PRIME-LINK]" },
     grab:        { status: "offen", url: "[GRAB-LINK]" },
-    visaagentur: { status: "offen", url: "[VISA-AGENTUR-LINK]" },
+    visaagentur: { status: "offen", url: "[SIAM-LEGAL-REFERRAL-LINK]" },
+    saily:       { status: "offen", url: "[SAILY-LINK]" },
+    twelvego:    { status: "offen", url: "[12GO-AGENT-LINK]" },
+    klook:       { status: "offen", url: "[KLOOK-LINK]" },
+    getyourguide:{ status: "offen", url: "[GETYOURGUIDE-LINK]" },
+    careconcept: { status: "offen", url: "[CARE-CONCEPT-LINK]" },
     adsenseId:   "ca-pub-6577595255227351"
   },
 
