@@ -10,7 +10,7 @@
 window.DS_CONFIG = {
 
   /* ---- 0. VERSION (bei jeder Änderung hochzählen) ---- */
-  version: "2.0.1 · 24.07.2026",
+  version: "2.0.2 · 24.07.2026",
 
   /* ---- 1. FIRMENDATEN (für Impressum) ---- */
   firma: {
@@ -37,6 +37,10 @@ window.DS_CONFIG = {
     klook:       { status: "offen", url: "[KLOOK-LINK]" },
     getyourguide:{ status: "offen", url: "[GETYOURGUIDE-LINK]" },
     careconcept: { status: "offen", url: "[CARE-CONCEPT-LINK]" },
+    agoda:       { status: "offen", url: "[AGODA-LINK]" },
+    lazada:      { status: "offen", url: "[LAZADA-INVOLVE-ASIA-LINK]" },
+    shopee:      { status: "offen", url: "[SHOPEE-LINK]" },
+    foodpanda:   { status: "offen", url: "[FOODPANDA-LINK]" },
     adsenseId:   "ca-pub-6577595255227351"
   },
 

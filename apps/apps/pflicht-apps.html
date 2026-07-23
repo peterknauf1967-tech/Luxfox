@@ -1,0 +1,128 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0d9488">
+<title>Thailand Starter-Paket – diese Apps brauchst du wirklich</title>
+<meta name="description" content="Die Pflicht-Apps für Europäer in Thailand: Bezahlen per QR ohne Thai-Bankkonto, Grab, LINE, eSIM & Co. – ehrlich erklärt.">
+<link rel="stylesheet" href="../shared/shared.css"></head><body>
+<header class="app"><a class="home" href="../index.html">←</a><h1>🇹🇭 Thailand Starter-Paket</h1><p>Diese Apps brauchst du wirklich · Stand Juli 2026</p></header>
+<div class="wrap"><main>
+
+<div class="note">Ohne diese Apps ist Thailand mühsam – mit ihnen läuft fast alles über das Handy. Reihenfolge = Wichtigkeit. <b>iPhone:</b> gleiche Apps im Apple App Store nach Namen suchen.</div>
+
+<div class="card">
+<h2>💳 1. Bezahlen per QR – ohne Thai-Bankkonto</h2>
+<p>Das größte Problem für Europäer: Überall wird per QR (PromptPay) gezahlt, aber ein Thai-Bankkonto ist ohne Arbeitserlaubnis/Langzeit-Visum schwer zu bekommen. So geht es trotzdem:</p>
+<div id="pay-liste"></div>
+<p class="small">Fallback bleibt Bargeld: Abheben am Automaten kostet 220 THB Gebühr pro Abhebung – welche Karte am wenigsten kostet, zeigt unser <a href="gebuehren-vergleich.html">Gebühren-Vergleich</a>.</p>
+</div>
+
+<div class="card">
+<h2>🚕 2. Fortbewegung</h2>
+<div id="transport-liste"></div>
+<p class="small">Preis vorher schätzen: <a href="grab-taxi-schaetzer.html">Grab/Taxi-Schätzer</a>.</p>
+</div>
+
+<div class="card">
+<h2>💬 3. Alltag &amp; Kommunikation</h2>
+<div id="alltag-liste"></div>
+</div>
+
+<div class="card">
+<h2>🛒 4. Einkaufen &amp; Essen bestellen</h2>
+<div id="shopping-liste"></div>
+</div>
+
+<div class="card">
+<h2>🏨 5. Reisen im Land</h2>
+<div id="reise-liste"></div>
+</div>
+
+<div class="card">
+<h2>📶 6. Internet &amp; Sicherheit</h2>
+<div id="netz-liste"></div>
+<p class="small">Welches Datenpaket passt: <a href="esim-finder.html">eSIM-Finder</a>.</p>
+</div>
+
+<div class="card">
+<h2>🏥 7. Absicherung</h2>
+<div id="schutz-liste"></div>
+<p class="small">Tarife vergleichen: <a href="krankenversicherung-vergleich.html">Krankenversicherungs-Vergleich</a> · Für den Ernstfall: <a href="notfallkarte.html">Digitale Notfallkarte</a>.</p>
+</div>
+
+<div class="note">Ehrlichkeits-Hinweis: Bei Links mit dem Zeichen 💰 erhalten wir eine Provision vom Anbieter – der Preis für dich bleibt gleich. Alle anderen Empfehlungen sind unbezahlt; wir empfehlen nur, was wir selbst nutzen.</div>
+
+</main></div>
+<script src="../shared/config.js"></script><script src="../shared/shared.js"></script>
+<script>
+var AFF=(window.DS_CONFIG&&DS_CONFIG.affiliate)||{};
+function eintrag(e){
+  var btn='';
+  if(e.aff && AFF[e.aff] && AFF[e.aff].status==='live'){
+    btn='<a class="btn" href="'+AFF[e.aff].url+'" target="_blank" rel="noopener sponsored">💰 '+(e.cta||'Zum Anbieter')+' →</a>';
+  } else if(e.url){
+    btn='<a class="btn ghost" href="'+e.url+'" target="_blank" rel="noopener">'+(e.cta||'Download')+' →</a>';
+  }
+  return '<div style="border-bottom:1px solid #eee;padding:10px 0">'+
+    '<div style="display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap">'+
+    '<b>'+e.i+' '+e.n+(e.pflicht?' <span class="pill ok">Pflicht</span>':'')+'</b>'+btn+'</div>'+
+    '<p class="small" style="margin:4px 0 0">'+e.t+'</p></div>';
+}
+function fuellen(id,liste){document.getElementById(id).innerHTML=liste.map(eintrag).join('');}
+
+fuellen('pay-liste',[
+ {i:'🟢',n:'Wise',pflicht:true,aff:'wise',url:'https://play.google.com/store/apps/details?id=com.transferwise.android',cta:'Wise laden',
+  t:'Seit Mai 2026 kann die Wise-App direkt Thai-QR-Codes (PromptPay) bezahlen – mit offizieller Lizenz der Bank of Thailand. Konto in 10 Minuten vom Sofa aus eröffnet, Aufladen per Überweisung aus Europa. Aktuell der einfachste Weg für Europäer, ganz ohne Thai-Bankkonto.'},
+ {i:'🟡',n:'TrueMoney Wallet',url:'https://play.google.com/store/apps/details?id=th.co.truemoney.wallet',cta:'TrueMoney laden',
+  t:'Registrierung mit Reisepass + thailändischer SIM möglich, Aufladen nur mit BARGELD an der 7-Eleven-Kasse (keine europäische Karte). Zahlt zuverlässig bei 7-Eleven &amp; Lotus; QR-Codes von Straßenhändlern klappen mit Pass-Registrierung oft NICHT. Gut als Zweit-Lösung.'},
+ {i:'🔵',n:'7-Eleven TH / ALL Member',url:'https://play.google.com/store/search?q=7-eleven%20thailand&c=apps',cta:'Im Store suchen',
+  t:'Punkte sammeln und Coupons im wichtigsten Laden des Landes (alle 200 m einer). Kein Muss, aber spart bares Geld beim täglichen Einkauf.'}
+]);
+
+fuellen('transport-liste',[
+ {i:'🟩',n:'Grab',pflicht:true,url:'https://play.google.com/store/apps/details?id=com.grabtaxi.passenger',cta:'Grab laden',
+  t:'DAS Uber Südostasiens: Taxi, Motorrad-Taxi und Essenslieferung mit Festpreis – kein Feilschen, Zahlung bar oder per Karte in der App. Ohne Grab bist du auf Taxifahrer-Verhandlungen angewiesen.'},
+ {i:'🟦',n:'Bolt',url:'https://play.google.com/store/apps/details?id=ee.mtakso.client',cta:'Bolt laden',
+  t:'Zweite Fahr-App, in Pattaya/Bangkok oft 20–30 % günstiger als Grab. Beide installieren und Preise vergleichen.'},
+ {i:'🚌',n:'12Go',aff:'twelvego',url:'https://12go.asia',cta:'12go.asia öffnen',
+  t:'Bus, Bahn, Fähre und Inlandsflüge in ganz Südostasien online buchen – mit Sitzplatzwahl und deutscher Oberfläche. Der Standard für Strecken wie Bangkok→Pattaya oder zu den Inseln.'}
+]);
+
+fuellen('alltag-liste',[
+ {i:'💚',n:'LINE',pflicht:true,url:'https://play.google.com/store/apps/details?id=jp.naver.line.android',cta:'LINE laden',
+  t:'Thailands WhatsApp – Vermieter, Handwerker, Behörden, Visa-Agenten: alle kommunizieren über LINE. Ohne LINE erreichst du in Thailand niemanden.'},
+ {i:'🗺️',n:'Google Maps',pflicht:true,url:'https://play.google.com/store/apps/details?id=com.google.android.apps.maps',cta:'Maps laden',
+  t:'Navigation, Öffnungszeiten, Bewertungen – funktioniert in Thailand hervorragend, auch für Motorrad-Routen.'},
+ {i:'🈯',n:'Google Übersetzer',pflicht:true,url:'https://play.google.com/store/apps/details?id=com.google.android.apps.translate',cta:'Übersetzer laden',
+  t:'Kamera auf Thai-Schild oder Speisekarte halten → deutsche Übersetzung live. Thai-Sprachpaket offline herunterladen!'}
+]);
+
+fuellen('shopping-liste',[
+ {i:'🛍️',n:'Lazada',aff:'lazada',url:'https://play.google.com/store/apps/details?id=com.lazada.android',cta:'Lazada laden',
+  t:'Das Amazon Thailands – von der Handyhülle bis zum Kühlschrank, Lieferung oft am nächsten Tag, Zahlung bar an der Tür möglich.'},
+ {i:'🧡',n:'Shopee',aff:'shopee',url:'https://play.google.com/store/apps/details?id=com.shopee.th',cta:'Shopee laden',
+  t:'Zweiter großer Marktplatz, oft noch günstiger. Preise mit Lazada vergleichen lohnt sich.'},
+ {i:'🍜',n:'Foodpanda',aff:'foodpanda',url:'https://play.google.com/store/apps/details?id=com.global.foodpanda.android',cta:'Foodpanda laden',
+  t:'Essenslieferung als Alternative zu GrabFood – häufig andere Restaurants und Gutscheine.'}
+]);
+
+fuellen('reise-liste',[
+ {i:'🏨',n:'Agoda',aff:'agoda',url:'https://play.google.com/store/apps/details?id=com.agoda.mobile.consumer',cta:'Agoda laden',
+  t:'In Asien fast immer die besten Hotelpreise (stärker als Booking.com). Auch für Monatsrabatte in Condos nutzbar.'},
+ {i:'🎟️',n:'Klook',aff:'klook',url:'https://play.google.com/store/apps/details?id=com.klook',cta:'Klook laden',
+  t:'Ausflüge, Tempel-Touren, Tickets und Transfers – oft deutlich günstiger als vor Ort am Schalter.'}
+]);
+
+fuellen('netz-liste',[
+ {i:'📱',n:'Saily eSIM',aff:'saily',url:'https://saily.com',cta:'Saily öffnen',
+  t:'eSIM in 5 Minuten aufs Handy – Datenpaket für Thailand ohne SIM-Karten-Kauf am Flughafen. Vom NordVPN-Hersteller.'},
+ {i:'🛡️',n:'NordVPN',aff:'nordvpn',url:'https://nordvpn.com',cta:'NordVPN ansehen',
+  t:'Öffentliches WLAN in Cafés/Hotels ist unverschlüsselt – fürs Online-Banking aus Thailand (und deutsche Mediatheken) praktisch Pflicht.'}
+]);
+
+fuellen('schutz-liste',[
+ {i:'🏥',n:'SafetyWing',aff:'safetywing',url:'https://safetywing.com',cta:'Angebot ansehen',
+  t:'Kranken-/Reiseversicherung für Nomaden und Expats – monatlich kündbar, online abschließbar, auch wenn du schon im Ausland bist. Ein Krankenhaustag in Thailand kann sonst vierstellig kosten.'}
+]);
+
+injectBlend('main');injectFooter();
+</script>
+</body></html>
