@@ -1,16 +1,18 @@
 /* =============================================================
    ZENTRALE KONFIGURATION – Projekt Digital Service
    -------------------------------------------------------------
-   HIER trägst du SPÄTER nur noch deine Firmendaten und die
-   GENEHMIGTEN Affiliate-Links ein. Alle Apps lesen aus dieser
-   einen Datei. Was in [ECKIGEN KLAMMERN] steht, ist Platzhalter.
+   HIER trägst du deine Firmendaten, die GENEHMIGTEN
+   Affiliate-Links und das ANGEBOT DES TAGES ein. Alle Apps
+   lesen aus dieser einen Datei. Was in [ECKIGEN KLAMMERN]
+   steht, ist Platzhalter.
    ============================================================= */
 
 window.DS_CONFIG = {
 
-  /* ---- 1. FIRMENDATEN (für Impressum) ----
-     Eintragen, sobald Osome / Luxfox Limited offiziell steht.
-     Quelle: Notion + Google Drive. */
+  /* ---- 0. VERSION (bei jeder Änderung hochzählen) ---- */
+  version: "2.0.0 · 24.07.2026",
+
+  /* ---- 1. FIRMENDATEN (für Impressum) ---- */
   firma: {
     name:     "Luxfox Limited",
     adresse:  "Unit 1603, 16/F, The L. Plaza, 367–375 Queen's Road Central, Sheung Wan, Hong Kong",
@@ -32,19 +34,52 @@ window.DS_CONFIG = {
     adsenseId:   "ca-pub-6577595255227351"
   },
 
-  /* ---- WERBUNG in den Apps ----
+  /* ---- WERBUNG (AdSense) in den Apps ----
      Grundeinstellung A = Tools bleiben SAUBER (keine Anzeigen).
-     Variante B nur für Apps OHNE Affiliate-Einnahme: Dateinamen (ohne .html)
-     in "showOnApps" eintragen, z. B. "thai-zahlen". showOnAll:true = überall. */
+     Nur Apps in "showOnApps" zeigen AdSense. showOnAll:true = überall. */
   ads: { showOnAll: false, showOnApps: ["muehle"] },
 
-  /* ---- 3. 100BLEND (Smoothie des Tages + Franchise) ----
-     Smoothie zentral hier ändern -> erscheint in ALLEN Apps. */
+  /* ---- 3. ANGEBOT DES TAGES (ersetzt "Smoothie des Tages") ----
+     Erscheint automatisch dezent in ALLEN Apps.
+     WOCHENPLAN: 0=Sonntag, 1=Montag, … 6=Samstag.
+       emoji  = Symbol links
+       titel  = fette Zeile
+       text   = kleine Zeile darunter
+       cta    = Button-/Link-Text
+       url    = Ziel-Link  ODER  affKey = Schlüssel aus affiliate (nur wenn "live")
+     SPEZIAL: Einträge mit festem Datum (JJJJ-MM-TT) übersteuern den Wochenplan.
+     Beispiel: heute mal einen Smoothie, morgen eine Software – einfach hier ändern,
+     gilt sofort in allen Apps. */
+  angebot: {
+    aktiv: true,
+    wochenplan: {
+      1: { emoji:"🥭", titel:"Smoothie des Tages: Mango Sunrise", text:"100blend · 100 % natürlich · 60 THB", cta:"100blend entdecken →", url:"https://100blend.com" },
+      2: { emoji:"🛡️", titel:"Sicher surfen in Thailand", text:"Öffentliches WLAN? Mit VPN bist du geschützt.", cta:"NordVPN ansehen →", affKey:"nordvpn" },
+      3: { emoji:"🥥", titel:"Smoothie des Tages: Coco Fresh", text:"100blend · kein Pulver, kein Zuckerzusatz", cta:"100blend entdecken →", url:"https://100blend.com" },
+      4: { emoji:"🏥", titel:"Krankenversicherung ab 1 Monat", text:"SafetyWing – monatlich kündbar, für Nomaden & Expats.", cta:"Angebot ansehen →", affKey:"safetywing" },
+      5: { emoji:"🍓", titel:"Smoothie des Tages: Berry Boost", text:"100blend · Zucker-Ampel: GRÜN", cta:"100blend entdecken →", url:"https://100blend.com" },
+      6: { emoji:"🇩🇪", titel:"Deutsche Adressen in Thailand", text:"Bäcker, Ärzte, Visa-Hilfe – auf einer Karte.", cta:"Karte öffnen →", url:"deutsche-adressen.html" },
+      0: { emoji:"🆘", titel:"Schon vorgesorgt?", text:"Die digitale Notfallkarte kann Leben retten – 2 Minuten ausfüllen.", cta:"Notfallkarte öffnen →", url:"notfallkarte.html" }
+    },
+    spezial: [
+      /* Beispiel:
+      { datum:"2026-08-01", emoji:"🎉", titel:"Neueröffnung 100blend Pattaya", text:"Eröffnungswoche: Gratis-Topping", cta:"Hinkommen →", url:"https://100blend.com" }
+      */
+    ]
+  },
+
+  /* ---- 3b. 100BLEND (Alt-Format, bleibt für Kompatibilität) ---- */
   hundertblend: {
     franchiseLink: "https://100blend.com",
     smoothieDesTages: { name: "Mango Sunrise", emoji: "🥭", preis: "60 THB" }
   },
 
-  /* ---- 4. Standard-Hinweistext für Affiliate-Links ---- */
+  /* ---- 4. ANALYTICS (Google Analytics 4) ----
+     Sobald du eine GA4-Property hast, hier die Mess-ID eintragen
+     (Format G-XXXXXXXXXX) – dann siehst du, welche Apps am
+     meisten genutzt werden. Leer = aus. */
+  analytics: { gaId: "" },
+
+  /* ---- 5. Standard-Hinweistext für Affiliate-Links ---- */
   affiliateHinweis: "Der Preis bleibt für dich gleich – der Anbieter zahlt mir eine kleine Provision, die hilft, diese App kostenlos zu halten."
 };
