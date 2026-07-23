@@ -1,5 +1,5 @@
-<!doctype html><html lang="de"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+﻿<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0d9488">
 <title>Visum-Tracker Thailand – Ablauf & aktuelle Regeln 2026</title>
 <meta name="description" content="Thailand Visum-Ablauf verfolgen, 90-Tage-Meldung (TM47) im Blick behalten und die aktuellen Visa-Regeln 2026 kompakt sehen.">
 <link rel="stylesheet" href="../shared/shared.css">
@@ -66,7 +66,7 @@ function calc(){
   document.getElementById('tm47').textContent = s? fmt(addDays(s,90)) : '—';
 }
 // Visa-Agentur (Affiliate-Platzhalter): aktiv sobald Partner genehmigt
-document.getElementById('agenturbtn').innerHTML = affBtn('grab','Visa-Agentur-Partner').replace('Visa-Agentur-Partner','Visa-Service-Partner finden');
+document.getElementById('agenturbtn').innerHTML = affBtn('visaagentur','Visa-Service-Partner finden');
 calc();injectBlend('main');injectFooter();
 </script>
 </body></html>

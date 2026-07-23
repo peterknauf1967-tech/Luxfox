@@ -1,5 +1,5 @@
-<!doctype html><html lang="de"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+﻿<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0d9488">
 <title>Feiertags- & Behörden-Kalender Thailand 2026</title>
 <meta name="description" content="Thailändische Feiertage 2026 – wichtig für Behördengänge und Banken.">
 <link rel="stylesheet" href="../shared/shared.css"></head><body>
@@ -17,8 +17,13 @@ var f=[
  ["30.07.","Asalha Bucha"],["12.08.","Muttertag (Geb. Königinmutter)"],["13.10.","Gedenktag König Rama IX"],
  ["23.10.","Chulalongkorn-Tag"],["05.12.","Vatertag (Geb. Rama IX)"],["10.12.","Tag der Verfassung"],["31.12.","Silvester"]
 ];
-document.getElementById('liste').innerHTML=f.map(function(x){
-  return '<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee"><b>'+x[0]+'</b><span>'+x[1]+'</span></div>';}).join('');
+// nächsten Feiertag hervorheben
+var heute=new Date();heute.setHours(0,0,0,0);var naechster=-1;
+for(var i=0;i<f.length;i++){var tag=parseInt(f[i][0].slice(0,2)),mon=parseInt(f[i][0].slice(f[i][0].lastIndexOf('.')-2,f[i][0].lastIndexOf('.')));
+  var d=new Date(2026,mon-1,tag);if(d>=heute){naechster=i;break;}}
+document.getElementById('liste').innerHTML=f.map(function(x,i){
+  var mark=i===naechster?' style="background:#f0fdfa;border-radius:8px;padding:8px"':'';
+  return '<div'+(mark||' style="padding:8px 0"')+'><div style="display:flex;justify-content:space-between;border-bottom:1px solid #eee;padding-bottom:8px"><b>'+x[0]+(i===naechster?' <span class="pill ok">nächster</span>':'')+'</b><span>'+x[1]+'</span></div></div>';}).join('');
 injectBlend('main');injectFooter();
 </script>
 </body></html>

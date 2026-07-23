@@ -31,6 +31,7 @@ window.DS_CONFIG = {
     nordvpn:     { status: "live", url: "https://go.nordvpn.net/aff_c?offer_id=15&aff_id=152036" },
     pacificprime:{ status: "offen", url: "[PACIFIC-PRIME-LINK]" },
     grab:        { status: "offen", url: "[GRAB-LINK]" },
+    visaagentur: { status: "offen", url: "[VISA-AGENTUR-LINK]" },
     adsenseId:   "ca-pub-6577595255227351"
   },
 
