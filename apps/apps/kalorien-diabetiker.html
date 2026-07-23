@@ -44,6 +44,13 @@ function renderM(){var s=0;document.getElementById('liste').innerHTML=meals.map(
 function addM(){var n=document.getElementById('mname').value,kh=parseFloat(document.getElementById('mkh').value)||0;
   if(!n)return;meals.push({n:n,kh:kh});dsSave('meals',meals);document.getElementById('mname').value='';document.getElementById('mkh').value='';renderM();}
 function delM(i){meals.splice(i,1);dsSave('meals',meals);renderM();}
-renderM();injectBlend('main');injectFooter();
+// Mein Profil: Größe/Gewicht übernehmen + aktuell halten
+(function(){var p=DS_PROFIL.get();if(p){
+  if(p.gewicht&&!document.getElementById('kg').value)document.getElementById('kg').value=p.gewicht;
+  if(p.groesse&&!document.getElementById('cm').value)document.getElementById('cm').value=p.groesse;
+  bmi();}})();
+document.getElementById('kg').addEventListener('change',function(){var p=DS_PROFIL.raw();if(p&&p.consent&&this.value)DS_PROFIL.set({gewicht:this.value});});
+document.getElementById('cm').addEventListener('change',function(){var p=DS_PROFIL.raw();if(p&&p.consent&&this.value)DS_PROFIL.set({groesse:this.value});});
+renderM();dsProfilHint('main');injectBlend('main');injectFooter();
 </script>
 </body></html>

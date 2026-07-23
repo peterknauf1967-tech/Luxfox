@@ -34,7 +34,18 @@
 <script src="../shared/config.js"></script><script src="../shared/shared.js"></script>
 <script>
 var F=['name','blut','geb','diag','med','all','k1','k2'];
-var def={name:'Peter Knauf',blut:'A negativ',geb:'',diag:'Insulinpflichtiger Diabetes mellitus. Herzschrittmacher-abhängig – KEIN eigener Herzschlag! 100% schwerbehindert.',med:'Insulin',all:'keine bekannt',k1:'Peggy Kriesch +49 152 51684634',k2:'Jürgen Knauf +49 178 2060433'};
+var def={name:'',blut:'',geb:'',diag:'',med:'',all:'',k1:'',k2:''};
+// Mein Profil (falls vorhanden + Freigabe) als Grundlage nutzen
+function startDaten(){
+  var d=dsLoad('notfall',null);
+  var p=DS_PROFIL.get();
+  if(!d&&!p)return def;
+  var out={},k;
+  for(k in def)out[k]=def[k];
+  if(p)for(k in def)if(p[k])out[k]=p[k];
+  if(d)for(k in def)if(d[k])out[k]=d[k];
+  return out;
+}
 function render(d){
   var rows=[['Blutgruppe / Blood type / กรุ๊ปเลือด',d.blut],['Diagnosen / Conditions / โรคประจำตัว',d.diag],['Medikamente / Medication / ยา',d.med],['Allergien / Allergies / ภูมิแพ้',d.all]];
   var h='<div class="emerg"><h2>⚠️ NOTFALL / EMERGENCY / ฉุกเฉิน</h2>';
@@ -45,8 +56,10 @@ function render(d){
   h+='<div class="lang">Notruf Thailand: 1669 (Rettungsdienst) · 191 (Polizei)</div></div>';
   document.getElementById('view').innerHTML=h;
 }
-function save(){var d={};F.forEach(function(k){d[k]=document.getElementById('f_'+k).value;});dsSave('notfall',d);render(d);alert('Gespeichert.');}
-(function(){var d=dsLoad('notfall',def);F.forEach(function(k){document.getElementById('f_'+k).value=d[k]||'';});render(d);})();
-injectFooter();
+function save(){var d={};F.forEach(function(k){d[k]=document.getElementById('f_'+k).value;});dsSave('notfall',d);
+  var p=DS_PROFIL.raw();if(p&&p.consent)DS_PROFIL.set(d); // zurück ins gemeinsame Profil
+  render(d);alert('Gespeichert.');}
+(function(){var d=startDaten();F.forEach(function(k){document.getElementById('f_'+k).value=d[k]||'';});render(d);})();
+dsProfilHint('main');injectFooter();
 </script>
 </body></html>

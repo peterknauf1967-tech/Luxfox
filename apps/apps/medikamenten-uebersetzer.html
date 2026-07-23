@@ -35,6 +35,15 @@ function search(){var q=document.getElementById('q').value.toLowerCase().trim();
   document.getElementById('res').innerHTML = r.length? r.map(function(x){
     return '<div style="padding:10px 0;border-bottom:1px solid #eee"><b>'+x.de+'</b> <span class="pill info">'+x.w+'</span><br><span class="muted">TH: '+x.th+' · '+x.hin+'</span></div>';
   }).join('') : '<p class="muted">Nicht in der Liste. Zeig dem Apotheker den Wirkstoffnamen von der Verpackung.</p>';}
-search();injectBlend('main');injectFooter();
+// Mein Profil: eigene Medikamentenliste anzeigen (antippen = suchen)
+(function(){var p=DS_PROFIL.get();if(!p||!p.med)return;
+  var meds=p.med.split(/[,;\n]+/).map(function(s){return s.trim();}).filter(Boolean);
+  if(!meds.length)return;
+  var el=document.createElement('div');el.className='card';
+  el.innerHTML='<h3 style="margin-top:0">💊 Meine Medikamente</h3>'+meds.map(function(m){
+    return '<a href="#" style="display:inline-block;margin:4px 6px 4px 0" class="pill info" onclick="document.getElementById(\'q\').value=\''+m.replace(/'/g,'')+'\';search();return false;">'+m+'</a>';}).join('')+
+    '<p class="muted">Aus <a href="mein-profil.html">Mein Profil</a> · antippen zum Nachschlagen</p>';
+  var main=document.querySelector('main');main.insertBefore(el,main.children[1]);})();
+search();dsProfilHint('main');injectBlend('main');injectFooter();
 </script>
 </body></html>

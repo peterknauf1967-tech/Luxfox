@@ -1,0 +1,87 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mein Profil – Grunddaten für alle Expat-Tools</title>
+<meta name="description" content="Einmal ausfüllen, überall da: Deine Grunddaten für Notfallkarte, Gesundheits- und Alltags-Apps – gespeichert nur auf deinem Gerät.">
+<link rel="stylesheet" href="../shared/shared.css"></head><body>
+<header class="app"><a class="home" href="../index.html">←</a><h1>👤 Mein Profil</h1><p>Einmal ausfüllen · in allen Apps verfügbar</p></header>
+<div class="wrap"><main>
+
+<div class="note">🔒 <b>Deine Daten bleiben auf diesem Gerät.</b> Nichts wird an einen Server geschickt. Die Apps auf dieser Seite (Notfallkarte, Kalorien &amp; BMI, Medikamenten-Übersetzer …) lesen die Daten nur lokal – und nur, wenn du unten zustimmst.</div>
+
+<div class="card">
+  <h3 style="margin-top:0">Grunddaten</h3>
+  <label>Name</label><input id="f_name" placeholder="Vor- und Nachname">
+  <div class="grid two">
+    <div><label>Geburtsdatum</label><input id="f_geb" placeholder="TT.MM.JJJJ"></div>
+    <div><label>Blutgruppe</label><input id="f_blut" placeholder="z. B. A negativ"></div>
+  </div>
+  <div class="grid two">
+    <div><label>Größe (cm)</label><input id="f_groesse" type="number" inputmode="decimal" placeholder="z. B. 178"></div>
+    <div><label>Gewicht (kg)</label><input id="f_gewicht" type="number" inputmode="decimal" placeholder="z. B. 80"></div>
+  </div>
+</div>
+
+<div class="card">
+  <h3 style="margin-top:0">Gesundheit (für Notfallkarte &amp; Co.)</h3>
+  <label>Wichtige Diagnosen</label><textarea id="f_diag" rows="3" placeholder="z. B. Diabetes Typ 2; Bluthochdruck"></textarea>
+  <label>Medikamente</label><textarea id="f_med" rows="2" placeholder="z. B. Metformin 1000, Insulin"></textarea>
+  <label>Allergien</label><input id="f_all" placeholder="z. B. Penicillin / keine bekannt">
+  <label>Krankenversicherung (Name + Nummer)</label><input id="f_kv" placeholder="z. B. SafetyWing, Police 12345">
+</div>
+
+<div class="card">
+  <h3 style="margin-top:0">Notfallkontakte</h3>
+  <label>Kontakt 1</label><input id="f_k1" placeholder="Name + Telefon">
+  <label>Kontakt 2</label><input id="f_k2" placeholder="Name + Telefon">
+</div>
+
+<div class="card">
+  <div class="chk" style="display:flex;gap:10px;align-items:flex-start">
+    <input type="checkbox" id="consent" checked style="width:22px;height:22px;margin-top:2px">
+    <div>Ja, die Expat-Tools-Apps auf <b>diesem Gerät</b> dürfen meine Profildaten verwenden (z. B. Notfallkarte automatisch ausfüllen).</div>
+  </div>
+  <div style="margin-top:14px" class="grid two">
+    <button onclick="save()">💾 Profil speichern</button>
+    <button class="btn secondary" onclick="wipe()">🗑️ Alles löschen</button>
+  </div>
+  <p class="muted" id="stand" style="text-align:center;margin-top:10px"></p>
+</div>
+
+<div class="card">
+  <h3 style="margin-top:0">Diese Apps nutzen dein Profil</h3>
+  <div style="padding:4px 0">🆘 <a href="notfallkarte.html">Notfallkarte</a> – Name, Blutgruppe, Diagnosen, Kontakte</div>
+  <div style="padding:4px 0">🍽️ <a href="kalorien-diabetiker.html">Kalorien &amp; BMI</a> – Größe, Gewicht</div>
+  <div style="padding:4px 0">💊 <a href="medikamenten-uebersetzer.html">Medikamenten-Übersetzer</a> – deine Medikamentenliste</div>
+  <p class="muted">Weitere Apps folgen automatisch.</p>
+</div>
+
+</main></div>
+<script src="../shared/config.js"></script><script src="../shared/shared.js"></script>
+<script>
+var F=DS_PROFIL.fields; // ['name','geb','blut','diag','med','all','k1','k2','kv','gewicht','groesse']
+function save(){
+  var patch={consent:document.getElementById('consent').checked};
+  F.forEach(function(k){var e=document.getElementById('f_'+k);if(e)patch[k]=e.value;});
+  DS_PROFIL.set(patch);
+  showStand();
+  alert('Profil gespeichert. Deine Apps kennen dich jetzt.');
+}
+function wipe(){
+  if(!confirm('Wirklich alle Profildaten von diesem Gerät löschen?'))return;
+  try{localStorage.removeItem('ds_profil');}catch(e){}
+  F.forEach(function(k){var e=document.getElementById('f_'+k);if(e)e.value='';});
+  document.getElementById('consent').checked=true;showStand();
+}
+function showStand(){
+  var p=DS_PROFIL.raw();
+  document.getElementById('stand').textContent = p&&p.stand ? 'Zuletzt gespeichert: '+p.stand+(p.consent?' · Freigabe: an':' · Freigabe: AUS') : 'Noch kein Profil gespeichert.';
+}
+(function(){
+  var p=DS_PROFIL.raw()||{};
+  F.forEach(function(k){var e=document.getElementById('f_'+k);if(e&&p[k]!=null)e.value=p[k];});
+  if(p.consent===false)document.getElementById('consent').checked=false;
+  showStand();
+})();
+injectFooter();
+</script>
+</body></html>
