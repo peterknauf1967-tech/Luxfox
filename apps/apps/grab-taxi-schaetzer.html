@@ -18,8 +18,31 @@
   <p class="muted" style="text-align:center" id="tipp"></p>
 </div>
 <div id="grabslot"></div>
-<div class="note">Richtwerte für Thailand. Taxi-Meter: 35 ฿ Start + ~8 ฿/km. Grab variiert mit Nachfrage. Bei Taxi auf „by meter" bestehen.</div>
+
+<div class="card" style="border:2px solid #dc2626;background:#fef2f2">
+  <h2 style="color:#b91c1c;margin-top:0">🚨 Ärger mit dem Taxi? (kein Taxameter / Wucherpreis)</h2>
+  <p class="small">Ruhig bleiben, im Auto sitzen bleiben, nicht streiten. Erst die Sätze unten zeigen oder vorlesen lassen – hilft das nicht: Touristenpolizei. Die ist <b>kostenlos, 24 h erreichbar und spricht Englisch</b>.</p>
+  <a class="btn" href="tel:1155" style="display:block;text-align:center;background:#dc2626;font-size:1.15em">📞 Touristenpolizei 1155 anrufen</a>
+  <p class="small" style="text-align:center;margin:6px 0 0">Notfall allgemein: <a href="tel:191">191</a> · Vorher wenn möglich Taxi-Nummer/Kennzeichen fotografieren (steht auf der Tür und am Armaturenbrett).</p>
+</div>
+
+<div class="card">
+  <h2>🗣️ Thai-Sätze, die jeder Fahrer versteht</h2>
+  <p class="small">Antippen: 🔊 spricht den Satz auf Thai · 👁 zeigt ihn RIESIG zum Hinhalten. Männer sagen am Ende <b>„kap"</b> (ครับ), Frauen <b>„kha"</b> (ค่ะ).</p>
+  <div id="phrasen"></div>
+</div>
+
+<div class="note">Richtwerte für Thailand. Taxi-Meter: 35 ฿ Start + ~8 ฿/km. Grab variiert mit Nachfrage. Bei Taxi auf „by meter" bestehen – bei Grab ist der Preis vorab fest, dort gibt es das Problem nicht.</div>
 </main></div>
+
+<div id="gross" onclick="this.style.display='none'" style="display:none;position:fixed;inset:0;background:#111;color:#fff;z-index:999;padding:24px;text-align:center;cursor:pointer">
+  <div style="display:flex;flex-direction:column;justify-content:center;height:100%;gap:18px">
+    <div id="gross-thai" style="font-size:13vw;line-height:1.25;font-weight:700"></div>
+    <div id="gross-laut" style="font-size:5vw;color:#fbbf24"></div>
+    <div id="gross-de" style="font-size:4vw;color:#9ca3af"></div>
+    <div style="font-size:3.5vw;color:#6b7280">(zum Schließen tippen)</div>
+  </div>
+</div>
 <script src="../shared/config.js"></script><script src="../shared/shared.js"></script>
 <script>
 function calc(){var km=parseFloat(document.getElementById('km').value)||0,t=document.getElementById('typ').value;
@@ -29,6 +52,38 @@ function calc(){var km=parseFloat(document.getElementById('km').value)||0,t=docu
   document.getElementById('grab').textContent=km?Math.round(grab)+' ฿':'—';
   document.getElementById('tipp').textContent=km?(grab<taxi?'Grab ist hier meist günstiger.':'Taxi-Meter könnte günstiger sein.'):'';}
 document.getElementById('grabslot').innerHTML='<div class="card">'+affBtn('grab','Grab-App öffnen')+'</div>';
+
+/* ---- Notfall-Sätze (Thai + deutsche Lautschrift) ---- */
+var PH=[
+ {thai:"มิเตอร์ ครับ!",laut:"«mi-töö, kap!»",de:"Taxameter, bitte! (Kurzform – reicht meistens)"},
+ {thai:"เปิดมิเตอร์ด้วยครับ",laut:"«böd mi-töö du-ai kap»",de:"Bitte schalten Sie das Taxameter ein."},
+ {thai:"ไม่เปิดมิเตอร์ ไม่ไปครับ",laut:"«mai böd mi-töö – mai bpai kap»",de:"Kein Taxameter – dann fahre ich NICHT. (eindeutig, Fahrer muss reagieren)"},
+ {thai:"จะโทรหาตำรวจท่องเที่ยว 1155",laut:"«dscha thoo dtam-ruat thong-thiau – nüng nüng haa haa»",de:"Ich rufe die Touristenpolizei 1155. (Eskalationsstufe)"}
+];
+function sprich(i){
+  try{
+    var u=new SpeechSynthesisUtterance(PH[i].thai);u.lang='th-TH';u.rate=0.85;
+    var v=speechSynthesis.getVoices().filter(function(x){return x.lang&&x.lang.toLowerCase().indexOf('th')===0;});
+    if(v.length)u.voice=v[0];
+    speechSynthesis.cancel();speechSynthesis.speak(u);
+  }catch(e){alert('Vorlesen wird von diesem Gerät nicht unterstützt – bitte die 👁-Großanzeige nutzen.');}
+}
+function zeig(i){
+  document.getElementById('gross-thai').textContent=PH[i].thai;
+  document.getElementById('gross-laut').textContent=PH[i].laut;
+  document.getElementById('gross-de').textContent=PH[i].de;
+  document.getElementById('gross').style.display='block';
+}
+document.getElementById('phrasen').innerHTML=PH.map(function(p,i){
+  return '<div style="border-bottom:1px solid #eee;padding:10px 0">'+
+   '<div style="font-size:1.35em;font-weight:700">'+p.thai+'</div>'+
+   '<div style="color:#b45309;font-weight:600">'+p.laut+'</div>'+
+   '<div class="small">'+p.de+'</div>'+
+   '<div style="margin-top:6px"><button class="btn" style="margin-right:8px" onclick="sprich('+i+')">🔊 Vorlesen</button>'+
+   '<button class="btn ghost" onclick="zeig('+i+')">👁 Groß zeigen</button></div></div>';
+}).join('');
+if(window.speechSynthesis)speechSynthesis.getVoices();
+
 calc();injectBlend('main');injectFooter();
 </script>
 </body></html>
