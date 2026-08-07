@@ -10,7 +10,7 @@
 window.DS_CONFIG = {
 
   /* ---- 0. VERSION (bei jeder Änderung hochzählen) ---- */
-  version: "2.0.2 · 24.07.2026",
+  version: "2.0.3 · 08.08.2026",
 
   /* ---- 1. FIRMENDATEN (für Impressum) ---- */
   firma: {
@@ -32,7 +32,7 @@ window.DS_CONFIG = {
     pacificprime:{ status: "offen", url: "[PACIFIC-PRIME-LINK]" },
     grab:        { status: "offen", url: "[GRAB-LINK]" },
     visaagentur: { status: "offen", url: "[SIAM-LEGAL-REFERRAL-LINK]" },
-    saily:       { status: "offen", url: "[SAILY-LINK]" },
+    saily:       { status: "live", url: "https://go.saily.site/aff_c?offer_id=101&aff_id=15794" },
     twelvego:    { status: "offen", url: "[12GO-AGENT-LINK]" },
     klook:       { status: "offen", url: "[KLOOK-LINK]" },
     getyourguide:{ status: "offen", url: "[GETYOURGUIDE-LINK]" },
