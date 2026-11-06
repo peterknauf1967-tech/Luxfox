@@ -106,9 +106,14 @@ Luxfox Limited (Hongkong) ist die Dachstruktur für mehrere Projekte:
 ---
 
 ## Memos (memos.luxfox.net) — Peters „Gehirn“ (Stand 06.11.2026)
-- Läuft auf einer Google-Cloud-VM-Instanz „memos“. Memos ersetzt Notion als Wissensspeicher.
-- 06.11.2026: VM hing, Peter hat sie in der Console zurückgesetzt → lief wieder, aber nur `http://`.
-- Fix-Skript: `docs/memos-https-swap.sh` (2 GB Swap gegen Hänger + Caddy für HTTPS/Let's Encrypt,
-  Reverse-Proxy auf `localhost:5230`). Peter fügt es im Browser-SSH-Fenster der VM ein.
-  Voraussetzung: in der VM „HTTPS-Traffic zulassen“ angehakt. Ob es gelaufen ist: UNGEPRÜFT.
-- Claude hat aus der Cloud-Session KEINEN gcloud-Zugang (kein Konto angemeldet).
+- Google-Cloud-VM „memos“ (Debian, ~1 GB RAM), User `peterknauf1967`. Memos ersetzt Notion als Wissensspeicher.
+- Docker-Container: `memos` (neosmemo/memos:stable, 127.0.0.1:5230) und `caddy` (caddy:2, Host-Netz,
+  Befehl `caddy reverse-proxy --from memos.luxfox.net --to localhost:5230`) → HTTPS mit Let's Encrypt
+  läuft automatisch, inkl. Weiterleitung http→https. KEIN `/etc/caddy/Caddyfile`, kein systemd-Caddy —
+  nichts per apt nachinstallieren (würde Port 80/443 blockieren).
+- 06.11.2026: VM hing → Browser meldete „keine sichere Verbindung“ (HTTPS nicht erreichbar).
+  Peter hat in der Console zurückgesetzt. Danach 2 GB Swap eingerichtet (`/swapfile`, in fstab).
+  HTTPS geprüft: `https://memos.luxfox.net` → 200, gültiges Zertifikat.
+- Memos-API: v1 ist entfernt; REST unter `/api/...`, Connect unter `/memos.api.<Service>/<Method>`.
+- Claude hat aus der Cloud-Session KEINEN gcloud-Zugang (kein Konto angemeldet); Befehle führt Peter
+  im Browser-SSH-Fenster der VM aus.
