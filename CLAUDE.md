@@ -102,3 +102,13 @@ Luxfox Limited (Hongkong) ist die Dachstruktur für mehrere Projekte:
 - Qualitätsregeln: Erdbeeren & Mango → IQF-Schockfroster Nord-TH/Isan; Kerne nur "Raw"/
   "Human Grade" (kein Tier-/Vogelfutter); Seidentofu lokal, in 2×2 cm würfeln + einzeln anfrieren;
   keine Pulver/Sirupe/Konzentrate.
+
+---
+
+## Memos (memos.luxfox.net) — Peters „Gehirn“ (Stand 06.11.2026)
+- Läuft auf einer Google-Cloud-VM-Instanz „memos“. Memos ersetzt Notion als Wissensspeicher.
+- 06.11.2026: VM hing, Peter hat sie in der Console zurückgesetzt → lief wieder, aber nur `http://`.
+- Fix-Skript: `docs/memos-https-swap.sh` (2 GB Swap gegen Hänger + Caddy für HTTPS/Let's Encrypt,
+  Reverse-Proxy auf `localhost:5230`). Peter fügt es im Browser-SSH-Fenster der VM ein.
+  Voraussetzung: in der VM „HTTPS-Traffic zulassen“ angehakt. Ob es gelaufen ist: UNGEPRÜFT.
+- Claude hat aus der Cloud-Session KEINEN gcloud-Zugang (kein Konto angemeldet).
