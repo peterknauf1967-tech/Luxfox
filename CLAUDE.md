@@ -108,9 +108,11 @@ Luxfox Limited (Hongkong) ist die Dachstruktur für mehrere Projekte:
 ## Memos (memos.luxfox.net) — Peters „Gehirn“ (Stand 06.11.2026)
 - Google-Cloud-VM „memos“ (Debian, ~1 GB RAM), User `peterknauf1967`. Memos ersetzt Notion als Wissensspeicher.
 - Docker-Container: `memos` (neosmemo/memos:stable, 127.0.0.1:5230) und `caddy` (caddy:2, Host-Netz,
-  Befehl `caddy reverse-proxy --from memos.luxfox.net --to localhost:5230`) → HTTPS mit Let's Encrypt
-  läuft automatisch, inkl. Weiterleitung http→https. KEIN `/etc/caddy/Caddyfile`, kein systemd-Caddy —
-  nichts per apt nachinstallieren (würde Port 80/443 blockieren).
+  restart unless-stopped, Volume `caddy_data:/data`). Seit 06.11.2026 liest Caddy die Datei
+  `/srv/caddy/Caddyfile` auf der VM (gemountet nach /etc/caddy): HTTPS automatisch (Let's Encrypt) +
+  eine geheime Route `/mcp-<geheim>`, die auf `/mcp` umschreibt und den Memos-Token mitschickt →
+  das ist die Connector-Adresse für Claude-App/Handy (Pfad steht nur in der Caddyfile, nicht im Repo).
+  Kein systemd-Caddy, nichts per apt nachinstallieren (würde Port 80/443 blockieren).
 - 06.11.2026: VM hing → Browser meldete „keine sichere Verbindung“ (HTTPS nicht erreichbar).
   Peter hat in der Console zurückgesetzt. Danach 2 GB Swap eingerichtet (`/swapfile`, in fstab).
   HTTPS geprüft: `https://memos.luxfox.net` → 200, gültiges Zertifikat.
